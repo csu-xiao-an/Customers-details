@@ -16,10 +16,6 @@ module.exports = {
     extensions: ['', '.js']
   },
   devtool: 'eval-source-map',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
   module: {
     loaders: [
       {
@@ -27,7 +23,18 @@ module.exports = {
         loaders: ['babel'],
         include: path.join(__dirname, 'app')
       },
-      { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }
+      {
+        test: /\.styl$/,
+        loader: 'style-loader!css-loader!stylus-loader'
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader'
+      }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 }
