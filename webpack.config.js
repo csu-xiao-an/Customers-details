@@ -1,40 +1,53 @@
 const webpack = require('webpack')
 const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const statConf = {
+    assets: false,
+    chunks: false,
+    hash: false,
+    version: false,
+    errors: true,
+    errorDetails: true,
+    warnings: true
+}
 
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:5000',
-    'webpack/hot/dev-server',
-    './app/main'
-  ],
-  output: {
-    path: __dirname,
-    filename: 'bundle.js',
-    publicPath: '/static/'
-  },
-  resolve: {
-    extensions: ['', '.js']
-  },
-  devtool: 'eval-source-map',
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loaders: ['babel'],
-        include: path.join(__dirname, 'app')
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style-loader!css-loader!stylus-loader'
-      },
-      {
-        test: /\.(png|jpg)$/,
-        loader: 'url-loader'
-      }
+    entry: './app/main.js',
+    output: {
+        filename: './dist/bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx?)$/,
+                exclude: [/node_modules/],
+                use:[
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['es2015','react']
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.styl$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'stylus-loader']
+                })
+            },
+            {
+                test: /\.(img|png)$/,
+                use: 'url-loader'
+            }
+        ]
+    },
+    devServer: {
+        stats: statConf,
+        port: '3000'
+    },
+    plugins:[
+        new ExtractTextPlugin('./dist/bundle.css')
     ]
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ]
 }
