@@ -1,15 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './home.styl'
 
 class Home extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            showStar: false
+            showStar: false,
+            isActive: false
         }
     }
     showStar(){
         this.setState({showStar : !this.state.showStar})
+    }
+    isActive(){
+        this.setState({isActive : !this.state.isActive})
+        document.getElementById('autoFocus').focus()
     }
     render() {
         return (
@@ -39,8 +44,12 @@ class Home extends React.Component {
                 </div>
 
                 <div className="hero">
-                    <span><i onClick={this.showStar.bind(this)} className={this.state.showStar ? "fa fa-star fa-star-active" : "fa fa-star "} aria-hidden="true"></i></span>
-                    <input type="text"/>
+                    <span><i onClick={() => { this.showStar() }} className={this.state.showStar ? 'fa fa-star fa-star-active' : 'fa fa-star'} aria-hidden="true"></i></span>
+                    <div className="label"><h1>lorem</h1></div>
+                    <div className="input-group">
+                        <input type="text" id={this.state.isActive ? '' : 'autoFocus'} className={this.state.isActive ? 'form-control' : 'form-control form-control-disabled'}/>
+                        <span onClick={() => { this.isActive() }} className="input-group-addon"><img className={this.state.isActive ? 'input-group-addon-hidden' : ''} src="./app/component/media/pencil.svg" alt=""/></span>
+                    </div>
                     <img src="./app/component/media/000000.png" alt="user-img"/>
                 </div>
 
@@ -49,4 +58,3 @@ class Home extends React.Component {
     }
 }
 export default Home
-
