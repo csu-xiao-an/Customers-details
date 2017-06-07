@@ -1,98 +1,98 @@
 #home
-  height 1000px
   background-image url('../media/client.png')
   background-repeat no-repeat
+  height 1000px
   .header
-    height 80px
     background-color #ffcd00
+    height 80px
     padding-top 13px
-    text-align center
     position relative
+    text-align center 
     .fa-angle-left
-      cursor pointer
       color white
+      cursor pointer
       font-size 70px
       margin-top -10px
     h1
-      display inline-block
-      margin 0 auto
-      font-size 50px
-      padding-right 5px
       color white
-    .icon-online
       display inline-block
-      transform: translateY(2px);
-      width 30px
-      height 30px
-      border-radius 50%
+      font-size 50px
+      margin 0 auto
+      padding-right 5px
+    .icon-online
       background #09ce17
       border 2px solid white
+      border-radius 50%
+      display inline-block
+      transform translateY(2px)
+      height 30px
+      width 30px
   .buttons
-    text-align: center;
+    text-align center
     div
+      background-color #ffb300
       cursor pointer
       height 80px
-      background-color #ffb300
       padding-top 15px
     div:hover
       background-color #b8954c
     h1
-      margin 0 auto
-      font-size 50px
       color white
+      font-size 50px
+      margin 0 auto
   .hero
     margin-top 80px
     position relative
     img
+      pointer-events none
+      user-select none
       width 100%
       z-index 1
-      user-select none
-      pointer-events none
     .fa-star
+      color #6d6d6d
+      font-size 70px
       position absolute
       z-index 100
-      font-size 70px
-      transform: translate(20px,20px);
-      color #6d6d6d
+      transform translate(20px,20px)
     .fa-star-active
       color #fec20f
     .input-group
-      position absolute
       bottom 0
       height 80px
+      position absolute
       .input-group-addon
         background: rgba(0,0,0,0.4)
         border none
         cursor pointer
         visibility visible
         img
-          width: 50px
+          width 50px
       .input-group-addon-hidden
         visibility hidden
       .form-control
-        background: rgba(0,0,0,0.4)
-        height 80px
+        background  rgba(0,0,0,0.4)
+        border none
         color #00b6fb
         font-size 36px
         font-weight 500
+        height 80px
         text-align right
-        border none
         &:focus
           border none
-          outline none
           box-shadow none
+          outline none
       .form-control-disabled
         pointer-events none
     .label
-      position absolute
-      bottom 80px
-      right 35px
-      width 40%
-      height 80px
       background-color #ef3f25
       border-radius 30px 30px 0 0
+      bottom 80px
+      height 80px
+      position absolute
+      right 35px
+      width 40%
       h1
-        margin 0 auto
-        font-size 50px
         color white
+        font-size 50px
+        margin 0 auto
         padding 10px
