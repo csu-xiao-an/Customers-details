@@ -4,6 +4,13 @@ module.exports = {
     "es6": true
   },
   "extends": ["standard", "standard-react"],
+  "globals": {
+    "describe": false,
+    "browser": true,
+    "expect": false,
+    "before":false,
+    "it": false
+  },
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
@@ -28,6 +35,9 @@ module.exports = {
       "never"
     ],
     "no-unused-vars": ["warn",{ "vars": "all", "args": "after-used" }],
-    "camelcase": "warn"
+    "arrow-parens": ["error", "as-needed"],
+    "camelcase": "warn",
+    "vars-on-top": 1,
+    "no-console": 1
   }
 };

@@ -1,3 +1,4 @@
+import Note from '../note/note.jsx'
 import React from 'react'
 import './home.styl'
 
@@ -5,15 +6,17 @@ class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      showStar: false,
-      isActive: false
+      isInputDisabled: false,
+      isStarActive: false
     }
+    this.handleInput = this.handleInput.bind(this)
+    this.handleStar = this.handleStar.bind(this)
   }
-  showStar () {
-    this.setState({showStar: !this.state.showStar})
+  handleStar () {
+    this.setState({isStarActive: !this.state.isStarActive})
   }
-  isActive () {
-    this.setState({isActive: !this.state.isActive})
+  handleInput () {
+    this.setState({isInputDisabled: !this.state.isInputDisabled})
     document.getElementById('autoFocus').focus()
   }
   render () {
@@ -40,13 +43,23 @@ class Home extends React.Component {
           </div>
         </div>
         <div className='hero'>
-          <span><i onClick={() => { this.showStar() }} className={this.state.showStar ? 'fa fa-star fa-star-active' : 'fa fa-star'} aria-hidden='true' /></span>
+          <span>
+            <i onClick={this.handleStar} className={'fa fa-star ' + (this.state.isStarActive ? 'fa-star-active' : '')} aria-hidden='true' />
+          </span>
           <div className='label'><h1>lorem</h1></div>
           <div className='input-group'>
-            <input type='text' id={this.state.isActive ? '' : 'autoFocus'} className={this.state.isActive ? 'form-control' : 'form-control form-control-disabled'} />
-            <span onClick={() => { this.isActive() }} className='input-group-addon'><img className={this.state.isActive ? 'input-group-addon-hidden' : ''} src='./app/component/media/pencil.svg' /></span>
+            <div className='input-wrap'>
+              <input placeholder={this.state.isInputDisabled ? '' : 'lorem'} type='text' id={this.state.isInputDisabled ? '' : 'autoFocus'}
+                className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')} />
+            </div>
+            <span onClick={this.handleInput} className='input-group-addon'>
+              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./app/component/media/pencil.svg' />
+            </span>
           </div>
-          <img src='./app/component/media/000000.png' alt='user-img' />
+          <img src='./app/component/media/0.png' alt='user-img' />
+        </div>
+        <div className='swiper'>
+          <Note />
         </div>
       </div>
     )
