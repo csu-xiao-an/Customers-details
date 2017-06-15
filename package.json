@@ -7,6 +7,7 @@
     "webdriver": "webdriver-manager start",
     "test": "protractor test/conf.js",
     "start": "webpack-dev-server",
+    "build-p": "webpack -p",
     "build": "webpack",
     "watch": "static"
   },

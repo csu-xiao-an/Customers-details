@@ -17,7 +17,7 @@ class Home extends React.Component {
   }
   handleInput () {
     this.setState({isInputDisabled: !this.state.isInputDisabled})
-    document.getElementById('autoFocus').focus()
+    if (!this.state.isInputDisabled) { document.getElementById('autoFocus').focus() }
   }
   render () {
     return (

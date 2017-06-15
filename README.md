@@ -15,6 +15,11 @@ npm run build
 npm run watch
 Open http://localhost:8080
 ```
+### Build for production
+```
+npm run build-p
+```
+
 ### e2e-testing
   ```
     npm install -g webdriver-manager
@@ -25,5 +30,5 @@ Open http://localhost:8080
   ```
     npm start
     npm run webdriver
-    npm run test 
+    npm run test
   ```
