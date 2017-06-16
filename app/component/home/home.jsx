@@ -1,4 +1,5 @@
 import Note from '../note/note.jsx'
+import Birthday from '../birthday/birthday.jsx'
 import React from 'react'
 import './home.styl'
 
@@ -6,18 +7,18 @@ class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      isInputDisabled: false,
-      isStarActive: false
+      client: window._config.data,
+      customersEnabled: true,
+      isInputDisabled: false
     }
     this.handleInput = this.handleInput.bind(this)
-    this.handleStar = this.handleStar.bind(this)
-  }
-  handleStar () {
-    this.setState({isStarActive: !this.state.isStarActive})
   }
   handleInput () {
     this.setState({isInputDisabled: !this.state.isInputDisabled})
-    if (!this.state.isInputDisabled) { document.getElementById('autoFocus').focus() }
+    if (!this.state.isInputDisabled) { document.getElementById('afocus').focus() }
+  }
+  age (date) {
+    return ((new Date().getTime() - new Date(date)) / (24 * 3600 * 365.25 * 1000)) | 0
   }
   render () {
     return (
@@ -27,38 +28,39 @@ class Home extends React.Component {
             <span><i className='fa fa-angle-left' aria-hidden='true' /></span>
           </div>
           <div className='col-xs-8'>
-            <h1>lorem</h1>
             <div className='icon-online' />
+            <h1>{this.state.client.name}</h1>
+            <h1>({this.age(this.state.client.birthdate)})</h1>
           </div>
           <div className='col-xs-2'>
-            <h1>lor</h1>
+            <button className='edit'>edit</button>
           </div>
         </div>
         <div className='buttons'>
           <div className='col-xs-6'>
-            <h1>lorem</h1>
+            <button className={this.state.customersEnabled ? 'activeCustomers' : ''}>Customer details</button>
           </div>
           <div className='col-xs-6'>
-            <h1>lorem</h1>
+            <button>149 - Appointments</button>
           </div>
         </div>
         <div className='hero'>
           <span>
-            <i onClick={this.handleStar} className={'fa fa-star ' + (this.state.isStarActive ? 'fa-star-active' : '')} aria-hidden='true' />
+            <i className={'fa fa-star ' + (this.state.client.vip ? 'fa-star-active' : '')} aria-hidden='true' />
           </span>
-          <div className='label'><h1>lorem</h1></div>
+          <Birthday />
           <div className='input-group'>
             <div className='input-wrap'>
-              <input placeholder={this.state.isInputDisabled ? '' : 'lorem'} type='text' id={this.state.isInputDisabled ? '' : 'autoFocus'}
+              <input placeholder={this.state.isInputDisabled ? '' : 'placeholder'} type='text' id={this.state.isInputDisabled ? '' : 'afocus'}
                 className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')} />
             </div>
             <span onClick={this.handleInput} className='input-group-addon'>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./app/component/media/pencil.svg' />
             </span>
           </div>
-          <img src='./app/component/media/0.png' alt='user-img' />
+          <img className='client-img' src='./app/component/client/client_id.png' alt='user-img' />
         </div>
-        <div className='swiper'>
+        <div className='swiper-wrap'>
           <Note />
         </div>
       </div>

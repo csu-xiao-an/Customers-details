@@ -1,22 +1,15 @@
 #home
-
   .header
     background-color #ffcd00
-    height 80px
-    padding-top 13px
+    height 100px
+    padding-top 20px
     position relative
     text-align center
     .fa-angle-left
       color white
       cursor pointer
-      font-size 70px
+      font-size 80px
       margin-top -10px
-    h1
-      color white
-      display inline-block
-      font-size 50px
-      margin 0 auto
-      padding-right 5px
     .icon-online
       background #09ce17
       border 2px solid white
@@ -25,43 +18,52 @@
       transform translateY(2px)
       height 30px
       width 30px
+    h1
+      color white
+      display inline-block
+      font-size 42px
+      margin 0 auto
+      padding-left 5px
+      padding-top 10px
+    .edit
+      background-color #ffcd00
+      border none
+      color white
+      font-size 42px
+      &:focus
+        outline none
   .buttons
     text-align center
     div
-      background-color #ffb300
-      cursor pointer
-      height 80px
-      padding-top 15px
-    div:hover
+      padding-left 0
+      padding-right 0
+    button
       background-color #b8954c
-    h1
-      color white
-      font-size 50px
+      border none
+      height 100px
+      width 100%
+      color #dbc89d
+      font-size 42px
       margin 0 auto
+      &:focus
+        outline none
+    .activeCustomers
+      background-color #ffb300
+      color white
   .hero
     margin-top 80px
     position relative
-    .carousel
-      .carousel-indicators
-        bottom -70px
-        z-index 100
-        li
-          background #f8f8f8
-          width 25px
-          height 25px
-          border-radius 50%
-        .active
-          background #fc351f
-    img
+    .client-img
       pointer-events none
       user-select none
       width 100%
+      //to-do object-fit
       z-index 1
     .fa-star
       color #6d6d6d
       font-size 70px
       position absolute
-      top 20px
+      top 40px
       left 20px
     .fa-star-active
       color #fec20f
@@ -70,6 +72,7 @@
       height 80px
       position absolute
       background: rgba(0,0,0,0.3)
+      width 100%
       .input-group-addon
         background: rgba(0,0,0,0.0)
         border none
@@ -96,20 +99,7 @@
             outline none
         .form-control-disabled
           pointer-events none
-    .label
-      background-color #ef3f25
-      border-radius 30px 30px 0 0
-      bottom 80px
-      height 80px
-      position absolute
-      right 35px
-      width 40%
-      h1
-        color white
-        font-size 50px
-        margin 0 auto
-        padding 10px
-  .swiper
+  .swiper-wrap
     // background-image url('../media/client.png')
     // background-repeat no-repeat
     // background-size 100% auto
