@@ -1,6 +1,7 @@
 # Customers
 
-### Usage
+# Usage
+###Development
 ```
 npm install
 npm start
@@ -25,10 +26,11 @@ npm run build-p
     npm install -g webdriver-manager
     npm install -g protractor
     webdriver-manager update
-  ```
-### Start test
-  ```
     npm start
     npm run webdriver
-    npm run test
+    npm run test-e2e
+  ```
+### unit testing
+  ```
+    npm run test-unit
   ```

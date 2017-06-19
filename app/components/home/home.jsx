@@ -55,10 +55,10 @@ class Home extends React.Component {
                 className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')} />
             </div>
             <span onClick={this.handleInput} className='input-group-addon'>
-              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./app/component/media/pencil.svg' />
+              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./app/components/media/pencil.svg' />
             </span>
           </div>
-          <img className='client-img' src='./app/component/client/client_id.png' alt='user-img' />
+          <img className='client-img' src='./app/components/client/client_id.png' alt='user-img' />
         </div>
         <div className='swiper-wrap'>
           <Note />

@@ -1,6 +1,6 @@
+import Home from './components/home/home.jsx'
 import React, { Component } from 'react'
 import './app.styl'
-import Home from './component/home/home.jsx'
 
 export default class App extends Component {
   render () {

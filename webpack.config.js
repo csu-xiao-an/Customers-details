@@ -1,3 +1,4 @@
+const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const statConf = {
   assets: false,
@@ -8,7 +9,9 @@ const statConf = {
   errorDetails: true,
   warnings: true
 }
-
+const alias = {
+  'project-components': path.resolve('./components')
+}
 module.exports = {
   entry: './app/main.js',
   output: {
@@ -47,5 +50,8 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('./dist/bundle.css')
-  ]
+  ],
+  resolve: {
+    alias: alias
+  }
 }
