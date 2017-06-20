@@ -1,25 +1,23 @@
 import getBirthdaysStatus from '../../components/birthday-status/birthday-status.js'
+import moment from 'moment'
 
 describe('Testing birthday status function', () => {
-  it('birthday status 2001-06-26', () => {
-    expect(getBirthdaysStatus('2001-06-23')).toBe('In 4 days')
+  it('Expected date 2 days ago', () => {
+    expect(getBirthdaysStatus(moment().subtract(2, 'days'))).toBe('2 days ago')
   })
-  it('birthday status 2005-06-19', () => {
-    expect(getBirthdaysStatus('2002-06-18')).toBe('Yesterday')
+  it('Expected date Yesterday', () => {
+    expect(getBirthdaysStatus(moment().subtract(1, 'days'))).toBe('Yesterday')
   })
-  it('birthday status 2001-06-26', () => {
-    expect(getBirthdaysStatus('2008-06-19')).toBe('Today')
+  it('Expected date Today', () => {
+    expect(getBirthdaysStatus(moment())).toBe('Today')
   })
-  it('birthday status 2001-06-26', () => {
-    expect(getBirthdaysStatus('1994-06-20')).toBe('Tomorrow')
+  it('Expected date Tomorrow', () => {
+    expect(getBirthdaysStatus(moment().add(1, 'days'))).toBe('Tomorrow')
   })
-  it('birthday status 2001-06-26', () => {
-    expect(getBirthdaysStatus('1945-06-15')).toBe('4 days ago')
+  it('Expected date In 4 days', () => {
+    expect(getBirthdaysStatus(moment().add(4, 'days'))).toBe('In 4 days')
   })
-  it('birthday status 2001-06-26', () => {
+  it('Expected date undefined', () => {
     expect(getBirthdaysStatus('sdfasdf')).toBe(undefined)
-  })
-  it('birthday status 2001-06-26', () => {
-    expect(getBirthdaysStatus('06-15-1945')).toBe('4 days ago')
   })
 })

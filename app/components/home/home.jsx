@@ -1,11 +1,11 @@
-import Note from '../note/note.jsx'
 import Birthday from '../birthday/birthday.jsx'
+import Note from '../note/note.jsx'
 import React from 'react'
 import './home.styl'
 
 class Home extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
       client: window._config.data,
       customersEnabled: true,

@@ -1,11 +1,15 @@
-const ALL_YEARS_IN_MILISEC = 31557600000
-const ALL_DAYS_IN_MILISEC = 86400000
+import moment from 'moment'
 
-const getBirthdaysStatus = birthdate => {
-  const age = Math.round((new Date().getTime() - new Date(birthdate)) / ALL_YEARS_IN_MILISEC) * ALL_YEARS_IN_MILISEC
-  const birthday = new Date(birthdate).getTime() + age
-  const currentDate = new Date().getTime()
-  const dayLeft = Math.ceil((birthday.valueOf() - currentDate.valueOf()) / ALL_DAYS_IN_MILISEC)
+const getBirthdaysStatus = date => {
+  let dayLeft
+  const today = moment()
+  if (moment(date).get('month') === moment(today).get('month')) {
+    dayLeft = moment(date).get('date') - moment(today).get('date')
+  } else if (moment(date).get('month') + 1 === moment(today).get('month')) {
+    dayLeft = -1 * (moment(date).endOf('month').get('date') - moment(date).get('date') + moment(today).get('date'))
+  } else if (moment(date).get('month') - 1 === moment(today).get('month')) {
+    dayLeft = moment(today).endOf('month').get('date') - moment(today).get('date') + moment(date).get('date')
+  }
   const day = {
     '-1': 'Yesterday',
     '1': 'Tomorrow',
