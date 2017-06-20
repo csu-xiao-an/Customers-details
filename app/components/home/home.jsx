@@ -2,6 +2,7 @@ import Birthday from '../birthday/birthday.jsx'
 import Note from '../note/note.jsx'
 import React from 'react'
 import './home.styl'
+import Swiper from 'react-id-swiper'
 
 class Home extends React.Component {
   constructor () {
@@ -9,7 +10,8 @@ class Home extends React.Component {
     this.state = {
       client: window._config.data,
       customersEnabled: true,
-      isInputDisabled: false
+      isInputDisabled: false,
+      placeholder: 'placeholder'
     }
     this.handleInput = this.handleInput.bind(this)
   }
@@ -49,19 +51,36 @@ class Home extends React.Component {
             <i className={'fa fa-star ' + (this.state.client.vip ? 'fa-star-active' : '')} aria-hidden='true' />
           </span>
           <Birthday />
-          <div className='input-group'>
-            <div className='input-wrap'>
-              <input placeholder={this.state.isInputDisabled ? '' : 'placeholder'} type='text' id={this.state.isInputDisabled ? '' : 'afocus'}
-                className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')} />
+          <form action='submit'>
+            <div className='input-group'>
+              <div className='input-wrap'>
+                <input placeholder={this.state.isInputDisabled ? '' : this.state.placeholder} type='text' id={this.state.isInputDisabled ? '' : 'afocus'}
+                  className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')} />
+              </div>
+              <span onClick={this.handleInput} className='input-group-addon'>
+                <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./app/components/media/pencil.svg' />
+              </span>
             </div>
-            <span onClick={this.handleInput} className='input-group-addon'>
-              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./app/components/media/pencil.svg' />
-            </span>
-          </div>
+          </form>
           <img className='client-img' src='./app/components/client/client_id.png' alt='user-img' />
         </div>
-        <div className='swiper-wrap'>
-          <Note />
+        <div className='events'>
+          <img className='clock' src='./app/components/media/clock.svg' alt='user-img' />
+          <h1 className='babel'>lorem</h1>
+          <Swiper pagination='.swiper-pagination' slidesPerView={3} paginationClickable spaceBetween={30}>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+            <div><Note /></div>
+          </Swiper>
         </div>
       </div>
     )
