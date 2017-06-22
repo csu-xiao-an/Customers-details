@@ -2,7 +2,7 @@ import GoogleMapReact from 'google-map-react'
 import React from 'react'
 import './map.styl'
 
-const AnyReactComponent = ({ text }) => (
+const AnyReactComponent = () => (
   <div style={{
     position: 'relative',
     color: 'black',
@@ -14,9 +14,7 @@ const AnyReactComponent = ({ text }) => (
     borderRadius: '50%',
     top: -20,
     left: -30
-  }}>
-    {text}
-  </div>
+  }} />
 )
 
 class GoogleMap extends React.Component {
@@ -34,7 +32,6 @@ class GoogleMap extends React.Component {
           <AnyReactComponent
             lat={50.237100}
             lng={28.736621}
-            text={''}
           />
         </GoogleMapReact>
       </div>

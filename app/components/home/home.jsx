@@ -1,10 +1,12 @@
+import Partners from '../group-partner/group-partner.jsx'
 import Birthday from '../birthday/birthday.jsx'
+import Galery from '../galery/galery.jsx'
+import Events from '../events/events.jsx'
+import Switch from 'react-toggle-switch'
 import GoogleMap from '../map/map.jsx'
-import Swiper from 'react-id-swiper'
-import Note from '../note/note.jsx'
+import Line from '../line/line.jsx'
 import React from 'react'
 import './home.styl'
-import Line from '../line/line.jsx'
 
 class Home extends React.Component {
   constructor () {
@@ -64,105 +66,69 @@ class Home extends React.Component {
           </form>
           <img className='client-img' src='./app/components/client/client_id.png' alt='user-img' />
         </div>
-        <div className='events'>
-          <img className='clock' src='./app/components/media/clock.svg' />
-          <h1 className='babel'>lorem</h1>
-          <div id='swiper-wrap-notes'>
-            <Swiper pagination='.swiper-pagination' slidesPerView={3} paginationClickable spaceBetween={30}>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-            </Swiper>
-          </div>
-        </div>
+        <Events />
         <Line />
         <div className='call'>
           <img src='./app/components/media/call.svg' />
           <img src='./app/components/media/send-sms.svg' />
-          <div className='call-label'>lore</div>
+          <div className='call-label'>Mobile</div>
           <h1>052-3262187</h1>
         </div>
-        <div className='mail'>
+        <div className='e-mail'>
           <img src='./app/components/media/mail.svg' />
-          <div className='mail-label'>lore</div>
-          <h1>ahuva.ben shushan@gmail.com</h1>
+          <div className='e-mail-label'>E-mail</div>
+          <h1>ahuva.ben.shushan@gmail.com</h1>
         </div>
         <div className='map'>
           <GoogleMap />
-          <div className='map-label'>lore</div>
-          <h1>lorem sdfsfsdf<br />lorem</h1>
+          <div className='map-label'>Address</div>
+          <h1>HaRav Bar Shaul<br /> Street 8</h1>
         </div>
         <Line />
         <div className='add'>
           <img src='./app/components/media/add.svg' />
-          <h1>lorem</h1>
+          <h1>Add debt</h1>
         </div>
         <Line />
         <div className='add1'>
-          <div className='add1-label'>lore</div>
+          <div className='add1-label'>Remarks</div>
           <img src='./app/components/media/add.svg' />
-          <h1>loremlor</h1>
+          <h1>Add a comment</h1>
         </div>
         <Line />
-        <div className='gallery'>
-          <div className='label-wrap'>
-            <h1>18 images</h1>
-            <div className='gallery-label'>lore</div>
-          </div>
-          <div id='swiper-wrap-gallery'>
-            <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable spaceBetween={30}>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-              <div><Note /></div>
-            </Swiper>
-          </div>
-          <img src='./app/components/media/add.svg' />
-          <h1>loremlor</h1>
-        </div>
+        <Galery />
         <Line />
         <div className='add2'>
           <img src='./app/components/media/add.svg' />
-          <h1>loremlor</h1>
+          <h1>Source of arrival</h1>
         </div>
         <div className='add2'>
           <img src='./app/components/media/add.svg' />
-          <h1>loremlor</h1>
+          <h1>Add another social network</h1>
         </div>
         <div className='add2'>
           <img src='./app/components/media/add.svg' />
-          <h1>loremlor</h1>
+          <h1>Add a link</h1>
         </div>
         <Line />
-        <div className='bar'>
-          <h1>lorem</h1>
-        </div>
+        <Partners />
         <Line />
         <div className='block1'>
-          <div className='block1-label'>lorsdfasdfasdfsadfasdfe</div>
-          <button className='block1-button'>lor</button>
-          <h1>Lorem ipsum dolor sit amet</h1>
+          <div className='block1-label'>Completion of the details by the customer</div>
+          <button className='block1-button'>Send</button>
+          <h1>Submit a request to complete details</h1>
         </div>
         <div className='block2'>
-          <input type='checkbox' className='block1-button' />
-          <h1>Lorem ipsum dolor sit amet</h1>
+          <div className='checkbox-wrap'>
+            <Switch on />
+            <h1>The customer allows sending marketing material</h1>
+          </div>
           <div className='autograph'>
             <img src='./app/components/media/autograph.png' />
           </div>
-          <h1>lorem sdfsfsdf<br />lorem</h1>
-          <button className='block2-button'>lor</button>
-          <button className='block2-button'>lor</button>
+          <h1>Signature added<br /> successfully</h1>
+          <button className='block2-button'>Delete</button>
+          <button className='block2-button'>Replace</button>
         </div>
         <div className='test' />
       </div>
