@@ -1,4 +1,4 @@
-import './group-partner.styl'
+import './partners.styl'
 import React from 'react'
 
 class Partners extends React.Component {

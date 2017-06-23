@@ -17,7 +17,7 @@ const AnyReactComponent = () => (
   }} />
 )
 
-class GoogleMap extends React.Component {
+class Map extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -27,15 +27,19 @@ class GoogleMap extends React.Component {
   }
   render () {
     return (
-      <div id='google-map'>
-        <GoogleMapReact defaultCenter={this.state.center} defaultZoom={this.state.zoom}>
-          <AnyReactComponent
-            lat={50.237100}
-            lng={28.736621}
-          />
-        </GoogleMapReact>
+      <div id='map'>
+        <div id='google-map'>
+          <GoogleMapReact defaultCenter={this.state.center} defaultZoom={this.state.zoom}>
+            <AnyReactComponent
+              lat={50.237100}
+              lng={28.736621}
+            />
+          </GoogleMapReact>
+        </div>
+        <div className='map-label'>Address</div>
+        <h1>HaRav Bar Shaul<br /> Street 8</h1>
       </div>
     )
   }
 }
-export default GoogleMap
+export default Map
