@@ -1,7 +1,9 @@
 import moment from 'moment'
 import React from 'react'
 import './topnav.styl'
+import { Language } from 'project-components'
 
+const lang = window._config.language
 const client = window._config.data
 
 class Topnav extends React.Component {
@@ -27,7 +29,7 @@ class Topnav extends React.Component {
             <h1>({this.age(client.birthdate)})</h1>
           </div>
           <div className='edit-wrap'>
-            <button className='edit'>edit</button>
+            <button className='edit'>{Language(lang).edit}</button>
           </div>
         </div>
         <div className='buttons'>
