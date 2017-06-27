@@ -36,7 +36,14 @@ module.exports = {
       "error",
       "never"
     ],
-    "no-unused-vars": ["warn",{ "vars": "all", "args": "after-used" }],
+    "no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "_config",
+        "args": "after-used",
+        "vars": "all"
+      }
+    ],
     "arrow-parens": ["error", "as-needed"],
     "camelcase": "warn",
     "vars-on-top": 1,

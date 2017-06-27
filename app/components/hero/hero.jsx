@@ -2,14 +2,15 @@ import Birthday from '../birthday/birthday.jsx'
 import React from 'react'
 import './hero.styl'
 
-const client = window._config.data
+const client = window._config
 
 class Hero extends React.Component {
   constructor () {
     super()
     this.state = {
       isInputDisabled: false,
-      placeholder: 'placeholder'
+      placeholder: 'placeholder',
+      imageUrl: client.urls.photo
     }
     this.handleInput = this.handleInput.bind(this)
   }
@@ -20,7 +21,7 @@ class Hero extends React.Component {
   render () {
     return (
       <div id='hero'>
-        <img className='star' src={'./app/components/media/' + (client.vip ? 'star-active' : 'star') + '.svg'} />
+        <img className='star' src={'./app/components/media/' + (client.data.vip ? 'star-active' : 'star') + '.svg'} />
         <Birthday />
         <form action='submit'>
           <div className='input-group'>
@@ -33,7 +34,7 @@ class Hero extends React.Component {
             </span>
           </div>
         </form>
-        <img className='client-img' src='./app/components/client/client_id.png' alt='user-img' />
+        <img className='client-img' src={this.state.imageUrl} alt='user-img' onError={() => { this.setState({imageUrl: client.urls.default_photo}) }} />
       </div>
     )
   }

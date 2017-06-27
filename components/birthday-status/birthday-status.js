@@ -18,7 +18,7 @@ const getBirthdaysStatus = date => {
   }
   if (day[dayLeft]) {
     birthdayStatus = day[dayLeft]
-  } else if (dayLeft < 8 && dayLeft > 1) {
+  } else if (dayLeft < 31 && dayLeft > 1) {
     birthdayStatus = 'In ' + dayLeft + ' days'
   } else if (dayLeft > -8 && dayLeft < -1) {
     birthdayStatus = (-1 * dayLeft) + ' days ago'

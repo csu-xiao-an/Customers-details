@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import moment from 'moment'
 import './topnav.styl'
 
 const client = window._config
 
 class Topnav extends Component {
-  constructor () {
-    super()
-    this.state = {
-      customersEnabled: true
-    }
-  }
   age (date) {
     return Math.floor(moment.duration(moment() - moment(date)).asYears())
+  }
+  countAppointment () {
+    let count = 0
+    client.data.recent_appoinments.forEach(el => {
+      el.procedures.forEach(() => { count++ })
+    })
+    return count
   }
   render () {
     return (
@@ -32,10 +34,14 @@ class Topnav extends Component {
         </div>
         <div className='buttons'>
           <div className='customers-wrap'>
-            <button className={this.state.customersEnabled ? 'activeCustomers' : ''}>{client.translations.customer}</button>
+            <Link to={client.urls.home} activeClassName='active' >
+              <button>{client.translations.customer}</button>
+            </Link>
           </div>
           <div className='appointments-wrap'>
-            <button>149 - {client.translations.appointment}</button>
+            <Link to={client.urls.appointments} activeClassName='active' >
+              <button >{this.countAppointment()} - {client.translations.appointment}</button>
+            </Link>
           </div>
         </div>
       </div>
