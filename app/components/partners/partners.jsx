@@ -1,41 +1,21 @@
 import './partners.styl'
 import React from 'react'
 
+const client = window._config
+
 class Partners extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      partner: [
-        {
-          img: '01',
-          label: 'Were born this month',
-          count: '72'
-        },
-        {
-          img: '02',
-          label: 'Preferred Customers',
-          count: '17'
-        },
-        {
-          img: '03',
-          label: 'They did not pay',
-          count: '8'
-        }
-      ]
-    }
-  }
   render () {
     return (
       <div id='partners'>
-        <h1 className='partners-label'>Group partner</h1>
-        {this.state.partner.map((el, key) => {
+        <h1 className='partners-label'>{client.translations.group_partner}</h1>
+        {client.data.groups.map((el, key) => {
           return (
             <div key={key} className='partners-wrap'>
               <div className='img'>
-                <img src={'./app/components/media/partners/' + (el.img) + '.png'} />
+                <img src={'./app/components/media/partners/' + (el.id) + '.png'} />
               </div>
-              <h1>{el.label}</h1>
-              <h1 className='count'>{el.count}</h1>
+              <h1>{el.name}</h1>
+              <h1 className='amount'>{el.amount}</h1>
             </div>)
         })}
       </div>

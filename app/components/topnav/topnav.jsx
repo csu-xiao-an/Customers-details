@@ -1,12 +1,10 @@
+import React, { Component } from 'react'
 import moment from 'moment'
-import React from 'react'
 import './topnav.styl'
-import { Language } from 'project-components'
 
-const lang = window._config.language
-const client = window._config.data
+const client = window._config
 
-class Topnav extends React.Component {
+class Topnav extends Component {
   constructor () {
     super()
     this.state = {
@@ -25,19 +23,19 @@ class Topnav extends React.Component {
           </div>
           <div className='client-name'>
             <div className='icon-online' />
-            <h1>{client.name}</h1>
-            <h1>({this.age(client.birthdate)})</h1>
+            <h1>{client.data.name}</h1>
+            <h1>({this.age(client.data.birthdate)})</h1>
           </div>
           <div className='edit-wrap'>
-            <button className='edit'>{Language(lang).edit}</button>
+            <button className='edit'>{client.translations.edit}</button>
           </div>
         </div>
         <div className='buttons'>
           <div className='customers-wrap'>
-            <button className={this.state.customersEnabled ? 'activeCustomers' : ''}>Customer details</button>
+            <button className={this.state.customersEnabled ? 'activeCustomers' : ''}>{client.translations.customer}</button>
           </div>
           <div className='appointments-wrap'>
-            <button>149 - Appointments</button>
+            <button>149 - {client.translations.appointment}</button>
           </div>
         </div>
       </div>

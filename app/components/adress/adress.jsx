@@ -1,6 +1,8 @@
 import GoogleMapReact from 'google-map-react'
 import React from 'react'
-import './map.styl'
+import './adress.styl'
+
+const client = window._config
 
 const AnyReactComponent = () => (
   <div style={{
@@ -17,17 +19,17 @@ const AnyReactComponent = () => (
   }} />
 )
 
-class Map extends React.Component {
+class Adress extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      center: {lat: 50.24, lng: 28.74},
-      zoom: 13
+      center: {lat: 50.237100, lng: 28.736621},
+      zoom: 14
     }
   }
   render () {
     return (
-      <div id='map'>
+      <div id='adress'>
         <div id='google-map'>
           <GoogleMapReact defaultCenter={this.state.center} defaultZoom={this.state.zoom}>
             <AnyReactComponent
@@ -36,10 +38,10 @@ class Map extends React.Component {
             />
           </GoogleMapReact>
         </div>
-        <div className='map-label'>Address</div>
-        <h1>HaRav Bar Shaul<br /> Street 8</h1>
+        <div className='adress-label'>{client.translations.adress}</div>
+        <h1>{client.data.adress}</h1>
       </div>
     )
   }
 }
-export default Map
+export default Adress

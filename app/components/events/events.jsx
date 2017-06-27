@@ -2,6 +2,8 @@ import Swiper from 'react-id-swiper'
 import React from 'react'
 import './events.styl'
 
+const client = window._config
+
 class Events extends React.Component {
   constructor () {
     super()
@@ -44,7 +46,7 @@ class Events extends React.Component {
       <div id='events'>
         <div className='events'>
           <img className='clock' src='./app/components/media/clock.svg' />
-          <h1 className='babel'>Close visits</h1>
+          <button className='babel'>{client.translations.close_visits}</button>
           <div id='swiper-wrap-notes'>
             <Swiper pagination='.swiper-pagination' slidesPerView={3} paginationClickable>
               <div>

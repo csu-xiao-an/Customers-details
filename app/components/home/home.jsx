@@ -5,17 +5,17 @@ import Details from '../details/details.jsx'
 import Galery from '../galery/galery.jsx'
 import Events from '../events/events.jsx'
 import Topnav from '../topnav/topnav.jsx'
+import React, { Component } from 'react'
 import Email from '../email/email.jsx'
 import Call from '../call/call.jsx'
 import Line from '../line/line.jsx'
 import Debt from '../debt/debt.jsx'
 import Hero from '../hero/hero.jsx'
-import Map from '../map/map.jsx'
+import Adress from '../adress/adress.jsx'
 import Add from '../add/add.jsx'
-import React from 'react'
 import './home.styl'
 
-class Home extends React.Component {
+class Home extends Component {
   render () {
     return (
       <div id='home'>
@@ -25,7 +25,7 @@ class Home extends React.Component {
         <Line />
         <Call />
         <Email />
-        <Map />
+        <Adress />
         <Line />
         <Debt />
         <Line />
