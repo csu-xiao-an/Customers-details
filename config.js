@@ -26,10 +26,11 @@ var _config = {
     btn_replace: 'Replace'
   },
   urls: {
-    default_photo: './app/components/media/default.jpg',
-    photo: './app/components/media/123123.jpg',
+    default_photo: './app/components/media/default',
+    photo: './app/components/media/',
     appointments: '/appointments',
     home: '/',
+    change_vip: 'http://customers-details-api.bewebmaster.co.il/clients/',
     add_photo: 'customers.bewebmaster.co.il/?id=',
     add_status: 'customers.bewebmaster.co.il/?id='
   },

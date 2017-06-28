@@ -1,7 +1,7 @@
 import Birthday from '../birthday/birthday.jsx'
+import { requestService } from 'project-services'
 import React from 'react'
 import './hero.styl'
-
 const client = window._config
 
 class Hero extends React.Component {
@@ -10,18 +10,25 @@ class Hero extends React.Component {
     this.state = {
       isInputDisabled: false,
       placeholder: 'placeholder',
-      imageUrl: client.urls.photo
+      imageUrl: client.urls.photo + client.data.id
     }
     this.handleInput = this.handleInput.bind(this)
+    this.handleStar = this.handleStar.bind(this)
   }
   handleInput () {
     this.setState({isInputDisabled: !this.state.isInputDisabled})
     if (!this.state.isInputDisabled) { document.getElementById('afocus').focus() }
   }
+  handleStar () {
+    const ulr = client.urls.change_vip + client.data.id + '/vip'
+    const method = 'PUT'
+    const body = client.data.vip ? 'vip=false' : 'vip=true'
+    requestService(ulr, method, body)
+  }
   render () {
     return (
       <div id='hero'>
-        <img className='star' src={'./app/components/media/' + (client.data.vip ? 'star-active' : 'star') + '.svg'} />
+        <img onClick={this.handleStar} className='star' src={'./app/components/media/' + (client.data.vip ? 'star-active' : 'star') + '.svg'} />
         <Birthday />
         <form action='submit'>
           <div className='input-group'>
@@ -34,7 +41,7 @@ class Hero extends React.Component {
             </span>
           </div>
         </form>
-        <img className='client-img' src={this.state.imageUrl} alt='user-img' onError={() => { this.setState({imageUrl: client.urls.default_photo}) }} />
+        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => { this.setState({imageUrl: client.urls.default_photo}) }} />
       </div>
     )
   }

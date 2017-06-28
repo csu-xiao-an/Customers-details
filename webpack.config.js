@@ -10,7 +10,8 @@ const statConf = {
   warnings: true
 }
 const alias = {
-  'project-components': path.resolve('./components')
+  'project-components': path.resolve('./components'),
+  'project-services': path.resolve('./services')
 }
 module.exports = {
   entry: './app/main.js',
