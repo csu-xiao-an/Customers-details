@@ -7,7 +7,7 @@ class Email extends React.Component {
   render () {
     return (
       <div id='e-mail'>
-        <img src='./app/components/media/mail.svg' />
+        <a href={'mailto:' + client.data.email}><img src='./app/components/media/mail.svg' /></a>
         <div className='e-mail-label'>{client.translations.email}</div>
         <h1>{client.data.email}</h1>
       </div>

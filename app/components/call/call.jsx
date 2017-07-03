@@ -7,8 +7,8 @@ class Call extends React.Component {
   render () {
     return (
       <div id='call'>
-        <img src='./app/components/media/call.svg' />
-        <img src='./app/components/media/send-sms.svg' />
+        <a href={'tel:' + client.data.phone[0]}><img src='./app/components/media/call.svg' /></a>
+        <a href={'sms:' + client.data.phone[0]}><img src='./app/components/media/send-sms.svg' /></a>
         <div className='call-label'>{client.translations.mobile}</div>
         <h1>{client.data.phone.map((el, key) => <span key={key}>{el} </span>)}</h1>
       </div>

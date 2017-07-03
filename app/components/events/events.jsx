@@ -48,16 +48,16 @@ class Events extends React.Component {
           <img className='clock' src='./app/components/media/clock.svg' />
           <button className='babel'>{client.translations.close_visits}</button>
           <div id='swiper-wrap-notes'>
-            <Swiper pagination='.swiper-pagination' slidesPerView={3} paginationClickable>
+            <Swiper pagination='.swiper-pagination' slidesPerView={2.75} paginationClickable centeredSlides>
+              <div />
               <div>
                 <div className='note start-note'>For all <br /> visits...</div>
               </div>
-              {this.state.note.map((el, key) => {
+              {client.data.recent_appoinments.map((el, key) => {
                 return (
                   <div key={key}>
                     <div className='note'>
-                      <h1>{el.date} <span className='col'>{el.time}</span></h1>
-                      <h1>{el.deal}</h1>
+                      <h1>{el.name}</h1>
                       <h1><span className='col'>{el.price}</span></h1>
                     </div>
                   </div>

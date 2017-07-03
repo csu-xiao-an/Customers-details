@@ -10,7 +10,8 @@ class Hero extends React.Component {
     this.state = {
       isInputDisabled: false,
       placeholder: 'placeholder',
-      imageUrl: client.urls.photo + client.data.id
+      imageUrl: client.urls.photo + client.data.id,
+      vip: client.data.vip
     }
     this.handleInput = this.handleInput.bind(this)
     this.handleStar = this.handleStar.bind(this)
@@ -22,13 +23,15 @@ class Hero extends React.Component {
   handleStar () {
     const ulr = client.urls.change_vip + client.data.id + '/vip'
     const method = 'PUT'
-    const body = client.data.vip ? 'vip=false' : 'vip=true'
-    requestService(ulr, method, body)
+    const body = `vip=${!client.data.vip}`
+    if (requestService(ulr, method, body)) {
+      this.setState({vip: !this.state.vip})
+    }
   }
   render () {
     return (
       <div id='hero'>
-        <img onClick={this.handleStar} className='star' src={'./app/components/media/' + (client.data.vip ? 'star-active' : 'star') + '.svg'} />
+        <img onClick={this.handleStar} className='star' src={'./app/components/media/' + (this.state.vip ? 'star-active' : 'star') + '.svg'} />
         <Birthday />
         <form action='submit'>
           <div className='input-group'>
