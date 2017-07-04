@@ -1,6 +1,6 @@
 #events
   background-color #e8ffff
-  height 275px
+  height 285px
   border-bottom 1px solid grey
   .clock
     width 80px
@@ -20,7 +20,6 @@
       position static
       margin-top 10px
       .swiper-wrapper
-        // transform: translate3d(-1143.33px, 0px, 0px)!important
         .swiper-slide
           padding 0px 30px 30px 30px
           .start-note
@@ -34,23 +33,35 @@
             background-color white
             border-radius 20px
             width 100%
-            height 160px
+            height 170px
             border 1px solid #bcbcbc
             box-shadow 1px 3px 6px #bcbcbc
             display inline-block
-            padding 20px
+            padding 12px
             h1
               margin 0
-              font-size 32px
+              font-size 36px
+            .date
               color dimgray
-            h1:nth-of-type(2)
+              height 40px
+              width 100%
+            .procedure
+              line-height 35px
+              height 70px
+              width 100%
               color darkslategray
-            .col
+              overflow hidden
+              text-overflow ellipsis
+            .price
               color deepskyblue
+              height 40px
+              width 100%
           .end-note
             background-color gainsboro!important
             font-size 32px
             color darkslategray
+            .orange
+              color orangered
         .swiper-slide:nth-of-type(1), .swiper-slide:nth-of-type(2)
           width 21%!important
       .swiper-pagination

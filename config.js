@@ -23,7 +23,25 @@ var _config = {
     marketing_material: 'The customer allows sending marketing material',
     signature_added: 'Signature added successfully',
     btn_delete: 'Delete',
-    btn_replace: 'Replace'
+    btn_replace: 'Replace',
+    procedures: 'procedures',
+    all_visits: 'For all visits...',
+    dates: {
+      weekdays: {
+        'Monday': 'Monday',
+        'Tuesday': 'Tuesday',
+        'Wednesday': 'Wednesday',
+        'Thursday': 'Thursday',
+        'Friday': 'Friday',
+        'Saturday': 'Saturday',
+        'Sunday': 'Sunday'
+      },
+      days: {
+        'Yesterday': 'Yesterday ',
+        'Tommorow': 'Tommorow ',
+        'Today': 'Today '
+      }
+    }
   },
   urls: {
     default_photo: './app/components/media/default',
@@ -44,6 +62,7 @@ var _config = {
       '0545421321'
     ],
     vip: true,
+    currency: '₪',
     status: [
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}
@@ -74,7 +93,7 @@ var _config = {
     recent_appoinments: [
       {
         id: 321321,
-        date: '2017-05-01 15:00',
+        date: '2017-08-09 15:00',
         procedures: [
           {
             id: 159159,
@@ -92,12 +111,72 @@ var _config = {
       },
       {
         id: 456465,
-        date: '2017-05-02 18:00',
+        date: '2017-07-05 19:00',
         procedures: [
           {
             id: 778954,
             name: 'visit',
+            price: 4100,
+            duration: 120
+          }
+        ]
+      },
+      {
+        id: 456465,
+        date: '2017-06-05 18:00',
+        procedures: [
+          {
+            id: 778954,
+            name: 'chemistry',
+            price: 1200,
+            duration: 120
+          }
+        ]
+      },
+      {
+        id: 456465,
+        date: '2017-09-11 18:00',
+        procedures: [
+          {
+            id: 778954,
+            name: 'manicure',
+            price: 700,
+            duration: 120
+          }
+        ]
+      },
+      {
+        id: 456465,
+        date: '2016-07-21 18:00',
+        procedures: [
+          {
+            id: 778954,
+            name: 'hair coloring',
+            price: 600,
+            duration: 120
+          }
+        ]
+      },
+      {
+        id: 456465,
+        date: '2010-07-21 18:00',
+        procedures: [
+          {
+            id: 778954,
+            name: 'facial treatment',
             price: 400,
+            duration: 120
+          },
+          {
+            id: 778954,
+            name: 'laser hair 3 treatments',
+            price: 500,
+            duration: 120
+          },
+          {
+            id: 778954,
+            name: 'laser hair 3 treatments',
+            price: 100,
             duration: 120
           }
         ]
