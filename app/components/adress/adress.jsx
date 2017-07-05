@@ -39,7 +39,7 @@ class Adress extends React.Component {
           </GoogleMapReact>
         </div>
         <div className='adress-label'>{client.translations.adress}</div>
-        <h1>{client.data.adress}</h1>
+        <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}>{client.data.adress}</a>
       </div>
     )
   }

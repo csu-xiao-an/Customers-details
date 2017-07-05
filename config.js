@@ -58,6 +58,8 @@ var _config = {
     birthdate: '2001-07-25',
     email: 'ahuva.ben.shushan@gmail.com',
     adress: 'Tel Aviv, Allenby str. 45',
+    intent_x: 40.761043,
+    intent_y: -73.980545,
     phone: [
       '0545421321'
     ],

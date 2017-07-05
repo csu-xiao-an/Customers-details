@@ -1,7 +1,8 @@
 import Birthday from '../birthday/birthday.jsx'
-import { requestService } from 'project-services'
+import { clientService } from 'project-services'
 import React from 'react'
 import './hero.styl'
+
 const client = window._config
 
 class Hero extends React.Component {
@@ -20,18 +21,35 @@ class Hero extends React.Component {
     this.setState({isInputDisabled: !this.state.isInputDisabled})
     if (!this.state.isInputDisabled) { document.getElementById('afocus').focus() }
   }
-  handleStar () {
+  async handleStar () {
     const ulr = client.urls.change_vip + client.data.id + '/vip'
     const method = 'PUT'
     const body = `vip=${!client.data.vip}`
-    if (requestService(ulr, method, body)) {
+    if (await clientService(ulr, method, body)) {
       this.setState({vip: !this.state.vip})
     }
   }
   render () {
     return (
       <div id='hero'>
-        <img onClick={this.handleStar} className='star' src={'./app/components/media/' + (this.state.vip ? 'star-active' : 'star') + '.svg'} />
+        <div onClick={this.handleStar} className='star-wrap'>
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 52 50'>
+            <g id='Layer_2' data-name='Layer 2'>
+              <g id='Layer_1-2' data-name='Layer 1'>
+                <g id='VIP'><path
+                  className={this.state.vip ? 'star star-active' : 'star'}
+                  d='M26.79,1.56,31.06,14.7a2.26,2.26,0,0,0,2.15,1.56H
+                  47a2.26,2.26,0,0,1,1.33,4.09L37.17,28.46A2.26,2.26,0,
+                  0,0,36.35,31l4.27,13.14a2.26,2.26,0,0,1-3.48,2.53L26,
+                  38.53a2.26,2.26,0,0,0-2.66,0L12.14,46.65a2.26,2.26,0,
+                  0,1-3.48-2.53L12.93,31a2.26,2.26,0,0,0-.82-2.53L.94,
+                  20.34a2.26,2.26,0,0,1,1.33-4.09H16.08a2.26,2.26,0,0,
+                  0,2.15-1.56L22.49,1.56A2.26,2.26,0,0,1,26.79,1.56Z' />
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
         <Birthday />
         <form action='submit'>
           <div className='input-group'>

@@ -40,7 +40,6 @@ class Events extends React.Component {
         return true
       }
     })
-    console.log(slide)
     return slide
   }
   render () {

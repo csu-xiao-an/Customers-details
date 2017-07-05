@@ -1,1 +1,1 @@
-export { default as requestService } from './request-service'
+export { default as clientService } from './clients-service'
