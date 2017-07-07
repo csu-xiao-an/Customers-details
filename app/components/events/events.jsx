@@ -34,7 +34,7 @@ class Events extends React.Component {
     let slide
     client.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).every((el, key) => {
       if (moment() < moment(el.date)) {
-        slide = key + 1
+        slide = key
         return false
       } else {
         return true
@@ -49,8 +49,7 @@ class Events extends React.Component {
           <img className='clock' src='./app/components/media/clock.svg' />
           <button className='babel'>{client.translations.close_visits}</button>
           <div id='swiper-wrap-notes'>
-            <Swiper pagination='.swiper-pagination' slidesPerView={2.7} paginationClickable centeredSlides initialSlide={this.initialSlide()}>
-              <div />
+            <Swiper pagination='.swiper-pagination' slidesPerView={2.7} spaceBetween={-30} paginationClickable initialSlide={this.initialSlide()}>
               <div>
                 <Link to={client.urls.appointments}>
                   <div className='note start-note'>{client.translations.all_visits}</div>

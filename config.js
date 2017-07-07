@@ -69,6 +69,7 @@ var _config = {
     ],
     vip: true,
     currency: '₪',
+    debt_step: 10,
     status: [
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}

@@ -1,21 +1,8 @@
 #debt
   border-bottom 1px solid grey
-  .debt-default
-    height 120px
-    img
-      float right
-      width 80px
-      margin 20px 60px 0 20px
-      display block
-    h1
-      float right
-      margin 40px 20px 0 20px
-      color #6b6b6b
-      display block
-  .debt-active
-    height 300px
+  .label-wrap
     width 100%
-    display block
+    height 60px
     .debt-label
       padding 5px 20px 5px 20px
       border-radius 20px
@@ -29,10 +16,50 @@
       .count-debt
         color deepskyblue
         font-weight 500
+  .debt-list
+    height 120px
+    padding-top 20px
+    .debt-list-name
+      width 50%
+      display inline-block
+      padding-left 100px
+      color deepskyblue
+      font-weight 500
+      font-size 36px
+      transform translateY(6px)
+    .debt-list-desc
+      width 50%
+      display inline-block
+      text-align right
+      padding-right 30px
+      color #6b6b6b
+      font-weight 500
+      font-size 36px
+    .debt-list-date
+      width 100%
+      text-align right
+      padding-right 30px
+      font-size 18px
+  .debt-default
+    height 120px
+    img
+      float right
+      width 80px
+      margin 20px 60px 0 20px
+      display block
+    h1
+      float right
+      margin 40px 20px 0 20px
+      color #6b6b6b
+      display block
+  .debt-active
+    width 100%
+    display block
     .edit
+      height 240px
       .description
         width 100%
-        padding 70px 30px 0 30px
+        padding 40px 30px 0 30px
         .description-input
           display inline-block
           height 60px
