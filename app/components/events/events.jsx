@@ -49,7 +49,7 @@ class Events extends React.Component {
           <img className='clock' src='./app/components/media/clock.svg' />
           <button className='babel'>{client.translations.close_visits}</button>
           <div id='swiper-wrap-notes'>
-            <Swiper pagination='.swiper-pagination' slidesPerView={2.7} spaceBetween={-30} paginationClickable initialSlide={this.initialSlide()}>
+            <Swiper pagination='.swiper-pagination' slidesPerView='auto' paginationClickable initialSlide={this.initialSlide()}>
               <div>
                 <Link to={client.urls.appointments}>
                   <div className='note start-note'>{client.translations.all_visits}</div>

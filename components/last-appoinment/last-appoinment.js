@@ -65,9 +65,9 @@ const getLastAppoinment = date => {
       lastAppoinment = '4 weeks ago'
     }
   }
-  if (monthLeft > 0 && monthLeft <= 12) {
+  if (monthLeft > 0 && monthLeft < 12) {
     lastAppoinment = 'In ' + monthLeft + ' month'
-  } else if (monthLeft < 0 && monthLeft >= -12) {
+  } else if (monthLeft < 0 && monthLeft > -12) {
     lastAppoinment = (-1 * monthLeft) + ' month ago'
   } else if (monthLeft > 11) {
     lastAppoinment = 'Next year'
