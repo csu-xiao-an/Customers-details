@@ -1,1 +1,1 @@
-export { default as clientService } from './clients-service'
+export { default as requestPutService } from './put-service'

@@ -1,5 +1,5 @@
 import Birthday from '../birthday/birthday.jsx'
-import { clientService } from 'project-services'
+import { requestPutService } from 'project-services'
 import React from 'react'
 import './hero.styl'
 
@@ -22,10 +22,11 @@ class Hero extends React.Component {
     if (!this.state.isInputDisabled) { document.getElementById('afocus').focus() }
   }
   async handleStar () {
-    const ulr = client.urls.change_vip + client.data.id + '/vip'
+    const url = client.urls.main + client.data.id + '/vip'
     const method = 'PUT'
     const body = `vip=${!client.data.vip}`
-    if (await clientService(ulr, method, body)) {
+    const response = await requestPutService(url, method, body)
+    if (response.status === 204) {
       this.setState({vip: !this.state.vip})
     }
   }

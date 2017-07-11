@@ -34,10 +34,10 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        use: ExtractTextPlugin.extract({
+        use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'stylus-loader']
-        })
+        }))
       },
       {
         test: /\.(img|png|svg)$/,

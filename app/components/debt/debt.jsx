@@ -1,3 +1,4 @@
+import { requestPutService } from 'project-services'
 import React, { Component } from 'react'
 import './debt.styl'
 
@@ -10,24 +11,34 @@ class Debt extends Component {
       debtEdit: false,
       description: '',
       total_debt: 0,
-      debt: '0',
-      arr: [
-        {
-          debt: 20,
-          description: 'mac',
-          date: '13:51 | 7 July'
-        }
-      ]
+      debt: '0'
     }
     this.submit = this.submit.bind(this)
   }
-  submit () {
+  async submit () {
     this.setState({debtEdit: !this.state.debtEdit})
+    const url = client.urls.main + client.data.id + '/dept'
+    const method = 'POST'
+    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
+    await requestPutService(url, method, body)
+    this.setState({description: '', debt: '0'})
+  }
+  update () {
+    const url = client.urls.main + client.data.id + '/dept'
+    const method = 'PUT'
+    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
+    requestPutService(url, method, body)
+    this.setState({description: '', debt: '0'})
+  }
+  delete () {
+    const url = client.urls.main + client.data.id + '/dept'
+    const method = 'DELETE'
+    requestPutService(url, method)
   }
   price () {
     let sum = 0
-    this.state.arr.forEach(el => {
-      sum += el.debt
+    client.data.debts.forEach(el => {
+      sum += el.sum
     })
     if (sum === 0 || isNaN(sum)) {
       return 0
@@ -38,14 +49,14 @@ class Debt extends Component {
   render () {
     return (
       <div id='debt'>
-        <div className={this.state.arr.length > 0 ? 'label-wrap' : 'hidden'}>
+        <div className={client.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
           <div className='debt-label'>{client.translations.debt}: <span className='count-debt'>{this.price()}</span></div>
         </div>
-        {this.state.arr.map((el, key) => {
+        {client.data.debts.map((el, key) => {
           return (
             <div key={key} className='debt-list'>
-              <h1 className='debt-list-name'>{el.debt} {client.data.currency}</h1>
-              <h1 className='debt-list-desc'>{el.description}</h1>
+              <h1 className='debt-list-name'>{el.sum} {client.data.currency}</h1>
+              <h1 className='debt-list-desc'>{el.desc}</h1>
               <p className='debt-list-date'>{el.date}</p>
             </div>
           )
@@ -56,7 +67,7 @@ class Debt extends Component {
           <h1>{client.translations.add_debt}</h1>
         </div>
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
-          <div className={this.state.arr.length > 0 ? 'hidden' : 'label-wrap'}>
+          <div className={client.data.debts.length > 0 ? 'hidden' : 'label-wrap'}>
             <div className='debt-label'>{client.translations.debt}: <span className='count-debt'>{this.state.total_debt}</span></div>
           </div>
           <div className='edit'>

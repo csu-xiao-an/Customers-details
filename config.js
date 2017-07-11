@@ -52,7 +52,7 @@ var _config = {
     photo: './app/components/media/',
     appointments: '/appointments',
     home: '/',
-    change_vip: 'http://customers-details-api.bewebmaster.co.il/clients/',
+    main: 'http://customers-details-api.bewebmaster.co.il/clients/',
     add_photo: 'customers.bewebmaster.co.il/?id=',
     add_status: 'customers.bewebmaster.co.il/?id='
   },
@@ -70,6 +70,14 @@ var _config = {
     vip: true,
     currency: '₪',
     debt_step: 10,
+    debts: [
+      {
+        id: 123123,
+        sum: 20,
+        desc: 'did not pay for a month',
+        date: '13:51 | 7 July'
+      }
+    ],
     status: [
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}
