@@ -1,15 +1,15 @@
 import Signature from '../signature/signature.jsx'
-import Partners from '../partners/partners.jsx'
+import Groups from '../groups/groups.jsx'
 import Comment from '../comment/comment.jsx'
 import Details from '../details/details.jsx'
-import Galery from '../galery/galery.jsx'
+import Gallery from '../gallery/gallery.jsx'
 import Events from '../events/events.jsx'
 import Topnav from '../topnav/topnav.jsx'
 import React, { Component } from 'react'
 import Email from '../email/email.jsx'
 import Call from '../call/call.jsx'
 import Line from '../line/line.jsx'
-import Debt from '../debt/debt.jsx'
+import Debts from '../debts/debts.jsx'
 import Hero from '../hero/hero.jsx'
 import Adress from '../adress/adress.jsx'
 import Add from '../add/add.jsx'
@@ -27,15 +27,15 @@ class Home extends Component {
         <Email />
         <Adress />
         <Line />
-        <Debt />
+        <Debts />
         <Line />
         <Comment />
         <Line />
-        <Galery />
+        <Gallery />
         <Line />
         <Add />
         <Line />
-        <Partners />
+        <Groups />
         <Line />
         <Details />
         <Signature />

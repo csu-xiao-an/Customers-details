@@ -8,15 +8,15 @@ class Add extends React.Component {
     return (
       <div id='add'>
         <div className='add2'>
-          <img src='./app/components/media/add.svg' />
+          <img src='./dist/media/add.svg' />
           <h1>{client.translations.source_arrival}</h1>
         </div>
         <div className='add2'>
-          <img src='./app/components/media/add.svg' />
+          <img src='./dist/media/add.svg' />
           <h1>{client.translations.social_net}</h1>
         </div>
         <div className='add2'>
-          <img src='./app/components/media/add.svg' />
+          <img src='./dist/media/add.svg' />
           <h1>{client.translations.add_link}</h1>
         </div>
       </div>

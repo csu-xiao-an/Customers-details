@@ -21,7 +21,7 @@ class Topnav extends Component {
       <div id='topnav'>
         <div className='header'>
           <div className='arrow-wrap'>
-            <img className='arrow-back' src='./app/components/media/arrow-back.svg' />
+            <img className='arrow-back' src='./dist/media/arrow-back.svg' />
           </div>
           <div className='client-name'>
             <div className='icon-online' />

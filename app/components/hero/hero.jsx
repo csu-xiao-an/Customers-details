@@ -59,7 +59,7 @@ class Hero extends React.Component {
                 className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')} />
             </div>
             <span onClick={this.handleInput} className='input-group-addon'>
-              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./app/components/media/pencil.svg' />
+              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./dist/media/pencil.svg' />
             </span>
           </div>
         </form>

@@ -1,9 +1,9 @@
-import './partners.styl'
-import React from 'react'
+import React, { Component } from 'react'
+import './groups.styl'
 
 const client = window._config
 
-class Partners extends React.Component {
+class Groups extends Component {
   render () {
     return (
       <div id='partners'>
@@ -12,7 +12,7 @@ class Partners extends React.Component {
           return (
             <div key={key} className='partners-wrap'>
               <div className='img'>
-                <img src={'./app/components/media/partners/' + (el.id) + '.png'} />
+                <img src={client.urls.groups + el.id + '.png'} />
               </div>
               <h1>{el.name}</h1>
               <h1 className='amount'>{el.amount}</h1>
@@ -22,4 +22,4 @@ class Partners extends React.Component {
     )
   }
 }
-export default Partners
+export default Groups

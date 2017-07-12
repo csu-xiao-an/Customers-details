@@ -8,7 +8,7 @@ class Comment extends React.Component {
     return (
       <div id='comment'>
         <div className='add1-label'>{client.translations.remarks}</div>
-        <img src='./app/components/media/add.svg' />
+        <img src='./dist/media/add.svg' />
         <h1>{client.translations.add_comment}</h1>
       </div>
     )

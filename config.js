@@ -48,9 +48,12 @@ var _config = {
     }
   },
   urls: {
-    default_photo: './app/components/media/default',
-    photo: './app/components/media/',
+    default_photo: './dist/media/default',
+    gallery: './dist/media/galery/',
+    groups: './dist/media/groups/',
     appointments: '/appointments',
+    photo: './dist/media/',
+    map: './dist/media/',
     home: '/',
     main: 'http://customers-details-api.bewebmaster.co.il/clients/',
     add_photo: 'customers.bewebmaster.co.il/?id=',
@@ -126,7 +129,7 @@ var _config = {
       },
       {
         id: 456465,
-        date: '2017-07-05 19:00',
+        date: '2017-07-01 19:00',
         procedures: [
           {
             id: 778954,
@@ -138,7 +141,31 @@ var _config = {
       },
       {
         id: 456465,
-        date: '2017-06-05 18:00',
+        date: '2017-07-29 18:00',
+        procedures: [
+          {
+            id: 778954,
+            name: 'chemistry',
+            price: 1200,
+            duration: 120
+          }
+        ]
+      },
+      {
+        id: 456465,
+        date: '2018-08-10 18:00',
+        procedures: [
+          {
+            id: 778954,
+            name: 'chemistry',
+            price: 1200,
+            duration: 120
+          }
+        ]
+      },
+      {
+        id: 456465,
+        date: '2018-01-01 18:00',
         procedures: [
           {
             id: 778954,

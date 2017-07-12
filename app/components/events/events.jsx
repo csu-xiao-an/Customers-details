@@ -46,7 +46,7 @@ class Events extends React.Component {
     return (
       <div id='events'>
         <div className='events'>
-          <img className='clock' src='./app/components/media/clock.svg' />
+          <img className='clock' src='./dist/media/clock.svg' />
           <button className='babel'>{client.translations.close_visits}</button>
           <div id='swiper-wrap-notes'>
             <Swiper pagination='.swiper-pagination' slidesPerView='auto' paginationClickable initialSlide={this.initialSlide()}>

@@ -1,10 +1,10 @@
 import Swiper from 'react-id-swiper'
 import React from 'react'
-import './galery.styl'
+import './gallery.styl'
 
 const client = window._config
 
-class Galery extends React.Component {
+class Gallery extends React.Component {
   render () {
     return (
       <div id='gallery'>
@@ -17,15 +17,15 @@ class Galery extends React.Component {
             {client.data.gallery.map((el, key) => {
               return (
                 <div key={key}>
-                  <img src={'./app/components/media/galery/' + (el) + '.png'} />
+                  <img src={client.urls.gallery + el + '.png'} />
                 </div>)
             })}
           </Swiper>
         </div>
-        <img className='add-button' src='./app/components/media/add.svg' />
+        <img className='add-button' src='./dist/media/add.svg' />
         <h1 className='add-label'>{client.translations.add_media}</h1>
       </div>
     )
   }
 }
-export default Galery
+export default Gallery

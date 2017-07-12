@@ -1,10 +1,10 @@
 import { requestPutService } from 'project-services'
 import React, { Component } from 'react'
-import './debt.styl'
+import './debts.styl'
 
 const client = window._config
 
-class Debt extends Component {
+class Debts extends Component {
   constructor () {
     super()
     this.state = {
@@ -23,17 +23,17 @@ class Debt extends Component {
     await requestPutService(url, method, body)
     this.setState({description: '', debt: '0'})
   }
-  update () {
+  async update () {
     const url = client.urls.main + client.data.id + '/dept'
     const method = 'PUT'
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
-    requestPutService(url, method, body)
+    await requestPutService(url, method, body)
     this.setState({description: '', debt: '0'})
   }
-  delete () {
+  async delete () {
     const url = client.urls.main + client.data.id + '/dept'
     const method = 'DELETE'
-    requestPutService(url, method)
+    await requestPutService(url, method)
   }
   price () {
     let sum = 0
@@ -63,7 +63,7 @@ class Debt extends Component {
         })}
         <div onClick={() => { this.setState({debtEdit: !this.state.debtEdit}) }}
           className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
-          <img src='./app/components/media/add.svg' />
+          <img src='./dist/media/add.svg' />
           <h1>{client.translations.add_debt}</h1>
         </div>
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
@@ -98,4 +98,4 @@ class Debt extends Component {
     )
   }
 }
-export default Debt
+export default Debts
