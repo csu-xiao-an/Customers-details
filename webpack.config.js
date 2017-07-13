@@ -14,7 +14,7 @@ const alias = {
   'project-services': path.resolve('./services')
 }
 module.exports = {
-  entry: './app/main.js',
+  entry: ['babel-polyfill', './app/main.js'],
   output: {
     filename: './dist/bundle.js'
   },
