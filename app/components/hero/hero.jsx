@@ -11,7 +11,7 @@ class Hero extends React.Component {
     this.state = {
       isInputDisabled: false,
       placeholder: 'placeholder',
-      imageUrl: client.urls.photo + client.data.id,
+      imageUrl: client.urls.media + client.data.id,
       vip: client.data.vip
     }
     this.handleInput = this.handleInput.bind(this)
@@ -63,7 +63,7 @@ class Hero extends React.Component {
             </span>
           </div>
         </form>
-        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => { this.setState({imageUrl: client.urls.default_photo}) }} />
+        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => { this.setState({imageUrl: client.urls.media + 'default'}) }} />
       </div>
     )
   }

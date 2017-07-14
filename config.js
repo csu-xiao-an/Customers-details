@@ -48,12 +48,10 @@ var _config = {
     }
   },
   urls: {
-    default_photo: './dist/media/default',
     gallery: './dist/media/galery/',
     groups: './dist/media/groups/',
     appointments: '/appointments',
-    photo: './dist/media/',
-    map: './dist/media/',
+    media: './dist/media/',
     home: '/',
     main: 'http://customers-details-api.bewebmaster.co.il/clients/',
     add_photo: 'customers.bewebmaster.co.il/?id=',
@@ -65,8 +63,8 @@ var _config = {
     birthdate: '2001-07-25',
     email: 'ahuva.ben.shushan@gmail.com',
     adress: 'Tel Aviv, Allenby str. 45',
-    intent_x: 40.761043,
-    intent_y: -73.980545,
+    intent_x: 50.4016991,
+    intent_y: 30.2525126,
     phone: [
       '0545421321'
     ],

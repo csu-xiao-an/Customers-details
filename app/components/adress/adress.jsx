@@ -9,12 +9,13 @@ class Adress extends React.Component {
       <div id='adress'>
         <div className='google-map'>
           <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}>
-            <img src={client.urls.map + 'map.png'} />
+            <img src={client.urls.media + 'map.png'} />
           </a>
         </div>
         <div className='adress-label'>{client.translations.adress}</div>
         <div className='address'>
-          <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}>{client.data.adress}</a>
+          <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}><img src={client.urls.media + 'waze.png'} /></a>
+          <h1>{client.data.adress}</h1>
         </div>
       </div>
     )
