@@ -1,4 +1,4 @@
-import { requestPutService } from 'project-services'
+import { updateService } from 'project-services'
 import React, { Component } from 'react'
 import './debts.styl'
 
@@ -16,24 +16,23 @@ class Debts extends Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    this.setState({debtEdit: !this.state.debtEdit})
     const url = client.urls.main + client.data.id + '/dept'
     const method = 'POST'
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
-    await requestPutService(url, method, body)
-    this.setState({description: '', debt: '0'})
+    await updateService(url, method, body)
+    this.setState({debtEdit: !this.state.debtEdit, description: '', debt: '0'})
   }
   async update () {
     const url = client.urls.main + client.data.id + '/dept'
     const method = 'PUT'
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
-    await requestPutService(url, method, body)
+    await updateService(url, method, body)
     this.setState({description: '', debt: '0'})
   }
   async delete () {
     const url = client.urls.main + client.data.id + '/dept'
     const method = 'DELETE'
-    await requestPutService(url, method)
+    await updateService(url, method)
   }
   price () {
     let sum = 0

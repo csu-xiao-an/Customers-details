@@ -7,7 +7,7 @@ import Events from '../events/events.jsx'
 import Topnav from '../topnav/topnav.jsx'
 import React, { Component } from 'react'
 import Email from '../email/email.jsx'
-import Call from '../call/call.jsx'
+import Phone from '../phone/phone.jsx'
 import Line from '../line/line.jsx'
 import Debts from '../debts/debts.jsx'
 import Hero from '../hero/hero.jsx'
@@ -23,7 +23,7 @@ class Home extends Component {
         <Hero />
         <Events />
         <Line />
-        <Call />
+        <Phone />
         <Email />
         <Adress />
         <Line />

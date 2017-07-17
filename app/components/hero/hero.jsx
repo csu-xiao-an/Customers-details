@@ -1,5 +1,5 @@
+import { updateService } from 'project-services'
 import Birthday from '../birthday/birthday.jsx'
-import { requestPutService } from 'project-services'
 import React from 'react'
 import './hero.styl'
 
@@ -10,22 +10,32 @@ class Hero extends React.Component {
     super()
     this.state = {
       isInputDisabled: false,
-      placeholder: 'placeholder',
+      status: '',
       imageUrl: client.urls.media + client.data.id,
       vip: client.data.vip
     }
     this.handleInput = this.handleInput.bind(this)
     this.handleStar = this.handleStar.bind(this)
   }
-  handleInput () {
+  async handleInput () {
     this.setState({isInputDisabled: !this.state.isInputDisabled})
-    if (!this.state.isInputDisabled) { document.getElementById('afocus').focus() }
+    if (!this.state.isInputDisabled) {
+      document.getElementById('afocus').focus()
+    } else {
+      const url = client.urls.main + client.data.id + '/status'
+      const method = 'PUT'
+      const body = `status=${this.state.status}`
+      await updateService(url, method, body)
+      this.setState({
+        status: ''
+      })
+    }
   }
   async handleStar () {
     const url = client.urls.main + client.data.id + '/vip'
     const method = 'PUT'
     const body = `vip=${!client.data.vip}`
-    const response = await requestPutService(url, method, body)
+    const response = await updateService(url, method, body)
     if (response.status === 204) {
       this.setState({vip: !this.state.vip})
     }
@@ -55,8 +65,11 @@ class Hero extends React.Component {
         <form action='submit'>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input placeholder={this.state.isInputDisabled ? '' : this.state.placeholder} type='text' id={this.state.isInputDisabled ? '' : 'afocus'}
-                className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')} />
+              <input className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')}
+                placeholder={this.state.isInputDisabled ? '' : client.translations.status ? client.translations.status : client.translations.placeholder}
+                type='text' id={this.state.isInputDisabled ? '' : 'afocus'}
+                onChange={event => { this.setState({status: event.target.status}) }}
+                 />
             </div>
             <span onClick={this.handleInput} className='input-group-addon'>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./dist/media/pencil.svg' />

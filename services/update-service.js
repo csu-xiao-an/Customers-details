@@ -1,6 +1,6 @@
 import mainRequestService from './request-service'
 
-const requestPut = async (url, method, body) => {
+const updateService = async (url, method, body) => {
   const options = {
     mode: 'cors',
     headers: {
@@ -13,4 +13,4 @@ const requestPut = async (url, method, body) => {
   return await mainRequestService(url, options)
 }
 
-export default requestPut
+export default updateService

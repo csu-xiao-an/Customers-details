@@ -1,1 +1,1 @@
-export { default as requestPutService } from './put-service'
+export { default as updateService } from './update-service'
