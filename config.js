@@ -53,14 +53,12 @@ var _config = {
     }
   },
   urls: {
+    main: 'http://customers-details-api.bewebmaster.co.il/clients/',
     gallery: './dist/media/galery/',
     groups: './dist/media/groups/',
     appointments: '/appointments',
     media: './dist/media/',
-    home: '/',
-    main: 'http://customers-details-api.bewebmaster.co.il/clients/',
-    add_photo: 'customers.bewebmaster.co.il/?id=',
-    add_status: 'customers.bewebmaster.co.il/?id='
+    home: '/'
   },
   data: {
     id: 123123,
@@ -82,7 +80,7 @@ var _config = {
         date: '13:51 | 7 July'
       }
     ],
-    status: [
+    notes: [
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}
     ],

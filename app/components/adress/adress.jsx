@@ -14,7 +14,7 @@ class Adress extends React.Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const url = client.urls.main + client.data.id + '/address'
+    const url = client.urls.main + client.data.id
     const method = 'PATCH'
     const body = `address=${this.state.adress}`
     await updateService(url, method, body)

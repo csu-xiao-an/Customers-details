@@ -22,8 +22,8 @@ class Hero extends React.Component {
     if (!this.state.isInputDisabled) {
       document.getElementById('afocus').focus()
     } else {
-      const url = client.urls.main + client.data.id + '/status'
-      const method = 'PUT'
+      const url = client.urls.main + client.data.id
+      const method = 'PATCH'
       const body = `status=${this.state.status}`
       await updateService(url, method, body)
       this.setState({
@@ -32,8 +32,8 @@ class Hero extends React.Component {
     }
   }
   async handleStar () {
-    const url = client.urls.main + client.data.id + '/vip'
-    const method = 'PUT'
+    const url = client.urls.main + client.data.id
+    const method = 'PATCH'
     const body = `vip=${!client.data.vip}`
     const response = await updateService(url, method, body)
     if (response.status === 204) {
@@ -65,10 +65,11 @@ class Hero extends React.Component {
         <form action='submit'>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input className={'form-control ' + (this.state.isShowInput ? '' : 'form-control-disabled')}
+              <input className={'form-control ' + (this.state.isShowInput ? '' : client.translations.status ? 'form-control-disabled' : '')}
                 placeholder={this.state.isInputDisabled ? '' : client.translations.status ? client.translations.status : client.translations.placeholder}
                 type='text' id={this.state.isInputDisabled ? '' : 'afocus'}
-                onChange={event => { this.setState({status: event.target.status}) }}
+                onChange={event => { this.setState({status: event.target.value}) }}
+                onClick={this.state.isShowInput ? '' : client.translations.status ? '' : this.handleInput}
                  />
             </div>
             <span onClick={this.handleInput} className='input-group-addon'>

@@ -14,7 +14,7 @@ class Phone extends React.Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const url = client.urls.main + client.data.id + '/phone'
+    const url = client.urls.main + client.data.id
     const method = 'PATCH'
     const body = `phone=${this.state.phone}`
     await updateService(url, method, body)

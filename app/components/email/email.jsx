@@ -14,7 +14,7 @@ class Email extends React.Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const url = client.urls.main + client.data.id + '/email'
+    const url = client.urls.main + client.data.id
     const method = 'PATCH'
     const body = `email=${this.state.email}`
     await updateService(url, method, body)

@@ -9,7 +9,6 @@ const updateService = async (url, method, body) => {
     method,
     body
   }
-  // url = 'http://localhost:8080'
   return await mainRequestService(url, options)
 }
 
