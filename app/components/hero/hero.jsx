@@ -17,20 +17,6 @@ class Hero extends React.Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleStar = this.handleStar.bind(this)
   }
-  async handleInput () {
-    this.setState({isInputDisabled: !this.state.isInputDisabled})
-    if (!this.state.isInputDisabled) {
-      document.getElementById('afocus').focus()
-    } else {
-      const url = client.urls.main + client.data.id
-      const method = 'PATCH'
-      const body = `status=${this.state.status}`
-      await updateService(url, method, body)
-      this.setState({
-        status: ''
-      })
-    }
-  }
   async handleStar () {
     const url = client.urls.main + client.data.id
     const method = 'PATCH'
@@ -40,7 +26,20 @@ class Hero extends React.Component {
       this.setState({vip: !this.state.vip})
     }
   }
+  async handleInput () {
+    this.setState({isInputDisabled: true})
+    if (!this.state.isInputDisabled) {
+      this.autofocus.focus()
+    } else {
+      this.setState({isInputDisabled: false})
+      const url = client.urls.main + client.data.id
+      const method = 'PATCH'
+      const body = `status=${this.state.status}`
+      await updateService(url, method, body)
+    }
+  }
   render () {
+    console.log(this.state.isInputDisabled)
     return (
       <div id='hero'>
         <div onClick={this.handleStar} className='star-wrap'>
@@ -65,14 +64,14 @@ class Hero extends React.Component {
         <form action='submit'>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input className={'form-control ' + (this.state.isShowInput ? '' : client.translations.status ? 'form-control-disabled' : '')}
+              <input className='form-control' type='text' ref={input => { this.autofocus = input }}
                 placeholder={this.state.isInputDisabled ? '' : client.translations.status ? client.translations.status : client.translations.placeholder}
-                type='text' id={this.state.isInputDisabled ? '' : 'afocus'}
                 onChange={event => { this.setState({status: event.target.value}) }}
-                onClick={this.state.isShowInput ? '' : client.translations.status ? '' : this.handleInput}
+                onClick={this.state.isInputDisabled ? '' : this.handleInput}
+                onBlur={this.handleInput}
                  />
             </div>
-            <span onClick={this.handleInput} className='input-group-addon'>
+            <span onClick={this.state.isInputDisabled ? '' : this.handleInput} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./dist/media/pencil.svg' />
             </span>
           </div>
