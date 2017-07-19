@@ -39,7 +39,6 @@ class Hero extends React.Component {
     }
   }
   render () {
-    console.log(this.state.isInputDisabled)
     return (
       <div id='hero'>
         <div onClick={this.handleStar} className='star-wrap'>
@@ -64,8 +63,9 @@ class Hero extends React.Component {
         <form action='submit'>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input className='form-control' type='text' ref={input => { this.autofocus = input }}
-                placeholder={this.state.isInputDisabled ? '' : client.translations.status ? client.translations.status : client.translations.placeholder}
+              <input className={'form-control ' + (this.state.isShowInput ? '' : client.data.status ? 'form-control-disabled' : '')}
+                type='text' ref={input => { this.autofocus = input }}
+                placeholder={this.state.isInputDisabled ? '' : client.data.status ? client.data.status : client.translations.placeholder}
                 onChange={event => { this.setState({status: event.target.value}) }}
                 onClick={this.state.isInputDisabled ? '' : this.handleInput}
                 onBlur={this.handleInput}

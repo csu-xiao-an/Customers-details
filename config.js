@@ -3,7 +3,6 @@ var _config = {
     edit: 'Edit',
     customer: 'Customer details',
     appointment: 'Appointments',
-    status: 'Status',
     placeholder: 'placeholder',
     close_visits: 'Close visits',
     add_phone: 'Add a phone',
@@ -70,6 +69,7 @@ var _config = {
     intent_y: 30.2525126,
     phone: '0545421321',
     vip: true,
+    status: 'Status',
     currency: '₪',
     debt_step: 10,
     debts: [
