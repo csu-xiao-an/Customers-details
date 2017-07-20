@@ -84,8 +84,8 @@ var _config = {
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}
     ],
-    gallery: ['01', '02', '03', '04', '05', '06', '07', '08', '09',
-      '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+    gallery: ['01.png', '02.png', '03.png', '04.png', '05.png', '06.png', '07.png', '08.png', '09.png',
+      '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', '17.png', '18.png'],
     groups: [
       {
         id: '01',
