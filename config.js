@@ -18,7 +18,7 @@ var _config = {
     description_debt: 'Description of debt',
     add_comment: 'Add comment',
     remarks: 'Remarks',
-    photos_count: 'photos',
+    item_count: 'Items',
     gallery: 'Gallery',
     add_media: 'Add media',
     source_arrival: 'Source of arrival',
@@ -84,8 +84,98 @@ var _config = {
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}
     ],
-    gallery: ['01.png', '02.png', '03.png', '04.png', '05.png', '06.png', '07.png', '08.png', '09.png',
-      '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', '17.png', '18.png'],
+    gallery: [
+      {
+        name: '01.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 00:00'
+      },
+      {
+        name: '02.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 01:00'
+      },
+      {
+        name: '03.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 02:00'
+      },
+      {
+        name: '04.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 03:00'
+      },
+      {
+        name: '05.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 04:00'
+      },
+      {
+        name: '06.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 05:00'
+      },
+      {
+        name: '07.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 06:00'
+      },
+      {
+        name: '08.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 07:00'
+      },
+      {
+        name: '09.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 08:00'
+      },
+      {
+        name: '10.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 09:00'
+      },
+      {
+        name: '11.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 10:00'
+      },
+      {
+        name: '12.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 11:00'
+      },
+      {
+        name: '13.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 12:00'
+      },
+      {
+        name: '14.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 13:00'
+      },
+      {
+        name: '15.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 14:00'
+      },
+      {
+        name: '16.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 15:00'
+      },
+      {
+        name: '17.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 16:00'
+      },
+      {
+        name: '18.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 17:00'
+      }
+    ],
     groups: [
       {
         id: '01',

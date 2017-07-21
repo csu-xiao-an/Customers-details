@@ -64,7 +64,7 @@ class Hero extends React.Component {
           <div className='input-group'>
             <div className='input-wrap'>
               <input className={'form-control ' + (this.state.isShowInput ? '' : client.data.status ? 'form-control-disabled' : '')}
-                type='text' ref={input => { this.autofocus = input }}
+                type='text' ref={event => { this.autofocus = event }}
                 placeholder={this.state.isInputDisabled ? '' : client.data.status ? client.data.status : client.translations.placeholder}
                 onChange={event => { this.setState({status: event.target.value}) }}
                 onClick={this.state.isInputDisabled ? '' : this.handleInput}
