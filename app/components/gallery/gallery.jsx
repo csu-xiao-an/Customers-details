@@ -13,7 +13,9 @@ class Gallery extends React.Component {
       initialSlide: 0,
       activeIndex: 0,
       isAddMedia: false,
-      note: ''
+      file: {},
+      note: '',
+      imagePreviewUrl: ''
     }
     this.handleGallery = this.handleGallery.bind(this)
     this.submit = this.submit.bind(this)
@@ -30,7 +32,34 @@ class Gallery extends React.Component {
   submit () {
     this.setState({isAddMedia: !this.state.isAddMedia, note: ''})
   }
+  addFile (e) {
+    let file = e.target.files[0]
+    // console.log(file)
+    if (file.type.indexOf('image') !== -1) {
+      e.preventDefault()
+      let reader = new FileReader()
+      reader.onloadend = () => {
+        this.setState({
+          file: file,
+          imagePreviewUrl: reader.result
+        })
+      }
+      reader.readAsDataURL(file)
+    } else if (file.type.indexOf('audio') !== -1) {
+      this.setState({imagePreviewUrl: client.urls.media + 'audio_file.png'})
+    } else if (file.type.indexOf('pdf') !== -1) {
+      this.setState({imagePreviewUrl: client.urls.media + 'pdf_file.png'})
+    } else if (file.type.indexOf('video') !== -1) {
+      this.setState({imagePreviewUrl: client.urls.media + 'video_file.png'})
+    }
+  }
   render () {
+    let $imagePreview = null
+    if (this.state.imagePreviewUrl) {
+      $imagePreview = (<img src={this.state.imagePreviewUrl} />)
+    } else {
+      $imagePreview = (<div className='previewText'>Please select file for Preview</div>)
+    }
     return (
       <div id='gallery'>
         <Modal show={this.state.isOpenGallery}>
@@ -66,11 +95,20 @@ class Gallery extends React.Component {
         <div id='swiper-wrap-gallery'>
           <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable>
             {client.data.gallery.map((el, key) => {
-              return (
-                <div key={key}>
-                  <img src={client.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
-                  <h1>{el.name}</h1>
-                </div>)
+              if (el.name.indexOf('png') !== -1) {
+                return (
+                  <div key={key}>
+                    <img src={client.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <h1>{el.name}</h1>
+                  </div>)
+              } else if (el.name.indexOf('mp3') !== -1) {
+                return (
+                  <div key={key}>
+                    <img src={client.urls.media + 'audio_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <h1>{el.name}</h1>
+                  </div>
+                )
+              }
             })}
           </Swiper>
         </div>
@@ -81,7 +119,8 @@ class Gallery extends React.Component {
         </div>
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <div className='add-input-wrap'>
-            <input className='file-input' type='file' />
+            <input className='file-input' type='file' onChange={e => { this.addFile(e) }} />
+            <div className='previw-wrap'>{$imagePreview}</div>
             <input className='note-input' type='text-area' onChange={event => { this.setState({note: event.target.value}) }} value={this.state.note} />
           </div>
           <button onClick={this.submit}>{client.translations.save}</button>
