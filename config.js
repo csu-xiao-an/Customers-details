@@ -86,6 +86,11 @@ var _config = {
     ],
     gallery: [
       {
+        name: 'document.pdf',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 00:00'
+      },
+      {
         name: '01.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 00:00'
@@ -123,6 +128,11 @@ var _config = {
       {
         name: '08.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 07:00'
+      },
+      {
+        name: 'video.mp4',
+        note: 'Lorem tur adipisicing elit',
         date: '2017-08-09 07:00'
       },
       {

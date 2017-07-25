@@ -70,10 +70,32 @@ class Gallery extends React.Component {
             <Swiper slidesPerView='auto' initialSlide={this.state.initialSlide} nextButton='.swiper-button-next' prevButton='.swiper-button-prev'
               onSetTranslate={swiper => { this.activeIndex(swiper) }}>
               {client.data.gallery.map((el, key) => {
-                return (
-                  <div key={key} id='gallery-swiper-wrap'>
-                    <img src={client.urls.gallery + el.name} className='gallery-single-item' />
-                  </div>)
+                if (el.name.indexOf('png') !== -1) {
+                  return (
+                    <div key={key} id='gallery-swiper-wrap'>
+                      <img src={client.urls.gallery + el.name} />
+                    </div>
+                  )
+                } else if (el.name.indexOf('mp3') !== -1) {
+                  return (
+                    <div key={key} id='gallery-swiper-wrap'>
+                      <img src={client.urls.media + 'audio_file.png'} />
+                      <audio src={client.urls.gallery + el.name} controls />
+                    </div>
+                  )
+                } else if (el.name.indexOf('mp4') !== -1) {
+                  return (
+                    <div key={key} id='gallery-swiper-wrap'>
+                      <video src={client.urls.gallery + el.name} controls />
+                    </div>
+                  )
+                } else if (el.name.indexOf('pdf') !== -1) {
+                  return (
+                    <div key={key} id='gallery-swiper-wrap'>
+                      <embed data={client.urls.gallery + el.name} type='application/pdf' />
+                    </div>
+                  )
+                }
               })}
             </Swiper>
           </Modal.Body>
@@ -100,11 +122,27 @@ class Gallery extends React.Component {
                   <div key={key}>
                     <img src={client.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
                     <h1>{el.name}</h1>
-                  </div>)
+                  </div>
+                )
               } else if (el.name.indexOf('mp3') !== -1) {
                 return (
                   <div key={key}>
                     <img src={client.urls.media + 'audio_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <h1>{el.name}</h1>
+                  </div>
+                )
+              } else if (el.name.indexOf('mp4') !== -1) {
+                return (
+                  <div key={key}>
+                    <img src={client.urls.media + 'video_play.png'} className='video_play' />
+                    <video src={client.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <h1>{el.name}</h1>
+                  </div>
+                )
+              } else if (el.name.indexOf('pdf') !== -1) {
+                return (
+                  <div key={key}>
+                    <img src={client.urls.media + 'pdf_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
                     <h1>{el.name}</h1>
                   </div>
                 )
