@@ -96,6 +96,11 @@ var _config = {
         date: '2017-08-09 00:00'
       },
       {
+        name: 'witcher.pdf',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 00:00'
+      },
+      {
         name: '02.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 01:00'

@@ -1,5 +1,5 @@
+import GalleryModal from '../gallery-modal/gallery-modal.jsx'
 import Swiper from 'react-id-swiper'
-import Modal from 'react-bootstrap-modal'
 import React from 'react'
 import './gallery.styl'
 
@@ -26,9 +26,6 @@ class Gallery extends React.Component {
   initialSlide (key) {
     this.setState({initialSlide: key})
   }
-  activeIndex (swiper) {
-    this.setState({activeIndex: swiper.activeIndex})
-  }
   submit () {
     this.setState({isAddMedia: !this.state.isAddMedia, note: ''})
   }
@@ -53,6 +50,13 @@ class Gallery extends React.Component {
       this.setState({imagePreviewUrl: client.urls.media + 'video_file.png'})
     }
   }
+
+  onDocumentLoad ({ total }) {
+    console.log(total)
+  }
+  onPageLoad ({ pageIndex, pageNumber }) {
+    console.log(pageIndex, pageNumber)
+  }
   render () {
     let $imagePreview = null
     if (this.state.imagePreviewUrl) {
@@ -62,7 +66,8 @@ class Gallery extends React.Component {
     }
     return (
       <div id='gallery'>
-        <Modal show={this.state.isOpenGallery}>
+        <GalleryModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />
+        {/* <Modal show={this.state.isOpenGallery}>
           <Modal.Header>
             <img onClick={this.handleGallery} className='close-button' src='./dist/media/add.svg' />
           </Modal.Header>
@@ -92,7 +97,13 @@ class Gallery extends React.Component {
                 } else if (el.name.indexOf('pdf') !== -1) {
                   return (
                     <div key={key} id='gallery-swiper-wrap'>
-                      <embed data={client.urls.gallery + el.name} type='application/pdf' />
+                      <ReactPDF
+                        file={client.urls.gallery + el.name}
+                        pageIndex={0}
+                        onDocumentLoad={this.onDocumentLoad}
+                        onPageLoad={this.onPageLoad}
+                      />
+                      <p>Page {this.state.pageNumber} of {this.state.total}</p>
                     </div>
                   )
                 }
@@ -109,7 +120,7 @@ class Gallery extends React.Component {
               <img src={client.urls.media + 'trash.png'} />
             </div>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
         <div className='label-wrap'>
           <h1>{client.data.gallery.length} {client.translations.item_count}</h1>
           <div className='gallery-label'>{client.translations.gallery}</div>
