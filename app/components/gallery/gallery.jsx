@@ -1,4 +1,5 @@
 import GalleryModal from '../gallery-modal/gallery-modal.jsx'
+import { updateService } from 'project-services'
 import Swiper from 'react-id-swiper'
 import React from 'react'
 import './gallery.styl'
@@ -14,7 +15,7 @@ class Gallery extends React.Component {
       activeIndex: 0,
       isAddMedia: false,
       file: {},
-      note: '',
+      desc: '',
       imagePreviewUrl: ''
     }
     this.handleGallery = this.handleGallery.bind(this)
@@ -26,12 +27,20 @@ class Gallery extends React.Component {
   initialSlide (key) {
     this.setState({initialSlide: key})
   }
-  submit () {
-    this.setState({isAddMedia: !this.state.isAddMedia, note: ''})
+  async submit () {
+    this.setState({isAddMedia: !this.state.isAddMedia})
+    const url = client.urls.main + client.data.id + '/media'
+    const method = 'POST'
+    const body = {
+      file: this.state.file,
+      description: this.state.desc
+    }
+    await updateService(url, method, body)
+    this.setState({desc: '', file: {}})
   }
   addFile (e) {
     let file = e.target.files[0]
-    // console.log(file)
+    this.setState({file: file})
     if (file.type.indexOf('image') !== -1) {
       e.preventDefault()
       let reader = new FileReader()
@@ -67,60 +76,6 @@ class Gallery extends React.Component {
     return (
       <div id='gallery'>
         <GalleryModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />
-        {/* <Modal show={this.state.isOpenGallery}>
-          <Modal.Header>
-            <img onClick={this.handleGallery} className='close-button' src='./dist/media/add.svg' />
-          </Modal.Header>
-          <Modal.Body>
-            <Swiper slidesPerView='auto' initialSlide={this.state.initialSlide} nextButton='.swiper-button-next' prevButton='.swiper-button-prev'
-              onSetTranslate={swiper => { this.activeIndex(swiper) }}>
-              {client.data.gallery.map((el, key) => {
-                if (el.name.indexOf('png') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <img src={client.urls.gallery + el.name} />
-                    </div>
-                  )
-                } else if (el.name.indexOf('mp3') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <img src={client.urls.media + 'audio_file.png'} />
-                      <audio src={client.urls.gallery + el.name} controls />
-                    </div>
-                  )
-                } else if (el.name.indexOf('mp4') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <video src={client.urls.gallery + el.name} controls />
-                    </div>
-                  )
-                } else if (el.name.indexOf('pdf') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <ReactPDF
-                        file={client.urls.gallery + el.name}
-                        pageIndex={0}
-                        onDocumentLoad={this.onDocumentLoad}
-                        onPageLoad={this.onPageLoad}
-                      />
-                      <p>Page {this.state.pageNumber} of {this.state.total}</p>
-                    </div>
-                  )
-                }
-              })}
-            </Swiper>
-          </Modal.Body>
-          <Modal.Footer>
-            <div className='data'>
-              <h1>{client.data.gallery[this.state.activeIndex].date}</h1>
-              <h1>{client.data.gallery[this.state.activeIndex].note}</h1>
-            </div>
-            <div className='icons'>
-              <img src={client.urls.media + 'edit.png'} />
-              <img src={client.urls.media + 'trash.png'} />
-            </div>
-          </Modal.Footer>
-        </Modal> */}
         <div className='label-wrap'>
           <h1>{client.data.gallery.length} {client.translations.item_count}</h1>
           <div className='gallery-label'>{client.translations.gallery}</div>
@@ -170,7 +125,7 @@ class Gallery extends React.Component {
           <div className='add-input-wrap'>
             <input className='file-input' type='file' onChange={e => { this.addFile(e) }} />
             <div className='previw-wrap'>{$imagePreview}</div>
-            <input className='note-input' type='text-area' onChange={event => { this.setState({note: event.target.value}) }} value={this.state.note} />
+            <input className='note-input' type='text-area' onChange={event => { this.setState({desc: event.target.value}) }} value={this.state.desc} />
           </div>
           <button onClick={this.submit}>{client.translations.save}</button>
         </div>

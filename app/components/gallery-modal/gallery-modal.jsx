@@ -1,12 +1,12 @@
+import React, { Component, PropTypes } from 'react'
 import Modal from 'react-bootstrap-modal'
 import Swiper from 'react-id-swiper'
-import PDF from 'react-pdf-js'
+import ReactPDF from 'react-pdf'
 import './gallery-modal.styl'
-import React from 'react'
 
 const client = window._config
 
-class GalleryModal extends React.Component {
+class GalleryModal extends Component {
   constructor () {
     super()
     this.state = {
@@ -19,22 +19,29 @@ class GalleryModal extends React.Component {
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
   }
+  static get propTypes () {
+    return {
+      initialSlide: PropTypes.number.isRequired,
+      isOpenGallery: PropTypes.bool.isRequired,
+      handleGallery: PropTypes.func.isRequired
+    }
+  }
   activeIndex (swiper) {
     this.setState({activeIndex: swiper.activeIndex})
   }
-  onDocumentComplete (pages, key) {
-    let pagestmp = this.state.pages
-    pagestmp[key] = pages
-    this.setState({ pages: pagestmp })
+  onDocumentComplete (countPage, key) {
+    let pages = this.state.pages
+    pages[key] = countPage.total
+    this.setState({ pages })
   }
-  onPageComplete (page, key) {
-    let pagetmp = this.state.page
-    pagetmp[key] = page
-    this.setState({ page: pagetmp })
+  onPageComplete (curPage, key) {
+    let page = this.state.page
+    page[key] = curPage.pageIndex
+    this.setState({ page })
   }
   handlePrevious (key) {
     let pagetmp = this.state.page
-    if (pagetmp[key] !== 1) {
+    if (pagetmp[key] !== 0) {
       pagetmp[key] = pagetmp[key] - 1
       this.setState({ page: pagetmp })
     }
@@ -78,12 +85,10 @@ class GalleryModal extends React.Component {
               } else if (el.name.indexOf('pdf') !== -1) {
                 return (
                   <div key={key} id='gallery-swiper-wrap'>
-                    <PDF file={client.urls.gallery + el.name}
-                      onDocumentComplete={e => { this.onDocumentComplete(e, key) }}
-                      onPageComplete={e => { this.onPageComplete(e, key) }}
-                      page={this.state.page[key]} />
+                    <ReactPDF file={client.urls.gallery + el.name} onDocumentLoad={e => { this.onDocumentComplete(e, key) }}
+                      onPageLoad={e => { this.onPageComplete(e, key) }} pageIndex={this.state.page[key]} />
                     <h1 onClick={() => { this.handlePrevious(key) }}>Prev</h1>
-                    <h1>Page {this.state.page[key]} of {this.state.pages[key]}</h1>
+                    <h1>Page {this.state.page[key] + 1} of {this.state.pages[key]}</h1>
                     <h1 onClick={() => { this.handleNext(key) }}>Next</h1>
                   </div>
                 )
@@ -105,4 +110,5 @@ class GalleryModal extends React.Component {
     )
   }
 }
+
 export default GalleryModal
