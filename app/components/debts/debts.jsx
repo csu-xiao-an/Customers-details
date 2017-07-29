@@ -1,6 +1,7 @@
 import { updateService } from 'project-services'
 import React, { Component } from 'react'
 import './debts.styl'
+import moment from 'moment'
 
 const client = window._config
 
@@ -8,12 +9,15 @@ class Debts extends Component {
   constructor () {
     super()
     this.state = {
-      debtEdit: false,
+      debtReplace: false,
       description: '',
+      debtEdit: false,
       total_debt: 0,
-      debt: '0'
+      debt: '0',
+      debt_id: 0
     }
     this.submit = this.submit.bind(this)
+    this.update = this.update.bind(this)
   }
   async submit () {
     const url = client.urls.main + client.data.id + '/dept'
@@ -23,14 +27,14 @@ class Debts extends Component {
     this.setState({debtEdit: !this.state.debtEdit, description: '', debt: '0'})
   }
   async update () {
-    const url = client.urls.main + client.data.id + '/dept'
+    const url = client.urls.main + client.data.id + '/dept/' + this.state.debt_id
     const method = 'PUT'
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
     await updateService(url, method, body)
-    this.setState({description: '', debt: '0'})
+    this.setState({debtReplace: !this.state.debtReplace, debtEdit: !this.state.debtEdit, description: '', debt: '0', debt_id: 0})
   }
-  async delete () {
-    const url = client.urls.main + client.data.id + '/dept'
+  async delete (id) {
+    const url = client.urls.main + client.data.id + '/dept/' + id
     const method = 'DELETE'
     await updateService(url, method)
   }
@@ -45,6 +49,25 @@ class Debts extends Component {
       return sum
     }
   }
+  viewDate (date) {
+    const months = {
+      1: 'January',
+      2: 'February',
+      3: 'March',
+      4: 'April',
+      5: 'May',
+      6: 'June',
+      7: 'July',
+      8: 'August',
+      9: 'September',
+      10: 'October',
+      11: 'November',
+      12: 'December'
+    }
+    return (moment(date).hours() + ':' + moment(date).format('mm') + ' | ' +
+      moment(date).date() + ' ' + months[moment(date).month()]
+    )
+  }
   render () {
     return (
       <div id='debt'>
@@ -53,16 +76,29 @@ class Debts extends Component {
         </div>
         {client.data.debts.map((el, key) => {
           return (
-            <div key={key} className='debt-list'>
-              <h1 className='debt-list-name'>{el.sum} {client.data.currency}</h1>
-              <h1 className='debt-list-desc'>{el.desc}</h1>
-              <p className='debt-list-date'>{el.date}</p>
+            <div key={key} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
+              <div className='debt-list-delete-wrap'>
+                <img className='debt-list-delete' src={client.urls.media + 'add.svg'} onClick={() => { this.delete(el.id) }} />
+              </div>
+              <div className='debt-list-data-wrap' onClick={() => {
+                this.setState({
+                  debtReplace: !this.state.debtReplace,
+                  debtEdit: !this.state.debtEdit,
+                  description: el.desc,
+                  debt: el.sum,
+                  debt_id: el.id
+                })
+              }}>
+                <h1 className='debt-list-name'>{el.sum} {client.data.currency}</h1>
+                <h1 className='debt-list-desc'>{el.desc}</h1>
+                <p className='debt-list-date'>{this.viewDate(el.date)}</p>
+              </div>
             </div>
           )
         })}
         <div onClick={() => { this.setState({debtEdit: !this.state.debtEdit}) }}
           className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
-          <img src='./dist/media/add.svg' />
+          <img src={client.urls.media + 'add.svg'} />
           <h1>{client.translations.add_debt}</h1>
         </div>
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
@@ -70,14 +106,14 @@ class Debts extends Component {
             <div className='debt-label'>{client.translations.debt}: <span className='count-debt'>{this.state.total_debt}</span></div>
           </div>
           <div className='edit'>
-            <div className='description'>
+            <div className='description'>.
               <input className='description-input' type='text' value={this.state.description}
                 onChange={event => { this.setState({description: event.target.value}) }}
               />
               <h1 className='description-label'>{client.translations.description_debt}</h1>
             </div>
             <div className='count'>
-              <button onClick={this.submit}>{client.translations.save}</button>
+              <button onClick={this.state.debtReplace ? this.update : this.submit}>{client.translations.save}</button>
               <div className='ink' onClick={() => this.setState({debt: parseInt(this.state.debt) + client.data.debt_step})}>
                 <span>+</span>
               </div>

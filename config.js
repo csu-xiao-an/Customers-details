@@ -77,7 +77,7 @@ var _config = {
         id: 123123,
         sum: 20,
         desc: 'did not pay for a month',
-        date: '13:51 | 7 July'
+        date: '2017-07-07 13:01'
       }
     ],
     notes: [
