@@ -21,7 +21,7 @@ var _config = {
     item_count: 'Items',
     gallery: 'Gallery',
     add_media: 'Add media',
-    source_arrival: 'Source of arrival',
+    source_arrival: 'Traffic source',
     social_net: 'Add another social network',
     add_link: 'Add link',
     group_partner: 'Group partner',
@@ -49,6 +49,13 @@ var _config = {
         'Tommorow': 'Tommorow ',
         'Today': 'Today '
       }
+    },
+    source_list: {
+      ads: 'ads',
+      fb_page: 'fb_page',
+      family: 'family',
+      friends: 'friends',
+      recommendation: 'recommendation'
     }
   },
   urls: {
@@ -70,6 +77,7 @@ var _config = {
     phone: '0545421321',
     vip: true,
     status: 'Status',
+    source: 'ads',
     currency: '₪',
     debt_step: 10,
     debts: [

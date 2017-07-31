@@ -38,6 +38,15 @@ class Debts extends Component {
     const method = 'DELETE'
     await updateService(url, method)
   }
+  replace (el) {
+    this.setState({
+      debtReplace: !this.state.debtReplace,
+      debtEdit: !this.state.debtEdit,
+      description: el.desc,
+      debt: el.sum,
+      debt_id: el.id
+    })
+  }
   price () {
     let sum = 0
     client.data.debts.forEach(el => {
@@ -74,28 +83,19 @@ class Debts extends Component {
         <div className={client.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
           <div className='debt-label'>{client.translations.debt}: <span className='count-debt'>{this.price()}</span></div>
         </div>
-        {client.data.debts.map((el, key) => {
-          return (
-            <div key={key} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
-              <div className='debt-list-delete-wrap'>
-                <img className='debt-list-delete' src={client.urls.media + 'add.svg'} onClick={() => { this.delete(el.id) }} />
-              </div>
-              <div className='debt-list-data-wrap' onClick={() => {
-                this.setState({
-                  debtReplace: !this.state.debtReplace,
-                  debtEdit: !this.state.debtEdit,
-                  description: el.desc,
-                  debt: el.sum,
-                  debt_id: el.id
-                })
-              }}>
-                <h1 className='debt-list-name'>{el.sum} {client.data.currency}</h1>
-                <h1 className='debt-list-desc'>{el.desc}</h1>
-                <p className='debt-list-date'>{this.viewDate(el.date)}</p>
-              </div>
+        {client.data.debts.map((el, key) => (
+          <div key={key} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
+            <div className='debt-list-delete-wrap'>
+              <img className='debt-list-delete' src={client.urls.media + 'add.svg'} onClick={() => { this.delete(el.id) }} />
             </div>
+            <div className='debt-list-data-wrap' onClick={() => { this.replace(el) }}>
+              <h1 className='debt-list-name'>{el.sum} {client.data.currency}</h1>
+              <h1 className='debt-list-desc'>{el.desc}</h1>
+              <p className='debt-list-date'>{this.viewDate(el.date)}</p>
+            </div>
+          </div>
           )
-        })}
+        )}
         <div onClick={() => { this.setState({debtEdit: !this.state.debtEdit}) }}
           className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
           <img src={client.urls.media + 'add.svg'} />

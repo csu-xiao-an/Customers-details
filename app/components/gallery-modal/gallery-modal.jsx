@@ -90,6 +90,7 @@ class GalleryModal extends Component {
                     <h1 onClick={() => { this.handlePrevious(key) }}>Prev</h1>
                     <h1>Page {this.state.page[key] + 1} of {this.state.pages[key]}</h1>
                     <h1 onClick={() => { this.handleNext(key) }}>Next</h1>
+                    {/* <iframe src={'http://docs.google.com/gview?url=http://www.axmag.com/download/pdfurl-guide.pdf&embedded=true'} /> */}
                   </div>
                 )
               }
