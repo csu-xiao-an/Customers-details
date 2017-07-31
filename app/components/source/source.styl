@@ -11,31 +11,44 @@
       margin 40px 20px 0 20px
       color #6b6b6b
   .add-select-wrap
-    h1
-      margin 10px 30px 0 0
-      color #6b6b6b
-      width 100%
-      text-align right
-    .button-wrap
-      width 40%
-      height 100px
-      display inline-block
-      border 1px solid black
-      button
-        height 60px
-        border-radius 30px
-        border 2px solid #6b6b6b
-        background-color white
-        width 120px
-        font-size 32px
-    .select-wrap
-      width 60%
-      height 100px
-      display inline-block
-      border 1px solid black
-      select
-        height 60px
-        width 150px
-        font-size 36px
+   h1
+     margin 10px 0 0 -30px
+     color #6b6b6b
+     width 100%
+     text-align right
+   .button-wrap
+     width 40%
+     height 100px
+     display inline-block
+     button
+       height 60px
+       border-radius 30px
+       border 2px solid #6b6b6b
+       background-color white
+       width 120px
+       font-size 32px
+       margin-left 30px
+       &:focus
+         outline none
+   .delete-wrap
+     width 12%
+     height 100px
+     display inline-block
+     padding-left 30px
+     .delete
+       position relative
+       transform rotate(45deg)
+       width 60px
+       top 17px
+   .select-wrap
+     width 48%
+     height 100px
+     display inline-block
+     .select
+      height 60px
+      width 200px
+      font-size 36px
+      .option
+        width 200px
   .hidden
     display none

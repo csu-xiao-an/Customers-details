@@ -26,14 +26,17 @@ class Source extends Component {
           <div className='button-wrap'>
             <button>{client.translations.save}</button>
           </div>
+          <div className='delete-wrap'>
+            <img className='delete' src={client.urls.media + 'add.svg'} onClick={() => { }} />
+          </div>
           <div className='select-wrap'>
-            <select>
-              <option disabled >{client.data.source}</option>
-              <option value={client.translations.source_list.ads} >{client.translations.source_list.ads}</option>
-              <option value={client.translations.source_list.fb_page} >{client.translations.source_list.fb_page}</option>
-              <option value={client.translations.source_list.family} >{client.translations.source_list.family}</option>
-              <option value={client.translations.source_list.friends} >{client.translations.source_list.friends}</option>
-              <option value={client.translations.source_list.recommendation} >{client.translations.source_list.recommendation}</option>
+            <select className='select'>
+              <option disabled className='option'>{client.data.source}</option>
+              <option value={client.translations.source_list.ads}><span>{client.translations.source_list.ads}</span></option>
+              <option value={client.translations.source_list.fb_page}>{client.translations.source_list.fb_page}</option>
+              <option value={client.translations.source_list.family}>{client.translations.source_list.family}</option>
+              <option value={client.translations.source_list.friends}>{client.translations.source_list.friends}</option>
+              <option value={client.translations.source_list.recommendation}>{client.translations.source_list.recommendation}</option>
             </select>
           </div>
         </div>
