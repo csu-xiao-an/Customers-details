@@ -94,116 +94,139 @@ var _config = {
     ],
     gallery: [
       {
+        id: 123123,
         name: 'document.pdf',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 00:00'
       },
       {
+        id: 123123,
         name: '01.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 00:00'
       },
       {
+        id: 123123,
         name: 'witcher.pdf',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 00:00'
       },
       {
+        id: 123123,
         name: '02.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 01:00'
       },
       {
+        id: 123123,
         name: '03.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 02:00'
       },
       {
+        id: 123123,
         name: '04.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 03:00'
       },
       {
+        id: 123123,
         name: '05.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 04:00'
       },
       {
+        id: 123123,
         name: '06.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 05:00'
       },
       {
+        id: 123123,
         name: '07.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 06:00'
       },
       {
+        id: 123123,
         name: '08.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 07:00'
       },
       {
+        id: 123123,
         name: 'video.mp4',
         note: 'Lorem tur adipisicing elit',
         date: '2017-08-09 07:00'
       },
       {
+        id: 123123,
         name: '09.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 08:00'
       },
       {
+        id: 123123,
         name: '10.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 09:00'
       },
       {
+        id: 123123,
         name: '11.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 10:00'
       },
       {
+        id: 123123,
         name: '12.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 11:00'
       },
       {
+        id: 123123,
         name: '13.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 12:00'
       },
       {
+        id: 123123,
         name: '14.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 13:00'
       },
       {
+        id: 123123,
         name: '15.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 14:00'
       },
       {
+        id: 123123,
         name: '16.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 15:00'
       },
       {
+        id: 123123,
         name: '17.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 16:00'
       },
       {
+        id: 123123,
         name: '18.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 17:00'
       },
       {
+        id: 123123,
         name: '19.mp3',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 17:00'
       },
       {
+        id: 123123,
         name: '20.mp3',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 17:00'

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { updateService } from 'project-services'
 import Modal from 'react-bootstrap-modal'
 import Swiper from 'react-id-swiper'
 import ReactPDF from 'react-pdf'
@@ -53,6 +54,20 @@ class GalleryModal extends Component {
       this.setState({ page: pagetmp })
     }
   }
+  async replace (id) {
+    const url = client.urls.main + client.data.id + '/media/' + id
+    const method = 'POST'
+    const body = {
+      file: this.state.file,
+      description: this.state.desc
+    }
+    await updateService(url, method, body)
+  }
+  async delete (id) {
+    const url = client.urls.main + client.data.id + '/media/' + id
+    const method = 'DELETE'
+    await updateService(url, method)
+  }
   render () {
     return (
       <Modal show={this.props.isOpenGallery}>
@@ -103,8 +118,8 @@ class GalleryModal extends Component {
             <h1>{client.data.gallery[this.state.activeIndex].note}</h1>
           </div>
           <div className='icons'>
-            <img src={client.urls.media + 'edit.png'} />
-            <img src={client.urls.media + 'trash.png'} />
+            <img src={client.urls.media + 'edit.png'} onClick={() => { this.replace(client.data.gallery[this.state.activeIndex].id) }} />
+            <img src={client.urls.media + 'trash.png'} onClick={() => { this.delete(client.data.gallery[this.state.activeIndex].id) }} />
           </div>
         </Modal.Footer>
       </Modal>

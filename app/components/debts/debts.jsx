@@ -24,6 +24,12 @@ class Debts extends Component {
     const method = 'POST'
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
     await updateService(url, method, body)
+    client.data.debts.push({
+      id: 123123,
+      sum: this.state.debt,
+      desc: this.state.description,
+      date: '2017-07-07 13:01'
+    })
     this.setState({debtEdit: !this.state.debtEdit, description: '', debt: '0'})
   }
   async update () {
