@@ -1,2 +1,5 @@
+export { replaceService as mediaReplaceService } from './media.service.js'
+export { deleteService as mediaDeleteService } from './media.service.js'
+export { postService as mediaPostService } from './media.service.js'
 export { default as clientUpdateService } from './client.service.js'
 export { default as debtUpdateService } from './debt.service.js'

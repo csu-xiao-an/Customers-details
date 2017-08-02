@@ -1,12 +1,12 @@
-import GalleryModal from '../gallery-modal/gallery-modal.jsx'
-// import { updateService } from 'project-services'
+import MediaModal from '../media-modal/media-modal.jsx'
+import { mediaPostService } from 'project-services'
 import Swiper from 'react-id-swiper'
 import React from 'react'
-import './gallery.styl'
+import './media.styl'
 
 const client = window._config
 
-class Gallery extends React.Component {
+class Media extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -28,15 +28,12 @@ class Gallery extends React.Component {
     this.setState({initialSlide: key})
   }
   async submit () {
-    // this.setState({isAddMedia: !this.state.isAddMedia})
-    // const url = client.urls.main + client.data.id + '/media'
-    // const method = 'POST'
-    // const body = {
-    //   file: this.state.file,
-    //   description: this.state.desc
-    // }
-    // await updateService(url, method, body)
-    // this.setState({desc: '', file: {}})
+    this.setState({isAddMedia: !this.state.isAddMedia})
+    let body = new FormData()
+    body.append('file', this.state.file)
+    body.append('description', 'this.state.desc')
+    await mediaPostService(body)
+    this.setState({desc: '', file: {}})
   }
   addFile (e) {
     let file = e.target.files[0]
@@ -75,7 +72,7 @@ class Gallery extends React.Component {
     }
     return (
       <div id='gallery'>
-        <GalleryModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />
+        <MediaModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />
         <div className='label-wrap'>
           <h1>{client.data.gallery.length} {client.translations.item_count}</h1>
           <div className='gallery-label'>{client.translations.gallery}</div>
@@ -125,7 +122,7 @@ class Gallery extends React.Component {
           <div className='add-input-wrap'>
             <input className='file-input' type='file' onChange={e => { this.addFile(e) }} />
             <div className='previw-wrap'>{$imagePreview}</div>
-            <input className='note-input' type='text-area' onChange={event => { this.setState({desc: event.target.value}) }} value={this.state.desc} />
+            <textarea className='note-input' type='text-area' onChange={event => { this.setState({desc: event.target.value}) }} value={this.state.desc} />
           </div>
           <button onClick={this.submit}>{client.translations.save}</button>
         </div>
@@ -133,4 +130,4 @@ class Gallery extends React.Component {
     )
   }
 }
-export default Gallery
+export default Media

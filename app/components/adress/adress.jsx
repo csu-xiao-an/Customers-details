@@ -28,7 +28,7 @@ class Adress extends React.Component {
         <div className={client.data.adress ? 'adress' : 'hidden'}>
           <div className='google-map'>
             <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}>
-              <img src={'http://customers-details-api.bewebmaster.co.il/clients/' + client.data.id + '/map'} />
+              <img src={client.urls.main + '/customers-details/clients/' + client.data.id + '/map'} />
             </a>
           </div>
           <div className='adress-label'>{client.translations.adress}</div>

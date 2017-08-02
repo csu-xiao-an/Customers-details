@@ -1,13 +1,13 @@
+import { mediaReplaceService, mediaDeleteService } from 'project-services'
 import React, { Component, PropTypes } from 'react'
-// import { updateService } from 'project-services'
 import Modal from 'react-bootstrap-modal'
 import Swiper from 'react-id-swiper'
 import ReactPDF from 'react-pdf'
-import './gallery-modal.styl'
+import './media-modal.styl'
 
 const client = window._config
 
-class GalleryModal extends Component {
+class MediaModal extends Component {
   constructor () {
     super()
     this.state = {
@@ -55,18 +55,14 @@ class GalleryModal extends Component {
     }
   }
   async replace (id) {
-    // const url = client.urls.main + client.data.id + '/media/' + id
-    // const method = 'POST'
-    // const body = {
-    //   file: this.state.file,
-    //   description: this.state.desc
-    // }
-    // await updateService(url, method, body)
+    const body = {
+      file: this.state.file,
+      description: this.state.desc
+    }
+    await mediaReplaceService(body, id)
   }
   async delete (id) {
-    // const url = client.urls.main + client.data.id + '/media/' + id
-    // const method = 'DELETE'
-    // await updateService(url, method)
+    await mediaDeleteService(id)
   }
   render () {
     return (
@@ -127,4 +123,4 @@ class GalleryModal extends Component {
   }
 }
 
-export default GalleryModal
+export default MediaModal

@@ -1,7 +1,7 @@
 import Signature from '../signature/signature.jsx'
 import Comment from '../comment/comment.jsx'
 import Details from '../details/details.jsx'
-import Gallery from '../gallery/gallery.jsx'
+import Media from '../media/media.jsx'
 import Events from '../events/events.jsx'
 import Topnav from '../topnav/topnav.jsx'
 import Source from '../source/source.jsx'
@@ -32,7 +32,7 @@ class Home extends Component {
         <Line />
         <Comment />
         <Line />
-        <Gallery />
+        <Media />
         <Line />
         <Source />
         <Add />
