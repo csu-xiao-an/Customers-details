@@ -1,5 +1,5 @@
 import GalleryModal from '../gallery-modal/gallery-modal.jsx'
-import { updateService } from 'project-services'
+// import { updateService } from 'project-services'
 import Swiper from 'react-id-swiper'
 import React from 'react'
 import './gallery.styl'
@@ -28,15 +28,15 @@ class Gallery extends React.Component {
     this.setState({initialSlide: key})
   }
   async submit () {
-    this.setState({isAddMedia: !this.state.isAddMedia})
-    const url = client.urls.main + client.data.id + '/media'
-    const method = 'POST'
-    const body = {
-      file: this.state.file,
-      description: this.state.desc
-    }
-    await updateService(url, method, body)
-    this.setState({desc: '', file: {}})
+    // this.setState({isAddMedia: !this.state.isAddMedia})
+    // const url = client.urls.main + client.data.id + '/media'
+    // const method = 'POST'
+    // const body = {
+    //   file: this.state.file,
+    //   description: this.state.desc
+    // }
+    // await updateService(url, method, body)
+    // this.setState({desc: '', file: {}})
   }
   addFile (e) {
     let file = e.target.files[0]

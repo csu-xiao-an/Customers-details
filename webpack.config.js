@@ -23,7 +23,7 @@ module.exports = env => {
     devtool = false
   }
   return ({
-    entry: './app/main.js',
+    entry: ['babel-polyfill', './app/main.js'],
     output: {
       filename: outputJS
     },

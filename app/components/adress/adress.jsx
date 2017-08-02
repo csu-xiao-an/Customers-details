@@ -1,4 +1,4 @@
-import { updateService } from 'project-services'
+import { clientUpdateService } from 'project-services'
 import React from 'react'
 import './adress.styl'
 
@@ -14,10 +14,9 @@ class Adress extends React.Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const url = client.urls.main + client.data.id
     const method = 'PATCH'
     const body = `address=${this.state.adress}`
-    await updateService(url, method, body)
+    await clientUpdateService(method, body)
     this.setState({
       adressEdit: !this.state.adressEdit,
       adress: ''
@@ -29,7 +28,7 @@ class Adress extends React.Component {
         <div className={client.data.adress ? 'adress' : 'hidden'}>
           <div className='google-map'>
             <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}>
-              <img src={client.urls.main + client.data.id + '/map'} />
+              <img src={'http://customers-details-api.bewebmaster.co.il/clients/' + client.data.id + '/map'} />
             </a>
           </div>
           <div className='adress-label'>{client.translations.adress}</div>

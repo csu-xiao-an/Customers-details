@@ -1,4 +1,4 @@
-import { updateService } from 'project-services'
+import { clientUpdateService } from 'project-services'
 import Birthday from '../birthday/birthday.jsx'
 import React from 'react'
 import './hero.styl'
@@ -18,10 +18,9 @@ class Hero extends React.Component {
     this.handleStar = this.handleStar.bind(this)
   }
   async handleStar () {
-    const url = client.urls.main + client.data.id
     const method = 'PATCH'
     const body = `vip=${!client.data.vip}`
-    const response = await updateService(url, method, body)
+    const response = await clientUpdateService(method, body)
     if (response.status === 204) {
       this.setState({vip: !this.state.vip})
     }
@@ -32,10 +31,9 @@ class Hero extends React.Component {
       this.autofocus.focus()
     } else {
       this.setState({isInputDisabled: false})
-      const url = client.urls.main + client.data.id
       const method = 'PATCH'
       const body = `status=${this.state.status}`
-      await updateService(url, method, body)
+      await clientUpdateService(method, body)
     }
   }
   render () {

@@ -1,4 +1,4 @@
-import { updateService } from 'project-services'
+import { clientUpdateService } from 'project-services'
 import React from 'react'
 import './email.styl'
 
@@ -14,10 +14,9 @@ class Email extends React.Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const url = client.urls.main + client.data.id
     const method = 'PATCH'
     const body = `email=${this.state.email}`
-    await updateService(url, method, body)
+    await clientUpdateService(method, body)
     this.setState({
       emailEdit: !this.state.emailEdit,
       email: ''

@@ -59,7 +59,7 @@ var _config = {
     }
   },
   urls: {
-    main: 'http://customers-details-api.bewebmaster.co.il/clients/',
+    main: 'http://api.bewebmaster.co.il',
     gallery: './dist/media/galery/',
     groups: './dist/media/groups/',
     appointments: '/appointments',

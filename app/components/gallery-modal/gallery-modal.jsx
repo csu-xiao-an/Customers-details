@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { updateService } from 'project-services'
+// import { updateService } from 'project-services'
 import Modal from 'react-bootstrap-modal'
 import Swiper from 'react-id-swiper'
 import ReactPDF from 'react-pdf'
@@ -55,18 +55,18 @@ class GalleryModal extends Component {
     }
   }
   async replace (id) {
-    const url = client.urls.main + client.data.id + '/media/' + id
-    const method = 'POST'
-    const body = {
-      file: this.state.file,
-      description: this.state.desc
-    }
-    await updateService(url, method, body)
+    // const url = client.urls.main + client.data.id + '/media/' + id
+    // const method = 'POST'
+    // const body = {
+    //   file: this.state.file,
+    //   description: this.state.desc
+    // }
+    // await updateService(url, method, body)
   }
   async delete (id) {
-    const url = client.urls.main + client.data.id + '/media/' + id
-    const method = 'DELETE'
-    await updateService(url, method)
+    // const url = client.urls.main + client.data.id + '/media/' + id
+    // const method = 'DELETE'
+    // await updateService(url, method)
   }
   render () {
     return (

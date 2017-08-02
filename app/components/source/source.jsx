@@ -1,4 +1,4 @@
-import { updateService } from 'project-services'
+import { clientUpdateService } from 'project-services'
 import 'react-select/dist/react-select.css'
 import React, { Component } from 'react'
 import Select from 'react-select'
@@ -24,10 +24,9 @@ class Source extends Component {
     val ? this.setState({selectedValue: val.value}) : this.setState({selectedValue: ''})
   }
   async submit () {
-    const url = client.urls.main + client.data.id
     const method = 'PATCH'
     const body = `source=${this.state.selectedValue}`
-    await updateService(url, method, body)
+    await clientUpdateService(method, body)
   }
   render () {
     const list = client.translations.source_list

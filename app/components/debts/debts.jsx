@@ -1,4 +1,4 @@
-import { updateService } from 'project-services'
+import { debtUpdateService } from 'project-services'
 import React, { Component } from 'react'
 import './debts.styl'
 import moment from 'moment'
@@ -20,10 +20,9 @@ class Debts extends Component {
     this.update = this.update.bind(this)
   }
   async submit () {
-    const url = client.urls.main + client.data.id + '/dept'
     const method = 'POST'
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
-    await updateService(url, method, body)
+    await debtUpdateService(method, body)
     client.data.debts.push({
       id: 123123,
       sum: this.state.debt,
@@ -36,13 +35,13 @@ class Debts extends Component {
     const url = client.urls.main + client.data.id + '/dept/' + this.state.debt_id
     const method = 'PUT'
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
-    await updateService(url, method, body)
+    await debtUpdateService(url, method, body)
     this.setState({debtReplace: !this.state.debtReplace, debtEdit: !this.state.debtEdit, description: '', debt: '0', debt_id: 0})
   }
   async delete (id) {
     const url = client.urls.main + client.data.id + '/dept/' + id
     const method = 'DELETE'
-    await updateService(url, method)
+    await debtUpdateService(url, method)
   }
   replace (el) {
     this.setState({
