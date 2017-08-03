@@ -11,6 +11,8 @@ class MediaModal extends Component {
   constructor () {
     super()
     this.state = {
+      isEditNote: false,
+      textareaValue: '',
       activeIndex: 0,
       pages: [],
       page: []
@@ -19,6 +21,7 @@ class MediaModal extends Component {
     this.onPageComplete = this.onPageComplete.bind(this)
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
+    this.activeEdit = this.activeEdit.bind(this)
   }
   static get propTypes () {
     return {
@@ -56,13 +59,24 @@ class MediaModal extends Component {
   }
   async replace (id) {
     const body = {
-      file: this.state.file,
-      description: this.state.desc
+      description: this.state.textareaValue
     }
     await mediaReplaceService(body, id)
+    this.setState({
+      isEditNote: false,
+      textareaValue: ''
+    })
   }
   async delete (id) {
     await mediaDeleteService(id)
+  }
+  activeEdit () {
+    if (!this.state.isEditNote) {
+      this.setState({
+        isEditNote: !this.state.isEditNote,
+        textareaValue: client.data.gallery[this.state.activeIndex].note
+      })
+    }
   }
   render () {
     return (
@@ -71,7 +85,9 @@ class MediaModal extends Component {
           <img onClick={this.props.handleGallery} className='close-button' src='./dist/media/add.svg' />
         </Modal.Header>
         <Modal.Body>
-          <Swiper slidesPerView='auto' initialSlide={this.props.initialSlide} nextButton='.swiper-button-next' prevButton='.swiper-button-prev'
+          <Swiper noSwiping={this.state.isEditNote} slidesPerView='auto' initialSlide={this.props.initialSlide}
+            nextButton={this.state.isEditNote ? '' : '.swiper-button-next'}
+            prevButton={this.state.isEditNote ? '' : '.swiper-button-prev'}
             onSetTranslate={swiper => { this.activeIndex(swiper) }}>
             {client.data.gallery.map((el, key) => {
               if (el.name.indexOf('png') !== -1) {
@@ -90,7 +106,7 @@ class MediaModal extends Component {
               } else if (el.name.indexOf('mp4') !== -1) {
                 return (
                   <div key={key} id='gallery-swiper-wrap'>
-                    <video src={client.urls.gallery + el.name} controls />
+                    <video src={client.urls.gallery + el.name} />
                   </div>
                 )
               } else if (el.name.indexOf('pdf') !== -1) {
@@ -111,10 +127,15 @@ class MediaModal extends Component {
         <Modal.Footer>
           <div className='data'>
             <h1>{client.data.gallery[this.state.activeIndex].date}</h1>
-            <h1>{client.data.gallery[this.state.activeIndex].note}</h1>
+            <h1 className={this.state.isEditNote ? 'hidden' : ''}>{client.data.gallery[this.state.activeIndex].note}</h1>
+            <textarea className={this.state.isEditNote ? 'textarea' : 'hidden'}
+              onChange={event => { this.setState({textareaValue: event.target.value}) }} value={this.state.textareaValue} />
+            <button className={this.state.isEditNote ? '' : 'hidden'}
+              onClick={() => { this.replace(client.data.gallery[this.state.activeIndex].id) }}>{client.translations.save}
+            </button>
           </div>
           <div className='icons'>
-            <img src={client.urls.media + 'edit.png'} onClick={() => { this.replace(client.data.gallery[this.state.activeIndex].id) }} />
+            <img src={client.urls.media + 'edit.png'} onClick={this.activeEdit} />
             <img src={client.urls.media + 'trash.png'} onClick={() => { this.delete(client.data.gallery[this.state.activeIndex].id) }} />
           </div>
         </Modal.Footer>
