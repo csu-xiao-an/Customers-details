@@ -72,7 +72,7 @@ class MediaModal extends Component {
     if (!this.state.isEditNote) {
       this.setState({
         isEditNote: !this.state.isEditNote,
-        textareaValue: client.data.gallery[this.state.activeIndex].note
+        textareaValue: config.data.gallery[this.state.activeIndex].note
       })
     }
   }
@@ -129,11 +129,11 @@ class MediaModal extends Component {
             <textarea className={this.state.isEditNote ? 'textarea' : 'hidden'}
               onChange={event => { this.setState({textareaValue: event.target.value}) }} value={this.state.textareaValue} />
             <button className={this.state.isEditNote ? '' : 'hidden'}
-              onClick={() => { this.replace(client.data.gallery[this.state.activeIndex].id) }}>{client.translations.save}
+              onClick={() => { this.replace(config.data.gallery[this.state.activeIndex].id) }}>{config.translations.save}
             </button>
           </div>
           <div className='icons'>
-            <img src={config.urls.media + 'edit.png'} onClick={() => { this.replace(config.data.gallery[this.state.activeIndex].id) }} />
+            <img src={config.urls.media + 'edit.png'} onClick={this.activeEdit} />
             <img src={config.urls.media + 'trash.png'} onClick={() => { this.delete(config.data.gallery[this.state.activeIndex].id) }} />
           </div>
         </Modal.Footer>
