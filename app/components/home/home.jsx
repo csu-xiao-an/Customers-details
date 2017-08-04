@@ -1,3 +1,4 @@
+import SocialNetwork from '../social-network/social-network.jsx'
 import Signature from '../signature/signature.jsx'
 import Comment from '../comment/comment.jsx'
 import Details from '../details/details.jsx'
@@ -35,6 +36,7 @@ class Home extends Component {
         <Media />
         <Line />
         <Source />
+        <SocialNetwork />
         <Add />
         <Line />
         <Groups />

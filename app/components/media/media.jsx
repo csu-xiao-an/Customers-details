@@ -4,8 +4,6 @@ import Swiper from 'react-id-swiper'
 import React from 'react'
 import './media.styl'
 
-const client = window._config
-
 class Media extends React.Component {
   constructor () {
     super()
@@ -49,11 +47,11 @@ class Media extends React.Component {
       }
       reader.readAsDataURL(file)
     } else if (file.type.indexOf('audio') !== -1) {
-      this.setState({imagePreviewUrl: client.urls.media + 'audio_file.png'})
+      this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'})
     } else if (file.type.indexOf('pdf') !== -1) {
-      this.setState({imagePreviewUrl: client.urls.media + 'pdf_file.png'})
+      this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'})
     } else if (file.type.indexOf('video') !== -1) {
-      this.setState({imagePreviewUrl: client.urls.media + 'video_file.png'})
+      this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'})
     }
   }
 
@@ -74,38 +72,38 @@ class Media extends React.Component {
       <div id='gallery'>
         <MediaModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />
         <div className='label-wrap'>
-          <h1>{client.data.gallery.length} {client.translations.item_count}</h1>
-          <div className='gallery-label'>{client.translations.gallery}</div>
+          <h1>{config.data.gallery.length} {config.translations.item_count}</h1>
+          <div className='gallery-label'>{config.translations.gallery}</div>
         </div>
         <div id='swiper-wrap-gallery'>
           <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable>
-            {client.data.gallery.map((el, key) => {
+            {config.data.gallery.map((el, key) => {
               if (el.name.indexOf('png') !== -1) {
                 return (
                   <div key={key}>
-                    <img src={client.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <img src={config.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
                     <h1>{el.name}</h1>
                   </div>
                 )
               } else if (el.name.indexOf('mp3') !== -1) {
                 return (
                   <div key={key}>
-                    <img src={client.urls.media + 'audio_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <img src={config.urls.media + 'audio_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
                     <h1>{el.name}</h1>
                   </div>
                 )
               } else if (el.name.indexOf('mp4') !== -1) {
                 return (
                   <div key={key}>
-                    <img src={client.urls.media + 'video_play.png'} className='video_play' />
-                    <video src={client.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <img src={config.urls.media + 'video_play.png'} className='video_play' />
+                    <video src={config.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
                     <h1>{el.name}</h1>
                   </div>
                 )
               } else if (el.name.indexOf('pdf') !== -1) {
                 return (
                   <div key={key}>
-                    <img src={client.urls.media + 'pdf_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
+                    <img src={config.urls.media + 'pdf_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
                     <h1>{el.name}</h1>
                   </div>
                 )
@@ -116,7 +114,7 @@ class Media extends React.Component {
         <div onClick={() => { this.setState({isAddMedia: !this.state.isAddMedia}) }}
           className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
           <img className='add-button' src='./dist/media/add.svg' />
-          <h1 className='add-label'>{client.translations.add_media}</h1>
+          <h1 className='add-label'>{config.translations.add_media}</h1>
         </div>
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <div className='add-input-wrap'>
@@ -124,7 +122,7 @@ class Media extends React.Component {
             <div className='previw-wrap'>{$imagePreview}</div>
             <textarea className='note-input' type='text-area' onChange={event => { this.setState({desc: event.target.value}) }} value={this.state.desc} />
           </div>
-          <button onClick={this.submit}>{client.translations.save}</button>
+          <button onClick={this.submit}>{config.translations.save}</button>
         </div>
       </div>
     )

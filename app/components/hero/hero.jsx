@@ -3,23 +3,21 @@ import Birthday from '../birthday/birthday.jsx'
 import React from 'react'
 import './hero.styl'
 
-const client = window._config
-
 class Hero extends React.Component {
   constructor () {
     super()
     this.state = {
       isInputDisabled: false,
       status: '',
-      imageUrl: client.urls.media + client.data.id,
-      vip: client.data.vip
+      imageUrl: config.urls.media + config.data.id,
+      vip: config.data.vip
     }
     this.handleInput = this.handleInput.bind(this)
     this.handleStar = this.handleStar.bind(this)
   }
   async handleStar () {
     const method = 'PATCH'
-    const body = `vip=${!client.data.vip}`
+    const body = `vip=${!config.data.vip}`
     const response = await clientUpdateService(method, body)
     if (response.status === 204) {
       this.setState({vip: !this.state.vip})
@@ -61,9 +59,9 @@ class Hero extends React.Component {
         <form action='submit'>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input className={'form-control ' + (this.state.isShowInput ? '' : client.data.status ? 'form-control-disabled' : '')}
+              <input className={'form-control ' + (this.state.isShowInput ? '' : config.data.status ? 'form-control-disabled' : '')}
                 type='text' ref={event => { this.autofocus = event }}
-                placeholder={this.state.isInputDisabled ? '' : client.data.status ? client.data.status : client.translations.placeholder}
+                placeholder={this.state.isInputDisabled ? '' : config.data.status ? config.data.status : config.translations.placeholder}
                 onChange={event => { this.setState({status: event.target.value}) }}
                 onClick={this.state.isInputDisabled ? '' : this.handleInput}
                 onBlur={this.handleInput}
@@ -74,7 +72,7 @@ class Hero extends React.Component {
             </span>
           </div>
         </form>
-        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => { this.setState({imageUrl: client.urls.media + 'default'}) }} />
+        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => { this.setState({imageUrl: config.urls.media + 'default'}) }} />
       </div>
     )
   }

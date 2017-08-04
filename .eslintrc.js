@@ -9,6 +9,7 @@ module.exports = {
     "element": false,
     "expect": false,
     "browser": true,
+    "config": false,
     "before":false,
     "it": false,
     "by": false
@@ -39,7 +40,7 @@ module.exports = {
     "no-unused-vars": [
       "warn",
       {
-        "varsIgnorePattern": "_config",
+        "varsIgnorePattern": "config",
         "args": "after-used",
         "vars": "all"
       }

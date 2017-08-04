@@ -1,8 +1,7 @@
 import mainRequestService from './request.service'
-const client = window._config
 
 export const postService = async body => {
-  const url = client.urls.main + '/customers-details/clients/' + client.data.id + '/media'
+  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/media'
   const options = {
     mode: 'cors',
     method: 'POST',
@@ -11,7 +10,7 @@ export const postService = async body => {
   return await mainRequestService(url, options)
 }
 export const replaceService = async (body, id) => {
-  const url = client.urls.main + '/customers-details/clients/' + client.data.id + '/media/' + id
+  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/media/' + id
   const options = {
     mode: 'cors',
     headers: {
@@ -23,7 +22,7 @@ export const replaceService = async (body, id) => {
   return await mainRequestService(url, options)
 }
 export const deleteService = async id => {
-  const url = client.urls.main + '/customers-details/clients/' + client.data.id + '/media/' + id
+  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/media/' + id
   const options = {
     mode: 'cors',
     method: 'DELETE'

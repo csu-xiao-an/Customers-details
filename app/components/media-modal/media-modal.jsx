@@ -5,8 +5,6 @@ import Swiper from 'react-id-swiper'
 import ReactPDF from 'react-pdf'
 import './media-modal.styl'
 
-const client = window._config
-
 class MediaModal extends Component {
   constructor () {
     super()
@@ -89,30 +87,30 @@ class MediaModal extends Component {
             nextButton={this.state.isEditNote ? '' : '.swiper-button-next'}
             prevButton={this.state.isEditNote ? '' : '.swiper-button-prev'}
             onSetTranslate={swiper => { this.activeIndex(swiper) }}>
-            {client.data.gallery.map((el, key) => {
+            {config.data.gallery.map((el, key) => {
               if (el.name.indexOf('png') !== -1) {
                 return (
                   <div key={key} id='gallery-swiper-wrap'>
-                    <img src={client.urls.gallery + el.name} />
+                    <img src={config.urls.gallery + el.name} />
                   </div>
                 )
               } else if (el.name.indexOf('mp3') !== -1) {
                 return (
                   <div key={key} id='gallery-swiper-wrap'>
-                    <img src={client.urls.media + 'audio_file.png'} />
-                    <audio src={client.urls.gallery + el.name} controls />
+                    <img src={config.urls.media + 'audio_file.png'} />
+                    <audio src={config.urls.gallery + el.name} controls />
                   </div>
                 )
               } else if (el.name.indexOf('mp4') !== -1) {
                 return (
                   <div key={key} id='gallery-swiper-wrap'>
-                    <video src={client.urls.gallery + el.name} />
+                    <video src={config.urls.gallery + el.name} controls />
                   </div>
                 )
               } else if (el.name.indexOf('pdf') !== -1) {
                 return (
                   <div key={key} id='gallery-swiper-wrap'>
-                    <ReactPDF file={client.urls.gallery + el.name} onDocumentLoad={e => { this.onDocumentComplete(e, key) }}
+                    <ReactPDF file={config.urls.gallery + el.name} onDocumentLoad={e => { this.onDocumentComplete(e, key) }}
                       onPageLoad={e => { this.onPageComplete(e, key) }} pageIndex={this.state.page[key]} />
                     <h1 onClick={() => { this.handlePrevious(key) }}>Prev</h1>
                     <h1>Page {this.state.page[key] + 1} of {this.state.pages[key]}</h1>
@@ -126,8 +124,8 @@ class MediaModal extends Component {
         </Modal.Body>
         <Modal.Footer>
           <div className='data'>
-            <h1>{client.data.gallery[this.state.activeIndex].date}</h1>
-            <h1 className={this.state.isEditNote ? 'hidden' : ''}>{client.data.gallery[this.state.activeIndex].note}</h1>
+            <h1>{config.data.gallery[this.state.activeIndex].date}</h1>
+            <h1>{config.data.gallery[this.state.activeIndex].note}</h1>
             <textarea className={this.state.isEditNote ? 'textarea' : 'hidden'}
               onChange={event => { this.setState({textareaValue: event.target.value}) }} value={this.state.textareaValue} />
             <button className={this.state.isEditNote ? '' : 'hidden'}
@@ -135,8 +133,8 @@ class MediaModal extends Component {
             </button>
           </div>
           <div className='icons'>
-            <img src={client.urls.media + 'edit.png'} onClick={this.activeEdit} />
-            <img src={client.urls.media + 'trash.png'} onClick={() => { this.delete(client.data.gallery[this.state.activeIndex].id) }} />
+            <img src={config.urls.media + 'edit.png'} onClick={() => { this.replace(config.data.gallery[this.state.activeIndex].id) }} />
+            <img src={config.urls.media + 'trash.png'} onClick={() => { this.delete(config.data.gallery[this.state.activeIndex].id) }} />
           </div>
         </Modal.Footer>
       </Modal>

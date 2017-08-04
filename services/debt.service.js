@@ -1,17 +1,34 @@
 import mainRequestService from './request.service'
-const client = window._config
 
-const debtUpdateService = async (method, body) => {
-  const url = client.urls.main + '/customers-details/clients/' + client.data.id + '/dept'
+export const postService = async body => {
+  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/dept'
   const options = {
     mode: 'cors',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    method,
+    method: 'POST',
     body
   }
   return await mainRequestService(url, options)
 }
-
-export default debtUpdateService
+export const replaceService = async (body, id) => {
+  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/dept/' + id
+  const options = {
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'PUT',
+    body
+  }
+  return await mainRequestService(url, options)
+}
+export const deleteService = async id => {
+  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/dept/' + id
+  const options = {
+    mode: 'cors',
+    method: 'DELETE'
+  }
+  return await mainRequestService(url, options)
+}

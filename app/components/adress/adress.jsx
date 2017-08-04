@@ -2,8 +2,6 @@ import { clientUpdateService } from 'project-services'
 import React from 'react'
 import './adress.styl'
 
-const client = window._config
-
 class Adress extends React.Component {
   constructor () {
     super()
@@ -25,34 +23,34 @@ class Adress extends React.Component {
   render () {
     return (
       <div id='adress'>
-        <div className={client.data.adress ? 'adress' : 'hidden'}>
+        <div className={config.data.adress ? 'adress' : 'hidden'}>
           <div className='google-map'>
-            <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}>
-              <img src={client.urls.main + '/customers-details/clients/' + client.data.id + '/map'} />
+            <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
+              <img src={config.urls.main + '/customers-details/clients/' + config.data.id + '/map'} />
             </a>
           </div>
-          <div className='adress-label'>{client.translations.adress}</div>
+          <div className='adress-label'>{config.translations.adress}</div>
           <div className='address'>
-            <a href={'waze://?ll=' + client.data.intent_x + ', ' + client.data.intent_y + '&navigate=yes'}>
-              <img src={client.urls.media + 'waze.png'} />
+            <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
+              <img src={config.urls.media + 'waze.png'} />
             </a>
-            <h1>{client.data.adress}</h1>
+            <h1>{config.data.adress}</h1>
           </div>
         </div>
         <div onClick={() => { this.setState({adressEdit: !this.state.adressEdit}) }}
-          className={client.data.adress || this.state.adressEdit ? 'hidden' : 'add-adress'}>
+          className={config.data.adress || this.state.adressEdit ? 'hidden' : 'add-adress'}>
           <img src='./dist/media/add.svg' />
-          <h1>{client.translations.add_adress}</h1>
+          <h1>{config.translations.add_adress}</h1>
         </div>
         <div className={this.state.adressEdit ? 'adress-edit' : 'hidden'}>
           <div className='edit'>
             <input className='edit-input' type='text' value={this.state.adress}
               onChange={event => { this.setState({adress: event.target.value}) }}
             />
-            <h1 className='edit-label'>{client.translations.adress}</h1>
+            <h1 className='edit-label'>{config.translations.adress}</h1>
           </div>
           <div className='button'>
-            <button onClick={this.submit}>{client.translations.save}</button>
+            <button onClick={this.submit}>{config.translations.save}</button>
           </div>
         </div>
       </div>

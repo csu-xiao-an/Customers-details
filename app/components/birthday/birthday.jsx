@@ -6,7 +6,7 @@ class Birthday extends React.Component {
   constructor () {
     super()
     this.state = {
-      birthdate: window._config.data.birthdate,
+      birthdate: config.data.birthdate,
       birthdayStatus: ''
     }
   }

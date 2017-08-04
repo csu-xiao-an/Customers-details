@@ -1,24 +1,22 @@
 import moment from 'moment'
-const client = window._config
-
 const getLastAppoinment = date => {
   let lastAppoinment
   let dayLeft
   let monthLeft
   const today = moment()
   const weekdays = {
-    '1': client.translations.dates.weekdays.Monday,
-    '2': client.translations.dates.weekdays.Tuesday,
-    '3': client.translations.dates.weekdays.Wednesday,
-    '4': client.translations.dates.weekdays.Thursday,
-    '5': client.translations.dates.weekdays.Friday,
-    '6': client.translations.dates.weekdays.Saturday,
-    '7': client.translations.dates.weekdays.Sunday
+    '1': config.translations.dates.weekdays.Monday,
+    '2': config.translations.dates.weekdays.Tuesday,
+    '3': config.translations.dates.weekdays.Wednesday,
+    '4': config.translations.dates.weekdays.Thursday,
+    '5': config.translations.dates.weekdays.Friday,
+    '6': config.translations.dates.weekdays.Saturday,
+    '7': config.translations.dates.weekdays.Sunday
   }
   const day = {
-    '-1': client.translations.dates.days.Yesterday + ' ' + moment(date).hour() + ':' + moment(date).format('mm'),
-    '1': client.translations.dates.days.Tommorow + ' ' + moment(date).hour() + ':' + moment(date).format('mm'),
-    '0': client.translations.dates.days.Today + ' ' + moment(date).hour() + ':' + moment(date).format('mm')
+    '-1': config.translations.dates.days.Yesterday + ' ' + moment(date).hour() + ':' + moment(date).format('mm'),
+    '1': config.translations.dates.days.Tommorow + ' ' + moment(date).hour() + ':' + moment(date).format('mm'),
+    '0': config.translations.dates.days.Today + ' ' + moment(date).hour() + ':' + moment(date).format('mm')
   }
   if (moment(date).get('year') === moment(today).get('year')) {
     if (moment(date).get('month') === moment(today).get('month')) {

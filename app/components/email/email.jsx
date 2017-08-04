@@ -2,8 +2,6 @@ import { clientUpdateService } from 'project-services'
 import React from 'react'
 import './email.styl'
 
-const client = window._config
-
 class Email extends React.Component {
   constructor () {
     super()
@@ -25,25 +23,25 @@ class Email extends React.Component {
   render () {
     return (
       <div id='email'>
-        <div className={client.data.email ? 'email' : 'hidden'}>
-          <a href={'mailto:' + client.data.email}><img src='./dist/media/mail.svg' /></a>
-          <div className='email-label'>{client.translations.email}</div>
-          <h1>{client.data.email}</h1>
+        <div className={config.data.email ? 'email' : 'hidden'}>
+          <a href={'mailto:' + config.data.email}><img src='./dist/media/mail.svg' /></a>
+          <div className='email-label'>{config.translations.email}</div>
+          <h1>{config.data.email}</h1>
         </div>
         <div onClick={() => { this.setState({emailEdit: !this.state.emailEdit}) }}
-          className={client.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
+          className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
           <img src='./dist/media/add.svg' />
-          <h1>{client.translations.add_email}</h1>
+          <h1>{config.translations.add_email}</h1>
         </div>
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
           <div className='edit'>
             <input className='edit-input' type='email' value={this.state.email}
               onChange={event => { this.setState({email: event.target.value}) }}
             />
-            <h1 className='edit-label'>{client.translations.email}</h1>
+            <h1 className='edit-label'>{config.translations.email}</h1>
           </div>
           <div className='button'>
-            <button onClick={this.submit}>{client.translations.save}</button>
+            <button onClick={this.submit}>{config.translations.save}</button>
           </div>
         </div>
       </div>

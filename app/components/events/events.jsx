@@ -5,12 +5,10 @@ import moment from 'moment'
 import React from 'react'
 import './events.styl'
 
-const client = window._config
-
 class Events extends React.Component {
   procedures (el) {
     if (el.procedures.length > 1) {
-      return el.procedures.length + ' ' + client.translations.procedures
+      return el.procedures.length + ' ' + config.translations.procedures
     } else {
       return el.procedures[0].name
     }
@@ -32,7 +30,7 @@ class Events extends React.Component {
   }
   initialSlide () {
     let slide
-    client.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).every((el, key) => {
+    config.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).every((el, key) => {
       if (moment() < moment(el.date)) {
         slide = key
         return false
@@ -47,21 +45,21 @@ class Events extends React.Component {
       <div id='events'>
         <div className='events'>
           <img className='clock' src='./dist/media/clock.svg' />
-          <button className='babel'>{client.translations.close_visits}</button>
+          <button className='babel'>{config.translations.close_visits}</button>
           <div id='swiper-wrap-notes'>
             <Swiper pagination='.swiper-pagination' slidesPerView='auto' paginationClickable initialSlide={this.initialSlide()}>
               <div>
-                <Link to={client.urls.appointments}>
-                  <div className='note start-note'>{client.translations.all_visits}</div>
+                <Link to={config.urls.appointments}>
+                  <div className='note start-note'>{config.translations.all_visits}</div>
                 </Link>
               </div>
-              {client.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).map((el, key) => {
+              {config.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).map((el, key) => {
                 return (
                   <div key={key}>
                     <div className='note'>
                       <h1 className='date'>{getLastAppoinment(el.date)}</h1>
                       <h1 className='procedure'>{this.procedures(el)}</h1>
-                      <h1 className='price'>{this.price(el)} {this.price(el) ? (client.data.currency) : ''}</h1>
+                      <h1 className='price'>{this.price(el)} {this.price(el) ? (config.data.currency) : ''}</h1>
                     </div>
                   </div>
                 )
@@ -70,7 +68,7 @@ class Events extends React.Component {
                 <div className='note end-note'>
                   <h1 className='date'><span className='orange'>before</span> week</h1>
                   <h1 className='procedure'>Laser hair removal</h1>
-                  <h1 className='price'>450 {client.data.currency}</h1>
+                  <h1 className='price'>450 {config.data.currency}</h1>
                 </div>
               </div>
             </Swiper>

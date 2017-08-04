@@ -2,22 +2,20 @@ import Switch from 'react-toggle-switch'
 import React from 'react'
 import './signature.styl'
 
-const client = window._config
-
 class Signature extends React.Component {
   render () {
     return (
       <div id='signature'>
         <div className='checkbox-wrap'>
-          <Switch on={client.data.approved_marketing.status} />
-          <h1>{client.translations.marketing_material}</h1>
+          <Switch on={config.data.approved_marketing.status} />
+          <h1>{config.translations.marketing_material}</h1>
         </div>
         <div className='autograph'>
-          <img src={'./dist/media/' + client.data.approved_marketing.sign} />
+          <img src={'./dist/media/' + config.data.approved_marketing.sign} />
         </div>
-        <h1>{client.translations.signature_added}</h1>
-        <button className='block2-button'>{client.translations.btn_delete}</button>
-        <button className='block2-button'>{client.translations.btn_replace}</button>
+        <h1>{config.translations.signature_added}</h1>
+        <button className='block2-button'>{config.translations.btn_delete}</button>
+        <button className='block2-button'>{config.translations.btn_replace}</button>
       </div>
     )
   }

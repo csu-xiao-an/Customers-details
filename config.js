@@ -1,4 +1,4 @@
-var _config = {
+var config = {
   translations: {
     edit: 'Edit',
     customer: 'Customer details',
@@ -21,8 +21,10 @@ var _config = {
     item_count: 'Items',
     gallery: 'Gallery',
     add_media: 'Add media',
-    source_arrival: 'Traffic source',
-    social_net: 'Add another social network',
+    add_traffic_source: 'Add traffic source',
+    traffic_source: 'Traffic source',
+    add_social_net: 'Add a social media link',
+    social_net: 'Social media link',
     add_link: 'Add link',
     group_partner: 'Group partner',
     completion: 'Completion of the details by the customer',
@@ -35,19 +37,33 @@ var _config = {
     procedures: 'procedures',
     all_visits: 'For all visits...',
     dates: {
+      months: {
+        January: 'January',
+        February: 'February',
+        March: 'March',
+        April: 'April',
+        May: 'May',
+        June: 'June',
+        July: 'July',
+        August: 'August',
+        September: 'September',
+        October: 'October',
+        November: 'November',
+        December: 'December'
+      },
       weekdays: {
-        'Monday': 'Monday',
-        'Tuesday': 'Tuesday',
-        'Wednesday': 'Wednesday',
-        'Thursday': 'Thursday',
-        'Friday': 'Friday',
-        'Saturday': 'Saturday',
-        'Sunday': 'Sunday'
+        Monday: 'Monday',
+        Tuesday: 'Tuesday',
+        Wednesday: 'Wednesday',
+        Thursday: 'Thursday',
+        Friday: 'Friday',
+        Saturday: 'Saturday',
+        Sunday: 'Sunday'
       },
       days: {
-        'Yesterday': 'Yesterday ',
-        'Tommorow': 'Tommorow ',
-        'Today': 'Today '
+        Yesterday: 'Yesterday ',
+        Tommorow: 'Tommorow ',
+        Today: 'Today '
       }
     },
     source_list: {
@@ -56,11 +72,21 @@ var _config = {
       family: 'family',
       friends: 'friends',
       recommendation: 'recommendation'
+    },
+    soc_media_list: {
+      facebook: 'facebook',
+      instagram: 'instagram',
+      linkedin: 'linkedin',
+      twitter: 'twitter',
+      pinterest: 'pinterest',
+      google: 'google+',
+      vk: 'vk'
     }
   },
   urls: {
     main: 'http://api.bewebmaster.co.il',
     gallery: './dist/media/galery/',
+    soc_net: './dist/media/soc_net',
     groups: './dist/media/groups/',
     appointments: '/appointments',
     media: './dist/media/',
@@ -78,6 +104,7 @@ var _config = {
     vip: true,
     status: 'Status',
     source: 'ads',
+    soc_media: 'facebook',
     currency: '₪',
     debt_step: 10,
     debts: [

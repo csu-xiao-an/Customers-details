@@ -1,8 +1,7 @@
 import mainRequestService from './request.service'
-const client = window._config
 
 const clientUpdateService = async (method, body) => {
-  const url = client.urls.main + '/customers-details/clients/' + client.data.id
+  const url = config.urls.main + '/customers-details/clients/' + config.data.id
   const options = {
     mode: 'cors',
     headers: {
