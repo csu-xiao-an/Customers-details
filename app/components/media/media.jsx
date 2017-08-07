@@ -2,6 +2,7 @@ import MediaModal from '../media-modal/media-modal.jsx'
 import { mediaPostService } from 'project-services'
 import Swiper from 'react-id-swiper'
 import React from 'react'
+import moment from 'moment'
 import './media.styl'
 
 class Media extends React.Component {
@@ -9,12 +10,12 @@ class Media extends React.Component {
     super()
     this.state = {
       isOpenGallery: false,
+      imagePreviewUrl: '',
+      isAddMedia: false,
       initialSlide: 0,
       activeIndex: 0,
-      isAddMedia: false,
       file: {},
-      desc: '',
-      imagePreviewUrl: ''
+      desc: ''
     }
     this.handleGallery = this.handleGallery.bind(this)
     this.submit = this.submit.bind(this)
@@ -26,12 +27,20 @@ class Media extends React.Component {
     this.setState({initialSlide: key})
   }
   async submit () {
-    this.setState({isAddMedia: !this.state.isAddMedia})
     let body = new FormData()
     body.append('file', this.state.file)
-    body.append('description', 'this.state.desc')
-    await mediaPostService(body)
-    this.setState({desc: '', file: {}})
+    body.append('note', this.state.desc)
+    const response = await mediaPostService(body)
+    if (response.status === 201) {
+      config.data.gallery.unshift({
+        id: 123123,
+        name: this.state.file.name,
+        note: this.state.desc,
+        date: moment().format('YYYY-MM-DD HH:mm')
+      })
+      this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}})
+      this.refs.fileAddForm.reset()
+    }
   }
   addFile (e) {
     let file = e.target.files[0]
@@ -54,13 +63,6 @@ class Media extends React.Component {
       this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'})
     }
   }
-
-  onDocumentLoad ({ total }) {
-    console.log(total)
-  }
-  onPageLoad ({ pageIndex, pageNumber }) {
-    console.log(pageIndex, pageNumber)
-  }
   render () {
     let $imagePreview = null
     if (this.state.imagePreviewUrl) {
@@ -76,7 +78,7 @@ class Media extends React.Component {
           <div className='gallery-label'>{config.translations.gallery}</div>
         </div>
         <div id='swiper-wrap-gallery'>
-          <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable>
+          <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable observer>
             {config.data.gallery.map((el, key) => {
               if (el.name.indexOf('png') !== -1) {
                 return (
@@ -117,11 +119,11 @@ class Media extends React.Component {
           <h1 className='add-label'>{config.translations.add_media}</h1>
         </div>
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
-          <div className='add-input-wrap'>
+          <form className='add-input-wrap' ref='fileAddForm'>
             <input className='file-input' type='file' onChange={e => { this.addFile(e) }} />
             <div className='previw-wrap'>{$imagePreview}</div>
             <textarea className='note-input' type='text-area' onChange={event => { this.setState({desc: event.target.value}) }} value={this.state.desc} />
-          </div>
+          </form>
           <button onClick={this.submit}>{config.translations.save}</button>
         </div>
       </div>

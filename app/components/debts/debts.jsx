@@ -22,7 +22,7 @@ class Debts extends Component {
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
     const response = await debtPostService(body)
     if (response.status === 201) {
-      config.data.debts.push({
+      config.data.debts.unshift({
         id: 123123,
         sum: this.state.debt,
         desc: this.state.description,
@@ -35,17 +35,9 @@ class Debts extends Component {
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
     const response = await debtReplaceService(body, this.state.debt_id)
     if (response.status === 204) {
-      config.data.debts.splice(this.state.key, 1)
-      config.data.debts.splice(
-        this.state.key,
-        0,
-        {
-          id: 123123,
-          sum: this.state.debt,
-          desc: this.state.description,
-          date: moment().format('YYYY-MM-DD HH:mm')
-        }
-       )
+      config.data.debts[this.state.key].sum = this.state.debt
+      config.data.debts[this.state.key].desc = this.state.description
+      config.data.debts[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
       this.setState({debtReplace: !this.state.debtReplace, debtEdit: !this.state.debtEdit, description: '', debt: '0', debt_id: 0})
     }
   }
