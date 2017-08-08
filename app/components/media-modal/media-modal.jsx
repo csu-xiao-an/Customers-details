@@ -116,7 +116,7 @@ class MediaModal extends Component {
                   return (
                     <div key={key} id='gallery-swiper-wrap'>
                       <video src={config.urls.gallery + el.name} id='video' />
-                      <button onClick={this.test}>Click</button>
+                      {/* <button onClick={this.test}>Click</button> */}
                     </div>
                   )
                 } else if (el.name.indexOf('pdf') !== -1) {
@@ -136,8 +136,8 @@ class MediaModal extends Component {
         </Modal.Body>
         <Modal.Footer>
           <div className='data'>
-            <h1>{config.data.gallery[this.state.activeIndex].date}</h1>
-            <h1 className={this.state.isEditNote ? 'hidden' : ''}>{config.data.gallery[this.state.activeIndex].note}</h1>
+            <h1>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].date}</h1>
+            <h1 className={this.state.isEditNote ? 'hidden' : ''}>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</h1>
             <textarea className={this.state.isEditNote ? 'textarea' : 'hidden'}
               onChange={event => { this.setState({textareaValue: event.target.value}) }} value={this.state.textareaValue} />
             <button className={this.state.isEditNote ? '' : 'hidden'}
