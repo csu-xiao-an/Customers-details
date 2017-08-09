@@ -20,7 +20,6 @@ class MediaModal extends Component {
     this.onPageComplete = this.onPageComplete.bind(this)
     this.handlePrevious = this.handlePrevious.bind(this)
     this.handleNext = this.handleNext.bind(this)
-    this.activeEdit = this.activeEdit.bind(this)
   }
   static get propTypes () {
     return {
@@ -28,9 +27,6 @@ class MediaModal extends Component {
       isOpenGallery: PropTypes.bool.isRequired,
       handleGallery: PropTypes.func.isRequired
     }
-  }
-  activeIndex (swiper) {
-    this.setState({activeIndex: swiper.activeIndex})
   }
   onDocumentComplete (countPage, key) {
     let pages = this.state.pages
@@ -64,6 +60,27 @@ class MediaModal extends Component {
       })
     }
   }
+  typeItem (el, key) {
+    if (el.name.indexOf('png') !== -1) {
+      return <img src={config.urls.gallery + el.name} />
+    } else if (el.name.indexOf('mp4') !== -1) {
+      return <video src={config.urls.gallery + el.name} id='video' controls />
+    } else if (el.name.indexOf('mp3') !== -1) {
+      return (<div>
+        <img src={config.urls.media + 'audio_file.png'} />
+        <audio src={config.urls.gallery + el.name} controls />
+      </div>)
+    } else if (el.name.indexOf('pdf') !== -1) {
+      return (<div>
+        <ReactPDF file={config.urls.gallery + el.name} onDocumentLoad={e => { this.onDocumentComplete(e, key) }}
+          onPageLoad={e => { this.onPageComplete(e, key) }} pageIndex={this.state.page[key]} />
+        <h1 onClick={() => { this.handlePrevious(key) }}>Prev</h1>
+        <h1>Page {this.state.page[key] + 1} of {this.state.pages[key]}</h1>
+        <h1 onClick={() => { this.handleNext(key) }}>Next</h1>
+        { /* <iframe src="http://docs.google.com/gview?url=http://www.pdf995.com/samples/pdf.pdf&embedded=true"></iframe> todo need document on server */ }
+      </div>)
+    }
+  }
   async replace (id) {
     const body = `note=${this.state.textareaValue}`
     const response = await mediaReplaceService(body, id)
@@ -83,10 +100,6 @@ class MediaModal extends Component {
       this.props.handleGallery()
     }
   }
-  test () {
-    var video = document.getElementById('video')
-    video.play()
-  }
   render () {
     return (
       <Modal show={this.props.isOpenGallery}>
@@ -95,42 +108,10 @@ class MediaModal extends Component {
         </Modal.Header>
         <Modal.Body>
           <div className={this.state.isEditNote ? 'noSwiping' : ''}>
-            <Swiper observer slidesPerView='auto' initialSlide={this.props.initialSlide}
-              nextButton='.swiper-button-next' prevButton='.swiper-button-prev'
-              onSetTranslate={swiper => { this.activeIndex(swiper) }}>
-              {config.data.gallery.map((el, key) => {
-                if (el.name.indexOf('png') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <img src={config.urls.gallery + el.name} />
-                    </div>
-                  )
-                } else if (el.name.indexOf('mp3') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <img src={config.urls.media + 'audio_file.png'} />
-                      <audio src={config.urls.gallery + el.name} controls />
-                    </div>
-                  )
-                } else if (el.name.indexOf('mp4') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <video src={config.urls.gallery + el.name} id='video' />
-                      {/* <button onClick={this.test}>Click</button> */}
-                    </div>
-                  )
-                } else if (el.name.indexOf('pdf') !== -1) {
-                  return (
-                    <div key={key} id='gallery-swiper-wrap'>
-                      <ReactPDF file={config.urls.gallery + el.name} onDocumentLoad={e => { this.onDocumentComplete(e, key) }}
-                        onPageLoad={e => { this.onPageComplete(e, key) }} pageIndex={this.state.page[key]} />
-                      <h1 onClick={() => { this.handlePrevious(key) }}>Prev</h1>
-                      <h1>Page {this.state.page[key] + 1} of {this.state.pages[key]}</h1>
-                      <h1 onClick={() => { this.handleNext(key) }}>Next</h1>
-                    </div>
-                  )
-                }
-              })}
+            <Swiper onSetTranslate={swiper => { this.setState({activeIndex: swiper.activeIndex}) }}
+              observer slidesPerView='auto' initialSlide={this.props.initialSlide}
+              nextButton='.swiper-button-next' prevButton='.swiper-button-prev'>
+              {config.data.gallery.map((el, key) => (<div key={key} id='gallery-swiper-wrap'>{this.typeItem(el, key)}</div>))}
             </Swiper>
           </div>
         </Modal.Body>

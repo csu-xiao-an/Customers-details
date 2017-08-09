@@ -1,4 +1,4 @@
-import { clientUpdateService } from 'project-services'
+import { clientReplaceService } from 'project-services'
 import 'react-select/dist/react-select.css'
 import React, { Component } from 'react'
 import Select from 'react-select'
@@ -22,9 +22,12 @@ class Source extends Component {
     val ? this.setState({selectedValue: val.value}) : this.setState({selectedValue: ''})
   }
   async submit () {
-    const method = 'PATCH'
     const body = `source=${this.state.selectedValue}`
-    await clientUpdateService(method, body)
+    let response = await clientReplaceService(body)
+    if (response.status === 204) {
+      config.data.source = this.state.selectedValue
+      this.forceUpdate()
+    }
   }
   render () {
     const list = config.translations.source_list
@@ -50,8 +53,8 @@ class Source extends Component {
           <div className='select-wrap'>
             <Select
               value={this.state.selectedValue}
-              options={options}
               onChange={this.logChange}
+              options={options}
             />
           </div>
         </div>

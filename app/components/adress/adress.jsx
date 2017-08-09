@@ -1,4 +1,4 @@
-import { clientUpdateService } from 'project-services'
+import { clientReplaceService } from 'project-services'
 import React from 'react'
 import './adress.styl'
 
@@ -12,13 +12,15 @@ class Adress extends React.Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const method = 'PATCH'
     const body = `address=${this.state.adress}`
-    await clientUpdateService(method, body)
-    this.setState({
-      adressEdit: !this.state.adressEdit,
-      adress: ''
-    })
+    let response = await clientReplaceService(body)
+    if (response.status === 204) {
+      config.data.adress = this.state.adress
+      this.setState({
+        adressEdit: !this.state.adressEdit,
+        adress: ''
+      })
+    }
   }
   render () {
     return (

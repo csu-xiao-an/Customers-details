@@ -23,9 +23,6 @@ class Media extends React.Component {
   handleGallery () {
     this.setState({isOpenGallery: !this.state.isOpenGallery, activeIndex: 0})
   }
-  initialSlide (key) {
-    this.setState({initialSlide: key})
-  }
   async submit () {
     let body = new FormData()
     body.append('file', this.state.file)
@@ -63,6 +60,20 @@ class Media extends React.Component {
       this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'})
     }
   }
+  typeItem (el, key) {
+    if (el.name.indexOf('png') !== -1) {
+      return <img src={config.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.setState({initialSlide: key}) }} />
+    } else if (el.name.indexOf('mp3') !== -1) {
+      return <img src={config.urls.media + 'audio_file.png'} onClick={() => { this.handleGallery(); this.setState({initialSlide: key}) }} />
+    } else if (el.name.indexOf('pdf') !== -1) {
+      return <img src={config.urls.media + 'pdf_file.png'} onClick={() => { this.handleGallery(); this.setState({initialSlide: key}) }} />
+    } else if (el.name.indexOf('mp4') !== -1) {
+      return (<div>
+        <img src={config.urls.media + 'video_play.png'} className='video_play' />
+        <video src={config.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.setState({initialSlide: key}) }} />
+      </div>)
+    }
+  }
   render () {
     let $imagePreview = null
     if (this.state.imagePreviewUrl) {
@@ -79,38 +90,7 @@ class Media extends React.Component {
         </div>
         <div id='swiper-wrap-gallery'>
           <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable observer>
-            {config.data.gallery.map((el, key) => {
-              if (el.name.indexOf('png') !== -1) {
-                return (
-                  <div key={key}>
-                    <img src={config.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
-                    <h1>{el.name}</h1>
-                  </div>
-                )
-              } else if (el.name.indexOf('mp3') !== -1) {
-                return (
-                  <div key={key}>
-                    <img src={config.urls.media + 'audio_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
-                    <h1>{el.name}</h1>
-                  </div>
-                )
-              } else if (el.name.indexOf('mp4') !== -1) {
-                return (
-                  <div key={key}>
-                    <img src={config.urls.media + 'video_play.png'} className='video_play' />
-                    <video src={config.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
-                    <h1>{el.name}</h1>
-                  </div>
-                )
-              } else if (el.name.indexOf('pdf') !== -1) {
-                return (
-                  <div key={key}>
-                    <img src={config.urls.media + 'pdf_file.png'} onClick={() => { this.handleGallery(); this.initialSlide(key) }} />
-                    <h1>{el.name}</h1>
-                  </div>
-                )
-              }
-            })}
+            {config.data.gallery.map((el, key) => (<div key={key}>{this.typeItem(el, key)}<h1>{el.name}</h1></div>))}
           </Swiper>
         </div>
         <div onClick={() => { this.setState({isAddMedia: !this.state.isAddMedia}) }}

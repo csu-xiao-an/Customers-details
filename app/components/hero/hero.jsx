@@ -1,4 +1,4 @@
-import { clientUpdateService } from 'project-services'
+import { clientReplaceService } from 'project-services'
 import Birthday from '../birthday/birthday.jsx'
 import React from 'react'
 import './hero.styl'
@@ -9,29 +9,31 @@ class Hero extends React.Component {
     this.state = {
       isInputDisabled: false,
       status: '',
-      imageUrl: config.urls.media + config.data.id,
-      vip: config.data.vip
+      imageUrl: config.urls.media + config.data.id
     }
-    this.handleInput = this.handleInput.bind(this)
+    this.handleStatus = this.handleStatus.bind(this)
     this.handleStar = this.handleStar.bind(this)
   }
   async handleStar () {
-    const method = 'PATCH'
     const body = `vip=${!config.data.vip}`
-    const response = await clientUpdateService(method, body)
+    const response = await clientReplaceService(body)
     if (response.status === 204) {
-      this.setState({vip: !this.state.vip})
+      config.data.vip = !config.data.vip
+      this.forceUpdate()
     }
   }
-  async handleInput () {
+  async handleStatus () {
     this.setState({isInputDisabled: true})
     if (!this.state.isInputDisabled) {
       this.autofocus.focus()
     } else {
       this.setState({isInputDisabled: false})
-      const method = 'PATCH'
       const body = `status=${this.state.status}`
-      await clientUpdateService(method, body)
+      const response = await clientReplaceService(body)
+      if (response.status === 204) {
+        config.data.status = this.state.status
+        this.forceUpdate()
+      }
     }
   }
   render () {
@@ -42,7 +44,7 @@ class Hero extends React.Component {
             <g id='Layer_2' data-name='Layer 2'>
               <g id='Layer_1-2' data-name='Layer 1'>
                 <g id='VIP'><path
-                  className={this.state.vip ? 'star star-active' : 'star'}
+                  className={config.data.vip ? 'star star-active' : 'star'}
                   d='M26.79,1.56,31.06,14.7a2.26,2.26,0,0,0,2.15,1.56H
                   47a2.26,2.26,0,0,1,1.33,4.09L37.17,28.46A2.26,2.26,0,
                   0,0,36.35,31l4.27,13.14a2.26,2.26,0,0,1-3.48,2.53L26,
@@ -63,11 +65,11 @@ class Hero extends React.Component {
                 type='text' ref={event => { this.autofocus = event }}
                 placeholder={this.state.isInputDisabled ? '' : config.data.status ? config.data.status : config.translations.placeholder}
                 onChange={event => { this.setState({status: event.target.value}) }}
-                onClick={this.state.isInputDisabled ? '' : this.handleInput}
-                onBlur={this.handleInput}
+                onClick={this.state.isInputDisabled ? '' : this.handleStatus}
+                onBlur={this.handleStatus}
                  />
             </div>
-            <span onClick={this.state.isInputDisabled ? '' : this.handleInput} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
+            <span onClick={this.state.isInputDisabled ? '' : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./dist/media/pencil.svg' />
             </span>
           </div>

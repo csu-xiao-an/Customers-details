@@ -1,4 +1,4 @@
-import { clientUpdateService } from 'project-services'
+import { clientReplaceService } from 'project-services'
 import 'react-select/dist/react-select.css'
 import React, { Component } from 'react'
 import Select from 'react-select'
@@ -22,9 +22,12 @@ class SocialNetwork extends Component {
     val ? this.setState({selectedValue: val.value}) : this.setState({selectedValue: 'default'})
   }
   async submit () {
-    const method = 'PATCH'
-    const body = `source=${this.state.selectedValue}`
-    await clientUpdateService(method, body)
+    const body = `soc_media=${this.state.selectedValue}`
+    let response = await clientReplaceService(body)
+    if (response.status === 204) {
+      config.data.soc_media = this.state.selectedValue
+      this.forceUpdate()
+    }
   }
   render () {
     const list = config.translations.soc_media_list
@@ -59,8 +62,8 @@ class SocialNetwork extends Component {
             <div className='select-wrap'>
               <Select
                 value={this.state.selectedValue}
-                options={options}
                 onChange={this.logChange}
+                options={options}
               />
             </div>
           </div>

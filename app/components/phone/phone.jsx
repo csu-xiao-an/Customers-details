@@ -1,4 +1,4 @@
-import { clientUpdateService } from 'project-services'
+import { clientReplaceService } from 'project-services'
 import React from 'react'
 import './phone.styl'
 
@@ -12,13 +12,15 @@ class Phone extends React.Component {
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const method = 'PATCH'
     const body = `phone=${this.state.phone}`
-    await clientUpdateService(method, body)
-    this.setState({
-      phoneEdit: !this.state.phoneEdit,
-      phone: ''
-    })
+    let response = await clientReplaceService(body)
+    if (response.status === 204) {
+      config.data.phone = this.state.phone
+      this.setState({
+        phoneEdit: !this.state.phoneEdit,
+        phone: ''
+      })
+    }
   }
   render () {
     return (

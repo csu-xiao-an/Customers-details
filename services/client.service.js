@@ -1,16 +1,34 @@
 import mainRequestService from './request.service'
 
-const clientUpdateService = async (method, body) => {
+// export const postService = async body => {
+//   const url = config.urls.main + '/customers-details/clients/' + config.data.id
+//   const options = {
+//     mode: 'cors',
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     method: 'POST',
+//     body
+//   }
+//   return await mainRequestService(url, options)
+// }
+export const replaceService = async body => {
   const url = config.urls.main + '/customers-details/clients/' + config.data.id
   const options = {
     mode: 'cors',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    method,
+    method: 'PATCH',
     body
   }
   return await mainRequestService(url, options)
 }
-
-export default clientUpdateService
+// export const deleteService = async id => {
+//   const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/' + id
+//   const options = {
+//     mode: 'cors',
+//     method: 'DELETE'
+//   }
+//   return await mainRequestService(url, options)
+// }
