@@ -95,7 +95,7 @@ var config = {
   data: {
     id: 123123,
     name: 'Ahuva Ben Shushan',
-    birthdate: '2001-07-25',
+    birthdate: '2001-08-11',
     email: 'ahuva.ben.shushan@gmail.com',
     adress: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,

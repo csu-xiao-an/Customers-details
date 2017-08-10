@@ -53,11 +53,8 @@ class SocialNetwork extends Component {
             <div className='button-wrap'>
               <button onClick={this.submit}>{config.translations.save}</button>
             </div>
-            <div className='input-wrap'>
-              <input type='text' />
-              <div className='img-wrap'>
-                <img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} />
-              </div>
+            <div className='img-wrap'>
+              <img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} />
             </div>
             <div className='select-wrap'>
               <Select
@@ -66,6 +63,9 @@ class SocialNetwork extends Component {
                 options={options}
               />
             </div>
+          </div>
+          <div className='input-wrap'>
+            <input type='text' />
           </div>
         </div>
       </div>

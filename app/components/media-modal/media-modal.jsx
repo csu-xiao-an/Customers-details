@@ -2,7 +2,6 @@ import { mediaReplaceService, mediaDeleteService } from 'project-services'
 import React, { Component, PropTypes } from 'react'
 import Modal from 'react-bootstrap-modal'
 import Swiper from 'react-id-swiper'
-import ReactPDF from 'react-pdf'
 import moment from 'moment'
 import './media-modal.styl'
 
@@ -16,40 +15,13 @@ class MediaModal extends Component {
       pages: [],
       page: []
     }
-    this.onDocumentComplete = this.onDocumentComplete.bind(this)
-    this.onPageComplete = this.onPageComplete.bind(this)
-    this.handlePrevious = this.handlePrevious.bind(this)
-    this.handleNext = this.handleNext.bind(this)
+    this.activeEdit = this.activeEdit.bind(this)
   }
   static get propTypes () {
     return {
       initialSlide: PropTypes.number.isRequired,
       isOpenGallery: PropTypes.bool.isRequired,
       handleGallery: PropTypes.func.isRequired
-    }
-  }
-  onDocumentComplete (countPage, key) {
-    let pages = this.state.pages
-    pages[key] = countPage.total
-    this.setState({ pages })
-  }
-  onPageComplete (curPage, key) {
-    let page = this.state.page
-    page[key] = curPage.pageIndex
-    this.setState({ page })
-  }
-  handlePrevious (key) {
-    let pagetmp = this.state.page
-    if (pagetmp[key] !== 0) {
-      pagetmp[key] = pagetmp[key] - 1
-      this.setState({ page: pagetmp })
-    }
-  }
-  handleNext (key) {
-    let pagetmp = this.state.page
-    if (pagetmp[key] !== this.state.pages[key]) {
-      pagetmp[key] = pagetmp[key] + 1
-      this.setState({ page: pagetmp })
     }
   }
   activeEdit () {
@@ -60,24 +32,19 @@ class MediaModal extends Component {
       })
     }
   }
-  typeItem (el, key) {
+  typeItem (el) {
     if (el.name.indexOf('png') !== -1) {
       return <img src={config.urls.gallery + el.name} />
     } else if (el.name.indexOf('mp4') !== -1) {
       return <video src={config.urls.gallery + el.name} id='video' controls />
     } else if (el.name.indexOf('mp3') !== -1) {
       return (<div>
-        <img src={config.urls.media + 'audio_file.png'} />
+        <img className='audio-img' src={config.urls.media + 'audio_file.png'} />
         <audio src={config.urls.gallery + el.name} controls />
       </div>)
     } else if (el.name.indexOf('pdf') !== -1) {
       return (<div>
-        <ReactPDF file={config.urls.gallery + el.name} onDocumentLoad={e => { this.onDocumentComplete(e, key) }}
-          onPageLoad={e => { this.onPageComplete(e, key) }} pageIndex={this.state.page[key]} />
-        <h1 onClick={() => { this.handlePrevious(key) }}>Prev</h1>
-        <h1>Page {this.state.page[key] + 1} of {this.state.pages[key]}</h1>
-        <h1 onClick={() => { this.handleNext(key) }}>Next</h1>
-        { /* <iframe src="http://docs.google.com/gview?url=http://www.pdf995.com/samples/pdf.pdf&embedded=true"></iframe> todo need document on server */ }
+        <iframe src='http://docs.google.com/gview?url=http://www.pdf995.com/samples/pdf.pdf&embedded=true' />
       </div>)
     }
   }

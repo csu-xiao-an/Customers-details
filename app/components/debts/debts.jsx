@@ -113,11 +113,8 @@ class Debts extends Component {
           <h1>{ config.translations.add_debt}</h1>
         </div>
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
-          <div className={config.data.debts.length > 0 ? 'hidden' : 'label-wrap'}>
-            <div className='debt-label'>{ config.translations.debt}: <span className='count-debt'>{this.state.total_debt}</span></div>
-          </div>
           <div className='edit'>
-            <div className='description'>.
+            <div className='description'>
               <input className='description-input' type='text' value={this.state.description}
                 onChange={event => { this.setState({description: event.target.value}) }}
               />
@@ -136,7 +133,7 @@ class Debts extends Component {
               <div className='ink' onClick={() => this.setState({debt: parseInt(this.state.debt) - config.data.debt_step})}>
                 <span className='minus'>-</span>
               </div>
-              <h3>{ config.translations.amount}</h3>
+              <h1>{config.translations.amount}</h1>
             </div>
           </div>
         </div>

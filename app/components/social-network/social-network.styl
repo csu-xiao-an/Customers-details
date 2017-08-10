@@ -11,96 +11,99 @@
       margin 40px 20px 0 20px
       color #6b6b6b
   .add-select-wrap
-    height 170px
     h1
-      margin 10px 0 0 -30px
+      margin 10px 0 0 -25px
       color #6b6b6b
       width 100%
       text-align right
+    .input-wrap
+      position relative
+      width 100%
+      height 30px
+      display inline-block
+      top -5px
+      input
+        float right
+        position relative
+        display inline-block
+        width 65%
+        height 30px
+        border 1px solid #6b6b6b
+        font-size 22px
+        margin-right 30px
+        &:focus
+          outline none
+          text-align right
     .item-wrap
       width 100%
-      height 100px
+      height 60px
       .button-wrap
         position relative
-        width 20%
-        height 100px
+        width 25%
+        height 60px
         display inline-block
-        top -30px
+        top -24px
         button
-          height 60px
-          border-radius 30px
-          border 2px solid #6b6b6b
-          background-color white
-          width 120px
-          font-size 32px
-          margin-left 30px
-          &:focus
-            outline none
-      .input-wrap
-        position relative
-        width 50%
-        height 100px
-        display inline-block
-        top -10px
-        .img-wrap
-          display inline-block
-          width 20%
-          height 100%
-          img
-            width 60px
-            height 60px
-            margin-left 40px
-        input
-          position relative
-          display inline-block
-          width 80%
-          height 60px
+          height 30px
+          border-radius 15px
           border 1px solid #6b6b6b
-          top -25px
-          font-size 36px
+          background-color white
+          width 80px
+          font-size 22px
+          margin 0 0 20px 10px
           &:focus
             outline none
-            text-align right
-      .select-wrap
-        width 30%
-        height 100px
+      .img-wrap
         display inline-block
-        padding-top 30px
+        width 20%
+        height 60px
+        img
+          position relative
+          width 33px
+          height 33px
+          margin-left 10px
+          top -15px
+      .select-wrap
+        padding-top 10px
+        width 55%
+        height 60px
+        display inline-block
         .Select
-          width 250px
-          height 60px
           float right
           margin-right 30px
+          width 100%
+          height 30px
           .Select-control
             float right
-            width 250px
-            height 60px
+            width 100%
+            height 30px
             .Select-input
-              font-size 36px
+              font-size 22px
             .Select-placeholder
-              font-size 36px
-              top 13px
+              font-size 22px
             .Select-value-label
               position relative
-              font-size 36px
-              top 13px
+              font-size 22px
             .Select-clear
-              font-size 36px
+              padding-top 2px
+              font-size 22px
             .Select-arrow-zone
               width 40px
-              padding-top 5px
+              padding-top 7px
               .Select-arrow
-                border-width 15px 10px 2.5px
+                border-width 11px 7px 2.5px
           .Select-menu-outer
             height 100%
-            font-size 36px
+            font-size 22px
             .Select-menu
-              background-color white
               max-height 666px
               overflow-y auto
+              background-color white
+              .Select-option
+                padding 3px 6px
   .hidden
     display none
 .is-open
   .Select-control
     .Select-arrow
-      border-width 0px 10px 15px!important
+      border-width 0px 7px 11px!important

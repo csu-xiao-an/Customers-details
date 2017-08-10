@@ -44,17 +44,17 @@ module.exports = env => {
         },
         {
           test: /\.styl$/,
-          use: ExtractTextPlugin.extract({
+          use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: ['css-loader', 'stylus-loader']
-          })
+          }))
         },
         {
           test: /\.css/,
-          use: ExtractTextPlugin.extract({
+          use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: ['css-loader']
-          })
+          }))
         },
         {
           test: /\.(img|png|svg)$/,

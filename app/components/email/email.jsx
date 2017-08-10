@@ -26,9 +26,13 @@ class Email extends React.Component {
     return (
       <div id='email'>
         <div className={config.data.email ? 'email' : 'hidden'}>
-          <a href={'mailto:' + config.data.email}><img src='./dist/media/mail.svg' /></a>
-          <div className='email-label'>{config.translations.email}</div>
-          <h1>{config.data.email}</h1>
+          <div className='link-wrap'>
+            <a href={'mailto:' + config.data.email}><img src='./dist/media/mail.svg' /></a>
+          </div>
+          <div className='data-wrap'>
+            <div className='email-label'>{config.translations.email}</div>
+            <h1>{config.data.email}</h1>
+          </div>
         </div>
         <div onClick={() => { this.setState({emailEdit: !this.state.emailEdit}) }}
           className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
