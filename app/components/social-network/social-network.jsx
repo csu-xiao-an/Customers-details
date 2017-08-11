@@ -8,26 +8,38 @@ class SocialNetwork extends Component {
   constructor () {
     super()
     this.state = {
-      isOpenSocial: false,
-      selectedValue: config.data.soc_media
+      selectedValue: config.data.soc_media && config.data.soc_media[0] && config.data.soc_media[0].type,
+      inputValue: config.data.soc_media && config.data.soc_media[0] && config.data.soc_media[0].url,
+      isOpenSocial: false
     }
-    this.handleSource = this.handleSource.bind(this)
     this.logChange = this.logChange.bind(this)
     this.submit = this.submit.bind(this)
   }
-  handleSource () {
-    this.setState({ isOpenSocial: !this.state.isOpenSource })
-  }
   logChange (val) {
+    config.data.soc_media && config.data.soc_media.every(el => {
+      if (el.type === val.value) {
+        this.setState({inputValue: el.url})
+        return false
+      } else {
+        this.setState({inputValue: ''})
+        return true
+      }
+    })
     val ? this.setState({selectedValue: val.value}) : this.setState({selectedValue: 'default'})
   }
   async submit () {
-    const body = `soc_media=${this.state.selectedValue}`
-    let response = await clientReplaceService(body)
-    if (response.status === 204) {
-      config.data.soc_media = this.state.selectedValue
-      this.forceUpdate()
-    }
+    // const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
+    // let response = await clientReplaceService(body)
+    // if (response.status === 204) {
+    config.data.soc_media.push(
+      {
+        id: 123123,
+        type: this.state.selectedValue,
+        url: this.state.inputValue
+      }
+    )
+    this.forceUpdate()
+    // }
   }
   render () {
     const list = config.translations.soc_media_list
@@ -43,11 +55,11 @@ class SocialNetwork extends Component {
     ]
     return (
       <div id='social-network'>
-        <div className={this.state.isOpenSource ? 'hidden' : config.data.soc_media ? 'hidden' : 'add-source-wrap'}>
-          <img src='./dist/media/add.svg' onClick={this.handleSource} />
+        <div className={this.state.isOpenSocial ? 'hidden' : config.data.soc_media && config.data.soc_media[0] ? 'hidden' : 'add-source-wrap'}>
+          <img src='./dist/media/add.svg' onClick={() => { this.setState({ isOpenSocial: !this.state.isOpenSocial }) }} />
           <h1>{config.translations.add_social_net}</h1>
         </div>
-        <div className={this.state.isOpenSource ? 'add-select-wrap' : config.data.soc_media ? 'add-select-wrap' : 'hidden'}>
+        <div className={this.state.isOpenSocial ? 'add-select-wrap' : config.data.soc_media && config.data.soc_media[0] ? 'add-select-wrap' : 'hidden'}>
           <h1>{config.translations.social_net}</h1>
           <div className='item-wrap'>
             <div className='button-wrap'>
@@ -65,7 +77,7 @@ class SocialNetwork extends Component {
             </div>
           </div>
           <div className='input-wrap'>
-            <input type='text' />
+            <input type='text' value={this.state.inputValue} onChange={e => { this.setState({inputValue: e.target.value}) }} />
           </div>
         </div>
       </div>

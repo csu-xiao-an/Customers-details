@@ -104,7 +104,6 @@ var config = {
     vip: true,
     status: 'Status',
     source: 'ads',
-    soc_media: 'facebook',
     currency: '₪',
     debt_step: 10,
     debts: [
@@ -118,6 +117,59 @@ var config = {
     notes: [
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
       {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}
+    ],
+    groups: [
+      {
+        id: '01',
+        name: 'Were born this month',
+        amount: '72'
+      },
+      {
+        id: '02',
+        name: 'Preferred Customers',
+        amount: '17'
+      },
+      {
+        id: '03',
+        name: 'They did not pay',
+        amount: '8'
+      }
+    ],
+    approved_marketing: {
+      status: true,
+      sign: 'autograph.png'
+    },
+    soc_media: [
+      {
+        id: 1,
+        type: 'facebook',
+        url: 'https://www.facebook.com/bewebmaster/'
+      },
+      {
+        id: 2,
+        type: 'instagram',
+        url: 'https://www.instagram.com/bewebmaster/'
+      },
+      {
+        id: 3,
+        type: 'linkedin',
+        url: 'https://www.linkedin.com/bewebmaster/'
+      },
+      {
+        id: 4,
+        type: 'twitter',
+        url: 'https://www.twitter.com/bewebmaster/'
+      },
+      {
+        id: 5,
+        type: 'pinterest',
+        url: 'https://www.pinterest.com/bewebmaster/'
+      },
+      {
+        id: 6,
+        type: 'vk',
+        url: 'https://www.vk.com/bewebmaster/'
+      }
     ],
     gallery: [
       {
@@ -259,27 +311,6 @@ var config = {
         date: '2017-08-09 17:00'
       }
     ],
-    groups: [
-      {
-        id: '01',
-        name: 'Were born this month',
-        amount: '72'
-      },
-      {
-        id: '02',
-        name: 'Preferred Customers',
-        amount: '17'
-      },
-      {
-        id: '03',
-        name: 'They did not pay',
-        amount: '8'
-      }
-    ],
-    approved_marketing: {
-      status: true,
-      sign: 'autograph.png'
-    },
     recent_appoinments: [
       {
         id: 321321,
