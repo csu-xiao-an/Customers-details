@@ -9,3 +9,7 @@ export { postService as debtPostService } from './debt.service.js'
 export { replaceService as clientReplaceService } from './client.service.js'
 // export { deleteService as clientDeleteService } from './client.service.js'
 // export { postService as clientPostService } from './client.service.js'
+
+export { replaceService as socialReplaceService } from './social.service.js'
+export { deleteService as socialDeleteService } from './social.service.js'
+export { postService as socialPostService } from './social.service.js'

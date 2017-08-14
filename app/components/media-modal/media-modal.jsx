@@ -44,7 +44,7 @@ class MediaModal extends Component {
       </div>)
     } else if (el.name.indexOf('pdf') !== -1) {
       return (<div>
-        <iframe src='http://docs.google.com/gview?url=http://www.pdf995.com/samples/pdf.pdf&embedded=true' />
+        <iframe src='http://docs.google.com/gview?url=http://api.bewebmaster.co.il/public/creating_appointment.pdf&embedded=true' />
       </div>)
     }
   }

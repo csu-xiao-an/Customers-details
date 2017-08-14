@@ -85,11 +85,12 @@ var config = {
   },
   urls: {
     main: 'http://api.bewebmaster.co.il',
+    groups_img: './dist/media/groups/',
     gallery: './dist/media/galery/',
     soc_net: './dist/media/soc_net',
-    groups: './dist/media/groups/',
     appointments: '/appointments',
     media: './dist/media/',
+    groups: '/groups/',
     home: '/'
   },
   data: {
@@ -120,17 +121,32 @@ var config = {
     ],
     groups: [
       {
-        id: '01',
+        id: 1,
         name: 'Were born this month',
         amount: '72'
       },
       {
-        id: '02',
+        id: 2,
         name: 'Preferred Customers',
         amount: '17'
       },
       {
-        id: '03',
+        id: 3,
+        name: 'They did not pay',
+        amount: '8'
+      },
+      {
+        id: 1,
+        name: 'Were born this month',
+        amount: '72'
+      },
+      {
+        id: 2,
+        name: 'Preferred Customers',
+        amount: '17'
+      },
+      {
+        id: 3,
         name: 'They did not pay',
         amount: '8'
       }

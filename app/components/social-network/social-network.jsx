@@ -1,4 +1,4 @@
-import { clientReplaceService } from 'project-services'
+import { socialPostService, socialDeleteService } from 'project-services'
 import 'react-select/dist/react-select.css'
 import React, { Component } from 'react'
 import Select from 'react-select'
@@ -10,36 +10,46 @@ class SocialNetwork extends Component {
     this.state = {
       selectedValue: config.data.soc_media && config.data.soc_media[0] && config.data.soc_media[0].type,
       inputValue: config.data.soc_media && config.data.soc_media[0] && config.data.soc_media[0].url,
-      isOpenSocial: false
+      isOpenSocial: false,
+      itemId: 0,
+      key: 0
     }
     this.logChange = this.logChange.bind(this)
     this.submit = this.submit.bind(this)
+    this.delete = this.delete.bind(this)
   }
   logChange (val) {
-    config.data.soc_media && config.data.soc_media.every(el => {
+    config.data.soc_media && config.data.soc_media.every((el, key) => {
       if (el.type === val.value) {
-        this.setState({inputValue: el.url})
+        this.setState({inputValue: el.url, itemId: el.id, key: key})
         return false
       } else {
-        this.setState({inputValue: ''})
+        this.setState({inputValue: '', itemId: 0, key: 0})
         return true
       }
     })
     val ? this.setState({selectedValue: val.value}) : this.setState({selectedValue: 'default'})
   }
   async submit () {
-    // const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
-    // let response = await clientReplaceService(body)
-    // if (response.status === 204) {
-    config.data.soc_media.push(
-      {
-        id: 123123,
-        type: this.state.selectedValue,
-        url: this.state.inputValue
-      }
-    )
-    this.forceUpdate()
-    // }
+    const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
+    let response = await socialPostService(body)
+    if (response.status === 201) {
+      config.data.soc_media.push(
+        {
+          id: 123123,
+          type: this.state.selectedValue,
+          url: this.state.inputValue
+        }
+      )
+      this.forceUpdate()
+    }
+  }
+  async delete () {
+    let response = await socialDeleteService(this.state.itemId)
+    if (response.status === 204) {
+      config.data.soc_media.splice(this.state.key, 1)
+      this.setState({inputValue: ''})
+    }
   }
   render () {
     const list = config.translations.soc_media_list
@@ -62,11 +72,8 @@ class SocialNetwork extends Component {
         <div className={this.state.isOpenSocial ? 'add-select-wrap' : config.data.soc_media && config.data.soc_media[0] ? 'add-select-wrap' : 'hidden'}>
           <h1>{config.translations.social_net}</h1>
           <div className='item-wrap'>
-            <div className='button-wrap'>
-              <button onClick={this.submit}>{config.translations.save}</button>
-            </div>
-            <div className='img-wrap'>
-              <img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} />
+            <div className='delete-wrap'>
+              <img className={this.state.inputValue ? 'delete' : 'hidden'} src={config.urls.media + 'add.svg'} onClick={this.delete} />
             </div>
             <div className='select-wrap'>
               <Select
@@ -75,9 +82,15 @@ class SocialNetwork extends Component {
                 options={options}
               />
             </div>
+            <div className='img-wrap'>
+              <img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} onClick={this.delete} />
+            </div>
+            <div className='input-wrap'>
+              <input type='text' value={this.state.inputValue} onChange={e => { this.setState({inputValue: e.target.value}) }} />
+            </div>
           </div>
-          <div className='input-wrap'>
-            <input type='text' value={this.state.inputValue} onChange={e => { this.setState({inputValue: e.target.value}) }} />
+          <div className='button-wrap'>
+            <button onClick={this.submit}>{config.translations.save}</button>
           </div>
         </div>
       </div>

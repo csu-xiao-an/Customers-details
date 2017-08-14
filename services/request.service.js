@@ -1,4 +1,5 @@
 const mainRequestService = async (url, options) => {
+  // url = 'http://api.bewebmaster.co.il/503'
   let res
   await fetch(url, options).then(response => {
     console.log(response)
