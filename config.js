@@ -190,19 +190,7 @@ var config = {
     gallery: [
       {
         id: 123123,
-        name: 'document.pdf',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-08-09 00:00'
-      },
-      {
-        id: 123123,
         name: '01.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-08-09 00:00'
-      },
-      {
-        id: 123123,
-        name: 'witcher.pdf',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 00:00'
       },
@@ -265,6 +253,12 @@ var config = {
         name: '10.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-08-09 09:00'
+      },
+      {
+        id: 123123,
+        name: 'document.pdf',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-08-09 00:00'
       },
       {
         id: 123123,

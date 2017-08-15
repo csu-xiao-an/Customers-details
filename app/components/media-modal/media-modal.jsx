@@ -32,20 +32,20 @@ class MediaModal extends Component {
       })
     }
   }
-  typeItem (el) {
-    if (el.name.indexOf('png') !== -1) {
-      return <img src={config.urls.gallery + el.name} />
-    } else if (el.name.indexOf('mp4') !== -1) {
-      return <video src={config.urls.gallery + el.name} id='video' controls />
-    } else if (el.name.indexOf('mp3') !== -1) {
-      return (<div>
-        <img className='audio-img' src={config.urls.media + 'audio_file.png'} />
-        <audio src={config.urls.gallery + el.name} controls />
-      </div>)
-    } else if (el.name.indexOf('pdf') !== -1) {
-      return (<div>
-        <iframe src='http://docs.google.com/gview?url=http://api.bewebmaster.co.il/public/creating_appointment.pdf&embedded=true' />
-      </div>)
+  typeItem (el, key) {
+    if (!this.state.test && this.state.activeIndex === key || this.state.activeIndex === key + 1 || this.state.activeIndex === key - 1) {
+      if (el.name.indexOf('png') !== -1) {
+        return <img src={config.urls.gallery + el.name} />
+      } else if (el.name.indexOf('mp4') !== -1) {
+        return <video src={config.urls.gallery + el.name} id='video' controls />
+      } else if (el.name.indexOf('mp3') !== -1) {
+        return (<div>
+          <img className='audio-img' src={config.urls.media + 'audio_file.png'} />
+          <audio src={config.urls.gallery + el.name} controls />
+        </div>)
+      } else if (el.name.indexOf('pdf') !== -1) {
+        return <iframe src='http://docs.google.com/gview?url=http://api.bewebmaster.co.il/public/creating_appointment.pdf&embedded=true' />
+      }
     }
   }
   async replace (id) {

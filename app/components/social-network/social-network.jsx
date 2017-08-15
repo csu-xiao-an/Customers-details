@@ -8,27 +8,12 @@ class SocialNetwork extends Component {
   constructor () {
     super()
     this.state = {
-      selectedValue: config.data.soc_media && config.data.soc_media[0] && config.data.soc_media[0].type,
-      inputValue: config.data.soc_media && config.data.soc_media[0] && config.data.soc_media[0].url,
-      isOpenSocial: false,
-      itemId: 0,
-      key: 0
+      selectedValue: 'facebook',
+      inputValue: '',
+      isEditSocial: false
     }
-    this.logChange = this.logChange.bind(this)
     this.submit = this.submit.bind(this)
     this.delete = this.delete.bind(this)
-  }
-  logChange (val) {
-    config.data.soc_media && config.data.soc_media.every((el, key) => {
-      if (el.type === val.value) {
-        this.setState({inputValue: el.url, itemId: el.id, key: key})
-        return false
-      } else {
-        this.setState({inputValue: '', itemId: 0, key: 0})
-        return true
-      }
-    })
-    val ? this.setState({selectedValue: val.value}) : this.setState({selectedValue: 'default'})
   }
   async submit () {
     const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
@@ -41,13 +26,13 @@ class SocialNetwork extends Component {
           url: this.state.inputValue
         }
       )
-      this.forceUpdate()
+      this.setState({ isEditSocial: !this.state.isEditSocial, selectedValue: 'facebook', inputValue: '' })
     }
   }
-  async delete () {
-    let response = await socialDeleteService(this.state.itemId)
+  async delete (id, key) {
+    let response = await socialDeleteService(id)
     if (response.status === 204) {
-      config.data.soc_media.splice(this.state.key, 1)
+      config.data.soc_media.splice(key, 1)
       this.setState({inputValue: ''})
     }
   }
@@ -65,25 +50,35 @@ class SocialNetwork extends Component {
     ]
     return (
       <div id='social-network'>
-        <div className={this.state.isOpenSocial ? 'hidden' : config.data.soc_media && config.data.soc_media[0] ? 'hidden' : 'add-source-wrap'}>
-          <img src='./dist/media/add.svg' onClick={() => { this.setState({ isOpenSocial: !this.state.isOpenSocial }) }} />
-          <h1>{config.translations.add_social_net}</h1>
+        <h1 className='soc-media-label'>{config.translations.social_net}</h1>
+        <div className={config.data.soc_media && config.data.soc_media[0] ? 'social-network-list' : 'hidden'}>
+          {config.data.soc_media.map((el, key) => {
+            return (
+              <div key={key} className='social-item-wrap'>
+                <div className='delete-wrap'>
+                  <img className='delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(el.id, key) }} />
+                </div>
+                <div className='img-wrap'>
+                  <img src={config.urls.soc_net + '/' + el.type + '.png'} />
+                </div>
+                <div className='url-wrap' onClick={() => { this.setState({ isEditSocial: true, selectedValue: el.type }) }}>
+                  <h1>{el.url}</h1>
+                </div>
+              </div>
+            )
+          })}
         </div>
-        <div className={this.state.isOpenSocial ? 'add-select-wrap' : config.data.soc_media && config.data.soc_media[0] ? 'add-select-wrap' : 'hidden'}>
-          <h1>{config.translations.social_net}</h1>
+        <div className={this.state.isEditSocial ? 'add-select-wrap' : 'hidden'}>
           <div className='item-wrap'>
-            <div className='delete-wrap'>
-              <img className={this.state.inputValue ? 'delete' : 'hidden'} src={config.urls.media + 'add.svg'} onClick={this.delete} />
-            </div>
             <div className='select-wrap'>
               <Select
                 value={this.state.selectedValue}
-                onChange={this.logChange}
+                onChange={e => { this.setState({ selectedValue: e.value }) }}
                 options={options}
               />
             </div>
             <div className='img-wrap'>
-              <img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} onClick={this.delete} />
+              <img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} />
             </div>
             <div className='input-wrap'>
               <input type='text' value={this.state.inputValue} onChange={e => { this.setState({inputValue: e.target.value}) }} />
@@ -92,6 +87,10 @@ class SocialNetwork extends Component {
           <div className='button-wrap'>
             <button onClick={this.submit}>{config.translations.save}</button>
           </div>
+        </div>
+        <div className={this.state.isEditSocial ? 'hidden' : 'add-source-wrap'}>
+          <img src='./dist/media/add.svg' onClick={() => { this.setState({ isEditSocial: !this.state.isEditSocial }) }} />
+          <h1>{config.translations.add_social_net}</h1>
         </div>
       </div>
     )
