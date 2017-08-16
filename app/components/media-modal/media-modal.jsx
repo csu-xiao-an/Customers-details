@@ -77,6 +77,7 @@ class MediaModal extends Component {
           <div className={this.state.isEditNote ? 'noSwiping' : ''}>
             <Swiper onSetTranslate={swiper => { this.setState({activeIndex: swiper.activeIndex}) }}
               observer slidesPerView='auto' initialSlide={this.props.initialSlide}
+              onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
               nextButton='.swiper-button-next' prevButton='.swiper-button-prev'>
               {config.data.gallery.map((el, key) => (<div key={key} id='gallery-swiper-wrap'>{this.typeItem(el, key)}</div>))}
             </Swiper>
