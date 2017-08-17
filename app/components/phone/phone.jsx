@@ -25,9 +25,11 @@ class Phone extends React.Component {
   render () {
     return (
       <div id='phone'>
-        <div className={config.data.phone ? 'phone' : 'hidden'}>
+        <div className={config.data.phone ? 'phone-img' : 'hidden'}>
           <a href={'tel:' + config.data.phone}><img src='./dist/media/call.svg' /></a>
           <a href={'sms:' + config.data.phone}><img src='./dist/media/send-sms.svg' /></a>
+        </div>
+        <div className={config.data.phone ? 'phone-labels' : 'hidden'}>
           <div className='call-label'>{config.translations.mobile}</div>
           <h1>{config.data.phone}</h1>
         </div>
