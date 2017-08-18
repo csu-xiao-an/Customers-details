@@ -13,3 +13,5 @@ export { replaceService as clientReplaceService } from './client.service.js'
 export { replaceService as socialReplaceService } from './social.service.js'
 export { deleteService as socialDeleteService } from './social.service.js'
 export { postService as socialPostService } from './social.service.js'
+
+export { replaceService as detailsReplaceService } from './details.service.js'

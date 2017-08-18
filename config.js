@@ -27,9 +27,10 @@ var config = {
     social_net: 'Social media link',
     add_link: 'Add link',
     group_partner: 'Group partner',
-    completion: 'Completion of the details by the customer',
-    request_to_detail: 'Submit a request to complete details',
+    completion: 'Filling up customer`s details',
+    request_to_detail: 'Send a link to the customer to fill up the details',
     send: 'Send',
+    sent: 'Sent',
     marketing_material: 'The customer allows sending marketing material',
     signature_added: 'Signature added successfully',
     btn_delete: 'Delete',
@@ -91,6 +92,7 @@ var config = {
     appointments: '/appointments',
     media: './dist/media/',
     groups: '/groups/',
+    fill: '/fill',
     home: '/'
   },
   data: {
@@ -103,6 +105,7 @@ var config = {
     intent_y: 30.2525126,
     phone: '0545421321',
     vip: true,
+    details_link_active: false,
     status: 'Status',
     source: 'ads',
     currency: '₪',
