@@ -31,8 +31,9 @@ var config = {
     request_to_detail: 'Send a link to the customer to fill up the details',
     send: 'Send',
     sent: 'Sent',
-    marketing_material: 'The customer allows sending marketing material',
+    marketing_material: 'The client haven`t permitted sending ads',
     signature_added: 'Signature added successfully',
+    add_signature: 'Add client`s signature',
     btn_delete: 'Delete',
     btn_replace: 'Replace',
     procedures: 'procedures',
@@ -106,6 +107,8 @@ var config = {
     phone: '0545421321',
     vip: true,
     details_link_active: false,
+    permit_ads: false,
+    // signature: './dist/media/autograph.png',
     status: 'Status',
     source: 'ads',
     currency: '₪',
@@ -154,10 +157,6 @@ var config = {
         amount: '8'
       }
     ],
-    approved_marketing: {
-      status: true,
-      sign: 'autograph.png'
-    },
     soc_media: [
       {
         id: 1,

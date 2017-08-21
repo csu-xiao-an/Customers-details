@@ -70,7 +70,7 @@ class Hero extends React.Component {
                  />
             </div>
             <span onClick={this.state.isInputDisabled ? '' : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
-              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src='./dist/media/pencil.svg' />
+              <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src={config.urls.media + 'pencil.svg'} />
             </span>
           </div>
         </form>
