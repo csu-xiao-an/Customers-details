@@ -34,8 +34,9 @@ var config = {
     marketing_material: 'The client haven`t permitted sending ads',
     signature_added: 'Signature added successfully',
     add_signature: 'Add client`s signature',
-    btn_delete: 'Delete',
-    btn_replace: 'Replace',
+    save_signature: 'Save signature',
+    btn_delete: 'Remove',
+    btn_replace: 'Change',
     procedures: 'procedures',
     all_visits: 'For all visits...',
     dates: {

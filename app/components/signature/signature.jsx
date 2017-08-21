@@ -1,11 +1,23 @@
+import SignatureModal from '../signature-modal/signature-modal.jsx'
 import Switch from 'react-toggle-switch'
 import React from 'react'
 import './signature.styl'
 
 class Signature extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      isEditSignature: false
+    }
+    this.handleEditSignature = this.handleEditSignature.bind(this)
+  }
+  handleEditSignature () {
+    this.setState({isEditSignature: !this.state.isEditSignature})
+  }
   render () {
     return (
       <div id='signature'>
+        <SignatureModal isEditSignature={this.state.isEditSignature} handleEditSignature={this.handleEditSignature} />
         <div className='checkbox-wrap'>
           <div className='text'>
             <h1 className='text-h1'>{config.translations.marketing_material}</h1>
@@ -24,7 +36,7 @@ class Signature extends React.Component {
             <button className='block2-button'>{config.translations.btn_replace}</button>
           </div>
         </div>
-        <div className={config.data.signature ? 'hidden' : 'add-signature-wrap'}>
+        <div className={config.data.signature ? 'hidden' : 'add-signature-wrap'} onClick={this.handleEditSignature}>
           <div className='text-wrap'>
             <h1>{config.translations.add_signature}</h1>
           </div>
