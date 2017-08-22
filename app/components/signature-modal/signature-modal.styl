@@ -3,16 +3,26 @@
   width 80%!important
 #signature-modal-header
   .modal-header
-    background-color white!important
-    height 60px
-    border-top-left-radius 10px
-    border-top-right-radius 10px
-    img
-      float right
-      width 40px
-      margin 10px 10px 10px 0
-      transform rotate(45deg)
+    background-color silver!important
 #signature-modal-body
   height 200px
   canvas
-    border 1px solid
+    width 320px
+    height 200px
+#signature-modal-footer
+  .modal-footer
+    height 60px
+    background-color silver!important
+    button
+      display inline-block
+      height 100%
+      width 50%
+      background-color white
+      border 1px solid silver
+      font-size 22px
+      &:focus
+        outline none
+    button:nth-of-type(1)
+      border-bottom-left-radius 10px
+    button:nth-of-type(2)
+      border-bottom-right-radius 10px

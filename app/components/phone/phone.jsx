@@ -26,12 +26,20 @@ class Phone extends React.Component {
     return (
       <div id='phone'>
         <div className={config.data.phone ? 'phone-img' : 'hidden'}>
-          <a href={'tel:' + config.data.phone}><img src='./dist/media/call.svg' /></a>
-          <a href={'sms:' + config.data.phone}><img src='./dist/media/send-sms.svg' /></a>
+          <div className='img-wrap'>
+            <a href={'tel:' + config.data.phone}><img src='./dist/media/call.svg' /></a>
+          </div>
+          <div className='img-wrap'>
+            <a href={'sms:' + config.data.phone}><img src='./dist/media/send-sms.svg' /></a>
+          </div>
         </div>
         <div className={config.data.phone ? 'phone-labels' : 'hidden'}>
-          <div className='call-label'>{config.translations.mobile}</div>
-          <h1>{config.data.phone}</h1>
+          <div className='label-wrap'>
+            <div className='call-label'>{config.translations.mobile}</div>
+          </div>
+          <div className='phone-wrap'>
+            <h1>{config.data.phone}</h1>
+          </div>
         </div>
         <div onClick={() => { this.setState({phoneEdit: !this.state.phoneEdit}) }}
           className={config.data.phone || this.state.phoneEdit ? 'hidden' : 'add-phone'}>

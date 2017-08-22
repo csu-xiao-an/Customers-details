@@ -1,4 +1,4 @@
-// import { mediaReplaceService, mediaDeleteService } from 'project-services'
+import { signatureReplaceService } from 'project-services'
 import React, { Component, PropTypes } from 'react'
 import Modal from 'react-bootstrap-modal'
 import './signature-modal.styl'
@@ -9,6 +9,8 @@ class SignatureModal extends Component {
     this.state = {
     }
     this.init = this.init.bind(this)
+    this.clear = this.clear.bind(this)
+    this.save = this.save.bind(this)
   }
   static get propTypes () {
     return {
@@ -16,25 +18,6 @@ class SignatureModal extends Component {
       isEditSignature: PropTypes.bool.isRequired
     }
   }
-  // async replace (id) {
-  //   const body = `note=${this.state.textareaValue}`
-  //   const response = await mediaReplaceService(body, id)
-  //   if (response.status === 204) {
-  //     config.data.gallery[this.state.activeIndex].note = this.state.textareaValue
-  //     config.data.gallery[this.state.activeIndex].date = moment().format('YYYY-MM-DD HH:mm')
-  //     this.setState({
-  //       isEditNote: false,
-  //       textareaValue: ''
-  //     })
-  //   }
-  // }
-  // async delete (id) {
-  //   const response = await mediaDeleteService(id)
-  //   if (response.status === 204) {
-  //     config.data.gallery.splice(this.state.activeIndex, 1)
-  //     this.props.handleGallery()
-  //   }
-  // }
   init () {
     let canvas = this.refs.canvas
     let ctx = canvas.getContext('2d')
@@ -57,9 +40,9 @@ class SignatureModal extends Component {
       if (res === 'down') {
         prevX = currX
         prevY = currY
-        currX = e.clientX - canvas.offsetLeft
-        currY = e.clientY - canvas.offsetTop
-
+        currX = e.targetTouches[0].clientX - canvas.offsetLeft
+        currY = e.targetTouches[0].clientY - canvas.offsetTop
+        e.preventDefault()
         flag = true
         dot = true
         if (dot) {
@@ -77,24 +60,39 @@ class SignatureModal extends Component {
         if (flag) {
           prevX = currX
           prevY = currY
-          currX = e.clientX - canvas.offsetLeft
-          currY = e.clientY - canvas.offsetTop
+          currX = e.targetTouches[0].clientX - canvas.offsetLeft
+          currY = e.targetTouches[0].clientY - canvas.offsetTop
+          e.preventDefault()
           draw()
         }
       }
     }
-    canvas.addEventListener('mousemove', function (e) {
+    canvas.addEventListener('touchmove', e => {
       findxy('move', e)
     }, false)
-    canvas.addEventListener('mousedown', function (e) {
+    canvas.addEventListener('touchstart', e => {
       findxy('down', e)
     }, false)
-    canvas.addEventListener('mouseup', function (e) {
+    canvas.addEventListener('touchend', e => {
       findxy('up', e)
     }, false)
-    canvas.addEventListener('mouseout', function (e) {
-      findxy('out', e)
-    }, false)
+  }
+  clear () {
+    let canvas = this.refs.canvas
+    let ctx = canvas.getContext('2d')
+    let w = canvas.width
+    let h = canvas.height
+    ctx.clearRect(0, 0, w, h)
+  }
+  async save () {
+    let canvas = this.refs.canvas
+    let dataURL = canvas.toDataURL()
+    const body = `sign=${dataURL}`
+    const response = await signatureReplaceService(body)
+    if (response.status === 204) {
+      this.props.handleEditSignature()
+      console.log(dataURL)
+    }
   }
   componentDidUpdate () {
     this.init()
@@ -108,8 +106,13 @@ class SignatureModal extends Component {
           </Modal.Header>
         </div>
         <div id='signature-modal-body'>
-          <canvas ref='canvas' width={330} height={200} />
-          <button onClick={() => { this.props.handleEditSignature() }}>{config.translations.save_signature}</button>
+          <canvas ref='canvas' />
+        </div>
+        <div id='signature-modal-footer'>
+          <Modal.Footer>
+            <button onClick={this.save}>{config.translations.save_signature}</button>
+            <button onClick={this.clear}>{config.translations.clear}</button>
+          </Modal.Footer>
         </div>
       </Modal>
     )
