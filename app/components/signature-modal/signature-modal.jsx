@@ -30,10 +30,10 @@ class SignatureModal extends Component {
     const findxy = (res, e) => {
       const draw = () => {
         ctx.beginPath()
-        ctx.moveTo(prevX - 42, prevY - 42)
-        ctx.lineTo(currX - 42, currY - 42)
+        ctx.moveTo(prevX - 40, prevY - 40)
+        ctx.lineTo(currX - 40, currY - 40)
         ctx.strokeStyle = 'black'
-        ctx.lineWidth = 2
+        ctx.lineWidth = 3
         ctx.stroke()
         ctx.closePath()
       }
@@ -48,7 +48,7 @@ class SignatureModal extends Component {
         if (dot) {
           ctx.beginPath()
           ctx.fillStyle = 'black'
-          ctx.fillRect(currX - 42, currY - 42, 2, 2)
+          ctx.fillRect(currX - 40, currY - 40, 3, 3)
           ctx.closePath()
           dot = false
         }
@@ -91,7 +91,7 @@ class SignatureModal extends Component {
     const response = await signatureReplaceService(body)
     if (response.status === 204) {
       this.props.handleEditSignature()
-      console.log(dataURL)
+      config.data.signature = dataURL
     }
   }
   componentDidUpdate () {
@@ -106,7 +106,7 @@ class SignatureModal extends Component {
           </Modal.Header>
         </div>
         <div id='signature-modal-body'>
-          <canvas ref='canvas' />
+          <canvas ref='canvas' width={336} height={200} />
         </div>
         <div id='signature-modal-footer'>
           <Modal.Footer>

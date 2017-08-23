@@ -637,16 +637,12 @@
 }
 .signature-modal-dialog {
   margin: 40px !important;
-  width: 80% !important;
+  width: 336px !important;
 }
 #signature-modal-header .modal-header {
   background-color: #c0c0c0 !important;
 }
 #signature-modal-body {
-  height: 200px;
-}
-#signature-modal-body canvas {
-  width: 320px;
   height: 200px;
 }
 #signature-modal-footer .modal-footer {
@@ -2125,6 +2121,7 @@ body {
   color: #333;
   background-color: #fff;
   margin: 0;
+  min-width: 420px;
 }
 .h1,
 h1 {

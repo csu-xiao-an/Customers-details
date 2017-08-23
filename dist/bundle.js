@@ -19124,7 +19124,7 @@ module.exports = factory;
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074088
+      // 1503484903036
       const cssReload = require("../../css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -38098,32 +38098,25 @@ var SignatureModal = function (_Component) {
       var findxy = function findxy(res, e) {
         var draw = function draw() {
           ctx.beginPath();
-          ctx.moveTo(prevX - 42, prevY - 42);
-          ctx.lineTo(currX - 42, currY - 42);
+          ctx.moveTo(prevX - 40, prevY - 40);
+          ctx.lineTo(currX - 40, currY - 40);
           ctx.strokeStyle = 'black';
           ctx.lineWidth = 2;
           ctx.stroke();
           ctx.closePath();
         };
         if (res === 'down') {
-          // if ((e.clientX) && (e.clientY)) {
-          //   prevX = currX
-          //   prevY = currY
-          //   currX = e.clientX - canvas.offsetLeft
-          //   currY = e.clientY - canvas.offsetTop
-          // } else if (e.targetTouches) {
           prevX = currX;
           prevY = currY;
           currX = e.targetTouches[0].clientX - canvas.offsetLeft;
           currY = e.targetTouches[0].clientY - canvas.offsetTop;
           e.preventDefault();
-          // }
           flag = true;
           dot = true;
           if (dot) {
             ctx.beginPath();
             ctx.fillStyle = 'black';
-            ctx.fillRect(currX - 42, currY - 42, 2, 2);
+            ctx.fillRect(currX - 40, currY - 40, 2, 2);
             ctx.closePath();
             dot = false;
           }
@@ -38133,34 +38126,15 @@ var SignatureModal = function (_Component) {
         }
         if (res === 'move') {
           if (flag) {
-            // if ((e.clientX) && (e.clientY)) {
-            //   prevX = currX
-            //   prevY = currY
-            //   currX = e.clientX - canvas.offsetLeft
-            //   currY = e.clientY - canvas.offsetTop
-            // } else if (e.targetTouches) {
             prevX = currX;
             prevY = currY;
             currX = e.targetTouches[0].clientX - canvas.offsetLeft;
             currY = e.targetTouches[0].clientY - canvas.offsetTop;
             e.preventDefault();
-            // }
             draw();
           }
         }
       };
-      // canvas.addEventListener('mousemove', e => {
-      //   findxy('move', e)
-      // }, false)
-      // canvas.addEventListener('mousedown', e => {
-      //   findxy('down', e)
-      // }, false)
-      // canvas.addEventListener('mouseup', e => {
-      //   findxy('up', e)
-      // }, false)
-      // canvas.addEventListener('mouseout', e => {
-      //   findxy('out', e)
-      // }, false)
       canvas.addEventListener('touchmove', function (e) {
         findxy('move', e);
       }, false);
@@ -38232,7 +38206,7 @@ var SignatureModal = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
           'div',
           { id: 'signature-modal-body' },
-          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('canvas', { ref: 'canvas' })
+          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('canvas', { ref: 'canvas', width: 336, height: 200 })
         ),
         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
           'div',
@@ -43131,7 +43105,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074118
+      // 1503484903080
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43144,7 +43118,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074130
+      // 1503484903095
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43157,7 +43131,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074157
+      // 1503484903129
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43170,7 +43144,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074122
+      // 1503484903083
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43183,7 +43157,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074144
+      // 1503484903118
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43196,7 +43170,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074127
+      // 1503484903089
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43209,7 +43183,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074142
+      // 1503484903116
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43222,7 +43196,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074129
+      // 1503484903092
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43235,7 +43209,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074137
+      // 1503484903102
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43248,7 +43222,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074132
+      // 1503484903097
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43261,7 +43235,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074120
+      // 1503484903082
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43274,7 +43248,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074116
+      // 1503484903078
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43287,7 +43261,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074123
+      // 1503484903085
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43300,7 +43274,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074140
+      // 1503484903114
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43313,7 +43287,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074138
+      // 1503484903104
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43326,7 +43300,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074125
+      // 1503484903087
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43339,7 +43313,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074147
+      // 1503484903122
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43352,7 +43326,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074146
+      // 1503484903120
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43365,7 +43339,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074155
+      // 1503484903125
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43378,7 +43352,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074134
+      // 1503484903099
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43391,7 +43365,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074135
+      // 1503484903101
       const cssReload = require("../../../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -43404,7 +43378,7 @@ module.exports = __webpack_require__(43);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503407074091
+      // 1503484903039
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);

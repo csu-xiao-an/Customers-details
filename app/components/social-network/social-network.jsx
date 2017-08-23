@@ -50,7 +50,7 @@ class SocialNetwork extends Component {
     ]
     return (
       <div id='social-network'>
-        <h1 className='soc-media-label'>{config.translations.social_net}</h1>
+        <h1 className={config.data.soc_media && config.data.soc_media[0] ? 'soc-media-label' : 'hidden'}>{config.translations.social_net}</h1>
         <div className={config.data.soc_media && config.data.soc_media[0] ? 'social-network-list' : 'hidden'}>
           {config.data.soc_media.map((el, key) => {
             return (

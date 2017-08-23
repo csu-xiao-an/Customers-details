@@ -22,7 +22,6 @@ class Signature extends React.Component {
     if (response.status === 204) {
       config.data.signature = null
       this.forceUpdate()
-      this.handleEditSignature()
     }
   }
   handleAds () {
