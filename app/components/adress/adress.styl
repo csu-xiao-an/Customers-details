@@ -4,59 +4,58 @@
     height 120px
     .google-map
       height 100px
-      width 100px
-      float left
+      display inline-block
+      width 24%
       margin 10px 10px
       img
         width 100%
         height 100%
-    .adress-label
-      padding 0px 20px
-      height 20px
-      border-radius 10px
-      background-color #e8ffff
-      margin-top 5px
-      margin-right 10px
-      text-align center
-      font-size 14px
-      float right
-      color #6b6b6b
-    .address
-      width 45%
-      float right
-      img
-        width 35px
+    .data-wrap
+      width 71%
+      display inline-block
+      .adress-label-wrap
+        width 100%
         height 30px
-        transform translate3D(50px,40px,0px)
-      h1
-        float right
-        margin-top 10px
-        transform translateX(70px)
-        font-weight 500
-        text-align right
-        color #304f63
-        text-decoration none
-        padding-right 5px
+        .adress-label
+          padding 0px 20px
+          height 20px
+          border-radius 10px
+          background-color #e8ffff
+          margin 5px 10px 0 10px
+          text-align center
+          font-size 14px
+          color #6b6b6b
+      .address
+        width 70%
+        height 80px
+        position relative
+        img
+          position absolute
+          width 35px
+          height 30px
+          top 30px
+        h1
+          margin 10px 30px 0 30px
+          font-weight 500
+          text-align end
+          color #304f63
+          text-decoration none
   .add-adress
     height 60px
     cursor pointer
     img
-      float right
       width 40px
-      margin 10px 30px 0 10px
+      margin 10px 30px 0 30px
       display block
     h1
-      float right
-      margin 20px 10px 0 20px
+      margin 18px -10px
       color #6b6b6b
       display block
   .adress-edit
     display block
     width 100%
     height 90px
-    padding-left 10px
-    padding-top 10px
-    padding-bottom 10px
+    padding 10px
     .edit
       width 100%
       height 30px
@@ -73,7 +72,7 @@
           outline none
       .edit-label
         width 25%
-        padding-left 10px
+        padding 0 10px
         color #6b6b6b
         display inline-block
         margin 0

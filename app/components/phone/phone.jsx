@@ -35,7 +35,7 @@ class Phone extends React.Component {
         </div>
         <div className={config.data.phone ? 'phone-labels' : 'hidden'}>
           <div className='label-wrap'>
-            <div className='call-label'>{config.translations.mobile}</div>
+            <div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div>
           </div>
           <div className='phone-wrap'>
             <h1>{config.data.phone}</h1>
@@ -43,8 +43,8 @@ class Phone extends React.Component {
         </div>
         <div onClick={() => { this.setState({phoneEdit: !this.state.phoneEdit}) }}
           className={config.data.phone || this.state.phoneEdit ? 'hidden' : 'add-phone'}>
-          <img src='./dist/media/add.svg' />
-          <h1>{config.translations.add_phone}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_phone}</h1>
         </div>
         <div className={this.state.phoneEdit ? 'phone-edit' : 'hidden'}>
           <div className='edit'>

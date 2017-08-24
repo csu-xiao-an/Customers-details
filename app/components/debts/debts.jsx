@@ -60,7 +60,7 @@ class Debts extends Component {
   }
   price () {
     let sum = 0
-    config.data.debts.forEach(el => {
+    config.data.debts && config.data.debts.forEach(el => {
       sum += el.sum
     })
     if (sum === 0 || isNaN(sum)) {
@@ -91,10 +91,10 @@ class Debts extends Component {
   render () {
     return (
       <div id='debt'>
-        <div className={config.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
-          <div className='debt-label'>{config.translations.debt}: <span className='count-debt'>{this.price()}</span></div>
+        <div className={config.data.debts && config.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
+          <div className={'debt-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.debt}: <span className='count-debt'>{this.price()}</span></div>
         </div>
-        { config.data.debts.map((el, key) => (
+        { config.data.debts && config.data.debts.map((el, key) => (
           <div key={key} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
             <div className='debt-list-delete-wrap'>
               <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(el.id, key) }} />
@@ -109,8 +109,8 @@ class Debts extends Component {
         )}
         <div onClick={() => { this.setState({debtEdit: !this.state.debtEdit}) }}
           className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
-          <img src={config.urls.media + 'add.svg'} />
-          <h1>{ config.translations.add_debt}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
+          <h1 className={config.isRtL ? 'left' : 'right'}>{ config.translations.add_debt}</h1>
         </div>
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
           <div className='edit'>
@@ -133,7 +133,7 @@ class Debts extends Component {
               <div className='ink' onClick={() => this.setState({debt: parseInt(this.state.debt) - config.data.debt_step})}>
                 <span className='minus'>-</span>
               </div>
-              <h1>{config.translations.amount}</h1>
+              <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.amount}</h1>
             </div>
           </div>
         </div>

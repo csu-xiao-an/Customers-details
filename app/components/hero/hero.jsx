@@ -39,7 +39,7 @@ class Hero extends React.Component {
   render () {
     return (
       <div id='hero'>
-        <div onClick={this.handleStar} className='star-wrap'>
+        <div onClick={this.handleStar} className={'star-wrap ' + (config.isRtL ? 'star-wrap-right' : 'star-wrap-left')}>
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 52 50'>
             <g id='Layer_2' data-name='Layer 2'>
               <g id='Layer_1-2' data-name='Layer 1'>

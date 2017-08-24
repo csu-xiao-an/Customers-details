@@ -6,11 +6,11 @@ class Comment extends React.Component {
     return (
       <div id='comment'>
         <div className='label-wrap'>
-          <div className='add1-label'>{config.translations.remarks}</div>
+          <div className={'add-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.remarks}</div>
         </div>
         <div className='add-wrap'>
-          <img src='./dist/media/add.svg' />
-          <h1>{config.translations.add_comment}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_comment}</h1>
         </div>
       </div>
     )

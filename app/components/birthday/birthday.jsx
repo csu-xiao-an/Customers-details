@@ -15,7 +15,7 @@ class Birthday extends React.Component {
   }
   render () {
     return (
-      <div id={this.state.birthdayStatus === undefined ? 'birthday-wrap-disabled' : 'birthday-wrap'}><h1>{this.state.birthdayStatus}</h1></div>
+      <div id={this.state.birthdayStatus === undefined ? 'birthday-wrap-disabled' : 'birthday-wrap'} className={config.isRtL ? 'birthday-wrap-right' : 'birthday-wrap-left'}><h1>{this.state.birthdayStatus}</h1></div>
     )
   }
 }

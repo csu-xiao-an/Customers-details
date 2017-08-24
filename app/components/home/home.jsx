@@ -20,7 +20,7 @@ import './home.styl'
 class Home extends Component {
   render () {
     return (
-      <div id='home'>
+      <div id='home' className={config.isRtL ? 'direction' : ''}>
         <Topnav />
         <Hero />
         <Events />

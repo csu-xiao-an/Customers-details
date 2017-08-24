@@ -26,23 +26,27 @@ class Adress extends React.Component {
     return (
       <div id='adress'>
         <div className={config.data.adress ? 'adress' : 'hidden'}>
-          <div className='google-map'>
+          <div className={'google-map ' + (config.isRtL ? 'right' : 'left')}>
             <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
               <img src={config.urls.main + '/customers-details/clients/' + config.data.id + '/map'} />
             </a>
           </div>
-          <div className='adress-label'>{config.translations.adress}</div>
-          <div className='address'>
-            <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
-              <img src={config.urls.media + 'waze.png'} />
-            </a>
-            <h1>{config.data.adress}</h1>
+          <div className='data-wrap'>
+            <div className='adress-label-wrap'>
+              <div className={'adress-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.adress}</div>
+            </div>
+            <div className={'address ' + (config.isRtL ? 'left' : 'right')}>
+              <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
+                <img src={config.urls.media + 'waze.png'} />
+              </a>
+              <h1 className={config.isRtL ? 'left' : 'right'}>{config.data.adress}</h1>
+            </div>
           </div>
         </div>
         <div onClick={() => { this.setState({adressEdit: !this.state.adressEdit}) }}
           className={config.data.adress || this.state.adressEdit ? 'hidden' : 'add-adress'}>
-          <img src='./dist/media/add.svg' />
-          <h1>{config.translations.add_adress}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_adress}</h1>
         </div>
         <div className={this.state.adressEdit ? 'adress-edit' : 'hidden'}>
           <div className='edit'>
