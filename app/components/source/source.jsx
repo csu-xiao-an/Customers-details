@@ -42,8 +42,8 @@ class Source extends Component {
     return (
       <div id='source'>
         <div className={this.state.isOpenSource ? 'hidden' : config.data.source ? 'hidden' : 'add-source-wrap'}>
-          <img src='./dist/media/add.svg' onClick={this.handleSource} />
-          <h1>{config.translations.add_traffic_source}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' onClick={this.handleSource} />
+          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>
         </div>
         <div className={this.state.isOpenSource ? 'add-select-wrap' : config.data.source ? 'add-select-wrap' : 'hidden'}>
           <h1>{config.translations.traffic_source}</h1>
@@ -52,6 +52,8 @@ class Source extends Component {
           </div>
           <div className='select-wrap'>
             <Select
+              className={config.isRtL ? 'left' : 'right'}
+              placeholder={config.translations.select_placeholder}
               value={this.state.selectedValue}
               onChange={this.logChange}
               options={options}

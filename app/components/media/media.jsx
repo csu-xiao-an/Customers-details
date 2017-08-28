@@ -29,8 +29,11 @@ class Media extends React.Component {
     body.append('note', this.state.desc)
     const response = await mediaPostService(body)
     if (response.status === 201) {
+      let id = await response.json().then(id => {
+        return id
+      })
       config.data.gallery.unshift({
-        id: 123123,
+        id: id,
         name: this.state.file.name,
         note: this.state.desc,
         date: moment().format('YYYY-MM-DD HH:mm')
@@ -85,8 +88,8 @@ class Media extends React.Component {
       <div id='gallery'>
         <MediaModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />
         <div className='label-wrap'>
-          <h1>{config.data.gallery.length} {config.translations.item_count}</h1>
-          <div className='gallery-label'>{config.translations.gallery}</div>
+          <h1 className={config.isRtL ? 'right' : 'left'}>{config.data.gallery.length} {config.translations.item_count}</h1>
+          <div className={'gallery-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.gallery}</div>
         </div>
         <div id='swiper-wrap-gallery'>
           <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable observer>
@@ -95,8 +98,8 @@ class Media extends React.Component {
         </div>
         <div onClick={() => { this.setState({isAddMedia: !this.state.isAddMedia}) }}
           className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
-          <img className='add-button' src='./dist/media/add.svg' />
-          <h1 className='add-label'>{config.translations.add_media}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_media}</h1>
         </div>
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <form className='add-input-wrap' ref='fileAddForm'>

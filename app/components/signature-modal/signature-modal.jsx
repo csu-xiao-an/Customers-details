@@ -102,7 +102,7 @@ class SignatureModal extends Component {
       <Modal show={this.props.isEditSignature} dialogClassName='signature-modal-dialog' onHide={this.props.handleEditSignature}>
         <div id='signature-modal-header'>
           <Modal.Header>
-            <img onClick={this.props.handleEditSignature} className='close-button' src='./dist/media/add.svg' />
+            <img onClick={this.props.handleEditSignature} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg' />
           </Modal.Header>
         </div>
         <div id='signature-modal-body'>
@@ -110,8 +110,8 @@ class SignatureModal extends Component {
         </div>
         <div id='signature-modal-footer'>
           <Modal.Footer>
-            <button onClick={this.save}>{config.translations.save_signature}</button>
-            <button onClick={this.clear}>{config.translations.clear}</button>
+            <button className={config.isRtL ? 'radiusRight' : 'radiusLeft'} onClick={this.save}>{config.translations.save_signature}</button>
+            <button className={config.isRtL ? 'radiusLeft' : 'radiusRight'} onClick={this.clear}>{config.translations.clear}</button>
           </Modal.Footer>
         </div>
       </Modal>

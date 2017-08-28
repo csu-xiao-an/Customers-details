@@ -37,11 +37,11 @@ class Signature extends React.Component {
             <h1 className='text-h1'>{config.data.permit_ads ? config.translations.permitted : config.translations.not_permitted}</h1>
           </div>
           <div className='switch'>
-            <Switch on={config.data.permit_ads} onClick={this.handleAds} />
+            <Switch on={config.data.permit_ads} onClick={this.handleAds} className={config.isRtL ? 'switchleft' : 'switchright'} />
           </div>
         </div>
         <div className={config.data.signature ? 'autograph-wrap' : 'hidden'}>
-          <div className='autograph'>
+          <div className={'autograph ' + (config.isRtL ? 'right' : 'left')}>
             <img src={config.data.signature} />
           </div>
           <div className='label'>

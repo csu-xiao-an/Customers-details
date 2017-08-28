@@ -19,13 +19,14 @@ class SocialNetwork extends Component {
     const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
     let response = await socialPostService(body)
     if (response.status === 201) {
-      config.data.soc_media.push(
-        {
-          id: 123123,
-          type: this.state.selectedValue,
-          url: this.state.inputValue
-        }
-      )
+      let id = await response.json().then(id => {
+        return id
+      })
+      config.data.soc_media.push({
+        id: id,
+        type: this.state.selectedValue,
+        url: this.state.inputValue
+      })
       this.setState({ isEditSocial: !this.state.isEditSocial, selectedValue: 'facebook', inputValue: '' })
     }
   }
@@ -72,6 +73,7 @@ class SocialNetwork extends Component {
           <div className='item-wrap'>
             <div className='select-wrap'>
               <Select
+                className={config.isRtL ? 'left' : 'right'}
                 value={this.state.selectedValue}
                 onChange={e => { this.setState({ selectedValue: e.value }) }}
                 options={options}
@@ -89,8 +91,8 @@ class SocialNetwork extends Component {
           </div>
         </div>
         <div className={this.state.isEditSocial ? 'hidden' : 'add-source-wrap'}>
-          <img src='./dist/media/add.svg' onClick={() => { this.setState({ isEditSocial: !this.state.isEditSocial }) }} />
-          <h1>{config.translations.add_social_net}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' onClick={() => { this.setState({ isEditSocial: !this.state.isEditSocial }) }} />
+          <h1 className={config.isRtL ? 'left' : 'right'} >{config.translations.add_social_net}</h1>
         </div>
       </div>
     )

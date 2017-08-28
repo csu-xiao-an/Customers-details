@@ -1,17 +1,18 @@
 #social-network
   border-bottom 1px solid silver
   .soc-media-label
-    margin 10px 0 5px -25px
+    margin 10px 0 5px 0
+    padding 0 20px
     color #6b6b6b
     width 100%
-    text-align right
+    text-align end
   .social-item-wrap
     height 40px
     width 100%
     .delete-wrap
       width 12%
       display inline-block
-      padding-left 10px
+      padding 0 10px
       .delete
         position relative
         transform rotate(45deg)
@@ -38,13 +39,11 @@
     height 60px
     cursor pointer
     img
-      float right
       width 40px
-      margin 10px 30px 0 10px
+      margin 10px 30px 0 30px
       display block
     h1
-      float right
-      margin 20px 10px 0 20px
+      margin 18px -10px
       color #6b6b6b
       display block
   .add-select-wrap
@@ -61,7 +60,7 @@
         background-color white
         width 80px
         font-size 22px
-        margin 0 0 0 10px
+        margin 0 10px
         &:focus
           outline none
     .item-wrap
@@ -75,7 +74,6 @@
           position relative
           width 33px
           height 33px
-          margin-left 5px
           top -16px
       .input-wrap
         position relative
@@ -98,21 +96,21 @@
             text-align right
       .select-wrap
         padding-top 10px
-        margin-left 10px
+        margin 0 10px
         width 34%
         height 60px
         display inline-block
         z-index 10
         position relative
         .Select
-          float right
           width 100%
           height 30px
           .Select-control
-            float right
             width 100%
             height 30px
             .Select-input
+              position relative
+              top -3px
               font-size 22px
             .Select-placeholder
               font-size 22px
@@ -127,6 +125,7 @@
               .Select-arrow
                 border-width 11px 7px 2.5px
           .Select-menu-outer
+            top 37px
             height 100%
             font-size 22px
             .Select-menu

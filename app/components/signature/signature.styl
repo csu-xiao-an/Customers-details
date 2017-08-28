@@ -11,14 +11,18 @@
       .text-h1
         margin 0
         color #6b6b6b
-        padding-left 20px
+        padding 0 10px
     .switch
       display inline-block
       width 30%
+      .switchleft.on
+        .switch-toggle
+          left -50px
+      .switchright.on
+        .switch-toggle
+          left 50px
       .switch.on
         background-color limegreen
-      .switch.on .switch-toggle
-        left 50px
       .switch.disabled
         cursor not-allowed
       .switch
@@ -45,9 +49,8 @@
     width 100%
     padding-bottom 15px
     .autograph
-      float left
       width 40%
-      margin 0 0 0 20px
+      margin 0 10px
       display inline-block
       img
         border 2px solid yellowgreen
@@ -60,7 +63,6 @@
       h1
         margin-top 10px
         color yellowgreen
-        transform translateX(30px)
       button
         display inline-block
         margin 0 6px
@@ -86,7 +88,7 @@
         margin 0
         color #6b6b6b
         padding 0 10px
-        text-align right
+        text-align end
         top -10px
     .img-wrap
       width 10%

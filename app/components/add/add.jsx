@@ -6,8 +6,8 @@ class Add extends React.Component {
     return (
       <div id='add'>
         <div className='add2'>
-          <img src='./dist/media/add.svg' />
-          <h1>{config.translations.add_link}</h1>
+          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_link}</h1>
         </div>
       </div>
     )

@@ -22,8 +22,11 @@ class Debts extends Component {
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
     const response = await debtPostService(body)
     if (response.status === 201) {
+      let id = await response.json().then(id => {
+        return id
+      })
       config.data.debts.unshift({
-        id: 123123,
+        id: id,
         sum: this.state.debt,
         desc: this.state.description,
         date: moment().format('YYYY-MM-DD HH:mm')
@@ -92,9 +95,13 @@ class Debts extends Component {
     return (
       <div id='debt'>
         <div className={config.data.debts && config.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
-          <div className={'debt-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.debt}: <span className='count-debt'>{this.price()}</span></div>
+          <div className={'debt-label ' + (config.isRtL ? 'left' : 'right')}>
+            <span>{config.translations.debt}</span>
+            <span>:</span>
+            <span className='count-debt'>{this.price()}</span>
+          </div>
         </div>
-        { config.data.debts && config.data.debts.map((el, key) => (
+        {config.data.debts && config.data.debts.map((el, key) => (
           <div key={key} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
             <div className='debt-list-delete-wrap'>
               <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(el.id, key) }} />
@@ -105,8 +112,7 @@ class Debts extends Component {
               <p className='debt-list-date'>{this.viewDate(el.date)}</p>
             </div>
           </div>
-          )
-        )}
+        ))}
         <div onClick={() => { this.setState({debtEdit: !this.state.debtEdit}) }}
           className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
@@ -116,8 +122,7 @@ class Debts extends Component {
           <div className='edit'>
             <div className='description'>
               <input className='description-input' type='text' value={this.state.description}
-                onChange={event => { this.setState({description: event.target.value}) }}
-              />
+                onChange={event => { this.setState({description: event.target.value}) }} />
               <h1 className='description-label'>{ config.translations.description_debt}</h1>
             </div>
             <div className='count'>
@@ -128,8 +133,7 @@ class Debts extends Component {
               <input className='count-input' type='number'
                 value={this.state.debt} onChange={event => { this.setState({debt: +event.target.value}) }}
                 onFocus={event => { toString(event.target.value); if (event.target.value === '0') { event.target.value = '' } }}
-                onBlur={event => { toString(event.target.value); if (event.target.value === '') { event.target.value = '0' } }}
-              />
+                onBlur={event => { toString(event.target.value); if (event.target.value === '') { event.target.value = '0' } }} />
               <div className='ink' onClick={() => this.setState({debt: parseInt(this.state.debt) - config.data.debt_step})}>
                 <span className='minus'>-</span>
               </div>

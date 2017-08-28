@@ -71,25 +71,25 @@ class MediaModal extends Component {
     return (
       <Modal show={this.props.isOpenGallery}>
         <Modal.Header>
-          <img onClick={this.props.handleGallery} className='close-button' src='./dist/media/add.svg' />
+          <img onClick={this.props.handleGallery} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg' />
         </Modal.Header>
         <Modal.Body>
           <div className={this.state.isEditNote ? 'noSwiping' : ''}>
             <Swiper onSetTranslate={swiper => { this.setState({activeIndex: swiper.activeIndex}) }}
               observer slidesPerView='auto' initialSlide={this.props.initialSlide}
               onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
-              nextButton='.swiper-button-next' prevButton='.swiper-button-prev'>
+              nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'} prevButton={config.isRtL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}>
               {config.data.gallery.map((el, key) => (<div key={key} id='gallery-swiper-wrap'>{this.typeItem(el, key)}</div>))}
             </Swiper>
           </div>
         </Modal.Body>
         <Modal.Footer>
           <div className='data'>
-            <h1>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].date}</h1>
-            <h1 className={this.state.isEditNote ? 'hidden' : ''}>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</h1>
-            <textarea className={this.state.isEditNote ? 'textarea' : 'hidden'}
+            <h1 className={config.isRtL ? 'right' : 'left'}>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].date}</h1>
+            <h1 className={this.state.isEditNote ? 'hidden' : config.isRtL ? 'right' : 'left'}>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</h1>
+            <textarea className={this.state.isEditNote ? 'textarea ' + (config.isRtL ? 'right' : 'left') : 'hidden'}
               onChange={event => { this.setState({textareaValue: event.target.value}) }} value={this.state.textareaValue} />
-            <button className={this.state.isEditNote ? '' : 'hidden'}
+            <button className={this.state.isEditNote ? config.isRtL ? 'right' : 'left' : 'hidden'}
               onClick={() => { this.replace(config.data.gallery[this.state.activeIndex].id) }}>{config.translations.save}
             </button>
           </div>
