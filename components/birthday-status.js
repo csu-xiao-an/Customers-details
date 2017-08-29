@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-const getBirthdaysStatus = date => {
+export const getBirthdaysStatus = date => {
   const today = moment()
   let birthdayStatus
   let dayLeft
@@ -25,4 +25,3 @@ const getBirthdaysStatus = date => {
   }
   return birthdayStatus
 }
-export default getBirthdaysStatus

@@ -1,5 +1,5 @@
 var config = {
-  isRtL: false,
+  isRtL: true,
   translations: {
     edit: 'Edit',
     customer: 'Customer details',
@@ -90,6 +90,12 @@ var config = {
       pinterest: 'pinterest',
       google: 'google+',
       vk: 'vk'
+    },
+    notes_list: {
+      hours: 'Hours',
+      days: 'Days',
+      weeks: 'Weeks',
+      months: 'Months'
     }
   },
   urls: {
@@ -129,8 +135,19 @@ var config = {
       }
     ],
     notes: [
-      {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: false},
-      {text: 'sdfsdfsdf sdf sdf sd fsd fsd f', reminder: true, date: '2017-06-06 12:45'}
+      {
+        id: 123123,
+        text: 'sdfsdfsdfdsfd',
+        date: '2017-07-07 13:01',
+        reminder: false
+      },
+      {
+        id: 123123,
+        text: 'sdfsdfsdf sdf sdf f',
+        date: '2017-07-07 13:01',
+        reminder: true,
+        reminder_date: '2017-07-07 13:01'
+      }
     ],
     groups: [
       {

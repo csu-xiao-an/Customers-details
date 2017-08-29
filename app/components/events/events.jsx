@@ -1,4 +1,4 @@
-import { getLastAppoinment } from 'project-components'
+import { lastAppoinment } from 'project-components'
 import Swiper from 'react-id-swiper'
 import { Link } from 'react-router'
 import moment from 'moment'
@@ -57,7 +57,7 @@ class Events extends React.Component {
                 return (
                   <div key={key}>
                     <div className='note'>
-                      <h1 className='date'>{getLastAppoinment(el.date)}</h1>
+                      <h1 className='date'>{lastAppoinment(el.date)}</h1>
                       <h1 className='procedure'>{this.procedures(el)}</h1>
                       <h1 className='price'>{this.price(el)} {this.price(el) ? (config.data.currency) : ''}</h1>
                     </div>

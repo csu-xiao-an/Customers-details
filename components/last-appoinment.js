@@ -1,5 +1,5 @@
 import moment from 'moment'
-const getLastAppoinment = date => {
+export const getLastAppoinment = date => {
   let lastAppoinment
   let dayLeft
   let monthLeft
@@ -79,4 +79,3 @@ const getLastAppoinment = date => {
   }
   return lastAppoinment
 }
-export default getLastAppoinment

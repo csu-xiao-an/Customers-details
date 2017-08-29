@@ -12,6 +12,48 @@
       text-align center
       font-size 14px
       color #6b6b6b
+  .pd5
+    padding-top 5px
+  .pd17
+    padding-top 17px
+  .notes-list
+    height 58px
+    .notes-list-delete-wrap
+      width 15%
+      display inline-block
+      padding 0 10px
+      .notes-list-delete
+        position relative
+        transform rotate(45deg)
+        width 30px
+        top -10px
+    .notes-list-data-wrap
+      width 85%
+      display inline-block
+      .notes-list-reminder
+        height 100%
+        width 20%
+        display inline-block
+        img
+          transform translateY(9px)
+          width 25px
+      .notes-list-desc
+        margin 0
+        display inline-block
+        text-align end
+        padding 0 30px
+        color #6b6b6b
+        font-weight 500
+      .rem_false
+        width 100%
+      .rem_true
+        width 80%
+      .notes-list-date
+        margin 0
+        width 100%
+        text-align end
+        padding 0 30px
+        font-size 12px
   .add-wrap
     height 60px
     cursor pointer
@@ -39,7 +81,6 @@
         text-align end
         color deepskyblue
         font-weight 500
-        // transform translateY(-15px)
         &:focus
           outline none
       .description-label
@@ -50,8 +91,12 @@
         margin 0
     .reminder
       width 100%
+      position relative
       .button-wrap
         display inline-block
+        position absolute
+        width 25%
+        bottom 0
         button
           height 30px
           border-radius 15px
@@ -62,13 +107,98 @@
           margin 0 15px 20px 10px
           &:focus
             outline none
-      h1
-        margin 7px 0 0 0
-        color #6b6b6b
+      .reminder-text
+        width 75%
+        height 50px
+        h1
+          display inline-block
+          margin 7px 0 0 0
+          color #6b6b6b
+        .img-wrap
+          display inline-block
+          width 30px
+          margin 0 20px
+      .reminder-time
         display inline-block
-      .img-wrap
-        display inline-block
-        width 30px
-        margin 0 20px
+        position relative
+        height 100px
+        width 75%
+        z-index 20
+        .input-wrap
+          width 76%
+          .ink
+            display inline-block
+            position relative
+            width 30px
+            height 30px
+            border-radius 50%
+            background-color deepskyblue
+            margin 0 10px 0 10px
+            transform translateY(8px)
+            cursor pointer
+            span
+              position absolute
+              color white
+              font-size 30px
+              padding 0 6px
+              transform translateY(-6.5px)
+            .minus
+              padding 0 10px
+              transform translateY(-9px)
+          .count-input
+            display inline-block
+            height 30px
+            width 40%
+            border 1px solid #6b6b6b
+            border-top 2px solid #6b6b6b
+            border-left 2px solid #6b6b6b
+            color deepskyblue
+            font-size 22px
+            font-weight 500
+            text-align center
+            &:focus
+              outline none
+        .Select
+          position relative
+          margin 0 30px 10px 30px
+          width 70%
+          height 30px
+          .Select-control
+            width 100%
+            height 30px
+            .Select-input
+              position relative
+              top -3px
+              font-size 22px
+            .Select-placeholder
+              font-size 22px
+            .Select-value-label
+              position relative
+              font-size 22px
+            .Select-clear-zone
+              display none
+            .Select-arrow-zone
+              width 40px
+              padding-top 7px
+              .Select-arrow
+                border-width 11px 7px 2.5px
+          .Select-menu-outer
+            top 37px
+            height 100%
+            font-size 22px
+            .Select-menu
+              max-height 666px
+              overflow-y auto
+              background-color white
+              .Select-option
+                padding 3px 6px
   .hidden
     display none
+  .h55
+    height 55px
+  .h150
+    height 150px
+.is-open
+  .Select-control
+    .Select-arrow
+      border-width 0px 7px 11px!important

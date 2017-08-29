@@ -1,7 +1,8 @@
 import { debtPostService, debtReplaceService, debtDeleteService } from 'project-services'
+import { formatDate } from 'project-components'
 import React, { Component } from 'react'
-import './debts.styl'
 import moment from 'moment'
+import './debts.styl'
 
 class Debts extends Component {
   constructor () {
@@ -72,25 +73,6 @@ class Debts extends Component {
       return sum
     }
   }
-  viewDate (date) {
-    const months = {
-      0: config.translations.dates.months.January,
-      1: config.translations.dates.months.February,
-      2: config.translations.dates.months.March,
-      3: config.translations.dates.months.April,
-      4: config.translations.dates.months.May,
-      5: config.translations.dates.months.June,
-      6: config.translations.dates.months.July,
-      7: config.translations.dates.months.August,
-      8: config.translations.dates.months.September,
-      9: config.translations.dates.months.October,
-      10: config.translations.dates.months.November,
-      11: config.translations.dates.months.December
-    }
-    return (moment(date).hours() + ':' + moment(date).format('mm') + ' | ' +
-      moment(date).date() + ' ' + months[moment(date).month()]
-    )
-  }
   render () {
     return (
       <div id='debt'>
@@ -109,7 +91,7 @@ class Debts extends Component {
             <div className='debt-list-data-wrap' onClick={() => { this.replace(el, key) }}>
               <h1 className='debt-list-name'>{el.sum} { config.data.currency}</h1>
               <h1 className='debt-list-desc'>{el.desc}</h1>
-              <p className='debt-list-date'>{this.viewDate(el.date)}</p>
+              <p className='debt-list-date'>{formatDate(el.date)}</p>
             </div>
           </div>
         ))}

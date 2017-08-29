@@ -1,2 +1,3 @@
-export { default as getBirthdaysStatus } from './birthday-status'
-export { default as getLastAppoinment } from './last-appoinment'
+export { getBirthdaysStatus as birthdaysStatus } from './birthday-status.js'
+export { getLastAppoinment as lastAppoinment } from './last-appoinment.js'
+export { viewDate as formatDate } from './format-date.js'

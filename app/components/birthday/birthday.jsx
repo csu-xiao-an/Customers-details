@@ -1,4 +1,4 @@
-import { getBirthdaysStatus } from 'project-components'
+import { birthdaysStatus } from 'project-components'
 import React from 'react'
 import './birthday.styl'
 
@@ -11,7 +11,7 @@ class Birthday extends React.Component {
     }
   }
   componentDidMount () {
-    this.setState({birthdayStatus: getBirthdaysStatus(this.state.birthdate)})
+    this.setState({birthdayStatus: birthdaysStatus(this.state.birthdate)})
   }
   render () {
     return (
