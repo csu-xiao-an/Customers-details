@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import moment from 'moment'
 import './topnav.styl'
 
@@ -32,14 +31,10 @@ class Topnav extends Component {
         </div>
         <div className='buttons'>
           <div className='customers-wrap'>
-            <Link to={config.urls.home} activeClassName='active' >
-              <button>{config.translations.customer}</button>
-            </Link>
+            <button>{config.translations.customer}</button>
           </div>
           <div className='appointments-wrap'>
-            <Link to={config.urls.appointments} activeClassName='active' >
-              <button >{this.countAppointment()} - {config.translations.appointment}</button>
-            </Link>
+            <button >{this.countAppointment()} - {config.translations.appointment}</button>
           </div>
         </div>
       </div>

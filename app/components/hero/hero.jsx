@@ -7,18 +7,23 @@ class Hero extends React.Component {
   constructor () {
     super()
     this.state = {
+      imageUrl: config.urls.media + config.data.id,
       isInputDisabled: false,
-      status: '',
-      imageUrl: config.urls.media + config.data.id
+      succes: false,
+      status: ''
     }
     this.handleStatus = this.handleStatus.bind(this)
     this.handleStar = this.handleStar.bind(this)
   }
   async handleStar () {
-    const body = `vip=${!config.data.vip}`
+    const body = `isFavorite=${!config.data.vip}`
     const response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.vip = !config.data.vip
+      if (config.data.vip) {
+        this.setState({succes: true})
+        setTimeout(() => { this.setState({succes: false}) }, 1200)
+      }
       this.forceUpdate()
     }
   }
@@ -56,6 +61,9 @@ class Hero extends React.Component {
               </g>
             </g>
           </svg>
+        </div>
+        <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}>
+          <h1>{config.translations.added_to_favorites}</h1>
         </div>
         <Birthday />
         <form action='submit'>

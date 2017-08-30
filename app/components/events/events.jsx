@@ -1,6 +1,5 @@
 import { lastAppoinment } from 'project-components'
 import Swiper from 'react-id-swiper'
-import { Link } from 'react-router'
 import moment from 'moment'
 import React from 'react'
 import './events.styl'
@@ -44,14 +43,12 @@ class Events extends React.Component {
     return (
       <div id='events'>
         <div className='events'>
-          <img className='clock' src='./dist/media/clock.svg' />
+          <a href={config.urls.main + config.urls.appointment + '?client_id=' + config.data.id}><img className='clock' src={config.urls.media + 'clock.png'} /></a>
           <h1 className={'label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.close_visits}</h1>
           <div id='swiper-wrap-notes'>
             <Swiper pagination='.swiper-pagination' slidesPerView='auto' paginationClickable initialSlide={this.initialSlide()}>
               <div>
-                <Link to={config.urls.appointments}>
-                  <div className='note start-note'>{config.translations.all_visits}</div>
-                </Link>
+                <div className='note start-note'>{config.translations.all_visits}</div>
               </div>
               {config.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).map((el, key) => {
                 return (

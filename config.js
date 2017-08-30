@@ -1,9 +1,10 @@
 var config = {
-  isRtL: true,
+  isRtL: false,
   translations: {
     edit: 'Edit',
     customer: 'Customer details',
     appointment: 'Appointments',
+    added_to_favorites: 'Added to favorites',
     placeholder: 'placeholder',
     close_visits: 'Close visits',
     add_phone: 'Add a phone',
@@ -100,14 +101,13 @@ var config = {
   },
   urls: {
     main: 'http://api.bewebmaster.co.il',
+    appointment: '/creating-appointment/',
     groups_img: './dist/media/groups/',
     gallery: './dist/media/galery/',
     soc_net: './dist/media/soc_net',
-    appointments: '/appointments',
     media: './dist/media/',
     groups: '/groups/',
-    fill: '/fill',
-    home: '/'
+    fill: '/fill'
   },
   data: {
     id: 123123,
