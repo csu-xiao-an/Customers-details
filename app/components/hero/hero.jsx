@@ -16,11 +16,11 @@ class Hero extends React.Component {
     this.handleStar = this.handleStar.bind(this)
   }
   async handleStar () {
-    const body = `isFavorite=${!config.data.vip}`
+    const body = `isFavorite=${!config.data.isFavorite}`
     const response = await clientReplaceService(body)
     if (response.status === 204) {
-      config.data.vip = !config.data.vip
-      if (config.data.vip) {
+      config.data.isFavorite = !config.data.isFavorite
+      if (config.data.isFavorite) {
         this.setState({succes: true})
         setTimeout(() => { this.setState({succes: false}) }, 1200)
       }
@@ -48,8 +48,8 @@ class Hero extends React.Component {
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 52 50'>
             <g id='Layer_2' data-name='Layer 2'>
               <g id='Layer_1-2' data-name='Layer 1'>
-                <g id='VIP'><path
-                  className={config.data.vip ? 'star star-active' : 'star'}
+                <g><path
+                  className={config.data.isFavorite ? 'star star-active' : 'star'}
                   d='M26.79,1.56,31.06,14.7a2.26,2.26,0,0,0,2.15,1.56H
                   47a2.26,2.26,0,0,1,1.33,4.09L37.17,28.46A2.26,2.26,0,
                   0,0,36.35,31l4.27,13.14a2.26,2.26,0,0,1-3.48,2.53L26,

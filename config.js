@@ -118,7 +118,7 @@ var config = {
     intent_x: 50.4016991,
     intent_y: 30.2525126,
     phone: '0545421321',
-    vip: true,
+    isFavorite: true,
     details_link_active: false,
     permit_ads: false,
     signature: './dist/media/autograph.png',
