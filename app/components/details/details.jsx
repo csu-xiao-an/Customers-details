@@ -7,8 +7,8 @@ class Details extends React.Component {
     super()
     this.submit = this.submit.bind(this)
   }
-  submit () {
-    const response = detailsReplaceService()
+  async submit () {
+    const response = await detailsReplaceService()
     if (response.status === 204) {
       config.data.details_link_active = true
       this.forceUpdate()

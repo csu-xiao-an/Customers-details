@@ -1,4 +1,4 @@
-import { clientReplaceService } from 'project-services'
+import { clientReplaceService, clientGetService } from 'project-services'
 import React, { Component } from 'react'
 import Select from 'react-select'
 import './source.styl'
@@ -7,17 +7,27 @@ class Source extends Component {
   constructor () {
     super()
     this.state = {
+      selectedValue: config.data.source,
+      isRecomendation: false,
       isOpenSource: false,
-      selectedValue: config.data.source
+      inputValue: ''
     }
     this.submit = this.submit.bind(this)
   }
   async submit () {
     const body = `source=${this.state.selectedValue}`
-    let response = await clientReplaceService(body)
+    const response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.source = this.state.selectedValue
       this.forceUpdate()
+    }
+  }
+  changeSelect (e) {
+    this.setState({selectedValue: e.value})
+    if (e.value === 'recommendation') {
+      this.setState({isRecomendation: true})
+    } else {
+      this.setState({isRecomendation: false})
     }
   }
   componentWillMount () {
@@ -31,6 +41,14 @@ class Source extends Component {
     ]
     this.setState({options: options})
   }
+  async changeInput (e) {
+    this.setState({inputValue: e})
+    const response = await clientGetService('test')
+    // let id = await response.json().then(id => {
+    //   return id
+    // })
+    console.log(response.json)
+  }
   render () {
     return (
       <div id='source'>
@@ -38,13 +56,15 @@ class Source extends Component {
           <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' onClick={() => { this.setState({ isOpenSource: !this.state.isOpenSource }) }} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>
         </div>
-        <div className={this.state.isOpenSource ? 'add-select-wrap' : config.data.source ? 'add-select-wrap' : 'hidden'}>
+        <div className={this.state.isOpenSource ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : config.data.source ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : 'hidden'}>
           <h1>{config.translations.traffic_source}</h1>
           <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
           <div className='select-wrap'>
             <Select className={config.isRtL ? 'left' : 'right'} placeholder={config.translations.select_placeholder}
-              onChange={e => { e ? this.setState({selectedValue: e.value}) : this.setState({selectedValue: ''}) }}
-              value={this.state.selectedValue} options={this.state.options} />
+              onChange={e => { this.changeSelect(e) }} value={this.state.selectedValue} options={this.state.options} />
+          </div>
+          <div className={this.state.isRecomendation ? 'input-wrap' : 'hidden'}>
+            <input type='text' value={this.state.inputValue} onChange={e => { this.changeInput(e.target.value) }} />
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ export { deleteService as notesDeleteService } from './notes.service.js'
 export { postService as notesPostService } from './notes.service.js'
 
 export { replaceService as clientReplaceService } from './client.service.js'
+export { getService as clientGetService } from './client.service.js'
 // export { deleteService as clientDeleteService } from './client.service.js'
 // export { postService as clientPostService } from './client.service.js'
 

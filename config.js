@@ -105,9 +105,9 @@ var config = {
     groups_img: './dist/media/groups/',
     gallery: './dist/media/galery/',
     soc_net: './dist/media/soc_net',
+    fill: 'send-link-fill-up',
     media: './dist/media/',
-    groups: '/groups/',
-    fill: '/fill'
+    groups: '/groups/'
   },
   data: {
     id: 123123,

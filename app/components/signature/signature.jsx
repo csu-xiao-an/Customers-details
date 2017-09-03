@@ -1,5 +1,5 @@
 import SignatureModal from '../signature-modal/signature-modal.jsx'
-import { signatureDeleteService } from 'project-services'
+import { signatureDeleteService, clientReplaceService } from 'project-services'
 import Switch from 'react-toggle-switch'
 import React from 'react'
 import './signature.styl'
@@ -24,9 +24,13 @@ class Signature extends React.Component {
       this.forceUpdate()
     }
   }
-  handleAds () {
-    config.data.permit_ads = !config.data.permit_ads
-    this.forceUpdate()
+  async handleAds () {
+    const body = `permit_ads=${!config.data.permit_ads}`
+    const response = await clientReplaceService(body)
+    if (response.status === 204) {
+      config.data.permit_ads = !config.data.permit_ads
+      this.forceUpdate()
+    }
   }
   render () {
     return (
