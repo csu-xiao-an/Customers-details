@@ -27,14 +27,39 @@
     height 40px
     margin-top -35px
     padding 0 10px
+    .label
+      width 45%
+      display inline-block
+      font-size 21px
+      margin 0 9px
     input
-      width 100%
+      display inline-block
+      width 45%
       height 30px
       border 1px solid grey
       text-align end
       color #00bfff
+      padding 0 5px
       &:focus
         outline none
+    .clients-list-wrap-right
+      right 0
+    .clients-list-wrap-left
+      left 0
+    .clients-list-wrap
+      margin 0 31px
+      width 43%
+      background-color white
+      z-index 15
+      position absolute
+      border 1px solid silver
+      max-height 200px
+      overflow-y scroll
+      overflow-x hidden
+      div
+        font-size 21px
+        text-align end
+        padding 0 5px
   .button-wrap
     position relative
     width 40%
@@ -55,6 +80,8 @@
     width 60%
     height 60px
     display inline-block
+    position relative
+    z-index 20
     .Select
       margin 0 30px
       width 100%

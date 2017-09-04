@@ -33,7 +33,7 @@ export const replaceService = async body => {
 //   return await mainRequestService(url, options)
 // }
 export const getService = async query => {
-  const url = config.urls.main + '/add-client/clients/?q=' + query
+  const url = config.urls.main + '/add-client/clients?q=' + query
   const options = {
     mode: 'cors',
     method: 'GET'

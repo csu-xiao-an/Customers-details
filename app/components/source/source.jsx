@@ -9,13 +9,19 @@ class Source extends Component {
     this.state = {
       selectedValue: config.data.source,
       isRecomendation: false,
+      isViewClients: false,
       isOpenSource: false,
-      inputValue: ''
+      inputValue: '',
+      userId: null,
+      clients: []
     }
     this.submit = this.submit.bind(this)
   }
   async submit () {
-    const body = `source=${this.state.selectedValue}`
+    let body = `source=${this.state.selectedValue}`
+    if (this.state.userId) {
+      body = `source=${this.state.selectedValue}&recommended_by=${this.state.userId}`
+    }
     const response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.source = this.state.selectedValue
@@ -43,11 +49,16 @@ class Source extends Component {
   }
   async changeInput (e) {
     this.setState({inputValue: e})
-    const response = await clientGetService('test')
-    // let id = await response.json().then(id => {
-    //   return id
-    // })
-    console.log(response.json)
+    if (e.length > 2) {
+      const response = await clientGetService(e)
+      let id = await response.json().then(id => {
+        return id
+      })
+      this.setState({clients: id})
+      this.setState({isViewClients: true})
+    } else {
+      this.setState({isViewClients: false})
+    }
   }
   render () {
     return (
@@ -64,7 +75,13 @@ class Source extends Component {
               onChange={e => { this.changeSelect(e) }} value={this.state.selectedValue} options={this.state.options} />
           </div>
           <div className={this.state.isRecomendation ? 'input-wrap' : 'hidden'}>
+            <div className='label'>{config.translations.recommended_by}</div>
             <input type='text' value={this.state.inputValue} onChange={e => { this.changeInput(e.target.value) }} />
+            <div className={this.state.isViewClients ? 'clients-list-wrap ' + (config.isRTL ? 'clients-list-wrap-left' : 'clients-list-wrap-right') : 'hidden'}>
+              {this.state.clients.map((el, key) => {
+                return (<div key={key} onClick={() => { this.setState({inputValue: el.name, userId: el.id, isViewClients: false}) }}>{el.name}</div>)
+              })}
+            </div>
           </div>
         </div>
       </div>
