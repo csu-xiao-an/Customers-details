@@ -30,7 +30,7 @@ class Hero extends React.Component {
   async handleStatus () {
     this.setState({isInputDisabled: true})
     if (!this.state.isInputDisabled) {
-      this.autofocus.focus()
+      this.refs.autofocus.focus()
     } else {
       this.setState({isInputDisabled: false})
       const body = `status=${this.state.status}`
@@ -69,13 +69,11 @@ class Hero extends React.Component {
         <form action='submit'>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input className={'form-control ' + (this.state.isShowInput ? '' : config.data.status ? 'form-control-disabled' : '')}
-                type='text' ref={event => { this.autofocus = event }}
+              <input className={'form-control ' + (this.state.isShowInput ? '' : config.data.status ? 'form-control-disabled' : '')} type='text' ref='autofocus'
                 placeholder={this.state.isInputDisabled ? '' : config.data.status ? config.data.status : config.translations.placeholder}
                 onChange={event => { this.setState({status: event.target.value}) }}
                 onClick={this.state.isInputDisabled ? '' : this.handleStatus}
-                onBlur={this.handleStatus}
-                 />
+                onBlur={this.handleStatus} />
             </div>
             <span onClick={this.state.isInputDisabled ? '' : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src={config.urls.media + 'pencil.svg'} />
