@@ -116,7 +116,13 @@ class Debts extends Component {
                 value={this.state.debt} onChange={event => { this.setState({debt: +event.target.value}) }}
                 onFocus={event => { toString(event.target.value); if (event.target.value === '0') { event.target.value = '' } }}
                 onBlur={event => { toString(event.target.value); if (event.target.value === '') { event.target.value = '0' } }} />
-              <div className='ink' onClick={() => this.setState({debt: parseInt(this.state.debt) - config.data.debt_step})}>
+              <div className='ink' onClick={() => {
+                if (parseInt(this.state.debt) > 0) {
+                  let debt = parseInt(this.state.debt) - config.data.debt_step
+                  if (debt < 0) { debt = 0 }
+                  this.setState({debt: debt})
+                }
+              }}>
                 <span className='minus'>-</span>
               </div>
               <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.amount}</h1>

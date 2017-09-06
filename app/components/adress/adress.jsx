@@ -25,7 +25,7 @@ class Adress extends React.Component {
   render () {
     return (
       <div id='adress'>
-        <div className={config.data.adress ? 'adress' : 'hidden'}>
+        <div className={config.data.adress ? this.state.adressEdit ? 'hidden' : 'adress' : 'hidden'}>
           <div className={'google-map ' + (config.isRtL ? 'right' : 'left')}>
             <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
               <img src={config.urls.main + '/customers-details/clients/' + config.data.id + '/map'} />
@@ -39,7 +39,7 @@ class Adress extends React.Component {
               <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
                 <img src={config.urls.media + 'waze.png'} />
               </a>
-              <h1 className={config.isRtL ? 'left' : 'right'}>{config.data.adress}</h1>
+              <h1 className={config.isRtL ? 'left' : 'right'} onClick={() => { this.setState({adressEdit: !this.state.adressEdit, adress: config.data.adress}) }}>{config.data.adress}</h1>
             </div>
           </div>
         </div>

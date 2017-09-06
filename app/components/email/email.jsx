@@ -25,13 +25,13 @@ class Email extends React.Component {
   render () {
     return (
       <div id='email'>
-        <div className={config.data.email ? 'email' : 'hidden'}>
+        <div className={config.data.email ? this.state.emailEdit ? 'hidden' : 'email' : 'hidden'}>
           <div className='link-wrap'>
             <a href={'mailto:' + config.data.email}><img src='./dist/media/mail.svg' /></a>
           </div>
           <div className='data-wrap'>
-            <div className={'email-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.email}</div>
-            <h1 className={config.isRtL ? 'left' : 'right'}>{config.data.email}</h1>
+            <div className='label-wrap'><div className={'email-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.email}</div></div>
+            <h1 className={config.isRtL ? 'left' : 'right'} onClick={() => { this.setState({emailEdit: !this.state.emailEdit, email: config.data.email}) }} >{config.data.email}</h1>
           </div>
         </div>
         <div onClick={() => { this.setState({emailEdit: !this.state.emailEdit}) }}
@@ -42,8 +42,7 @@ class Email extends React.Component {
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
           <div className='edit'>
             <input className='edit-input' type='email' value={this.state.email}
-              onChange={event => { this.setState({email: event.target.value}) }}
-            />
+              onChange={event => { this.setState({email: event.target.value}) }} />
             <h1 className='edit-label'>{config.translations.email}</h1>
           </div>
           <div className='button'>

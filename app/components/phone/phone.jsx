@@ -25,7 +25,7 @@ class Phone extends React.Component {
   render () {
     return (
       <div id='phone'>
-        <div className={config.data.phone ? 'phone-img' : 'hidden'}>
+        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-img' : 'hidden'}>
           <div className='img-wrap'>
             <a href={'tel:' + config.data.phone}><img src='./dist/media/call.svg' /></a>
           </div>
@@ -33,11 +33,11 @@ class Phone extends React.Component {
             <a href={'sms:' + config.data.phone}><img src='./dist/media/send-sms.svg' /></a>
           </div>
         </div>
-        <div className={config.data.phone ? 'phone-labels' : 'hidden'}>
+        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
           <div className='label-wrap'>
             <div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div>
           </div>
-          <div className='phone-wrap'>
+          <div className='phone-wrap' onClick={() => { this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone}) }}>
             <h1>{config.data.phone}</h1>
           </div>
         </div>
@@ -48,8 +48,8 @@ class Phone extends React.Component {
         </div>
         <div className={this.state.phoneEdit ? 'phone-edit' : 'hidden'}>
           <div className='edit'>
-            <input className='edit-input' type='number' value={this.state.phone}
-              onChange={event => { this.setState({phone: event.target.value}) }}
+            <input className='edit-input' type='tel' value={this.state.phone}
+              onChange={e => { this.setState({phone: e.target.value}) }}
             />
             <h1 className='edit-label'>{config.translations.mobile}</h1>
           </div>

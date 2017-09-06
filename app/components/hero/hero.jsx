@@ -12,6 +12,7 @@ class Hero extends React.Component {
       succes: false,
       status: ''
     }
+    this.appendStatus = this.appendStatus.bind(this)
     this.handleStatus = this.handleStatus.bind(this)
     this.handleStar = this.handleStar.bind(this)
   }
@@ -21,18 +22,22 @@ class Hero extends React.Component {
     if (response.status === 204) {
       config.data.isFavorite = !config.data.isFavorite
       if (config.data.isFavorite) {
-        this.setState({succes: true})
-        setTimeout(() => { this.setState({succes: false}) }, 1200)
+        this.setState({succes: true}, () => {
+          setTimeout(() => { this.setState({succes: false}) }, 1200)
+        })
       }
       this.forceUpdate()
     }
   }
-  async handleStatus () {
+  async handleStatus (e) {
+    e.preventDefault()
     this.setState({isInputDisabled: true})
     if (!this.state.isInputDisabled) {
+      this.setState({status: ''})
       this.refs.autofocus.focus()
     } else {
       this.setState({isInputDisabled: false})
+      this.refs.autofocus.blur()
       const body = `status=${this.state.status}`
       const response = await clientReplaceService(body)
       if (response.status === 204) {
@@ -40,6 +45,14 @@ class Hero extends React.Component {
         this.forceUpdate()
       }
     }
+  }
+  appendStatus () {
+    this.setState({
+      status: config.data.status ? config.data.status : config.translations.placeholder
+    })
+  }
+  componentDidMount () {
+    this.appendStatus()
   }
   render () {
     return (
@@ -66,14 +79,12 @@ class Hero extends React.Component {
           <h1>{config.translations.added_to_favorites}</h1>
         </div>
         <Birthday />
-        <form action='submit'>
+        <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input className={'form-control ' + (this.state.isShowInput ? '' : config.data.status ? 'form-control-disabled' : '')} type='text' ref='autofocus'
-                placeholder={this.state.isInputDisabled ? '' : config.data.status ? config.data.status : config.translations.placeholder}
-                onChange={event => { this.setState({status: event.target.value}) }}
-                onClick={this.state.isInputDisabled ? '' : this.handleStatus}
-                onBlur={this.handleStatus} />
+              <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')} type='text' ref='autofocus' value={this.state.status}
+                onChange={e => { this.setState({status: e.target.value, statusRem: e.target.value}) }}
+                onBlur={() => { this.appendStatus(); this.setState({isInputDisabled: false}) }} />
             </div>
             <span onClick={this.state.isInputDisabled ? '' : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src={config.urls.media + 'pencil.svg'} />

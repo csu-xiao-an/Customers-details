@@ -46,7 +46,10 @@ class Notes extends Component {
     }
   }
   async update () {
-    let body = `text=${this.state.description}&reminder=${this.state.isReminderEdit}`
+    let body = `text=${this.state.description}`
+    if (this.state.isReminderEdit) {
+      body = `text=${this.state.description}&reminder=${this.state.isReminderEdit}`
+    }
     let reminder = this.reminder()
     let reminderDate = null
     if (reminder) {
@@ -131,11 +134,11 @@ class Notes extends Component {
           </div>
           <div className={'reminder ' + (this.state.isReminderEdit ? 'h150' : 'h55')}>
             <div className={'button-wrap ' + (config.isRtL ? 'left' : 'right')}><button onClick={this.state.noteReplace ? this.update : this.submit}>{config.translations.save}</button></div>
-            <div className={'reminder-text ' + (config.isRtL ? 'left' : 'right')}>
+            <div className={'reminder-text ' + (config.isRtL ? 'left' : 'right')} onClick={() => { this.setState({isReminderEdit: !this.state.isReminderEdit}) }}>
               <div className={'img-wrap ' + (config.isRtL ? 'left' : 'right')}>
                 <img src={config.urls.media + 'bell.svg'} />
               </div>
-              <h1 className={config.isRtL ? 'left' : 'right'} onClick={() => { this.setState({isReminderEdit: !this.state.isReminderEdit}) }}>{config.translations.reminder}</h1>
+              <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.reminder}</h1>
             </div>
             <div className={this.state.isReminderEdit ? 'reminder-time ' + (config.isRtL ? 'left' : 'right') : 'hidden'}>
               <Select className={config.isRtL ? 'left' : 'right'} placeholder={config.translations.select_placeholder}
@@ -149,7 +152,7 @@ class Notes extends Component {
                   onFocus={event => { toString(event.target.value); if (event.target.value === '0') { event.target.value = '' } }}
                   onBlur={event => { toString(event.target.value); if (event.target.value === '') { event.target.value = '0' } }}
                   onChange={event => { this.setState({time: +event.target.value}) }} />
-                <div className='ink' onClick={() => this.setState({time: parseInt(this.state.time) - 1})}>
+                <div className='ink' onClick={() => { if (parseInt(this.state.time) > 0) { this.setState({time: parseInt(this.state.time) - 1}) } }}>
                   <span className='minus'>-</span>
                 </div>
               </div>
