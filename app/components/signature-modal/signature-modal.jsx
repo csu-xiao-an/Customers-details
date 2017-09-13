@@ -95,7 +95,7 @@ class SignatureModal extends Component {
     }
   }
   componentDidUpdate () {
-    this.init()
+    this.props.isEditSignature && this.init()
   }
   render () {
     return (
