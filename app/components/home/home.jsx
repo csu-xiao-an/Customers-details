@@ -14,7 +14,6 @@ import Debts from '../debts/debts.jsx'
 import Phone from '../phone/phone.jsx'
 import Line from '../line/line.jsx'
 import Hero from '../hero/hero.jsx'
-import Add from '../add/add.jsx'
 import './home.styl'
 
 class Home extends Component {
@@ -39,7 +38,6 @@ class Home extends Component {
         <Line />
         <Source />
         <SocialNetwork />
-        <Add />
         <Line />
         <Groups />
         <Line />

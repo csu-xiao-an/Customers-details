@@ -45,7 +45,8 @@ class SocialNetwork extends Component {
       {value: 'twitter', label: list.twitter},
       {value: 'pinterest', label: list.pinterest},
       {value: 'google', label: list.google},
-      {value: 'vk', label: list.vk}
+      {value: 'vk', label: list.vk},
+      {value: 'website', label: list.website}
     ]
     this.setState({options: options})
   }

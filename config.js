@@ -91,7 +91,8 @@ var config = {
       twitter: 'twitter',
       pinterest: 'pinterest',
       google: 'google+',
-      vk: 'vk'
+      vk: 'vk',
+      website: 'website'
     },
     notes_list: {
       hours: 'Hours',
