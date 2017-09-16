@@ -1,4 +1,4 @@
-import { clientReplaceService } from 'project-services'
+import { clientReplaceService, adressGetService } from 'project-services'
 import React from 'react'
 import './adress.styl'
 
@@ -7,8 +7,11 @@ class Adress extends React.Component {
     super()
     this.state = {
       adressEdit: false,
+      isViewAdress: false,
+      adress_list: [],
       adress: ''
     }
+    this.changeInput = this.changeInput.bind(this)
     this.submit = this.submit.bind(this)
   }
   async submit () {
@@ -18,8 +21,22 @@ class Adress extends React.Component {
       config.data.adress = this.state.adress
       this.setState({
         adressEdit: !this.state.adressEdit,
+        isViewAdress: false,
+        adress_list: [],
         adress: ''
       })
+    }
+  }
+  async changeInput (e) {
+    this.setState({adress: e})
+    if (e.length > 2) {
+      const response = await adressGetService(e)
+      let res = await response.json().then(res => {
+        return res
+      })
+      this.setState({isViewAdress: true, adress_list: res.results})
+    } else {
+      this.setState({isViewAdress: false, adress_list: []})
     }
   }
   render () {
@@ -51,8 +68,17 @@ class Adress extends React.Component {
         <div className={this.state.adressEdit ? 'adress-edit' : 'hidden'}>
           <div className='edit'>
             <input className='edit-input' type='text' value={this.state.adress}
-              onChange={event => { this.setState({adress: event.target.value}) }}
+              onChange={e => { this.changeInput(e.target.value) }}
             />
+            <div className={this.state.isViewAdress ? 'adress-list-wrap' : 'hidden'}>
+              {this.state.adress_list.map((el, key) => {
+                return (<div key={key} onClick={() => {
+                  this.setState({adress: el.formatted_address, isViewAdress: false})
+                }}>
+                  {el.formatted_address}
+                </div>)
+              })}
+            </div>
             <h1 className='edit-label'>{config.translations.adress}</h1>
           </div>
           <div className='button'>

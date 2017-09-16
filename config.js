@@ -1,6 +1,7 @@
 var config = {
   isRtL: false,
   translations: {
+    language: 'en',
     edit: 'Edit',
     customer: 'Customer details',
     appointment: 'Appointments',
@@ -102,6 +103,7 @@ var config = {
     }
   },
   urls: {
+    adress: 'https://maps.googleapis.com/maps/api/geocode/json',
     main: 'http://api.bewebmaster.co.il',
     appointment: '/creating-appointment/',
     groups_img: './dist/media/groups/',
