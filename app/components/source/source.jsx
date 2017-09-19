@@ -76,7 +76,7 @@ class Source extends Component {
           </div>
           <div className={this.state.isRecomendation ? 'input-wrap' : 'hidden'}>
             <div className='label'>{config.translations.recommended_by}</div>
-            <input type='text' value={this.state.inputValue} onChange={e => { this.changeInput(e.target.value) }} />
+            <input type='text' value={this.state.inputValue} onChange={e => { this.changeInput(e.target.value) }} placeholder={config.translations.customer} />
             <div className={this.state.isViewClients ? 'clients-list-wrap ' + (config.isRTL ? 'clients-list-wrap-left' : 'clients-list-wrap-right') : 'hidden'}>
               {this.state.clients.map((el, key) => {
                 return (<div key={key} onClick={() => { this.setState({inputValue: el.name, userId: el.id, isViewClients: false}) }}>{el.name}</div>)

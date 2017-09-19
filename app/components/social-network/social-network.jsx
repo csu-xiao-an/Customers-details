@@ -78,7 +78,7 @@ class SocialNetwork extends Component {
                 value={this.state.selectedValue} options={this.state.options} />
             </div>
             <div className='img-wrap'><img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} /></div>
-            <div className='input-wrap'><input type='text' value={this.state.inputValue} onChange={e => { this.setState({inputValue: e.target.value}) }} /></div>
+            <div className='input-wrap'><input type='text' value={this.state.inputValue} onChange={e => { this.setState({inputValue: e.target.value}) }} placeholder={config.translations.url} /></div>
           </div>
           <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>

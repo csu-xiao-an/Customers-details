@@ -21,11 +21,11 @@ class Notes extends Component {
     this.update = this.update.bind(this)
   }
   async submit () {
-    let body = `text=${this.state.description}&reminder=${this.state.isReminderEdit}`
+    let body = `text=${this.state.description}`
     let reminder = this.reminder()
     let reminderDate = null
     if (reminder) {
-      body = `text=${this.state.description}&reminder=${this.state.isReminderEdit}&reminder_date=${reminder}`
+      body = `text=${this.state.description}&reminder_date=${reminder}`
       reminderDate = reminder
     }
     const response = await notesPostService(body)
@@ -36,8 +36,7 @@ class Notes extends Component {
       config.data.notes.unshift({
         id: id,
         text: this.state.description,
-        date: moment().format('YYYY-MM-DD HH:mm'),
-        reminder: this.state.isReminderEdit
+        date: moment().format('YYYY-MM-DD HH:mm')
       })
       if (reminderDate) {
         config.data.notes[0].reminder_date = reminderDate
@@ -48,19 +47,18 @@ class Notes extends Component {
   async update () {
     let body = `text=${this.state.description}`
     if (this.state.isReminderEdit) {
-      body = `text=${this.state.description}&reminder=${this.state.isReminderEdit}`
+      body = `text=${this.state.description}`
     }
     let reminder = this.reminder()
     let reminderDate = null
     if (reminder) {
-      body = `text=${this.state.description}&reminder=${this.state.isReminderEdit}&reminder_date=${reminder}`
+      body = `text=${this.state.description}&reminder_date=${reminder}`
       reminderDate = reminder
     }
     const response = await notesReplaceService(body, this.state.note_id)
     if (response.status === 204) {
       config.data.notes[this.state.key].text = this.state.description
       config.data.notes[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
-      config.data.notes[this.state.key].reminder = this.state.isReminderEdit
       if (reminderDate) {
         config.data.notes[this.state.key].reminder_date = reminderDate
       }
@@ -115,13 +113,13 @@ class Notes extends Component {
           <div className={'add-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.notes}</div>
         </div>
         {config.data.notes && config.data.notes.map((el, key) => (
-          <div key={key} className={this.state.noteReplace ? 'hidden' : 'notes-list ' + (el.reminder ? 'pd5' : 'pd17')}>
+          <div key={key} className={this.state.noteReplace ? 'hidden' : 'notes-list ' + (el.reminder_date ? 'pd5' : 'pd17')}>
             <div className='notes-list-delete-wrap'>
               <img className='notes-list-delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(el.id, key) }} />
             </div>
             <div className='notes-list-data-wrap' onClick={() => { this.replace(el, key) }}>
-              <div className={el.reminder ? 'notes-list-reminder' : 'hidden'}><img src={config.urls.media + 'bell.svg'} /></div>
-              <h1 className={'notes-list-desc ' + (el.reminder ? 'rem_true' : 'rem_false')}>{el.text}</h1>
+              <div className={el.reminder_date ? 'notes-list-reminder' : 'hidden'}><img src={config.urls.media + 'bell.svg'} /></div>
+              <h1 className={'notes-list-desc ' + (el.reminder_date ? 'rem_true' : 'rem_false')}>{el.text}</h1>
               <p className='notes-list-date'>{formatDate(el.date)}</p>
             </div>
           </div>

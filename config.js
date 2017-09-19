@@ -48,6 +48,8 @@ var config = {
     btn_replace: 'Change',
     procedures: 'procedures',
     all_visits: 'For all visits...',
+    url: 'Url',
+    customer: 'Customer',
     dates: {
       months: {
         January: 'January',
@@ -142,14 +144,12 @@ var config = {
       {
         id: 123123,
         text: 'sdfsdfsdfdsfd',
-        date: '2017-07-07 13:01',
-        reminder: false
+        date: '2017-07-07 13:01'
       },
       {
         id: 123123,
         text: 'sdfsdfsdf sdf sdf f',
         date: '2017-07-07 13:01',
-        reminder: true,
         reminder_date: '2017-07-07 13:01'
       }
     ],
