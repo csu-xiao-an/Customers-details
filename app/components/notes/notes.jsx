@@ -46,21 +46,18 @@ class Notes extends Component {
   }
   async update () {
     let body = `text=${this.state.description}`
-    if (this.state.isReminderEdit) {
-      body = `text=${this.state.description}`
-    }
     let reminder = this.reminder()
-    let reminderDate = null
     if (reminder) {
       body = `text=${this.state.description}&reminder_date=${reminder}`
-      reminderDate = reminder
     }
     const response = await notesReplaceService(body, this.state.note_id)
     if (response.status === 204) {
       config.data.notes[this.state.key].text = this.state.description
       config.data.notes[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
-      if (reminderDate) {
-        config.data.notes[this.state.key].reminder_date = reminderDate
+      if (reminder) {
+        config.data.notes[this.state.key].reminder_date = reminder
+      } else {
+        delete config.data.notes[this.state.key].reminder_date
       }
       this.setState({
         noteReplace: !this.state.noteReplace,
@@ -83,7 +80,7 @@ class Notes extends Component {
     this.setState({
       noteReplace: !this.state.noteReplace,
       isEditNotes: !this.state.isEditNotes,
-      isReminderEdit: el.reminder,
+      isReminderEdit: el.reminder_date,
       description: el.text,
       note_id: el.id,
       key: key
