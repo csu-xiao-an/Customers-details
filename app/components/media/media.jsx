@@ -1,5 +1,6 @@
 import MediaModal from '../media-modal/media-modal.jsx'
 import { mediaPostService } from 'project-services'
+import { dataURLtoFile } from 'project-components'
 import Swiper from 'react-id-swiper'
 import React from 'react'
 import moment from 'moment'
@@ -47,14 +48,7 @@ class Media extends React.Component {
     this.setState({file: file})
     if (file.type.indexOf('image') !== -1) {
       e.preventDefault()
-      let reader = new FileReader()
-      reader.onloadend = () => {
-        this.setState({
-          file: file,
-          imagePreviewUrl: reader.result
-        })
-      }
-      reader.readAsDataURL(file)
+      this.resize(file)
     } else if (file.type.indexOf('audio') !== -1) {
       this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'})
     } else if (file.type.indexOf('pdf') !== -1) {
@@ -75,6 +69,43 @@ class Media extends React.Component {
         <img src={config.urls.media + 'video_play.png'} className='video_play' />
         <video src={config.urls.gallery + el.name} onClick={() => { this.handleGallery(); this.setState({initialSlide: key}) }} />
       </div>)
+    }
+  }
+  resize (file) {
+    let dataURL
+    let img = document.createElement('img')
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      this.setState({ imagePreviewUrl: reader.result })
+      img.src = dataURL = reader.result
+    }
+    img.onload = () => {
+      let canvas = document.createElement('canvas')
+      let ctx = canvas.getContext('2d')
+      let tempimg = new Image()
+      tempimg.src = img.src
+      let w = tempimg.width
+      let h = tempimg.height
+      if (w > config.data.max_side || h > config.data.max_side) {
+        if (w > h) {
+          if (w > config.data.max_side) {
+            h = (h * config.data.max_side) / w
+            w = config.data.max_side
+          }
+        } else {
+          if (h > config.data.max_side) {
+            w = (w * config.data.max_side) / h
+            h = config.data.max_side
+          }
+        }
+        canvas.height = h
+        canvas.width = w
+        ctx.drawImage(img, 0, 0, w, h)
+        dataURL = canvas.toDataURL()
+      }
+      let res = dataURLtoFile(dataURL, 'media.png')
+      this.setState({file: res})
     }
   }
   render () {
