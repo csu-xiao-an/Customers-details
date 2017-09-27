@@ -9,6 +9,7 @@ export const postService = async body => {
   }
   return await mainRequestService(url, options)
 }
+
 export const replaceService = async (body, id) => {
   const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/media/' + id
   const options = {
@@ -21,6 +22,7 @@ export const replaceService = async (body, id) => {
   }
   return await mainRequestService(url, options)
 }
+
 export const deleteService = async id => {
   const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/media/' + id
   const options = {

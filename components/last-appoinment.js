@@ -1,81 +1,41 @@
+import {get, getEO} from 'project-components'
 import moment from 'moment'
-export const getLastAppoinment = date => {
-  let lastAppoinment
-  let dayLeft
-  let monthLeft
-  const today = moment()
-  const weekdays = {
-    '1': config.translations.dates.weekdays.Monday,
-    '2': config.translations.dates.weekdays.Tuesday,
-    '3': config.translations.dates.weekdays.Wednesday,
-    '4': config.translations.dates.weekdays.Thursday,
-    '5': config.translations.dates.weekdays.Friday,
-    '6': config.translations.dates.weekdays.Saturday,
-    '7': config.translations.dates.weekdays.Sunday
-  }
-  const day = {
-    '-1': config.translations.dates.days.Yesterday + ' ' + moment(date).hour() + ':' + moment(date).format('mm'),
-    '1': config.translations.dates.days.Tommorow + ' ' + moment(date).hour() + ':' + moment(date).format('mm'),
-    '0': config.translations.dates.days.Today + ' ' + moment(date).hour() + ':' + moment(date).format('mm')
-  }
-  if (moment(date).get('year') === moment(today).get('year')) {
-    if (moment(date).get('month') === moment(today).get('month')) {
-      dayLeft = moment(date).get('date') - moment(today).get('date')
-    } else if (moment(date).get('month') + 1 === moment(today).get('month')) {
-      dayLeft = -1 * (moment(date).endOf('month').get('date') - moment(date).get('date') + moment(today).get('date'))
-    } else if (moment(date).get('month') - 1 === moment(today).get('month')) {
-      dayLeft = moment(today).endOf('month').get('date') - moment(today).get('date') + moment(date).get('date')
-    }
-    if (dayLeft < 32 || dayLeft > -32) {
-      if (day[dayLeft]) {
-        lastAppoinment = day[dayLeft]
-      } else if (dayLeft < 8 && dayLeft > 1) {
-        lastAppoinment = weekdays[moment(date).get('day')] + ' ' + moment(date).hour() + ':' + moment(date).format('mm')
-      } else if (dayLeft > -8 && dayLeft < -1) {
-        lastAppoinment = 'Last' + ' ' + weekdays[moment(date).get('day')] + ' ' + moment(date).hour() + ':' + moment(date).format('mm')
-      } else if (dayLeft < 15 && dayLeft > 7) {
-        lastAppoinment = 'In ' + dayLeft + ' days'
-      } else if (dayLeft > -15 && dayLeft < -7) {
-        lastAppoinment = (dayLeft * -1) + ' days ago'
-      } else if (dayLeft < 32 && dayLeft > 14) {
-        if (dayLeft > 14 && dayLeft < 21) {
-          lastAppoinment = 'In 2 weeks'
-        } else if (dayLeft > 20 && dayLeft < 28) {
-          lastAppoinment = 'In 3 weeks'
-        } else if (dayLeft > 27 && dayLeft < 32) {
-          lastAppoinment = 'In 4 weeks'
-        }
-      } else if (dayLeft > -32 && dayLeft < -14) {
-        if (dayLeft < -14 && dayLeft > -21) {
-          lastAppoinment = '2 weeks ago'
-        } else if (dayLeft < -20 && dayLeft > -28) {
-          lastAppoinment = '3 weeks ago'
-        } else if (dayLeft < -27 && dayLeft > -32) {
-          lastAppoinment = '4 weeks ago'
-        }
+const getla = d => {
+  const format = d => ' ' + moment(d).format('HH:mm')
+  let la
+  let ml
+  let dl
+  const t = moment()
+  if (get(d, 'year') === get(t, 'year')) {
+    if (get(d, 'month') === get(t, 'month')) { dl = get(d, 'date') - get(t, 'date') } else
+    if (get(d, 'month') + 1 === get(t, 'month')) { dl = -1 * (getEO(d) - get(d, 'date') + get(t, 'date')) } else
+    if (get(d, 'month') - 1 === get(t, 'month')) { dl = getEO(t) - get(t, 'date') + get(d, 'date') }
+    if (dl < 32 || dl > -32) {
+      if (config.translations.dates.days[dl]) { la = config.translations.dates.days[dl] + format(d) } else
+      if (dl < 8 && dl > 1) { la = config.translations.dates.weekdays[get(d, 'day')] + format(d) } else
+      if (dl > -8 && dl < -1) { la = 'Last ' + config.translations.dates.weekdays[get(d, 'day')] + format(d) } else
+      if (dl < 15 && dl > 7) { la = 'In ' + dl + ' days' } else
+      if (dl > -15 && dl < -7) { la = (dl * -1) + ' days ago' } else
+      if (dl < 32 && dl > 14) {
+        if (dl > 14 && dl < 21) { la = 'In 2 weeks' } else
+        if (dl > 20 && dl < 28) { la = 'In 3 weeks' } else
+        if (dl > 27 && dl < 32) { la = 'In 4 weeks' }
+      } else if (dl > -32 && dl < -14) {
+        if (dl < -14 && dl > -21) { la = '2 weeks ago' } else
+        if (dl < -20 && dl > -28) { la = '3 weeks ago' } else
+        if (dl < -27 && dl > -32) { la = '4 weeks ago' }
       }
     }
-    if (dayLeft > 31 || dayLeft < -31 || dayLeft === undefined) {
-      monthLeft = moment(date).get('month') - moment(today).get('month')
-    }
-  } else if (moment(date).get('year') + 1 === moment(today).get('year')) {
-    monthLeft = -1 * (12 - moment(date).get('month') + moment(today).get('month'))
-  } else if (moment(date).get('year') - 1 === moment(today).get('year')) {
-    monthLeft = 12 - moment(today).get('month') + moment(date).get('month')
-  } else if (moment(date).get('year') > moment(today).get('year')) {
-    lastAppoinment = 'In ' + Math.floor(moment.duration(moment(date) - moment()).asYears()) + ' years'
-  } else if (moment(date).get('year') < moment(today).get('year')) {
-    lastAppoinment = Math.floor(moment.duration(moment() - moment(date)).asYears()) + ' years ago'
-  }
-
-  if (monthLeft > 0 && monthLeft < 12) {
-    lastAppoinment = 'In ' + monthLeft + ' month'
-  } else if (monthLeft < 0 && monthLeft > -12) {
-    lastAppoinment = (-1 * monthLeft) + ' month ago'
-  } else if (monthLeft > 11) {
-    lastAppoinment = 'Next year'
-  } else if (monthLeft < -11) {
-    lastAppoinment = 'Last year'
-  }
-  return lastAppoinment
+    if (dl > 31 || dl < -31 || dl === undefined) { ml = get(d, 'month') - get(t, 'month') }
+  } else
+  if (get(d, 'year') + 1 === get(t, 'year')) { ml = -1 * (12 - get(d, 'month') + get(t, 'month')) } else
+  if (get(d, 'year') - 1 === get(t, 'year')) { ml = 12 - get(t, 'month') + get(d, 'month') } else
+  if (get(d, 'year') > get(t, 'year')) { la = 'In ' + Math.floor(moment.duration(moment(d) - t).asYears()) + ' years' } else
+  if (get(d, 'year') < get(t, 'year')) { la = Math.floor(moment.duration(t - moment(d)).asYears()) + ' years ago' }
+  if (ml > 0 && ml < 12) { la = 'In ' + ml + ' month' } else
+  if (ml < 0 && ml > -12) { la = (-1 * ml) + ' month ago' } else
+  if (ml > 11) { la = 'Next year' } else
+  if (ml < -11) { la = 'last year' }
+  return la
 }
+export default getla

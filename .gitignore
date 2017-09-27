@@ -1,6 +1,5 @@
-node_modules
 dist/bundle.css.map
 dist/bundle.js.map
-0..
+node_modules
 .idea
 .git

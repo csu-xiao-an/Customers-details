@@ -6,7 +6,7 @@ import Topnav from '../topnav/topnav.jsx'
 import Source from '../source/source.jsx'
 import Groups from '../groups/groups.jsx'
 import Adress from '../adress/adress.jsx'
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Email from '../email/email.jsx'
 import Media from '../media/media.jsx'
 import Notes from '../notes/notes.jsx'
@@ -17,9 +17,10 @@ import Hero from '../hero/hero.jsx'
 import './home.styl'
 
 class Home extends Component {
+  componentWillMount = () => {
+    if (config.data.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+  }
   render () {
-    let list = document.getElementsByTagName('body')[0]
-    config.isRtL ? list.style.direction = 'rtl' : list.style.direction = 'ltr'
     return (
       <div id='home'>
         <Topnav />

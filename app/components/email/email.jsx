@@ -1,37 +1,32 @@
-import { clientReplaceService } from 'project-services'
-import React from 'react'
+import {clientReplaceService} from 'project-services'
+import React, {Component} from 'react'
 import './email.styl'
 
-class Email extends React.Component {
+class Email extends Component {
   constructor () {
     super()
     this.state = {
       emailEdit: false,
       email: ''
     }
-    this.submit = this.submit.bind(this)
   }
-  async submit () {
+  submit = async () => {
     const body = `email=${this.state.email}`
     let response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.email = this.state.email
-      this.setState({
-        emailEdit: !this.state.emailEdit,
-        email: ''
-      })
+      this.setState({emailEdit: !this.state.emailEdit, email: ''})
     }
   }
   render () {
     return (
       <div id='email'>
         <div className={config.data.email ? this.state.emailEdit ? 'hidden' : 'email' : 'hidden'}>
-          <div className='link-wrap'>
-            <a href={'mailto:' + config.data.email}><img src='./dist/media/mail.svg' /></a>
-          </div>
+          <div className='link-wrap'><a href={'mailto:' + config.data.email}><img src='./dist/media/mail.svg' /></a></div>
           <div className='data-wrap'>
             <div className='label-wrap'><div className={'email-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.email}</div></div>
-            <h1 className={config.isRtL ? 'left' : 'right'} onClick={() => { this.setState({emailEdit: !this.state.emailEdit, email: config.data.email}) }} >{config.data.email}</h1>
+            <h1 className={config.isRtL ? 'left' : 'right'}
+              onClick={() => { this.setState({emailEdit: !this.state.emailEdit, email: config.data.email}) }} >{config.data.email}</h1>
           </div>
         </div>
         <div onClick={() => { this.setState({emailEdit: !this.state.emailEdit}) }}
@@ -40,14 +35,11 @@ class Email extends React.Component {
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_email}</h1>
         </div>
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
-          <div className='edit'>
-            <input className='edit-input' type='email' value={this.state.email}
-              onChange={event => { this.setState({email: event.target.value}) }} />
+          <div className='edit'><input className='edit-input' type='email' value={this.state.email}
+            onChange={event => { this.setState({email: event.target.value}) }} />
             <h1 className='edit-label'>{config.translations.email}</h1>
           </div>
-          <div className='button'>
-            <button onClick={this.submit}>{config.translations.save}</button>
-          </div>
+          <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
       </div>
     )

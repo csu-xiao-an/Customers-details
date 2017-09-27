@@ -1,6 +1,4 @@
 import React from 'react'
 import './line.styl'
-const Line = () => {
-  return <div id='line' />
-}
+const Line = () => <div id='line' />
 export default Line

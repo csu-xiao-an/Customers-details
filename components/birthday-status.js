@@ -1,27 +1,14 @@
+import {get, getEO} from 'project-components'
 import moment from 'moment'
+const getBirthdaysStatus = d => {
+  const t = moment()
+  let dl
+  if (get(d, 'month') === get(t, 'month')) { dl = get(d, 'date') - get(t, 'date') } else
+  if (get(d, 'month') + 1 === get(t, 'month')) { dl = -1 * (getEO(d) - get(d, 'date') + get(t, 'date')) } else
+  if (get(d, 'month') - 1 === get(t, 'month')) { dl = getEO(t) - get(t, 'date') + get(d, 'date') }
 
-export const getBirthdaysStatus = date => {
-  const today = moment()
-  let birthdayStatus
-  let dayLeft
-  const day = {
-    '-1': 'Yesterday',
-    '1': 'Tomorrow',
-    '0': 'Today'
-  }
-  if (moment(date).get('month') === moment(today).get('month')) {
-    dayLeft = moment(date).get('date') - moment(today).get('date')
-  } else if (moment(date).get('month') + 1 === moment(today).get('month')) {
-    dayLeft = -1 * (moment(date).endOf('month').get('date') - moment(date).get('date') + moment(today).get('date'))
-  } else if (moment(date).get('month') - 1 === moment(today).get('month')) {
-    dayLeft = moment(today).endOf('month').get('date') - moment(today).get('date') + moment(date).get('date')
-  }
-  if (day[dayLeft]) {
-    birthdayStatus = day[dayLeft]
-  } else if (dayLeft < 31 && dayLeft > 1) {
-    birthdayStatus = 'In ' + dayLeft + ' days'
-  } else if (dayLeft > -8 && dayLeft < -1) {
-    birthdayStatus = (-1 * dayLeft) + ' days ago'
-  }
-  return birthdayStatus
+  if (config.translations.dates.days[dl]) { return config.translations.dates.days[dl] } else
+  if (dl < 31 && dl > 1) { return 'In ' + dl + ' days' } else
+  if (dl > -8 && dl < -1) { return (-1 * dl) + ' days ago' }
 }
+export default getBirthdaysStatus

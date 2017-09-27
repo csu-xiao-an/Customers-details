@@ -12,6 +12,7 @@ export const replaceService = async body => {
   }
   return await mainRequestService(url, options)
 }
+
 export const deleteService = async () => {
   const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/sinature'
   const options = {

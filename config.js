@@ -49,35 +49,35 @@ var config = {
     procedures: 'procedures',
     all_visits: 'For all visits...',
     url: 'Url',
-    customer: 'Customer',
+    customer_pl: 'Customer',
     dates: {
       months: {
-        January: 'January',
-        February: 'February',
-        March: 'March',
-        April: 'April',
-        May: 'May',
-        June: 'June',
-        July: 'July',
-        August: 'August',
-        September: 'September',
-        October: 'October',
-        November: 'November',
-        December: 'December'
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December'
       },
       weekdays: {
-        Monday: 'Monday',
-        Tuesday: 'Tuesday',
-        Wednesday: 'Wednesday',
-        Thursday: 'Thursday',
-        Friday: 'Friday',
-        Saturday: 'Saturday',
-        Sunday: 'Sunday'
+        1: 'Monday',
+        2: 'Tuesday',
+        3: 'Wednesday',
+        4: 'Thursday',
+        5: 'Friday',
+        6: 'Saturday',
+        7: 'Sunday'
       },
       days: {
-        Yesterday: 'Yesterday ',
-        Tommorow: 'Tommorow ',
-        Today: 'Today '
+        '-1': 'Yesterday ',
+        '1': 'Tommorow ',
+        '0': 'Today '
       }
     },
     source_list: {
@@ -118,7 +118,7 @@ var config = {
   data: {
     id: 123123,
     name: 'Ahuva Ben Shushan',
-    birthdate: '2001-08-30',
+    birthdate: '2001-09-27',
     email: 'ahuva.ben.shushan@gmail.com',
     adress: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
@@ -132,6 +132,7 @@ var config = {
     source: 'ads',
     currency: '₪',
     debt_step: 10,
+    max_side: 1000,
     debts: [
       {
         id: 123123,
@@ -354,7 +355,7 @@ var config = {
     recent_appoinments: [
       {
         id: 321321,
-        date: '2017-08-09 15:00',
+        date: '2017-09-26 15:00',
         procedures: [
           {
             id: 159159,
@@ -372,7 +373,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2017-07-01 19:00',
+        date: '2017-09-27 19:00',
         procedures: [
           {
             id: 778954,
@@ -384,7 +385,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2017-07-29 18:00',
+        date: '2017-09-28 18:00',
         procedures: [
           {
             id: 778954,
@@ -396,12 +397,12 @@ var config = {
       },
       {
         id: 456465,
-        date: '2018-08-10 18:00',
+        date: '2017-09-23 18:00',
         procedures: [
           {
             id: 778954,
             name: 'chemistry',
-            price: 1200,
+            price: 10,
             duration: 120
           }
         ]
