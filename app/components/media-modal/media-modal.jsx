@@ -56,15 +56,16 @@ class MediaModal extends Component {
     return (
       <Modal show={this.props.isOpenGallery}>
         <Modal.Header>
-          <img onClick={() => { this.props.handleGallery(); this.setState({activeIndex: 0}) }} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg' />
+          <img className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg'
+            onClick={() => { this.props.handleGallery(); this.setState({activeIndex: 0}) }} />
         </Modal.Header>
         <Modal.Body>
           <div className={this.state.isEditNote ? 'noSwiping' : ''}>
-            <Swiper onSetTranslate={s => { this.setState({activeIndex: s.activeIndex}) }}
-              observer slidesPerView='auto' initialSlide={this.props.initialSlide}
-              onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
+            <Swiper observer onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
               nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
-              prevButton={config.isRtL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}>
+              prevButton={config.isRtL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}
+              onSetTranslate={s => { this.setState({activeIndex: s.activeIndex}) }}
+              slidesPerView='auto' initialSlide={this.props.initialSlide}>
               {config.data.gallery.map((i, k) => (<div key={k} id='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
             </Swiper>
           </div>

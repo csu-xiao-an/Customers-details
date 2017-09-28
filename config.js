@@ -80,29 +80,29 @@ var config = {
         '0': 'Today '
       }
     },
-    source_list: {
-      ads: 'ads',
-      fb_page: 'fb_page',
-      family: 'family',
-      friends: 'friends',
-      recommendation: 'recommendation'
-    },
-    soc_media_list: {
-      facebook: 'facebook',
-      instagram: 'instagram',
-      linkedin: 'linkedin',
-      twitter: 'twitter',
-      pinterest: 'pinterest',
-      google: 'google+',
-      vk: 'vk',
-      website: 'website'
-    },
-    notes_list: {
-      hours: 'Hours',
-      days: 'Days',
-      weeks: 'Weeks',
-      months: 'Months'
-    }
+    notes_list: [
+      {value: 'hours', label: 'Hours'},
+      {value: 'days', label: 'Days'},
+      {value: 'weeks', label: 'Weeks'},
+      {value: 'months', label: 'Months'}
+    ],
+    source_list: [
+      {value: 'ads', label: 'ads'},
+      {value: 'fb_page', label: 'fb_page'},
+      {value: 'family', label: 'family'},
+      {value: 'friends', label: 'friends'},
+      {value: 'recommendation', label: 'recommendation'}
+    ],
+    social_list: [
+      {value: 'facebook', label: 'facebook'},
+      {value: 'instagram', label: 'instagram'},
+      {value: 'linkedin', label: 'linkedin'},
+      {value: 'twitter', label: 'twitter'},
+      {value: 'pinterest', label: 'pinterest'},
+      {value: 'google', label: 'google'},
+      {value: 'vk', label: 'vk'},
+      {value: 'website', label: 'website'}
+    ]
   },
   urls: {
     adress: 'https://maps.googleapis.com/maps/api/geocode/json',

@@ -16,6 +16,7 @@ class Debts extends Component {
     }
   }
   submit = async () => {
+    config.data.debts ? '' : config.data.debts = []
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
     const response = await debtPostService(body)
     if (response.status === 201) {

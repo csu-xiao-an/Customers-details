@@ -1,24 +1,17 @@
-import { signatureReplaceService } from 'project-services'
-import React, { Component, PropTypes } from 'react'
+import {signatureReplaceService} from 'project-services'
+import React, {Component, PropTypes} from 'react'
+import {dataURLtoFile} from 'project-components'
 import Modal from 'react-bootstrap-modal'
 import './signature-modal.styl'
 
 class SignatureModal extends Component {
-  constructor () {
-    super()
-    this.state = {
-    }
-    this.init = this.init.bind(this)
-    this.clear = this.clear.bind(this)
-    this.save = this.save.bind(this)
-  }
   static get propTypes () {
     return {
       handleEditSignature: PropTypes.func.isRequired,
       isEditSignature: PropTypes.bool.isRequired
     }
   }
-  init () {
+  init = () => {
     let canvas = this.refs.canvas
     let ctx = canvas.getContext('2d')
     let flag = false
@@ -53,9 +46,7 @@ class SignatureModal extends Component {
           dot = false
         }
       }
-      if (res === 'up' || res === 'out') {
-        flag = false
-      }
+      if (res === 'up' || res === 'out') flag = false
       if (res === 'move') {
         if (flag) {
           prevX = currX
@@ -67,53 +58,38 @@ class SignatureModal extends Component {
         }
       }
     }
-    canvas.addEventListener('touchmove', e => {
-      findxy('move', e)
-    }, false)
-    canvas.addEventListener('touchstart', e => {
-      findxy('down', e)
-    }, false)
-    canvas.addEventListener('touchend', e => {
-      findxy('up', e)
-    }, false)
+    canvas.addEventListener('touchstart', e => { findxy('down', e) }, false)
+    canvas.addEventListener('touchmove', e => { findxy('move', e) }, false)
+    canvas.addEventListener('touchend', e => { findxy('up', e) }, false)
   }
-  clear () {
+  clear = () => {
     let canvas = this.refs.canvas
-    let ctx = canvas.getContext('2d')
-    let w = canvas.width
-    let h = canvas.height
-    ctx.clearRect(0, 0, w, h)
+    let ctx = this.refs.canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
-  async save () {
+  save = async () => {
+    let body = new FormData()
     let canvas = this.refs.canvas
     let dataURL = canvas.toDataURL()
-    const body = `sign=${dataURL}`
+    body.append('sign', dataURLtoFile(dataURL, 'signature.png'))
     const response = await signatureReplaceService(body)
     if (response.status === 204) {
-      this.props.handleEditSignature()
       config.data.signature = dataURL
+      this.props.handleEditSignature()
     }
   }
-  componentDidUpdate () {
-    this.props.isEditSignature && this.init()
-  }
+  componentDidUpdate = () => this.props.isEditSignature && this.init()
   render () {
     return (
       <Modal show={this.props.isEditSignature} dialogClassName='signature-modal-dialog' onHide={this.props.handleEditSignature}>
-        <div id='signature-modal-header'>
-          <Modal.Header>
-            <img onClick={this.props.handleEditSignature} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg' />
-          </Modal.Header>
-        </div>
-        <div id='signature-modal-body'>
-          <canvas ref='canvas' width={336} height={200} />
-        </div>
-        <div id='signature-modal-footer'>
-          <Modal.Footer>
-            <button className={config.isRtL ? 'radiusRight' : 'radiusLeft'} onClick={this.save}>{config.translations.save_signature}</button>
-            <button className={config.isRtL ? 'radiusLeft' : 'radiusRight'} onClick={this.clear}>{config.translations.clear}</button>
-          </Modal.Footer>
-        </div>
+        <div id='signature-modal-header'><Modal.Header>
+          <img onClick={this.props.handleEditSignature} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg' />
+        </Modal.Header></div>
+        <div id='signature-modal-body'><canvas ref='canvas' width={336} height={200} /></div>
+        <div id='signature-modal-footer'><Modal.Footer>
+          <button className={config.isRtL ? 'radiusRight' : 'radiusLeft'} onClick={this.save}>{config.translations.save_signature}</button>
+          <button className={config.isRtL ? 'radiusLeft' : 'radiusRight'} onClick={this.clear}>{config.translations.clear}</button>
+        </Modal.Footer></div>
       </Modal>
     )
   }
