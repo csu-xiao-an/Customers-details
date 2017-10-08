@@ -56,7 +56,7 @@ class MediaModal extends Component {
     return (
       <Modal show={this.props.isOpenGallery}>
         <Modal.Header>
-          <img className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg'
+          <img className={'close-button ' + (config.isRtL ? 'left' : 'right')} src={config.urls.media + 'add.svg'}
             onClick={() => { this.props.handleGallery(); this.setState({activeIndex: 0}) }} />
         </Modal.Header>
         <Modal.Body>

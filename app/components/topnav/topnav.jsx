@@ -14,7 +14,7 @@ class Topnav extends Component {
     return (
       <div id='topnav'>
         <div className='header'>
-          <div className='arrow-wrap'><img className='arrow-back' src='./dist/media/arrow-back.svg' /></div>
+          <div className='arrow-wrap'><img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div>
           <div className='client-name'><div className='icon-online' /><h1>{config.data.name}</h1><h1>({this.age(config.data.birthdate)})</h1></div>
           <div className='edit-wrap'><button className='edit'>{config.translations.edit}</button></div>
         </div>

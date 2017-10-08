@@ -48,7 +48,7 @@ class Adress extends Component {
         </div>
         <div onClick={() => { this.setState({adressEdit: !this.state.adressEdit}) }}
           className={config.data.adress || this.state.adressEdit ? 'hidden' : 'add-adress'}>
-          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_adress}</h1>
         </div>
         <div className={this.state.adressEdit ? 'adress-edit' : 'hidden'}>

@@ -22,7 +22,7 @@ class Email extends Component {
     return (
       <div id='email'>
         <div className={config.data.email ? this.state.emailEdit ? 'hidden' : 'email' : 'hidden'}>
-          <div className='link-wrap'><a href={'mailto:' + config.data.email}><img src='./dist/media/mail.svg' /></a></div>
+          <div className='link-wrap'><a href={'mailto:' + config.data.email}><img src={config.urls.media + 'mail.svg'} /></a></div>
           <div className='data-wrap'>
             <div className='label-wrap'><div className={'email-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.email}</div></div>
             <h1 className={config.isRtL ? 'left' : 'right'}
@@ -31,7 +31,7 @@ class Email extends Component {
         </div>
         <div onClick={() => { this.setState({emailEdit: !this.state.emailEdit}) }}
           className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
-          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_email}</h1>
         </div>
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>

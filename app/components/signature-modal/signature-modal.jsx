@@ -83,7 +83,7 @@ class SignatureModal extends Component {
     return (
       <Modal show={this.props.isEditSignature} dialogClassName='signature-modal-dialog' onHide={this.props.handleEditSignature}>
         <div id='signature-modal-header'><Modal.Header>
-          <img onClick={this.props.handleEditSignature} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src='./dist/media/add.svg' />
+          <img onClick={this.props.handleEditSignature} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src={config.urls.media + 'add.svg'} />
         </Modal.Header></div>
         <div id='signature-modal-body'><canvas ref='canvas' width={336} height={200} /></div>
         <div id='signature-modal-footer'><Modal.Footer>

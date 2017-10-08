@@ -59,7 +59,7 @@ class SocialNetwork extends Component {
           <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
         <div className={this.state.isEditSocial ? 'hidden' : 'add-source-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' onClick={() => { this.setState({ isEditSocial: !this.state.isEditSocial }) }} />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} onClick={() => { this.setState({ isEditSocial: !this.state.isEditSocial }) }} />
           <h1 className={config.isRtL ? 'left' : 'right'} >{config.translations.add_social_net}</h1>
         </div>
       </div>

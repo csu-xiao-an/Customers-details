@@ -22,15 +22,15 @@ class Phone extends React.Component {
     return (
       <div id='phone'>
         <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-img' : 'hidden'}>
-          <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src='./dist/media/call.svg' /></a></div>
-          <div className='img-wrap'><a href={'sms:' + config.data.phone}><img src='./dist/media/send-sms.svg' /></a></div>
+          <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>
+          <div className='img-wrap'><a href={'sms:' + config.data.phone}><img src={config.urls.media + 'send-sms.svg'} /></a></div>
         </div>
         <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
           <div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></div>
           <div className='phone-wrap' onClick={() => { this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone}) }}><h1>{config.data.phone}</h1></div>
         </div>
         <div onClick={() => { this.setState({phoneEdit: !this.state.phoneEdit}) }} className={config.data.phone || this.state.phoneEdit ? 'hidden' : 'add-phone'}>
-          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_phone}</h1>
         </div>
         <div className={this.state.phoneEdit ? 'phone-edit' : 'hidden'}>

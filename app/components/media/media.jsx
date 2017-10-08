@@ -116,7 +116,7 @@ class Media extends Component {
           </Swiper>
         </div>
         <div onClick={() => { this.setState({isAddMedia: !this.state.isAddMedia}) }} className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_media}</h1>
         </div>
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>

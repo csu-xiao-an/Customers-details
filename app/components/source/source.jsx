@@ -41,7 +41,7 @@ class Source extends Component {
     return (
       <div id='source'>
         <div className={this.state.isOpenSource ? 'hidden' : config.data.source ? 'hidden' : 'add-source-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' onClick={() => { this.setState({ isOpenSource: !this.state.isOpenSource }) }} />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} onClick={() => { this.setState({ isOpenSource: !this.state.isOpenSource }) }} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>
         </div>
         <div className={this.state.isOpenSource ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : config.data.source ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : 'hidden'}>

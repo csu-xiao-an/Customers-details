@@ -120,7 +120,7 @@ class Notes extends Component {
         </div>
         <div onClick={() => { this.setState({isEditNotes: !this.state.isEditNotes}) }}
           className={this.state.isEditNotes ? 'hidden' : 'add-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src='./dist/media/add.svg' />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_note}</h1>
         </div>
       </div>
