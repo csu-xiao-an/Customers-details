@@ -2,7 +2,6 @@ export { replaceService as signatureReplaceService } from './signature.service.j
 export { deleteService as signatureDeleteService } from './signature.service.js'
 export { replaceService as detailsReplaceService } from './details.service.js'
 export { replaceService as clientReplaceService } from './client.service.js'
-export { replaceService as socialReplaceService } from './social.service.js'
 export { replaceService as mediaReplaceService } from './media.service.js'
 export { replaceService as notesReplaceService } from './notes.service.js'
 export { deleteService as socialDeleteService } from './social.service.js'

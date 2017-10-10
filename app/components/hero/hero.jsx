@@ -14,7 +14,7 @@ class Hero extends Component {
     }
   }
   handleStar = async () => {
-    const body = `isFavorite=${!config.data.isFavorite}`
+    const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`
     const response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.isFavorite = !config.data.isFavorite
@@ -29,7 +29,7 @@ class Hero extends Component {
       this.setState({status: ''})
       this.refs.autofocus.focus()
     } else {
-      const body = `status=${this.state.status}`
+      const body = `${config.urls.status}=${this.state.status}`
       const response = await clientReplaceService(body)
       if (response.status === 204) {
         config.data.status = this.state.status

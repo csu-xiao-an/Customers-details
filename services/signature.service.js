@@ -1,23 +1,20 @@
 import mainRequestService from './request.service'
 
+const mainUrl = config.urls.main + config.urls.signature.replace('{client_id}', config.data.id)
+
 export const replaceService = async body => {
-  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/sinature'
   const options = {
     mode: 'cors',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    method: 'PUT',
+    method: 'POST',
     body
   }
-  return await mainRequestService(url, options)
+  return await mainRequestService(mainUrl, options)
 }
 
 export const deleteService = async () => {
-  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/sinature'
   const options = {
     mode: 'cors',
     method: 'DELETE'
   }
-  return await mainRequestService(url, options)
+  return await mainRequestService(mainUrl, options)
 }

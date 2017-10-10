@@ -2,6 +2,7 @@ import {clientReplaceService, clientGetService} from 'project-services'
 import React, {Component} from 'react'
 import Select from 'react-select'
 import './source.styl'
+let timeout
 
 class Source extends Component {
   constructor () {
@@ -17,8 +18,8 @@ class Source extends Component {
     }
   }
   submit = async () => {
-    let body = `source=${this.state.selectedValue}`
-    if (this.state.userId) body = `source=${this.state.selectedValue}&recommended_by=${this.state.userId}`
+    let body = `${config.urls.source}=${this.state.selectedValue}`
+    if (this.state.userId) body = `${config.urls.source}=${this.state.selectedValue}&${config.urls.recommended_by}=${this.state.userId}`
     const response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.source = this.state.selectedValue
@@ -26,15 +27,14 @@ class Source extends Component {
     }
   }
   changeSelect = e => {
-    this.setState({selectedValue: e.value})
+    this.setState({selectedValue: e.value, userId: null})
     if (e.value === 'recommendation') { this.setState({isRecomendation: true}) } else { this.setState({isRecomendation: false}) }
   }
-  changeInput = async e => {
+  changeInput = e => {
+    clearTimeout(timeout)
     this.setState({inputValue: e})
-    if (e.length > 2) {
-      const response = await clientGetService(e)
-      this.setState({clients: await response.json().then(id => id)})
-      this.setState({isViewClients: true})
+    if (e.length > 0) {
+      timeout = setTimeout(async () => this.setState({isViewClients: true, clients: await clientGetService(e)}), config.data.timeout)
     } else { this.setState({isViewClients: false}) }
   }
   render () {

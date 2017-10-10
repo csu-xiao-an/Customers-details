@@ -11,7 +11,7 @@ class Email extends Component {
     }
   }
   submit = async () => {
-    const body = `email=${this.state.email}`
+    const body = `${config.urls.email}=${this.state.email}`
     let response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.email = this.state.email

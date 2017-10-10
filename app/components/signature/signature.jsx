@@ -20,7 +20,7 @@ class Signature extends React.Component {
     }
   }
   handleAds = async () => {
-    const body = `permit_ads=${!config.data.permit_ads}`
+    const body = `${config.urls.permit_ads}=${!config.data.permit_ads}`
     const response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.permit_ads = !config.data.permit_ads

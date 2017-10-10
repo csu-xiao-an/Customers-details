@@ -1,7 +1,7 @@
 import mainRequestService from './request.service'
 
 export const replaceService = async () => {
-  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/' + config.urls.fill
+  const url = config.urls.main + config.urls.fill.replace('{client_id}', config.data.id)
   const options = {
     mode: 'cors',
     headers: {

@@ -11,7 +11,7 @@ class Phone extends React.Component {
     }
   }
   submit = async () => {
-    const body = `phone=${this.state.phone}`
+    const body = `${config.urls.phone}=${this.state.phone}`
     let response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.phone = this.state.phone

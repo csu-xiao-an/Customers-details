@@ -1,6 +1,7 @@
 import {clientReplaceService, adressGetService} from 'project-services'
 import React, {Component} from 'react'
 import './adress.styl'
+let timeout
 
 class Adress extends Component {
   constructor () {
@@ -13,20 +14,19 @@ class Adress extends Component {
     }
   }
   submit = async () => {
-    const body = `address=${this.state.adress}`
+    const body = `${config.urls.address}=${this.state.adress}`
     let response = await clientReplaceService(body)
     if (response.status === 204) {
       config.data.adress = this.state.adress
-      this.setState({ adressEdit: !this.state.adressEdit, isViewAdress: false, adress_list: [], adress: '' })
+      this.setState({ adressEdit: !this.state.adressEdit, isViewAdress: false, adress: '' })
     }
   }
-  changeInput = async e => {
+  changeInput = e => {
+    clearTimeout(timeout)
     this.setState({adress: e})
-    if (e.length > 2) {
-      const response = await adressGetService(e)
-      let res = await response.json().then(res => res)
-      this.setState({isViewAdress: true, adress_list: res.results})
-    } else { this.setState({isViewAdress: false, adress_list: []}) }
+    if (e.length > 0) {
+      timeout = setTimeout(async () => this.setState({isViewAdress: true, adress_list: await adressGetService(e)}), config.data.timeout)
+    } else { this.setState({isViewAdress: false}) }
   }
   render () {
     return (

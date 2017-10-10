@@ -1,7 +1,8 @@
 import mainRequestService from './request.service'
 
+const mainUrl = config.urls.main + config.urls.notes.replace('{client_id}', config.data.id)
+
 export const postService = async body => {
-  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/notes'
   const options = {
     mode: 'cors',
     headers: {
@@ -10,11 +11,11 @@ export const postService = async body => {
     method: 'POST',
     body
   }
-  return await mainRequestService(url, options)
+  return await mainRequestService(mainUrl, options)
 }
 
 export const replaceService = async (body, id) => {
-  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/notes/' + id
+  const url = mainUrl + '/' + id
   const options = {
     mode: 'cors',
     headers: {
@@ -27,7 +28,7 @@ export const replaceService = async (body, id) => {
 }
 
 export const deleteService = async id => {
-  const url = config.urls.main + '/customers-details/clients/' + config.data.id + '/notes/' + id
+  const url = mainUrl + '/' + id
   const options = {
     mode: 'cors',
     method: 'DELETE'
