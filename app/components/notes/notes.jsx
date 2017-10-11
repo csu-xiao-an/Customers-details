@@ -78,8 +78,8 @@ class Notes extends Component {
   render () {
     return (
       <div id='notes'>
-        <div className='label-wrap'><div className={'add-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.notes}</div></div>
-        {config.data.notes && config.data.notes[0] && config.data.notes.map((i, k) => (
+        <div className={config.data.notes && config.data.notes.length > 0 ? 'label-wrap' : 'hidden'}><div className={'add-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.notes}</div></div>
+        {config.data.notes.map((i, k) => (
           <div key={k} className={this.state.noteReplace ? 'hidden' : 'notes-list ' + (i.reminder_date ? 'pd5' : 'pd17')}>
             <div className='notes-list-delete-wrap'>
               <img className='notes-list-delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(i.id, k) }} />

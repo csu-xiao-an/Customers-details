@@ -58,18 +58,18 @@ class Debts extends Component {
   }
   price = () => {
     let sum = 0
-    config.data.depts && config.data.depts[0] && config.data.depts.forEach(i => { sum += i.sum })
+    config.data.debts.forEach(i => { sum += i.sum })
     return sum === 0 || isNaN(sum) ? 0 : sum
   }
   render () {
     return (
       <div id='debt'>
-        <div className={config.data.debts && config.data.debts[0] ? 'label-wrap' : 'hidden'}>
+        <div className={config.data.debts && config.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
           <div className={'debt-label ' + (config.isRtL ? 'left' : 'right')}>
             <span>{config.translations.debt}</span><span>:</span><span className='count-debt'>{this.price()}</span>
           </div>
         </div>
-        {config.data.debts && config.data.debts[0] && config.data.debts.map((i, k) => (
+        {config.data.debts.map((i, k) => (
           <div key={k} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
             <div className='debt-list-delete-wrap'>
               <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(i.id, k) }} />
