@@ -9,29 +9,38 @@ class Signature extends React.Component {
     super()
     this.state = {
       isEditSignature: false,
-      signatureUrl: ''
+      signatureUrl: '',
+      isAds: false
     }
   }
   delete = async () => {
     const response = await signatureDeleteService()
     if (response.status === 204) {
+      if (config.data.permit_ads) this.handleAds()
       delete config.data.signature
       this.forceUpdate()
     }
   }
   handleAds = async () => {
-    const body = `${config.urls.permit_ads}=${!config.data.permit_ads}`
-    const response = await clientReplaceService(body)
-    if (response.status === 204) {
-      config.data.permit_ads = !config.data.permit_ads
-      this.forceUpdate()
+    if (config.data.signature) {
+      const body = `${config.urls.permit_ads}=${!config.data.permit_ads}`
+      const response = await clientReplaceService(body)
+      if (response.status === 204) {
+        config.data.permit_ads = !config.data.permit_ads
+        this.forceUpdate()
+      }
+    } else {
+      this.handleEditSignature(true)
     }
   }
-  handleEditSignature = () => this.setState({isEditSignature: !this.state.isEditSignature})
+  handleEditSignature = isAds => {
+    this.setState({isEditSignature: !this.state.isEditSignature, isAds: false})
+    if (isAds === true) this.setState({isAds: true})
+  }
   render () {
     return (
       <div id='signature'>
-        <SignatureModal isEditSignature={this.state.isEditSignature} handleEditSignature={this.handleEditSignature} />
+        <SignatureModal isEditSignature={this.state.isEditSignature} handleEditSignature={this.handleEditSignature} isAds={this.state.isAds} handleAds={this.handleAds} />
         <div className='checkbox-wrap'>
           <div className='text'><h1 className='text-h1'>{config.data.permit_ads ? config.translations.permitted : config.translations.not_permitted}</h1></div>
           <div className='switch'><Switch on={config.data.permit_ads} onClick={this.handleAds} className={config.isRtL ? 'switchleft' : 'switchright'} /></div>

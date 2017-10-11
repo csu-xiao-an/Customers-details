@@ -5,12 +5,6 @@ import Modal from 'react-bootstrap-modal'
 import './signature-modal.styl'
 
 class SignatureModal extends Component {
-  static get propTypes () {
-    return {
-      handleEditSignature: PropTypes.func.isRequired,
-      isEditSignature: PropTypes.bool.isRequired
-    }
-  }
   init = () => {
     let canvas = this.refs.canvas
     let ctx = canvas.getContext('2d')
@@ -75,6 +69,7 @@ class SignatureModal extends Component {
     const response = await signatureReplaceService(body)
     if (response.status === 204) {
       config.data.signature = dataURL
+      if (this.props.isAds) this.props.handleAds()
       this.props.handleEditSignature()
     }
   }
@@ -93,6 +88,12 @@ class SignatureModal extends Component {
       </Modal>
     )
   }
+}
+SignatureModal.propTypes = {
+  handleEditSignature: PropTypes.func.isRequired,
+  isEditSignature: PropTypes.bool.isRequired,
+  handleAds: PropTypes.func.isRequired,
+  isAds: PropTypes.bool.isRequired
 }
 
 export default SignatureModal
