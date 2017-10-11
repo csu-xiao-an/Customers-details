@@ -15,7 +15,7 @@ class Events extends Component {
   initialSlide = () => {
     let slide
     config.data.recent_appoinments && config.data.recent_appoinments[0] &&
-    config.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).every((i, k) => {
+    config.data.recent_appoinments.sort((a, b) => (moment(a.date) - moment(b.date))).every((i, k) => {
       if (moment() < moment(i.date)) { slide = k; return false } else { return true }
     })
     return slide
@@ -30,7 +30,7 @@ class Events extends Component {
             <Swiper pagination='.swiper-pagination' slidesPerView='auto' paginationClickable initialSlide={this.initialSlide()}>
               <div><div className='note start-note'>{config.translations.all_visits}</div></div>
               {config.data.recent_appoinments && config.data.recent_appoinments[0] &&
-                config.data.recent_appoinments.sort((a, b) => +(a.date > b.date) || +(a.date === b.date) - 1).map((i, k) => (
+                config.data.recent_appoinments.sort((a, b) => (moment(a.date) - moment(b.date))).map((i, k) => (
                   <div key={k}>
                     <div className='note'>
                       <h1 className='date'>{lastAppoinment(i.date)}</h1>
