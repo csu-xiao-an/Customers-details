@@ -1,9 +1,8 @@
 import {clientReplaceService} from 'project-services'
 import Birthday from '../birthday/birthday.jsx'
-import React, {Component} from 'react'
 import './hero.styl'
 
-class Hero extends Component {
+class Hero extends React.Component {
   constructor () {
     super()
     this.state = {

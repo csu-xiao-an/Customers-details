@@ -1,9 +1,8 @@
 import {debtPostService, debtReplaceService, debtDeleteService} from 'project-services'
 import {formatDate} from 'project-components'
-import React, {Component} from 'react'
 import './debts.styl'
 
-class Debts extends Component {
+class Debts extends React.Component {
   constructor () {
     super()
     this.state = {

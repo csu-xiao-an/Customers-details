@@ -1,10 +1,9 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
 import {formatDate} from 'project-components'
-import React, {Component} from 'react'
 import Select from 'react-select'
 import './notes.styl'
 
-class Notes extends Component {
+class Notes extends React.Component {
   constructor () {
     super()
     this.state = {

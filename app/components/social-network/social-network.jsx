@@ -1,9 +1,8 @@
 import {socialPostService, socialDeleteService} from 'project-services'
-import React, {Component} from 'react'
 import Select from 'react-select'
 import './social-network.styl'
 
-class SocialNetwork extends Component {
+class SocialNetwork extends React.Component {
   constructor () {
     super()
     this.state = {

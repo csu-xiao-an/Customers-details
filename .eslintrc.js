@@ -6,12 +6,14 @@ module.exports = {
   "extends": ["standard", "standard-react"],
   "globals": {
     "describe": false,
+    "ReactDOM": false,
     "element": false,
     "expect": false,
     "browser": true,
     "config": false,
     "moment": false,
     "before":false,
+    "React": false,
     "it": false,
     "by": false
   },

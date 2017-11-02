@@ -1,10 +1,9 @@
 import {signatureReplaceService} from 'project-services'
 import {dataURLtoFile, Modal} from 'project-components'
-import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './signature-modal.styl'
 
-class SignatureModal extends Component {
+class SignatureModal extends React.Component {
   init = () => {
     let canvas = this.refs.canvas
     let ctx = canvas.getContext('2d')

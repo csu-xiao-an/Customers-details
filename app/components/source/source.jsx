@@ -1,10 +1,9 @@
 import {clientReplaceService, clientGetService} from 'project-services'
-import React, {Component} from 'react'
 import Select from 'react-select'
 import './source.styl'
 let timeout
 
-class Source extends Component {
+class Source extends React.Component {
   constructor () {
     super()
     this.state = {

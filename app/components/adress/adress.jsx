@@ -1,9 +1,8 @@
 import {clientReplaceService, adressGetService} from 'project-services'
-import React, {Component} from 'react'
 import './adress.styl'
 let timeout
 
-class Adress extends Component {
+class Adress extends React.Component {
   constructor () {
     super()
     this.state = {

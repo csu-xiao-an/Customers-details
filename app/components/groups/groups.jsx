@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
 import Swiper from 'react-id-swiper'
 import './groups.styl'
 
-class Groups extends Component {
+class Groups extends React.Component {
   render () {
     return (
       <div id='partners'>

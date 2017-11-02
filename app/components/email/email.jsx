@@ -1,8 +1,7 @@
 import {clientReplaceService} from 'project-services'
-import React, {Component} from 'react'
 import './email.styl'
 
-class Email extends Component {
+class Email extends React.Component {
   constructor () {
     super()
     this.state = {

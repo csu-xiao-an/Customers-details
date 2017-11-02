@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './Modal.styl'
 
-class Modal extends Component {
+class Modal extends React.Component {
   constructor () {
     super()
     this.state = {

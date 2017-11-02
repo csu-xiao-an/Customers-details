@@ -1,11 +1,10 @@
 import {dataURLtoFile, getOrientation} from 'project-components'
 import MediaModal from '../media-modal/media-modal.jsx'
 import {mediaPostService} from 'project-services'
-import React, {Component} from 'react'
 import Swiper from 'react-id-swiper'
 import './media.styl'
 
-class Media extends Component {
+class Media extends React.Component {
   constructor () {
     super()
     this.state = {

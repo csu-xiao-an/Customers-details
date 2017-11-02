@@ -1,5 +1,4 @@
 import {clientReplaceService} from 'project-services'
-import React from 'react'
 import './phone.styl'
 
 class Phone extends React.Component {

@@ -1,11 +1,10 @@
 import {mediaReplaceService, mediaDeleteService} from 'project-services'
 import {Modal} from 'project-components'
-import React, {Component} from 'react'
 import Swiper from 'react-id-swiper'
 import PropTypes from 'prop-types'
 import './media-modal.styl'
 
-class MediaModal extends Component {
+class MediaModal extends React.Component {
   constructor () {
     super()
     this.state = {
