@@ -1,5 +1,4 @@
 import {get, getEO} from 'project-components'
-import moment from 'moment'
 const getBirthdaysStatus = d => {
   const t = moment()
   let dl

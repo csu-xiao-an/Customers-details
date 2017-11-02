@@ -1,6 +1,6 @@
 import mainRequestService from './request.service'
 
-export const replaceService = async body => {
+export const replaceService = body => {
   const url = config.urls.main + config.urls.clients.replace('{client_id}', config.data.id)
   const options = {
     mode: 'cors',
@@ -10,15 +10,14 @@ export const replaceService = async body => {
     method: 'PATCH',
     body
   }
-  return await mainRequestService(url, options)
+  return mainRequestService(url, options)
 }
 
-export const getService = async q => {
+export const getService = q => {
   const url = config.urls.main + config.urls.add_client_url.replace('{query}', q)
   const options = {
     mode: 'cors',
     method: 'GET'
   }
-  const r = await mainRequestService(url, options)
-  return r.json()
+  return mainRequestService(url, options)
 }

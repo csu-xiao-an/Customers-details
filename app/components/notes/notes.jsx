@@ -2,7 +2,6 @@ import {notesPostService, notesReplaceService, notesDeleteService} from 'project
 import {formatDate} from 'project-components'
 import React, {Component} from 'react'
 import Select from 'react-select'
-import moment from 'moment'
 import './notes.styl'
 
 class Notes extends Component {
@@ -19,49 +18,52 @@ class Notes extends Component {
       key: 0
     }
   }
-  submit = async () => {
+  submit = () => {
     config.data.notes ? '' : config.data.notes = []
     let reminder = this.reminder()
     let body = `text=${this.state.description}`
     if (reminder) body = `text=${this.state.description}&reminder_date=${reminder}`
-    const response = await notesPostService(body)
-    if (response.status === 201) {
-      config.data.notes.unshift({
-        id: await response.json().then(id => id),
-        text: this.state.description,
-        date: moment().format('YYYY-MM-DD HH:mm')
-      })
-      if (reminder) config.data.notes[0].reminder_date = reminder
-      this.setState({isEditNotes: !this.state.isEditNotes, isReminderEdit: false, description: '', time: '0'})
-    }
+    notesPostService(body).then(r => {
+      if (r.status === 201) {
+        config.data.notes.unshift({
+          text: this.state.description,
+          date: moment().format('YYYY-MM-DD HH:mm')
+        })
+        if (reminder) config.data.notes[0].reminder_date = reminder
+        r.json().then(id => { config.data.notes[0].id = id })
+        this.setState({isEditNotes: !this.state.isEditNotes, isReminderEdit: false, description: '', time: '0'})
+      }
+    })
   }
-  update = async () => {
+  update = () => {
     let reminder = this.reminder()
     let body = `text=${this.state.description}`
     if (reminder) body = `text=${this.state.description}&reminder_date=${reminder}`
-    const response = await notesReplaceService(body, this.state.note_id)
-    if (response.status === 204) {
-      config.data.notes[this.state.key].text = this.state.description
-      config.data.notes[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
-      if (reminder) {
-        config.data.notes[this.state.key].reminder_date = reminder
-      } else { delete config.data.notes[this.state.key].reminder_date }
-      this.setState({
-        noteReplace: !this.state.noteReplace,
-        isEditNotes: !this.state.isEditNotes,
-        isReminderEdit: false,
-        description: '',
-        note_id: 0,
-        time: '0'
-      })
-    }
+    notesReplaceService(body, this.state.note_id).then(r => {
+      if (r.status === 204) {
+        config.data.notes[this.state.key].text = this.state.description
+        config.data.notes[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
+        if (reminder) {
+          config.data.notes[this.state.key].reminder_date = reminder
+        } else delete config.data.notes[this.state.key].reminder_date
+        this.setState({
+          noteReplace: !this.state.noteReplace,
+          isEditNotes: !this.state.isEditNotes,
+          isReminderEdit: false,
+          description: '',
+          note_id: 0,
+          time: '0'
+        })
+      }
+    })
   }
-  delete = async (id, k) => {
-    const response = await notesDeleteService(id)
-    if (response.status === 204) {
-      config.data.notes.splice(k, 1)
-      this.forceUpdate()
-    }
+  delete = (id, k) => {
+    notesDeleteService(id).then(r => {
+      if (r.status === 204) {
+        config.data.notes.splice(k, 1)
+        this.forceUpdate()
+      }
+    })
   }
   replace = (i, key) => {
     this.setState({

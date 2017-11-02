@@ -1,7 +1,6 @@
 import {debtPostService, debtReplaceService, debtDeleteService} from 'project-services'
 import {formatDate} from 'project-components'
 import React, {Component} from 'react'
-import moment from 'moment'
 import './debts.styl'
 
 class Debts extends Component {
@@ -15,36 +14,39 @@ class Debts extends Component {
       debt: '0'
     }
   }
-  submit = async () => {
+  submit = () => {
     config.data.debts ? '' : config.data.debts = []
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
-    const response = await debtPostService(body)
-    if (response.status === 201) {
-      config.data.debts.unshift({
-        id: await response.json().then(id => id),
-        sum: this.state.debt,
-        desc: this.state.description,
-        date: moment().format('YYYY-MM-DD HH:mm')
-      })
-      this.setState({debtEdit: !this.state.debtEdit, description: '', debt: '0'})
-    }
+    debtPostService(body).then(r => {
+      if (r.status === 201) {
+        config.data.debts.unshift({
+          sum: this.state.debt,
+          desc: this.state.description,
+          date: moment().format('YYYY-MM-DD HH:mm')
+        })
+        r.json().then(id => { config.data.debts[0].id = id })
+        this.setState({debtEdit: !this.state.debtEdit, description: '', debt: '0'})
+      }
+    })
   }
-  update = async () => {
+  update = () => {
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
-    const response = await debtReplaceService(body, this.state.debt_id)
-    if (response.status === 204) {
-      config.data.debts[this.state.key].sum = this.state.debt
-      config.data.debts[this.state.key].desc = this.state.description
-      config.data.debts[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
-      this.setState({debtReplace: !this.state.debtReplace, debtEdit: !this.state.debtEdit, description: '', debt: '0', debt_id: 0})
-    }
+    debtReplaceService(body, this.state.debt_id).then(r => {
+      if (r.status === 204) {
+        config.data.debts[this.state.key].sum = this.state.debt
+        config.data.debts[this.state.key].desc = this.state.description
+        config.data.debts[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
+        this.setState({debtReplace: !this.state.debtReplace, debtEdit: !this.state.debtEdit, description: '', debt: '0', debt_id: 0})
+      }
+    })
   }
-  delete = async (id, k) => {
-    const response = await debtDeleteService(id)
-    if (response.status === 204) {
-      config.data.debts.splice(k, 1)
-      this.forceUpdate()
-    }
+  delete = (id, k) => {
+    debtDeleteService(id).then(r => {
+      if (r.status === 204) {
+        config.data.debts.splice(k, 1)
+        this.forceUpdate()
+      }
+    })
   }
   replace = (i, key) => {
     this.setState({

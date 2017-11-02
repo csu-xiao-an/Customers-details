@@ -13,16 +13,17 @@ class Hero extends Component {
       succes: false
     }
   }
-  handleStar = async () => {
+  handleStar = () => {
     const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`
-    const response = await clientReplaceService(body)
-    if (response.status === 204) {
-      config.data.isFavorite = !config.data.isFavorite
-      if (config.data.isFavorite) this.setState({succes: true}, () => { setTimeout(() => { this.setState({succes: false}) }, 1200) })
-      this.forceUpdate()
-    }
+    clientReplaceService(body).then(r => {
+      if (r.status === 204) {
+        config.data.isFavorite = !config.data.isFavorite
+        if (config.data.isFavorite) this.setState({succes: true}, () => { setTimeout(() => { this.setState({succes: false}) }, 1200) })
+        this.forceUpdate()
+      }
+    })
   }
-  handleStatus = async e => {
+  handleStatus = e => {
     e.preventDefault()
     this.setState({isInputDisabled: true})
     if (!this.state.isInputDisabled) {
@@ -30,12 +31,13 @@ class Hero extends Component {
       this.refs.autofocus.focus()
     } else {
       const body = `${config.urls.status}=${this.state.status}`
-      const response = await clientReplaceService(body)
-      if (response.status === 204) {
-        config.data.status = this.state.status
-        this.setState({isInputDisabled: false})
-        this.refs.autofocus.blur()
-      }
+      clientReplaceService(body).then(r => {
+        if (r.status === 204) {
+          config.data.status = this.state.status
+          this.setState({isInputDisabled: false})
+          this.refs.autofocus.blur()
+        }
+      })
     }
   }
   render () {
@@ -64,7 +66,7 @@ class Hero extends Component {
                 onBlur={() => { this.setState({isInputDisabled: false, status: config.data.status ? config.data.status : config.translations.placeholder}) }}
                 onChange={e => { this.setState({status: e.target.value, statusRem: e.target.value}) }} />
             </div>
-            <span onClick={this.state.isInputDisabled ? '' : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
+            <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src={config.urls.media + 'pencil.svg'} />
             </span>
           </div>

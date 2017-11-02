@@ -3,13 +3,13 @@ import MediaModal from '../media-modal/media-modal.jsx'
 import {mediaPostService} from 'project-services'
 import React, {Component} from 'react'
 import Swiper from 'react-id-swiper'
-import moment from 'moment'
 import './media.styl'
 
 class Media extends Component {
   constructor () {
     super()
     this.state = {
+      isOpenGalleryContex: false,
       isOpenGallery: false,
       imagePreviewUrl: '',
       isAddMedia: false,
@@ -20,22 +20,25 @@ class Media extends Component {
   }
   handleGallery = () => {
     this.setState({isOpenGallery: !this.state.isOpenGallery})
+    if (this.state.isOpenGalleryContex) setTimeout(() => this.setState({isOpenGalleryContex: false}), 300)
+    else this.setState({isOpenGalleryContex: true})
   }
-  submit = async () => {
+  submit = () => {
     let body = new FormData()
     body.append('file', this.state.file)
     body.append('note', this.state.desc)
-    const response = await mediaPostService(body)
-    if (response.status === 201) {
-      config.data.gallery.unshift({
-        id: await response.json().then(id => id),
-        name: this.state.file.name,
-        note: this.state.desc,
-        date: moment().format('YYYY-MM-DD HH:mm')
-      })
-      this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}})
-      this.refs.fileAddForm.reset()
-    }
+    mediaPostService(body).then(r => {
+      if (r.status === 201) {
+        config.data.gallery.unshift({
+          name: this.state.file.name,
+          note: this.state.desc,
+          date: moment().format('YYYY-MM-DD HH:mm')
+        })
+        r.json().then(id => { config.data.gallery[0].id = id })
+        this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}})
+        this.refs.fileAddForm.reset()
+      }
+    })
   }
   addFile = e => {
     let file = e.target.files[0]
@@ -115,7 +118,8 @@ class Media extends Component {
     }
     return (
       <div id='gallery'>
-        <MediaModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />
+        {this.state.isOpenGalleryContex &&
+          <MediaModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />}
         <div className='label-wrap'>
           <h1 className={config.isRtL ? 'right' : 'left'}>{config.data.gallery.length} {config.translations.item_count}</h1>
           <div className={'gallery-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.gallery}</div>

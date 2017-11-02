@@ -10,13 +10,14 @@ class Email extends Component {
       email: ''
     }
   }
-  submit = async () => {
+  submit = () => {
     const body = `${config.urls.email}=${this.state.email}`
-    let response = await clientReplaceService(body)
-    if (response.status === 204) {
-      config.data.email = this.state.email
-      this.setState({emailEdit: !this.state.emailEdit, email: ''})
-    }
+    clientReplaceService(body).then(r => {
+      if (r.status === 204) {
+        config.data.email = this.state.email
+        this.setState({emailEdit: !this.state.emailEdit, email: ''})
+      }
+    })
   }
   render () {
     return (

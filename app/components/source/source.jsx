@@ -17,25 +17,27 @@ class Source extends Component {
       clients: []
     }
   }
-  submit = async () => {
+  submit = () => {
     let body = `${config.urls.source}=${this.state.selectedValue}`
     if (this.state.userId) body = `${config.urls.source}=${this.state.selectedValue}&${config.urls.recommended_by}=${this.state.userId}`
-    const response = await clientReplaceService(body)
-    if (response.status === 204) {
-      config.data.source = this.state.selectedValue
-      this.forceUpdate()
-    }
+    clientReplaceService(body).then(r => {
+      if (r.status === 204) {
+        config.data.source = this.state.selectedValue
+        this.forceUpdate()
+      }
+    })
   }
   changeSelect = e => {
     this.setState({selectedValue: e.value, userId: null})
-    if (e.value === 'recommendation') { this.setState({isRecomendation: true}) } else { this.setState({isRecomendation: false}) }
+    e.value === 'recommendation' ? this.setState({isRecomendation: true}) : this.setState({isRecomendation: false})
   }
   changeInput = e => {
     clearTimeout(timeout)
     this.setState({inputValue: e})
     if (e.length > 0) {
-      timeout = setTimeout(async () => this.setState({isViewClients: true, clients: await clientGetService(e)}), config.data.timeout)
-    } else { this.setState({isViewClients: false}) }
+      timeout = setTimeout(() => clientGetService(e).then(r => r.json().then(r =>
+        this.setState({isViewClients: true, clients: r}))), config.data.timeout)
+    } else this.setState({isViewClients: false})
   }
   render () {
     return (

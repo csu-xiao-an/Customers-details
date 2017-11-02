@@ -1,5 +1,4 @@
 import {get, getEO} from 'project-components'
-import moment from 'moment'
 const getla = d => {
   const format = d => ' ' + moment(d).format('HH:mm')
   let la

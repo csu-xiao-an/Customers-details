@@ -12,25 +12,27 @@ class SocialNetwork extends Component {
       inputValue: ''
     }
   }
-  submit = async () => {
+  submit = () => {
     config.data.soc_media ? '' : config.data.soc_media = []
     const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
-    let response = await socialPostService(body)
-    if (response.status === 201) {
-      config.data.soc_media.push({
-        id: await response.json().then(id => id),
-        type: this.state.selectedValue,
-        url: this.state.inputValue
-      })
-      this.setState({ isEditSocial: !this.state.isEditSocial, selectedValue: 'facebook', inputValue: '' })
-    }
+    socialPostService(body).then(r => {
+      if (r.status === 201) {
+        config.data.soc_media.push({
+          type: this.state.selectedValue,
+          url: this.state.inputValue
+        })
+        r.json().then(id => { config.data.soc_media[config.data.soc_media.length - 1].id = id })
+        this.setState({ isEditSocial: !this.state.isEditSocial, selectedValue: 'facebook', inputValue: '' })
+      }
+    })
   }
-  delete = async (id, k) => {
-    let response = await socialDeleteService(id)
-    if (response.status === 204) {
-      config.data.soc_media.splice(k, 1)
-      this.setState({inputValue: ''})
-    }
+  delete = (id, k) => {
+    socialDeleteService(id).then(r => {
+      if (r.status === 204) {
+        config.data.soc_media.splice(k, 1)
+        this.setState({inputValue: ''})
+      }
+    })
   }
   render () {
     return (

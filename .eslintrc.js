@@ -10,6 +10,7 @@ module.exports = {
     "expect": false,
     "browser": true,
     "config": false,
+    "moment": false,
     "before":false,
     "it": false,
     "by": false

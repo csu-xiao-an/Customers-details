@@ -1,7 +1,7 @@
 import {signatureReplaceService} from 'project-services'
-import React, {Component, PropTypes} from 'react'
-import {dataURLtoFile} from 'project-components'
-import Modal from 'react-bootstrap-modal'
+import {dataURLtoFile, Modal} from 'project-components'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import './signature-modal.styl'
 
 class SignatureModal extends Component {
@@ -61,30 +61,31 @@ class SignatureModal extends Component {
     let ctx = this.refs.canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
-  save = async () => {
+  save = () => {
     let body = new FormData()
     let canvas = this.refs.canvas
     let dataURL = canvas.toDataURL()
     body.append('sign', dataURLtoFile(dataURL, 'signature.png'))
-    const response = await signatureReplaceService(body)
-    if (response.status === 204) {
-      config.data.signature = dataURL
-      if (this.props.isAds) this.props.handleAds()
-      this.props.handleEditSignature()
-    }
+    signatureReplaceService(body).then(r => {
+      if (r.status === 204) {
+        config.data.signature = dataURL
+        if (this.props.isAds) this.props.handleAds()
+        this.props.handleEditSignature()
+      }
+    })
   }
   componentDidUpdate = () => this.props.isEditSignature && this.init()
   render () {
     return (
       <Modal show={this.props.isEditSignature} dialogClassName='signature-modal-dialog' onHide={this.props.handleEditSignature}>
-        <div id='signature-modal-header'><Modal.Header>
+        <div className='signature-modal-header'>
           <img onClick={this.props.handleEditSignature} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src={config.urls.media + 'add.svg'} />
-        </Modal.Header></div>
-        <div id='signature-modal-body'><canvas ref='canvas' width={336} height={200} /></div>
-        <div id='signature-modal-footer'><Modal.Footer>
+        </div>
+        <div className='signature-modal-body'><canvas ref='canvas' width={336} height={200} /></div>
+        <div className='signature-modal-footer'>
           <button className={config.isRtL ? 'radiusRight' : 'radiusLeft'} onClick={this.save}>{config.translations.save_signature}</button>
           <button className={config.isRtL ? 'radiusLeft' : 'radiusRight'} onClick={this.clear}>{config.translations.clear}</button>
-        </Modal.Footer></div>
+        </div>
       </Modal>
     )
   }

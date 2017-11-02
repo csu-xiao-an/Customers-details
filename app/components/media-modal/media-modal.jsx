@@ -1,8 +1,8 @@
 import {mediaReplaceService, mediaDeleteService} from 'project-services'
-import React, {Component, PropTypes} from 'react'
-import Modal from 'react-bootstrap-modal'
+import {Modal} from 'project-components'
+import React, {Component} from 'react'
 import Swiper from 'react-id-swiper'
-import moment from 'moment'
+import PropTypes from 'prop-types'
 import './media-modal.styl'
 
 class MediaModal extends Component {
@@ -12,13 +12,6 @@ class MediaModal extends Component {
       isEditNote: false,
       textareaValue: '',
       activeIndex: 0
-    }
-  }
-  static get propTypes () {
-    return {
-      initialSlide: PropTypes.number.isRequired,
-      isOpenGallery: PropTypes.bool.isRequired,
-      handleGallery: PropTypes.func.isRequired
     }
   }
   typeItem = (i, k) => {
@@ -35,31 +28,33 @@ class MediaModal extends Component {
       }
     }
   }
-  replace = async id => {
+  replace = id => {
     const body = `note=${this.state.textareaValue}`
-    const response = await mediaReplaceService(body, id)
-    if (response.status === 204) {
-      config.data.gallery[this.state.activeIndex].note = this.state.textareaValue
-      config.data.gallery[this.state.activeIndex].date = moment().format('YYYY-MM-DD HH:mm')
-      this.setState({isEditNote: false, textareaValue: ''})
-    }
+    mediaReplaceService(body, id).then(r => {
+      if (r.status === 204) {
+        config.data.gallery[this.state.activeIndex].note = this.state.textareaValue
+        config.data.gallery[this.state.activeIndex].date = moment().format('YYYY-MM-DD HH:mm')
+        this.setState({isEditNote: false, textareaValue: ''})
+      }
+    })
   }
-  delete = async id => {
-    const response = await mediaDeleteService(id)
-    if (response.status === 204) {
-      config.data.gallery.splice(this.state.activeIndex, 1)
-      this.props.handleGallery()
-      this.setState({activeIndex: 0})
-    }
+  delete = id => {
+    mediaDeleteService(id).then(r => {
+      if (r.status === 204) {
+        config.data.gallery.splice(this.state.activeIndex, 1)
+        this.props.handleGallery()
+        this.setState({activeIndex: 0})
+      }
+    })
   }
   render () {
     return (
       <Modal show={this.props.isOpenGallery}>
-        <Modal.Header>
+        <div className='modal-header'>
           <img className={'close-button ' + (config.isRtL ? 'left' : 'right')} src={config.urls.media + 'add.svg'}
             onClick={() => { this.props.handleGallery(); this.setState({activeIndex: 0}) }} />
-        </Modal.Header>
-        <Modal.Body>
+        </div>
+        <div className='modal-body'>
           <div className={this.state.isEditNote ? 'noSwiping' : ''}>
             <Swiper observer onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
               nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
@@ -69,8 +64,8 @@ class MediaModal extends Component {
               {config.data.gallery.map((i, k) => (<div key={k} id='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
             </Swiper>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
+        </div>
+        <div className='modal-footer'>
           <div className='data'>
             <h1 className={config.isRtL ? 'right' : 'left'}>
               {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].date}</h1>
@@ -88,10 +83,14 @@ class MediaModal extends Component {
             }} />
             <img src={config.urls.media + 'trash.png'} onClick={() => { this.delete(config.data.gallery[this.state.activeIndex].id) }} />
           </div>
-        </Modal.Footer>
+        </div>
       </Modal>
     )
   }
 }
-
+MediaModal.propTypes = {
+  initialSlide: PropTypes.number.isRequired,
+  isOpenGallery: PropTypes.bool.isRequired,
+  handleGallery: PropTypes.func.isRequired
+}
 export default MediaModal

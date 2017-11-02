@@ -1,7 +1,6 @@
 import {lastAppoinment} from 'project-components'
 import React, {Component} from 'react'
 import Swiper from 'react-id-swiper'
-import moment from 'moment'
 import './events.styl'
 
 class Events extends Component {

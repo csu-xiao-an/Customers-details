@@ -2,7 +2,7 @@ import mainRequestService from './request.service'
 
 const mainUrl = config.urls.main + config.urls.social.replace('{client_id}', config.data.id)
 
-export const postService = async body => {
+export const postService = body => {
   const options = {
     mode: 'cors',
     headers: {
@@ -11,14 +11,14 @@ export const postService = async body => {
     method: 'POST',
     body
   }
-  return await mainRequestService(mainUrl, options)
+  return mainRequestService(mainUrl, options)
 }
 
-export const deleteService = async id => {
+export const deleteService = id => {
   const url = mainUrl + '/' + id
   const options = {
     mode: 'cors',
     method: 'DELETE'
   }
-  return await mainRequestService(url, options)
+  return mainRequestService(url, options)
 }

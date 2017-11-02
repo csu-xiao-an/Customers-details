@@ -13,20 +13,22 @@ class Adress extends Component {
       adress: ''
     }
   }
-  submit = async () => {
+  submit = () => {
     const body = `${config.urls.address}=${this.state.adress}`
-    let response = await clientReplaceService(body)
-    if (response.status === 204) {
-      config.data.adress = this.state.adress
-      this.setState({ adressEdit: !this.state.adressEdit, isViewAdress: false, adress: '' })
-    }
+    clientReplaceService(body).then(r => {
+      if (r.status === 204) {
+        config.data.adress = this.state.adress
+        this.setState({ adressEdit: !this.state.adressEdit, isViewAdress: false, adress: '' })
+      }
+    })
   }
   changeInput = e => {
     clearTimeout(timeout)
     this.setState({adress: e})
     if (e.length > 0) {
-      timeout = setTimeout(async () => this.setState({isViewAdress: true, adress_list: await adressGetService(e)}), config.data.timeout)
-    } else { this.setState({isViewAdress: false}) }
+      timeout = setTimeout(() => adressGetService(e).then(r => r.json().then(r =>
+        this.setState({isViewAdress: true, adress_list: r.results}))), config.data.timeout)
+    } else this.setState({isViewAdress: false})
   }
   render () {
     return (

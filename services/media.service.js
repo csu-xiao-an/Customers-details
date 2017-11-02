@@ -2,16 +2,16 @@ import mainRequestService from './request.service'
 
 const mainUrl = config.urls.main + config.urls.media_url.replace('{client_id}', config.data.id)
 
-export const postService = async body => {
+export const postService = body => {
   const options = {
     mode: 'cors',
     method: 'POST',
     body
   }
-  return await mainRequestService(mainUrl, options)
+  return mainRequestService(mainUrl, options)
 }
 
-export const replaceService = async (body, id) => {
+export const replaceService = (body, id) => {
   const url = mainUrl + '/' + id
   const options = {
     mode: 'cors',
@@ -21,14 +21,14 @@ export const replaceService = async (body, id) => {
     method: 'PATCH',
     body
   }
-  return await mainRequestService(url, options)
+  return mainRequestService(url, options)
 }
 
-export const deleteService = async id => {
+export const deleteService = id => {
   const url = mainUrl + '/' + id
   const options = {
     mode: 'cors',
     method: 'DELETE'
   }
-  return await mainRequestService(url, options)
+  return mainRequestService(url, options)
 }

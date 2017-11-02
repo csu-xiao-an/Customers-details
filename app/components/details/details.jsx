@@ -3,13 +3,13 @@ import React, {Component} from 'react'
 import './details.styl'
 
 class Details extends Component {
-  submit = async () => {
-    const response = await detailsReplaceService()
-    if (response.status === 204) {
-      config.data.details_link_active = true
-      this.forceUpdate()
-    }
-  }
+  submit = () =>
+    detailsReplaceService().then(r => {
+      if (r.status === 204) {
+        config.data.details_link_active = true
+        this.forceUpdate()
+      }
+    })
   render () {
     return (
       <div id='details'>

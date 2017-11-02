@@ -10,13 +10,14 @@ class Phone extends React.Component {
       phone: ''
     }
   }
-  submit = async () => {
+  submit = () => {
     const body = `${config.urls.phone}=${this.state.phone}`
-    let response = await clientReplaceService(body)
-    if (response.status === 204) {
-      config.data.phone = this.state.phone
-      this.setState({phoneEdit: !this.state.phoneEdit, phone: ''})
-    }
+    clientReplaceService(body).then(r => {
+      if (r.status === 204) {
+        config.data.phone = this.state.phone
+        this.setState({phoneEdit: !this.state.phoneEdit, phone: ''})
+      }
+    })
   }
   render () {
     return (

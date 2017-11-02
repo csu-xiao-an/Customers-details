@@ -1,6 +1,6 @@
 import mainRequestService from './request.service'
 
-export const replaceService = async () => {
+export const replaceService = () => {
   const url = config.urls.main + config.urls.fill.replace('{client_id}', config.data.id)
   const options = {
     mode: 'cors',
@@ -9,5 +9,5 @@ export const replaceService = async () => {
     },
     method: 'PUT'
   }
-  return await mainRequestService(url, options)
+  return mainRequestService(url, options)
 }

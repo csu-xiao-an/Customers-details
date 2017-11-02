@@ -13,25 +13,24 @@ class Signature extends React.Component {
       isAds: false
     }
   }
-  delete = async () => {
-    const response = await signatureDeleteService()
-    if (response.status === 204) {
-      if (config.data.permit_ads) this.handleAds()
-      delete config.data.signature
-      this.forceUpdate()
-    }
-  }
-  handleAds = async () => {
-    if (config.data.signature) {
-      const body = `${config.urls.permit_ads}=${!config.data.permit_ads}`
-      const response = await clientReplaceService(body)
-      if (response.status === 204) {
-        config.data.permit_ads = !config.data.permit_ads
+  delete = () =>
+    signatureDeleteService().then(r => {
+      if (r.status === 204) {
+        if (config.data.permit_ads) this.handleAds()
+        delete config.data.signature
         this.forceUpdate()
       }
-    } else {
-      this.handleEditSignature(true)
-    }
+    })
+  handleAds = () => {
+    if (config.data.signature) {
+      const body = `${config.urls.permit_ads}=${!config.data.permit_ads}`
+      clientReplaceService(body).then(r => {
+        if (r.status === 204) {
+          config.data.permit_ads = !config.data.permit_ads
+          this.forceUpdate()
+        }
+      })
+    } else this.handleEditSignature(true)
   }
   handleEditSignature = isAds => {
     this.setState({isEditSignature: !this.state.isEditSignature, isAds: false})
