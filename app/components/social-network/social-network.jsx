@@ -1,5 +1,5 @@
 import {socialPostService, socialDeleteService} from 'project-services'
-import Select from 'react-select'
+import {Select} from 'project-components'
 import './social-network.styl'
 
 class SocialNetwork extends React.Component {
@@ -7,6 +7,7 @@ class SocialNetwork extends React.Component {
     super()
     this.state = {
       selectedValue: config.translations.social_list[0].value,
+      selectedLabel: config.translations.social_list[0].label,
       isEditSocial: false,
       inputValue: ''
     }
@@ -49,8 +50,8 @@ class SocialNetwork extends React.Component {
         <div className={this.state.isEditSocial ? 'add-select-wrap' : 'hidden'}>
           <div className='item-wrap'>
             <div className='select-wrap'>
-              <Select className={config.isRtL ? 'left' : 'right'} onChange={e => { this.setState({ selectedValue: e.value }) }}
-                value={this.state.selectedValue} options={config.translations.social_list} />
+              <Select onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})}
+                value={this.state.selectedLabel} options={config.translations.social_list} />
             </div>
             <div className='img-wrap'><img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} /></div>
             <div className='input-wrap'>

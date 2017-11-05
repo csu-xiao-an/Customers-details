@@ -1,5 +1,5 @@
 import {clientReplaceService, clientGetService} from 'project-services'
-import Select from 'react-select'
+import {Select} from 'project-components'
 import './source.styl'
 let timeout
 
@@ -7,6 +7,7 @@ class Source extends React.Component {
   constructor () {
     super()
     this.state = {
+      selectedLabel: config.data.source,
       selectedValue: config.data.source,
       isRecomendation: false,
       isViewClients: false,
@@ -27,7 +28,7 @@ class Source extends React.Component {
     })
   }
   changeSelect = e => {
-    this.setState({selectedValue: e.value, userId: null})
+    this.setState({selectedLabel: e.label, selectedValue: e.value, userId: null})
     e.value === 'recommendation' ? this.setState({isRecomendation: true}) : this.setState({isRecomendation: false})
   }
   changeInput = e => {
@@ -49,8 +50,8 @@ class Source extends React.Component {
           <h1>{config.translations.traffic_source}</h1>
           <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
           <div className='select-wrap'>
-            <Select className={config.isRtL ? 'left' : 'right'} placeholder={config.translations.select_placeholder} value={this.state.selectedValue}
-              onChange={e => { this.changeSelect(e) }} options={config.translations.source_list} />
+            <Select value={this.state.selectedLabel} onChange={e => this.changeSelect(e)}
+              options={config.translations.source_list} />
           </div>
           <div className={this.state.isRecomendation ? 'input-wrap' : 'hidden'}>
             <div className='label'>{config.translations.recommended_by}</div>

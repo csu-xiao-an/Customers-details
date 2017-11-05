@@ -1,6 +1,5 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
-import {formatDate} from 'project-components'
-import Select from 'react-select'
+import {formatDate, Select} from 'project-components'
 import './notes.styl'
 
 class Notes extends React.Component {
@@ -8,6 +7,7 @@ class Notes extends React.Component {
     super()
     this.state = {
       selectedValue: config.translations.notes_list[0].value,
+      selectedLabel: config.translations.notes_list[0].label,
       isReminderEdit: false,
       noteReplace: false,
       isEditNotes: false,
@@ -104,8 +104,10 @@ class Notes extends React.Component {
               <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.reminder}</h1>
             </div>
             <div className={this.state.isReminderEdit ? 'reminder-time ' + (config.isRtL ? 'left' : 'right') : 'hidden'}>
-              <Select className={config.isRtL ? 'left' : 'right'} placeholder={config.translations.select_placeholder} value={this.state.selectedValue}
-                options={config.translations.notes_list} onChange={e => { this.setState({selectedValue: e.value}) }} />
+              <div className='select-wrap'>
+                <Select value={this.state.selectedLabel} options={config.translations.notes_list}
+                  onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} />
+              </div>
               <div className={'input-wrap ' + (config.isRtL ? 'left' : 'right')}>
                 <div className='ink' onClick={() => this.setState({time: parseInt(this.state.time) + 1})}><span>+</span></div>
                 <input className='count-input' type='number' value={this.state.time}

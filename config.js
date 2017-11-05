@@ -29,7 +29,6 @@ var config = {
     add_traffic_source: 'Add traffic source',
     traffic_source: 'Traffic source',
     recommended_by: 'Recommended by:',
-    select_placeholder: 'Select',
     add_social_net: 'Add a social media link',
     social_net: 'Social media link',
     add_link: 'Add link',
