@@ -2,7 +2,7 @@ import {clientReplaceService, adressGetService} from 'project-services'
 import './adress.styl'
 let timeout
 
-class Adress extends React.Component {
+export default class Adress extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -68,4 +68,3 @@ class Adress extends React.Component {
     )
   }
 }
-export default Adress

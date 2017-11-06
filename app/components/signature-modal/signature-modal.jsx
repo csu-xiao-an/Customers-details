@@ -1,9 +1,8 @@
 import {signatureReplaceService} from 'project-services'
 import {dataURLtoFile, Modal} from 'project-components'
-import PropTypes from 'prop-types'
 import './signature-modal.styl'
 
-class SignatureModal extends React.Component {
+export default class SignatureModal extends React.Component {
   init = () => {
     let canvas = this.refs.canvas
     let ctx = canvas.getContext('2d')
@@ -89,11 +88,10 @@ class SignatureModal extends React.Component {
     )
   }
 }
+
 SignatureModal.propTypes = {
   handleEditSignature: PropTypes.func.isRequired,
   isEditSignature: PropTypes.bool.isRequired,
   handleAds: PropTypes.func.isRequired,
   isAds: PropTypes.bool.isRequired
 }
-
-export default SignatureModal

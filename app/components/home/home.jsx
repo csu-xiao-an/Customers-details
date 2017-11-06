@@ -15,7 +15,7 @@ import Line from '../line/line.jsx'
 import Hero from '../hero/hero.jsx'
 import './home.styl'
 
-class Home extends React.Component {
+export default class Home extends React.Component {
   componentWillMount = () => {
     if (config.data.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
@@ -48,4 +48,3 @@ class Home extends React.Component {
     )
   }
 }
-export default Home

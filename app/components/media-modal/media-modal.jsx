@@ -1,10 +1,8 @@
 import {mediaReplaceService, mediaDeleteService} from 'project-services'
-import {Modal} from 'project-components'
-import Swiper from 'react-id-swiper'
-import PropTypes from 'prop-types'
+import {Modal, Swiper} from 'project-components'
 import './media-modal.styl'
 
-class MediaModal extends React.Component {
+export default class MediaModal extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -87,9 +85,9 @@ class MediaModal extends React.Component {
     )
   }
 }
+
 MediaModal.propTypes = {
   initialSlide: PropTypes.number.isRequired,
   isOpenGallery: PropTypes.bool.isRequired,
   handleGallery: PropTypes.func.isRequired
 }
-export default MediaModal

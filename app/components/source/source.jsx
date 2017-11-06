@@ -3,7 +3,7 @@ import {Select} from 'project-components'
 import './source.styl'
 let timeout
 
-class Source extends React.Component {
+export default class Source extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -65,4 +65,3 @@ class Source extends React.Component {
     )
   }
 }
-export default Source

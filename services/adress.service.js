@@ -1,6 +1,6 @@
 import mainRequestService from './request.service'
 
-const getService = q => {
+export default q => {
   const url = config.urls.adress.replace('{query}', q).replace('{language}', config.translations.language)
   const options = {
     mode: 'cors',
@@ -8,5 +8,3 @@ const getService = q => {
   }
   return mainRequestService(url, options)
 }
-
-export default getService

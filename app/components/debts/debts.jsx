@@ -2,7 +2,7 @@ import {debtPostService, debtReplaceService, debtDeleteService} from 'project-se
 import {formatDate} from 'project-components'
 import './debts.styl'
 
-class Debts extends React.Component {
+export default class Debts extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -113,4 +113,3 @@ class Debts extends React.Component {
     )
   }
 }
-export default Debts

@@ -1,7 +1,7 @@
-import Swiper from 'react-id-swiper'
+import {Swiper} from 'project-components'
 import './groups.styl'
 
-class Groups extends React.Component {
+export default class Groups extends React.Component {
   render () {
     return (
       <div id='partners'>
@@ -18,4 +18,3 @@ class Groups extends React.Component {
     )
   }
 }
-export default Groups

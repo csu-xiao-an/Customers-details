@@ -1,7 +1,7 @@
 import {detailsReplaceService} from 'project-services'
 import './details.styl'
 
-class Details extends React.Component {
+export default class Details extends React.Component {
   submit = () =>
     detailsReplaceService().then(r => {
       if (r.status === 204) {
@@ -25,4 +25,3 @@ class Details extends React.Component {
     )
   }
 }
-export default Details

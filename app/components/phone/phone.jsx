@@ -1,7 +1,7 @@
 import {clientReplaceService} from 'project-services'
 import './phone.styl'
 
-class Phone extends React.Component {
+export default class Phone extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -44,4 +44,3 @@ class Phone extends React.Component {
     )
   }
 }
-export default Phone

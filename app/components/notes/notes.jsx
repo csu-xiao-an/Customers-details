@@ -2,7 +2,7 @@ import {notesPostService, notesReplaceService, notesDeleteService} from 'project
 import {formatDate, Select} from 'project-components'
 import './notes.styl'
 
-class Notes extends React.Component {
+export default class Notes extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -130,4 +130,3 @@ class Notes extends React.Component {
     )
   }
 }
-export default Notes

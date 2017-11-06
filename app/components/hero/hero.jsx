@@ -2,7 +2,7 @@ import {clientReplaceService} from 'project-services'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
 
-class Hero extends React.Component {
+export default class Hero extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -75,4 +75,3 @@ class Hero extends React.Component {
     )
   }
 }
-export default Hero

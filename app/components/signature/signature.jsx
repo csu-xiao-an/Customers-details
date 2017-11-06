@@ -1,9 +1,9 @@
 import {signatureDeleteService, clientReplaceService} from 'project-services'
 import SignatureModal from '../signature-modal/signature-modal.jsx'
-import Switch from 'react-toggle-switch'
+import {Switch} from 'project-components'
 import './signature.styl'
 
-class Signature extends React.Component {
+export default class Signature extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -59,4 +59,3 @@ class Signature extends React.Component {
     )
   }
 }
-export default Signature

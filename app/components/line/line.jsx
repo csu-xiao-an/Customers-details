@@ -1,3 +1,2 @@
 import './line.styl'
-const Line = () => <div id='line' />
-export default Line
+export default () => <div id='line' />

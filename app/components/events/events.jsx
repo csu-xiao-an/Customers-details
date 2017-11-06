@@ -1,8 +1,7 @@
-import {lastAppoinment} from 'project-components'
-import Swiper from 'react-id-swiper'
+import {lastAppoinment, Swiper} from 'project-components'
 import './events.styl'
 
-class Events extends React.Component {
+export default class Events extends React.Component {
   price (i) {
     let sum = 0
     if (i.procedures.length > 1) {
@@ -51,4 +50,3 @@ class Events extends React.Component {
     )
   }
 }
-export default Events

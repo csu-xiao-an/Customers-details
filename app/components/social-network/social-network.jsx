@@ -2,7 +2,7 @@ import {socialPostService, socialDeleteService} from 'project-services'
 import {Select} from 'project-components'
 import './social-network.styl'
 
-class SocialNetwork extends React.Component {
+export default class SocialNetwork extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -68,4 +68,3 @@ class SocialNetwork extends React.Component {
     )
   }
 }
-export default SocialNetwork

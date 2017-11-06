@@ -1,7 +1,7 @@
 import {clientReplaceService} from 'project-services'
 import './email.styl'
 
-class Email extends React.Component {
+export default class Email extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -45,4 +45,3 @@ class Email extends React.Component {
     )
   }
 }
-export default Email

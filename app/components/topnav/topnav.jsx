@@ -1,6 +1,6 @@
 import './topnav.styl'
 
-class Topnav extends React.Component {
+export default class Topnav extends React.Component {
   age = d => Math.floor(moment.duration(moment() - moment(d)).asYears())
   countAppointment = () => {
     let c = 0
@@ -24,4 +24,3 @@ class Topnav extends React.Component {
     )
   }
 }
-export default Topnav
