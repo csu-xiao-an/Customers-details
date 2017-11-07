@@ -6,18 +6,10 @@ module.exports = {
   "extends": ["standard", "standard-react"],
   "globals": {
     PropTypes: false,
-    describe: false,
     ReactDOM: false,
-    element: false,
-    expect: false,
-    Swiper: false,
-    browser: true,
     config: false,
     moment: false,
-    before:false,
-    React: false,
-    it: false,
-    by: false
+    React: false
   },
   "parser": "babel-eslint",
   "parserOptions": {
