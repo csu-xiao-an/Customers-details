@@ -1,6 +1,11 @@
 # Customers
 
 # Usage
+### Clone & Update
+```
+For clone with submodules add key '--recursive'
+Update submodules 'git submodule update --recursive --remote'
+```
 ### Development
 ```
 npm install
