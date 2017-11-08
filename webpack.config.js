@@ -1,14 +1,5 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const statConf = {
-  assets: false,
-  chunks: false,
-  hash: false,
-  version: false,
-  errors: true,
-  errorDetails: true,
-  warnings: true
-}
 const alias = {
   'project-components': path.resolve('./components-lib'),
   'project-services': path.resolve('./services')
@@ -63,7 +54,7 @@ module.exports = env => {
       ]
     },
     devServer: {
-      stats: statConf,
+      stats: 'errors-only',
       port: '3000'
     },
     plugins: [

@@ -5,9 +5,11 @@ module.exports = {
   },
   "extends": ["standard", "standard-react"],
   "globals": {
+    ReactRouterDOM: false,
     PropTypes: false,
     ReactDOM: false,
     config: false,
+    Swiper: false,
     moment: false,
     React: false
   },
