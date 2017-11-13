@@ -3,6 +3,12 @@ import {dataURLtoFile, Modal} from 'project-components'
 import './signature-modal.styl'
 
 export default class SignatureModal extends React.Component {
+  static propTypes = {
+    handleEditSignature: PropTypes.func.isRequired,
+    isEditSignature: PropTypes.bool.isRequired,
+    handleAds: PropTypes.func.isRequired,
+    isAds: PropTypes.bool.isRequired
+  }
   init = () => {
     let canvas = this.refs.canvas
     let ctx = canvas.getContext('2d')
@@ -87,11 +93,4 @@ export default class SignatureModal extends React.Component {
       </Modal>
     )
   }
-}
-
-SignatureModal.propTypes = {
-  handleEditSignature: PropTypes.func.isRequired,
-  isEditSignature: PropTypes.bool.isRequired,
-  handleAds: PropTypes.func.isRequired,
-  isAds: PropTypes.bool.isRequired
 }

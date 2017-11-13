@@ -3,15 +3,12 @@ import {formatDate} from 'project-components'
 import './debts.styl'
 
 export default class Debts extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      debtReplace: false,
-      description: '',
-      debtEdit: false,
-      total_debt: 0,
-      debt: '0'
-    }
+  state = {
+    debtReplace: false,
+    description: '',
+    debtEdit: false,
+    total_debt: 0,
+    debt: '0'
   }
   submit = () => {
     config.data.debts ? '' : config.data.debts = []

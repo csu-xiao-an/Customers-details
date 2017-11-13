@@ -3,13 +3,15 @@ import {Modal, Swiper} from 'project-components'
 import './media-modal.styl'
 
 export default class MediaModal extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      isEditNote: false,
-      textareaValue: '',
-      activeIndex: 0
-    }
+  static propTypes = {
+    initialSlide: PropTypes.number.isRequired,
+    isOpenGallery: PropTypes.bool.isRequired,
+    handleGallery: PropTypes.func.isRequired
+  }
+  state = {
+    isEditNote: false,
+    textareaValue: '',
+    activeIndex: 0
   }
   typeItem = (i, k) => {
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
@@ -84,10 +86,4 @@ export default class MediaModal extends React.Component {
       </Modal>
     )
   }
-}
-
-MediaModal.propTypes = {
-  initialSlide: PropTypes.number.isRequired,
-  isOpenGallery: PropTypes.bool.isRequired,
-  handleGallery: PropTypes.func.isRequired
 }

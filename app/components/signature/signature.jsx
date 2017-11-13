@@ -4,13 +4,10 @@ import {Switch} from 'project-components'
 import './signature.styl'
 
 export default class Signature extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      isEditSignature: false,
-      signatureUrl: '',
-      isAds: false
-    }
+  state = {
+    isEditSignature: false,
+    signatureUrl: '',
+    isAds: false
   }
   delete = () =>
     signatureDeleteService().then(r => {

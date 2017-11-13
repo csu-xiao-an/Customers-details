@@ -2,12 +2,9 @@ import {clientReplaceService} from 'project-services'
 import './phone.styl'
 
 export default class Phone extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      phoneEdit: false,
-      phone: ''
-    }
+  state = {
+    phoneEdit: false,
+    phone: ''
   }
   submit = () => {
     const body = `${config.urls.phone}=${this.state.phone}`

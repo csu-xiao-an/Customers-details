@@ -3,14 +3,11 @@ import {Select} from 'project-components'
 import './social-network.styl'
 
 export default class SocialNetwork extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      selectedValue: config.translations.social_list[0].value,
-      selectedLabel: config.translations.social_list[0].label,
-      isEditSocial: false,
-      inputValue: ''
-    }
+  state = {
+    selectedValue: config.translations.social_list[0].value,
+    selectedLabel: config.translations.social_list[0].label,
+    isEditSocial: false,
+    inputValue: ''
   }
   submit = () => {
     config.data.soc_media ? '' : config.data.soc_media = []

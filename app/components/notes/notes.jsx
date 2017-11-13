@@ -3,19 +3,16 @@ import {formatDate, Select} from 'project-components'
 import './notes.styl'
 
 export default class Notes extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      selectedValue: config.translations.notes_list[0].value,
-      selectedLabel: config.translations.notes_list[0].label,
-      isReminderEdit: false,
-      noteReplace: false,
-      isEditNotes: false,
-      description: '',
-      note_id: 0,
-      time: '0',
-      key: 0
-    }
+  state = {
+    selectedValue: config.translations.notes_list[0].value,
+    selectedLabel: config.translations.notes_list[0].label,
+    isReminderEdit: false,
+    noteReplace: false,
+    isEditNotes: false,
+    description: '',
+    note_id: 0,
+    time: '0',
+    key: 0
   }
   submit = () => {
     config.data.notes ? '' : config.data.notes = []

@@ -2,12 +2,9 @@ import {clientReplaceService} from 'project-services'
 import './email.styl'
 
 export default class Email extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      emailEdit: false,
-      email: ''
-    }
+  state = {
+    emailEdit: false,
+    email: ''
   }
   submit = () => {
     const body = `${config.urls.email}=${this.state.email}`

@@ -3,14 +3,11 @@ import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
 
 export default class Hero extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      status: config.data.status ? config.data.status : config.translations.placeholder,
-      imageUrl: config.urls.media + config.data.id,
-      isInputDisabled: false,
-      succes: false
-    }
+  state = {
+    status: config.data.status || config.translations.placeholder,
+    imageUrl: config.urls.media + config.data.id,
+    isInputDisabled: false,
+    succes: false
   }
   handleStar = () => {
     const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`

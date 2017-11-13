@@ -4,18 +4,15 @@ import './source.styl'
 let timeout
 
 export default class Source extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      selectedLabel: config.data.source,
-      selectedValue: config.data.source,
-      isRecomendation: false,
-      isViewClients: false,
-      isOpenSource: false,
-      inputValue: '',
-      userId: null,
-      clients: []
-    }
+  state = {
+    selectedLabel: config.data.source,
+    selectedValue: config.data.source,
+    isRecomendation: false,
+    isViewClients: false,
+    isOpenSource: false,
+    inputValue: '',
+    userId: null,
+    clients: []
   }
   submit = () => {
     let body = `${config.urls.source}=${this.state.selectedValue}`

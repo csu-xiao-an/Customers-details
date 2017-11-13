@@ -4,17 +4,14 @@ import {mediaPostService} from 'project-services'
 import './media.styl'
 
 export default class Media extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      isOpenGalleryContex: false,
-      isOpenGallery: false,
-      imagePreviewUrl: '',
-      isAddMedia: false,
-      initialSlide: 0,
-      file: {},
-      desc: ''
-    }
+  state = {
+    isOpenGalleryContex: false,
+    isOpenGallery: false,
+    imagePreviewUrl: '',
+    isAddMedia: false,
+    initialSlide: 0,
+    file: {},
+    desc: ''
   }
   handleGallery = () => {
     this.setState({isOpenGallery: !this.state.isOpenGallery})

@@ -3,14 +3,11 @@ import './adress.styl'
 let timeout
 
 export default class Adress extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      adressEdit: false,
-      isViewAdress: false,
-      adress_list: [],
-      adress: ''
-    }
+  state = {
+    adressEdit: false,
+    isViewAdress: false,
+    adress_list: [],
+    adress: ''
   }
   submit = () => {
     const body = `${config.urls.address}=${this.state.adress}`
