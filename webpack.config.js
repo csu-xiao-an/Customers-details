@@ -28,7 +28,7 @@ module.exports = env => {
             {
               loader: 'babel-loader',
               options: {
-                presets: [['es2015', {'modules': false}], 'stage-0', 'react']
+                presets: [['env', {'modules': false}], 'stage-0', 'react']
               }
             }
           ]
@@ -54,7 +54,12 @@ module.exports = env => {
       ]
     },
     devServer: {
-      stats: 'errors-only',
+      stats: {
+        version: false,
+        modules: false,
+        assets: false,
+        hash: false
+      },
       port: '3000'
     },
     plugins: [

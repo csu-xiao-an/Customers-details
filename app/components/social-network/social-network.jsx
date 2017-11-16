@@ -1,5 +1,6 @@
 import {socialPostService, socialDeleteService} from 'project-services'
 import {Select} from 'project-components'
+import Line from '../line/line.jsx'
 import './social-network.styl'
 
 export default class SocialNetwork extends React.Component {
@@ -10,7 +11,7 @@ export default class SocialNetwork extends React.Component {
     inputValue: ''
   }
   submit = () => {
-    config.data.soc_media ? '' : config.data.soc_media = []
+    if (!Array.isArray(config.data.soc_media)) config.data.soc_media = []
     const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
     socialPostService(body).then(r => {
       if (r.status === 201) {
@@ -31,6 +32,7 @@ export default class SocialNetwork extends React.Component {
       }
     })
   }
+  componentWillMount = () => { if (!Array.isArray(config.data.soc_media)) config.data.soc_media = [] }
   render () {
     return (
       <div id='social-network'>
@@ -38,9 +40,9 @@ export default class SocialNetwork extends React.Component {
         <div className={config.data.soc_media && config.data.soc_media.length > 0 ? 'social-network-list' : 'hidden'}>
           {config.data.soc_media.map((i, k) => (
             <div key={k} className='social-item-wrap'>
-              <div className='delete-wrap'><img className='delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(i.id, k) }} /></div>
+              <div className='delete-wrap'><img className='delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} /></div>
               <div className='img-wrap'><img src={config.urls.soc_net + '/' + i.type + '.png'} /></div>
-              <div className='url-wrap' onClick={() => { this.setState({ isEditSocial: true, selectedValue: i.type }) }}><h1>{i.url}</h1></div>
+              <div className='url-wrap' onClick={() => this.setState({isEditSocial: true, selectedValue: i.type})}><h1>{i.url}</h1></div>
             </div>)
           )}
         </div>
@@ -52,15 +54,18 @@ export default class SocialNetwork extends React.Component {
             </div>
             <div className='img-wrap'><img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} /></div>
             <div className='input-wrap'>
-              <input type='text' value={this.state.inputValue} onChange={e => { this.setState({inputValue: e.target.value}) }} placeholder={config.translations.url} />
+              <input type='text' value={this.state.inputValue} placeholder={config.translations.url}
+                onChange={e => this.setState({inputValue: e.target.value})} />
             </div>
           </div>
           <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
         <div className={this.state.isEditSocial ? 'hidden' : 'add-source-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} onClick={() => { this.setState({ isEditSocial: !this.state.isEditSocial }) }} />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'}
+            onClick={() => this.setState({isEditSocial: !this.state.isEditSocial})} />
           <h1 className={config.isRtL ? 'left' : 'right'} >{config.translations.add_social_net}</h1>
         </div>
+        <Line />
       </div>
     )
   }

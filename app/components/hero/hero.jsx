@@ -59,15 +59,15 @@ export default class Hero extends React.Component {
           <div className='input-group'>
             <div className='input-wrap'>
               <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')} type='text' ref='autofocus' value={this.state.status}
-                onBlur={() => { this.setState({isInputDisabled: false, status: config.data.status ? config.data.status : config.translations.placeholder}) }}
-                onChange={e => { this.setState({status: e.target.value, statusRem: e.target.value}) }} />
+                onBlur={() => this.setState({isInputDisabled: false, status: config.data.status ? config.data.status : config.translations.placeholder})}
+                onChange={e => this.setState({status: e.target.value, statusRem: e.target.value})} />
             </div>
             <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
               <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src={config.urls.media + 'pencil.svg'} />
             </span>
           </div>
         </form>
-        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => { this.setState({imageUrl: config.urls.media + 'default'}) }} />
+        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => this.setState({imageUrl: config.urls.media + 'default'})} />
       </div>
     )
   }

@@ -1,5 +1,6 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
 import {formatDate, Select} from 'project-components'
+import Line from '../line/line.jsx'
 import './notes.styl'
 
 export default class Notes extends React.Component {
@@ -15,7 +16,6 @@ export default class Notes extends React.Component {
     key: 0
   }
   submit = () => {
-    config.data.notes ? '' : config.data.notes = []
     let reminder = this.reminder()
     let body = `text=${this.state.description}`
     if (reminder) body = `text=${this.state.description}&reminder_date=${reminder}`
@@ -37,8 +37,8 @@ export default class Notes extends React.Component {
     if (reminder) body = `text=${this.state.description}&reminder_date=${reminder}`
     notesReplaceService(body, this.state.note_id).then(r => {
       if (r.status === 204) {
-        config.data.notes[this.state.key].text = this.state.description
         config.data.notes[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
+        config.data.notes[this.state.key].text = this.state.description
         if (reminder) {
           config.data.notes[this.state.key].reminder_date = reminder
         } else delete config.data.notes[this.state.key].reminder_date
@@ -73,16 +73,18 @@ export default class Notes extends React.Component {
   }
   reminder = () =>
     this.state.time !== '0' && this.state.time !== 0 ? moment().add(this.state.time, this.state.selectedValue).format('YYYY-MM-DD HH:mm') : undefined
+  componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
   render () {
     return (
       <div id='notes'>
-        <div className={config.data.notes && config.data.notes.length > 0 ? 'label-wrap' : 'hidden'}><div className={'add-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.notes}</div></div>
+        <div className={config.data.notes && config.data.notes.length > 0 ? 'label-wrap' : 'hidden'}>
+          <div className={'add-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.notes}</div></div>
         {config.data.notes.map((i, k) => (
           <div key={k} className={this.state.noteReplace ? 'hidden' : 'notes-list ' + (i.reminder_date ? 'pd5' : 'pd17')}>
             <div className='notes-list-delete-wrap'>
-              <img className='notes-list-delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(i.id, k) }} />
+              <img className='notes-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />
             </div>
-            <div className='notes-list-data-wrap' onClick={() => { this.replace(i, k) }}>
+            <div className='notes-list-data-wrap' onClick={() => this.replace(i, k)}>
               <div className={i.reminder_date ? 'notes-list-reminder' : 'hidden'}><img src={config.urls.media + 'bell.svg'} /></div>
               <h1 className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>{i.text}</h1>
               <p className='notes-list-date'>{formatDate(i.date)}</p>
@@ -91,12 +93,14 @@ export default class Notes extends React.Component {
         ))}
         <div className={this.state.isEditNotes ? 'edit-note' : 'hidden'}>
           <div className='description'>
-            <input className='description-input' type='text' value={this.state.description} onChange={e => { this.setState({description: e.target.value}) }} />
+            <input className='description-input' type='text' value={this.state.description} onChange={e => this.setState({description: e.target.value})} />
             <h1 className='description-label'>{ config.translations.description_notes}</h1>
           </div>
           <div className={'reminder ' + (this.state.isReminderEdit ? 'h150' : 'h55')}>
-            <div className={'button-wrap ' + (config.isRtL ? 'left' : 'right')}><button onClick={this.state.noteReplace ? this.update : this.submit}>{config.translations.save}</button></div>
-            <div className={'reminder-text ' + (config.isRtL ? 'left' : 'right')} onClick={() => { this.setState({isReminderEdit: !this.state.isReminderEdit}) }}>
+            <div className={'button-wrap ' + (config.isRtL ? 'left' : 'right')}>
+              <button onClick={this.state.noteReplace ? this.update : this.submit}>{config.translations.save}</button></div>
+            <div className={'reminder-text ' + (config.isRtL ? 'left' : 'right')}
+              onClick={() => this.setState({isReminderEdit: !this.state.isReminderEdit})}>
               <div className={'img-wrap ' + (config.isRtL ? 'left' : 'right')}><img src={config.urls.media + 'bell.svg'} /></div>
               <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.reminder}</h1>
             </div>
@@ -106,23 +110,23 @@ export default class Notes extends React.Component {
                   onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} />
               </div>
               <div className={'input-wrap ' + (config.isRtL ? 'left' : 'right')}>
-                <div className='ink' onClick={() => this.setState({time: parseInt(this.state.time) + 1})}><span>+</span></div>
+                <div className='ink' onClick={() => this.setState({time: +this.state.time + 1})}><span>+</span></div>
                 <input className='count-input' type='number' value={this.state.time}
-                  onFocus={e => { toString(e.target.value); if (e.target.value === '0') e.target.value = '' }}
-                  onBlur={e => { toString(e.target.value); if (e.target.value === '') e.target.value = '0' }}
-                  onChange={e => { this.setState({time: +e.target.value}) }} />
-                <div className='ink' onClick={() => { if (parseInt(this.state.time) > 0) this.setState({time: parseInt(this.state.time) - 1}) }}>
+                  onFocus={e => { if (toString(e.target.value) === '0') e.target.value = '' }}
+                  onBlur={e => { if (toString(e.target.value) === '') e.target.value = '0' }}
+                  onChange={e => this.setState({time: +e.target.value})} />
+                <div className='ink' onClick={() => { if (+this.state.time > 0) this.setState({time: +this.state.time - 1}) }}>
                   <span className='minus'>-</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div onClick={() => { this.setState({isEditNotes: !this.state.isEditNotes}) }}
-          className={this.state.isEditNotes ? 'hidden' : 'add-wrap'}>
+        <div onClick={() => this.setState({isEditNotes: !this.state.isEditNotes})} className={this.state.isEditNotes ? 'hidden' : 'add-wrap'}>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_note}</h1>
         </div>
+        <Line />
       </div>
     )
   }

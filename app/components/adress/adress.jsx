@@ -1,4 +1,5 @@
 import {clientReplaceService, adressGetService} from 'project-services'
+import Line from '../line/line.jsx'
 import './adress.styl'
 let timeout
 
@@ -40,27 +41,27 @@ export default class Adress extends React.Component {
               <a href={'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes'}>
                 <img src={config.urls.media + 'waze.png'} /></a>
               <h1 className={config.isRtL ? 'left' : 'right'}
-                onClick={() => { this.setState({adressEdit: !this.state.adressEdit, adress: config.data.adress}) }}>{config.data.adress}</h1>
+                onClick={() => this.setState({adressEdit: !this.state.adressEdit, adress: config.data.adress})}>{config.data.adress}</h1>
             </div>
           </div>
         </div>
-        <div onClick={() => { this.setState({adressEdit: !this.state.adressEdit}) }}
+        <div onClick={() => this.setState({adressEdit: !this.state.adressEdit})}
           className={config.data.adress || this.state.adressEdit ? 'hidden' : 'add-adress'}>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_adress}</h1>
         </div>
         <div className={this.state.adressEdit ? 'adress-edit' : 'hidden'}>
-          <div className='edit'><input className='edit-input' type='text' value={this.state.adress}
-            onChange={e => { this.changeInput(e.target.value) }} />
+          <div className='edit'><input className='edit-input' type='text' value={this.state.adress} onChange={e => { this.changeInput(e.target.value) }} />
             <div className={this.state.isViewAdress ? 'adress-list-wrap' : 'hidden'}>
               {this.state.adress_list.map((i, k) => (
-                <div key={k} onClick={() => { this.setState({adress: i.formatted_address, isViewAdress: false}) }}>{i.formatted_address}</div>)
+                <div key={k} onClick={() => this.setState({adress: i.formatted_address, isViewAdress: false})}>{i.formatted_address}</div>)
               )}
             </div>
             <h1 className='edit-label'>{config.translations.adress}</h1>
           </div>
           <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
+        <Line />
       </div>
     )
   }

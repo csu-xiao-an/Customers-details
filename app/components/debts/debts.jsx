@@ -1,5 +1,6 @@
 import {debtPostService, debtReplaceService, debtDeleteService} from 'project-services'
 import {formatDate} from 'project-components'
+import Line from '../line/line.jsx'
 import './debts.styl'
 
 export default class Debts extends React.Component {
@@ -11,7 +12,6 @@ export default class Debts extends React.Component {
     debt: '0'
   }
   submit = () => {
-    config.data.debts ? '' : config.data.debts = []
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
     debtPostService(body).then(r => {
       if (r.status === 201) {
@@ -59,6 +59,7 @@ export default class Debts extends React.Component {
     config.data.debts.forEach(i => { sum += i.sum })
     return sum === 0 || isNaN(sum) ? 0 : sum
   }
+  componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
     return (
       <div id='debt'>
@@ -70,42 +71,44 @@ export default class Debts extends React.Component {
         {config.data.debts.map((i, k) => (
           <div key={k} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
             <div className='debt-list-delete-wrap'>
-              <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => { this.delete(i.id, k) }} />
+              <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />
             </div>
-            <div className='debt-list-data-wrap' onClick={() => { this.replace(i, k) }}>
-              <h1 className='debt-list-name'>{i.sum} { config.data.currency}</h1>
+            <div className='debt-list-data-wrap' onClick={() => this.replace(i, k)}>
+              <h1 className='debt-list-name'>{i.sum} {config.data.currency}</h1>
               <h1 className='debt-list-desc'>{i.desc}</h1>
               <p className='debt-list-date'>{formatDate(i.date)}</p>
             </div>
           </div>
         ))}
-        <div onClick={() => { this.setState({debtEdit: !this.state.debtEdit}) }} className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
+        <div onClick={() => this.setState({debtEdit: !this.state.debtEdit})} className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-          <h1 className={config.isRtL ? 'left' : 'right'}>{ config.translations.add_debt}</h1>
+          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_debt}</h1>
         </div>
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
           <div className='edit'>
-            <div className='description'><input className='description-input' type='text' value={this.state.description}
-              onChange={e => { this.setState({description: e.target.value}) }} />
+            <div className='description'>
+              <input className='description-input' type='text' value={this.state.description}
+                onChange={e => this.setState({description: e.target.value})} />
               <h1 className='description-label'>{ config.translations.description_debt}</h1>
             </div>
             <div className='count'>
               <button onClick={this.state.debtReplace ? this.update : this.submit}>{config.translations.save}</button>
-              <div className='ink' onClick={() => this.setState({debt: parseInt(this.state.debt) + config.data.debt_step})}><span>+</span></div>
+              <div className='ink' onClick={() => this.setState({debt: +this.state.debt + config.data.debt_step})}><span>+</span></div>
               <input className='count-input' type='number'
-                value={this.state.debt} onChange={e => { this.setState({debt: +e.target.value}) }}
-                onFocus={e => { toString(e.target.value); if (e.target.value === '0') e.target.value = '' }}
-                onBlur={e => { toString(e.target.value); if (e.target.value === '') e.target.value = '0' }} />
+                value={this.state.debt} onChange={e => this.setState({debt: +e.target.value})}
+                onFocus={e => { if (toString(e.target.value) === '0') e.target.value = '' }}
+                onBlur={e => { if (toString(e.target.value) === '') e.target.value = '0' }} />
               <div className='ink' onClick={() => {
-                let debt = parseInt(this.state.debt) - config.data.debt_step
+                let debt = +this.state.debt - config.data.debt_step
                 if (debt < 0) debt = 0
-                this.setState({debt: debt})
+                this.setState({debt})
               }}><span className='minus'>-</span>
               </div>
               <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.amount}</h1>
             </div>
           </div>
         </div>
+        <Line />
       </div>
     )
   }

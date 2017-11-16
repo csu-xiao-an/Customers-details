@@ -35,7 +35,8 @@ export default class Signature extends React.Component {
   render () {
     return (
       <div id='signature'>
-        <SignatureModal isEditSignature={this.state.isEditSignature} handleEditSignature={this.handleEditSignature} isAds={this.state.isAds} handleAds={this.handleAds} />
+        <SignatureModal isEditSignature={this.state.isEditSignature} handleEditSignature={this.handleEditSignature}
+          isAds={this.state.isAds} handleAds={this.handleAds} />
         <div className='checkbox-wrap'>
           <div className='text'><h1 className='text-h1'>{config.data.permit_ads ? config.translations.permitted : config.translations.not_permitted}</h1></div>
           <div className='switch'><Switch on={config.data.permit_ads} onClick={this.handleAds} className={config.isRtL ? 'switchleft' : 'switchright'} /></div>

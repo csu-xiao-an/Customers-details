@@ -1,6 +1,6 @@
 import './topnav.styl'
 
-const Topnav = () => {
+export default () => {
   const age = d => Math.floor(moment.duration(moment() - moment(d)).asYears())
   const countAppointment = () => {
     let c = 0
@@ -11,7 +11,7 @@ const Topnav = () => {
   return (
     <div id='topnav'>
       <div className='header'>
-        <div className='arrow-wrap' onClick={() => { window.history.go(-1) }}><img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div>
+        <div className='arrow-wrap' onClick={() => window.history.go(-1)}><img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div>
         <div className='client-name'><div className='icon-online' /><h1>{config.data.name}</h1><h1>({age(config.data.birthdate)})</h1></div>
         <div className='edit-wrap'><button className='edit'>{config.translations.edit}</button></div>
       </div>
@@ -22,4 +22,3 @@ const Topnav = () => {
     </div>
   )
 }
-export default Topnav

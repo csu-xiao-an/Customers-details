@@ -1,4 +1,5 @@
 import {lastAppoinment, Swiper} from 'project-components'
+import Line from '../line/line.jsx'
 import './events.styl'
 
 export default class Events extends React.Component {
@@ -11,13 +12,14 @@ export default class Events extends React.Component {
   }
   initialSlide = () => {
     let slide
-    config.data.recent_appoinments.every((i, k) => {
-      if (moment() < moment(i.date)) { slide = k; return false } else { return true }
+    config.data.recent_appoinments && config.data.recent_appoinments.every((i, k) => {
+      if (moment() < moment(i.date)) { slide = k; return false } else return true
     })
     return slide
   }
-  componentWillMount () {
-    config.data.recent_appoinments.sort((a, b) => (moment(a.date) - moment(b.date)))
+  componentWillMount = () => {
+    if (!Array.isArray(config.data.recent_appoinments)) config.data.recent_appoinments = []
+    config.data.recent_appoinments.sort((a, b) => moment(a.date) - moment(b.date))
   }
   render () {
     return (
@@ -26,7 +28,7 @@ export default class Events extends React.Component {
           <a href={config.urls.main + config.urls.appointment + '?client_id=' + config.data.id}><img className='clock' src={config.urls.media + 'clock.png'} /></a>
           <h1 className={'label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.close_visits}</h1>
           <div id='swiper-wrap-notes'>
-            <Swiper pagination='.swiper-pagination' slidesPerView='auto' paginationClickable initialSlide={this.initialSlide()}>
+            <Swiper pagination='.swiper-pagination' slidesPerView='auto' initialSlide={this.initialSlide()}>
               <div><div className='note start-note'>{config.translations.all_visits}</div></div>
               {config.data.recent_appoinments.map((i, k) => (
                 <div key={k}>
@@ -46,6 +48,7 @@ export default class Events extends React.Component {
             </Swiper>
           </div>
         </div>
+        <Line />
       </div>
     )
   }

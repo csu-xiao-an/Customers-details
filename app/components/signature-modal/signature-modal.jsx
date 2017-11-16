@@ -56,9 +56,9 @@ export default class SignatureModal extends React.Component {
         }
       }
     }
-    canvas.addEventListener('touchstart', e => { findxy('down', e) }, false)
-    canvas.addEventListener('touchmove', e => { findxy('move', e) }, false)
-    canvas.addEventListener('touchend', e => { findxy('up', e) }, false)
+    canvas.addEventListener('touchstart', e => findxy('down', e), false)
+    canvas.addEventListener('touchmove', e => findxy('move', e), false)
+    canvas.addEventListener('touchend', e => findxy('up', e), false)
   }
   clear = () => {
     let canvas = this.refs.canvas

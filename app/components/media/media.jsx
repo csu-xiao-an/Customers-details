@@ -1,6 +1,7 @@
 import {dataURLtoFile, getOrientation, Swiper} from 'project-components'
 import MediaModal from '../media-modal/media-modal.jsx'
 import {mediaPostService} from 'project-services'
+import Line from '../line/line.jsx'
 import './media.styl'
 
 export default class Media extends React.Component {
@@ -25,9 +26,9 @@ export default class Media extends React.Component {
     mediaPostService(body).then(r => {
       if (r.status === 201) {
         config.data.gallery.unshift({
+          date: moment().format('YYYY-MM-DD HH:mm'),
           name: this.state.file.name,
-          note: this.state.desc,
-          date: moment().format('YYYY-MM-DD HH:mm')
+          note: this.state.desc
         })
         r.json().then(id => { config.data.gallery[0].id = id })
         this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}})
@@ -40,8 +41,8 @@ export default class Media extends React.Component {
     this.setState({file: file})
     if (file.type.indexOf('image') !== -1) { e.preventDefault(); this.resize(file) } else
     if (file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
-    if (file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) } else
-    if (file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) }
+    if (file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
+    if (file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
   }
   typeItem = (i, k) => {
     let src
@@ -104,6 +105,7 @@ export default class Media extends React.Component {
       }
     })
   }
+  componentWillMount = () => { if (!Array.isArray(config.data.gallery)) config.data.gallery = [] }
   render () {
     let $imagePreview = null
     if (this.state.imagePreviewUrl) {
@@ -124,17 +126,18 @@ export default class Media extends React.Component {
             {config.data.gallery.map((i, k) => (<div key={k}>{this.typeItem(i, k)}<h1>{i.name}</h1></div>))}
           </Swiper>
         </div>
-        <div onClick={() => { this.setState({isAddMedia: !this.state.isAddMedia}) }} className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
+        <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})} className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_media}</h1>
         </div>
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <form className='add-input-wrap' ref='fileAddForm'>
-            <input className='file-input' type='file' onChange={e => { this.addFile(e) }} /><div className='previw-wrap'>{$imagePreview}</div>
-            <textarea className='note-input' type='text-area' onChange={e => { this.setState({desc: e.target.value}) }} value={this.state.desc} />
+            <input className='file-input' type='file' onChange={e => this.addFile(e)} /><div className='previw-wrap'>{$imagePreview}</div>
+            <textarea className='note-input' type='text-area' onChange={e => this.setState({desc: e.target.value})} value={this.state.desc} />
           </form>
           <button onClick={this.submit}>{config.translations.save}</button>
         </div>
+        <Line />
       </div>
     )
   }

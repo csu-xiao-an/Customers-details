@@ -1,4 +1,5 @@
 import SocialNetwork from '../social-network/social-network.jsx'
+import HiddenFields from '../hidden-fields/hidden-fields.jsx'
 import Signature from '../signature/signature.jsx'
 import Details from '../details/details.jsx'
 import Events from '../events/events.jsx'
@@ -11,38 +12,29 @@ import Media from '../media/media.jsx'
 import Notes from '../notes/notes.jsx'
 import Debts from '../debts/debts.jsx'
 import Phone from '../phone/phone.jsx'
-import Line from '../line/line.jsx'
 import Hero from '../hero/hero.jsx'
 import './home.styl'
 
 export default class Home extends React.Component {
-  componentWillMount = () => {
-    if (config.data.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
-  }
+  componentWillMount = () => { if (config.data.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl' }
   render () {
     return (
       <div id='home'>
         <Topnav />
         <Hero />
-        <Events />
-        <Line />
+        {config.data.recent_appoinments && <Events />}
         <Phone />
-        <Email />
-        <Adress />
-        <Line />
-        <Debts />
-        <Line />
-        <Notes />
-        <Line />
-        <Media />
-        <Line />
-        <Source />
-        <SocialNetwork />
-        <Line />
-        <Groups />
-        <Line />
+        {config.data.email && <Email />}
+        {config.data.adress && <Adress />}
+        {config.data.debts && <Debts />}
+        {config.data.notes && <Notes />}
+        {config.data.gallery && <Media />}
+        {config.data.source && <Source />}
+        {config.data.soc_media && <SocialNetwork />}
+        {config.data.groups && <Groups />}
         <Details />
         <Signature />
+        <HiddenFields />
         <div className='test' />
       </div>
     )

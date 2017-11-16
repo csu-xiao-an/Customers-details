@@ -5,8 +5,8 @@ let timeout
 
 export default class Source extends React.Component {
   state = {
-    selectedLabel: config.data.source,
-    selectedValue: config.data.source,
+    selectedLabel: config.data.source || config.translations.source_list[0].label,
+    selectedValue: config.data.source || config.translations.source_list[0].value,
     isRecomendation: false,
     isViewClients: false,
     isOpenSource: false,
@@ -40,21 +40,25 @@ export default class Source extends React.Component {
     return (
       <div id='source'>
         <div className={this.state.isOpenSource ? 'hidden' : config.data.source ? 'hidden' : 'add-source-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} onClick={() => { this.setState({ isOpenSource: !this.state.isOpenSource }) }} />
+          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'}
+            onClick={() => this.setState({ isOpenSource: !this.state.isOpenSource })} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>
         </div>
-        <div className={this.state.isOpenSource ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : config.data.source ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : 'hidden'}>
+        <div className={this.state.isOpenSource ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85')
+          : config.data.source ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : 'hidden'}>
           <h1>{config.translations.traffic_source}</h1>
           <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
           <div className='select-wrap'>
-            <Select value={this.state.selectedLabel} onChange={e => this.changeSelect(e)}
-              options={config.translations.source_list} />
+            <Select value={this.state.selectedLabel} onChange={e => this.changeSelect(e)} options={config.translations.source_list} />
           </div>
           <div className={this.state.isRecomendation ? 'input-wrap' : 'hidden'}>
             <div className='label'>{config.translations.recommended_by}</div>
-            <input type='text' value={this.state.inputValue} onChange={e => { this.changeInput(e.target.value) }} placeholder={config.translations.customer_pl} />
-            <div className={this.state.isViewClients ? 'clients-list-wrap ' + (config.isRTL ? 'clients-list-wrap-left' : 'clients-list-wrap-right') : 'hidden'}>
-              {this.state.clients.map((i, k) => <div key={k} onClick={() => { this.setState({inputValue: i.name, userId: i.id, isViewClients: false}) }}>{i.name}</div>)}
+            <input type='text' value={this.state.inputValue} onChange={e => this.changeInput(e.target.value)}
+              placeholder={config.translations.customer_pl} />
+            <div className={this.state.isViewClients ? 'clients-list-wrap ' + (config.isRTL ? 'clients-list-wrap-left'
+              : 'clients-list-wrap-right') : 'hidden'}>
+              {this.state.clients.map((i, k) =>
+                <div key={k} onClick={() => this.setState({inputValue: i.name, userId: i.id, isViewClients: false})}>{i.name}</div>)}
             </div>
           </div>
         </div>

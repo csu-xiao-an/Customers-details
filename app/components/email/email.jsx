@@ -23,17 +23,17 @@ export default class Email extends React.Component {
           <div className='data-wrap'>
             <div className='label-wrap'><div className={'email-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.email}</div></div>
             <h1 className={config.isRtL ? 'left' : 'right'}
-              onClick={() => { this.setState({emailEdit: !this.state.emailEdit, email: config.data.email}) }} >{config.data.email}</h1>
+              onClick={() => this.setState({emailEdit: !this.state.emailEdit, email: config.data.email})} >{config.data.email}</h1>
           </div>
         </div>
-        <div onClick={() => { this.setState({emailEdit: !this.state.emailEdit}) }}
+        <div onClick={() => this.setState({emailEdit: !this.state.emailEdit})}
           className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_email}</h1>
         </div>
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
-          <div className='edit'><input className='edit-input' type='email' value={this.state.email}
-            onChange={event => { this.setState({email: event.target.value}) }} />
+          <div className='edit'>
+            <input className='edit-input' type='email' value={this.state.email} onChange={e => this.setState({email: e.target.value})} />
             <h1 className='edit-label'>{config.translations.email}</h1>
           </div>
           <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
