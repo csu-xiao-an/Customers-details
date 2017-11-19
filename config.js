@@ -50,6 +50,9 @@ var config = {
     url: 'Url',
     customer_pl: 'Customer',
     show_more_fields: 'Show more fields',
+    male: 'Male',
+    female: 'Female',
+    other: 'Other',
     dates: {
       months: {
         1: 'January',
@@ -127,6 +130,7 @@ var config = {
     address: 'address',
     status: 'status',
     source: 'source',
+    gender: 'gender',
     phone: 'phone',
     email: 'email'
   },
@@ -145,6 +149,7 @@ var config = {
     signature: './dist/media/autograph.png',
     status: 'Status',
     // source: 'ads',
+    gender: 'male',
     currency: '₪',
     debt_step: 10,
     max_side: 1000,

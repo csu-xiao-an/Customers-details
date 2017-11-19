@@ -23,7 +23,7 @@ export default class Events extends React.Component {
   }
   render () {
     return (
-      <div id='events'>
+      <div id={config.data.recent_appoinments.length > 0 ? 'events' : 'hidden'}>
         <div className='events'>
           <a href={config.urls.main + config.urls.appointment + '?client_id=' + config.data.id}><img className='clock' src={config.urls.media + 'clock.png'} /></a>
           <h1 className={'label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.close_visits}</h1>

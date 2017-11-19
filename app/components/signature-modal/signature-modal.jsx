@@ -74,16 +74,20 @@ export default class SignatureModal extends React.Component {
       if (r.status === 204) {
         config.data.signature = dataURL
         if (this.props.isAds) this.props.handleAds()
-        this.props.handleEditSignature()
+        this.cancel()
       }
     })
+  }
+  cancel = () => {
+    this.props.handleEditSignature()
+    this.clear()
   }
   componentDidUpdate = () => this.props.isEditSignature && this.init()
   render () {
     return (
-      <Modal show={this.props.isEditSignature} dialogClassName='signature-modal-dialog' onHide={this.props.handleEditSignature}>
+      <Modal show={this.props.isEditSignature} dialogClassName='signature-modal-dialog' onHide={this.cancel}>
         <div className='signature-modal-header'>
-          <img onClick={this.props.handleEditSignature} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src={config.urls.media + 'add.svg'} />
+          <img onClick={this.cancel} className={'close-button ' + (config.isRtL ? 'left' : 'right')} src={config.urls.media + 'add.svg'} />
         </div>
         <div className='signature-modal-body'><canvas ref='canvas' width={336} height={200} /></div>
         <div className='signature-modal-footer'>

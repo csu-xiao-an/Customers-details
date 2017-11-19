@@ -20,7 +20,7 @@ export default class Phone extends React.Component {
       <div id='phone'>
         <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-img' : 'hidden'}>
           <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>
-          <div className='img-wrap'><a href={'sms:' + config.data.phone}><img src={config.urls.media + 'send-sms.svg'} /></a></div>
+          <div className='img-wrap'><a href={`/send-sms?client_id=${config.data.id}&referrer=${location.pathname + '?' + location.search}`}><img src={config.urls.media + 'send-sms.svg'} /></a></div>
         </div>
         <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
           <div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></div>

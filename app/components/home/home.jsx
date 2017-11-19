@@ -1,6 +1,7 @@
 import SocialNetwork from '../social-network/social-network.jsx'
 import HiddenFields from '../hidden-fields/hidden-fields.jsx'
 import Signature from '../signature/signature.jsx'
+import Birthdate from '../birthdate/birthdate.jsx'
 import Details from '../details/details.jsx'
 import Events from '../events/events.jsx'
 import Topnav from '../topnav/topnav.jsx'
@@ -13,6 +14,8 @@ import Notes from '../notes/notes.jsx'
 import Debts from '../debts/debts.jsx'
 import Phone from '../phone/phone.jsx'
 import Hero from '../hero/hero.jsx'
+import Sex from '../sex/sex.jsx'
+
 import './home.styl'
 
 export default class Home extends React.Component {
@@ -24,6 +27,7 @@ export default class Home extends React.Component {
         <Hero />
         {config.data.recent_appoinments && <Events />}
         <Phone />
+        <Signature />
         {config.data.email && <Email />}
         {config.data.adress && <Adress />}
         {config.data.debts && <Debts />}
@@ -32,8 +36,9 @@ export default class Home extends React.Component {
         {config.data.source && <Source />}
         {config.data.soc_media && <SocialNetwork />}
         {config.data.groups && <Groups />}
+        {config.data.gender && <Sex />}
+        {config.data.birthdate && <Birthdate />}
         <Details />
-        <Signature />
         <HiddenFields />
         <div className='test' />
       </div>

@@ -6,7 +6,7 @@ export default class HiddenFields extends React.Component {
   componentWillMount = () => { if (!Array.isArray(config.data.groups)) config.data.groups = [] }
   render () {
     return (
-      <div id='groups'>
+      <div id={config.data.groups.length > 0 ? 'groups' : 'hidden'}>
         <h1 className='groups-label'>{config.translations.group_partner}</h1>
         <Swiper slidesPerView='auto'>
           {config.data.groups.map((i, k) => (

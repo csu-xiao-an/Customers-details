@@ -1,4 +1,5 @@
 import SocialNetwork from '../social-network/social-network.jsx'
+import Birthdate from '../birthdate/birthdate.jsx'
 import Events from '../events/events.jsx'
 import Source from '../source/source.jsx'
 import Groups from '../groups/groups.jsx'
@@ -7,6 +8,7 @@ import Email from '../email/email.jsx'
 import Media from '../media/media.jsx'
 import Notes from '../notes/notes.jsx'
 import Debts from '../debts/debts.jsx'
+import Sex from '../sex/sex.jsx'
 import './hidden-fields.styl'
 
 export default class HiddenFields extends React.Component {
@@ -30,6 +32,8 @@ export default class HiddenFields extends React.Component {
             {!config.data.source && <Source />}
             {!config.data.soc_media && <SocialNetwork />}
             {!config.data.groups && <Groups />}
+            {!config.data.gender && <Sex />}
+            {!config.data.birthdate && <Birthdate />}
           </div>}
       </div>
     )
