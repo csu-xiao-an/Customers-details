@@ -62,7 +62,7 @@ export default class Debts extends React.Component {
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
     return (
-      <div id='debt'>
+      <div id='depts'>
         <div className={config.data.debts && config.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
           <div className={'debt-label ' + (config.isRtL ? 'left' : 'right')}>
             <span>{config.translations.debt}</span><span>:</span><span className='count-debt'>{this.price()}</span>

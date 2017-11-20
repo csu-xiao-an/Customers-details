@@ -2,6 +2,7 @@ import SocialNetwork from '../social-network/social-network.jsx'
 import HiddenFields from '../hidden-fields/hidden-fields.jsx'
 import Signature from '../signature/signature.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
+import HotLinks from '../hot-links/hot-links.jsx'
 import Details from '../details/details.jsx'
 import Events from '../events/events.jsx'
 import Topnav from '../topnav/topnav.jsx'
@@ -25,6 +26,7 @@ export default class Home extends React.Component {
       <div id='home'>
         <Topnav />
         <Hero />
+        <HotLinks />
         {config.data.recent_appoinments && <Events />}
         <Phone />
         <Signature />

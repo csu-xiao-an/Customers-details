@@ -154,6 +154,12 @@ var config = {
     debt_step: 10,
     max_side: 1000,
     timeout: 500,
+    hot_links: [
+      {label: 'Timeline', url: '/timeline'},
+      {label: 'Gallery', url: '#gallery'},
+      {label: 'Depts', url: '#depts'},
+      {label: 'Notes', url: '#notes'}
+    ],
     debts: [
       {
         id: 123123,
