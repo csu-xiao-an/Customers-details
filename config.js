@@ -109,9 +109,9 @@ var config = {
   },
   urls: {
     adress: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
-    fill: '/customers-details/clients/{client_id}/send-link-fill-up',
     signature: '/customers-details/clients/{client_id}/signature',
     media_url: '/customers-details/clients/{client_id}/media',
+    fill: '/customers-details/clients/{client_id}/filling-up',
     social: '/customers-details/clients/{client_id}/social',
     notes: '/customers-details/clients/{client_id}/notes',
     dept: '/customers-details/clients/{client_id}/dept',

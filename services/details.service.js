@@ -7,7 +7,7 @@ export const replaceService = () => {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    method: 'PUT'
+    method: 'POST'
   }
   return mainRequestService(url, options)
 }
