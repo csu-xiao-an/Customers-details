@@ -1,12 +1,16 @@
+import AccessRights from '../access-rights/access-rights.jsx'
 import {clientReplaceService} from 'project-services'
 import './sex.styl'
 
-export default class Adress extends React.Component {
+class Sex extends React.Component {
   state = {
     label: '',
     class: ''
   }
-  init = () => {
+  static propTypes = {
+    rights: PropTypes.object.isRequired
+  }
+  defaultPos = () => {
     let defaultPos
     if (config.data.gender === 'male') {
       defaultPos = 0
@@ -18,6 +22,11 @@ export default class Adress extends React.Component {
       defaultPos = 103.5
       this.setState({class: '', label: config.translations.other})
     }
+    this.refs.button.style.left = defaultPos + 'px'
+    return defaultPos
+  }
+  init = () => {
+    let defaultPos = this.defaultPos()
     let button = this.refs.button
     let mouseDifference
     let difference = button.getBoundingClientRect().left
@@ -51,7 +60,10 @@ export default class Adress extends React.Component {
       }
     }, false)
   }
-  componentDidMount = () => this.init()
+  componentDidMount = () => {
+    this.defaultPos()
+    this.props.rights.gender.edit && this.init()
+  }
   render () {
     return (
       <div id='sex'>
@@ -65,3 +77,4 @@ export default class Adress extends React.Component {
     )
   }
 }
+export default AccessRights(Sex)

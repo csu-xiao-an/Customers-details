@@ -1,10 +1,14 @@
+import AccessRights from '../access-rights/access-rights.jsx'
 import {clientReplaceService} from 'project-services'
 import './email.styl'
 
-export default class Email extends React.Component {
+class Email extends React.Component {
   state = {
     emailEdit: false,
     email: ''
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   submit = () => {
     const body = `${config.urls.email}=${this.state.email}`
@@ -16,21 +20,25 @@ export default class Email extends React.Component {
     })
   }
   render () {
-    return (
+    return this.props.rights.isEmail && (
       <div id='email'>
         <div className={config.data.email ? this.state.emailEdit ? 'hidden' : 'email' : 'hidden'}>
-          <div className='link-wrap'><a href={'mailto:' + config.data.email}><img src={config.urls.media + 'mail.svg'} /></a></div>
+          <div className='link-wrap'>
+            {this.props.rights.email.send_email &&
+            <a href={'mailto:' + config.data.email}><img src={config.urls.media + 'mail.svg'} /></a>}
+          </div>
           <div className='data-wrap'>
             <div className='label-wrap'><div className={'email-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.email}</div></div>
-            <h1 className={config.isRtL ? 'left' : 'right'}
-              onClick={() => this.setState({emailEdit: !this.state.emailEdit, email: config.data.email})} >{config.data.email}</h1>
+            <h1 className={config.isRtL ? 'left' : 'right'} onClick={this.props.rights.email.send_email
+              ? () => this.setState({emailEdit: !this.state.emailEdit, email: config.data.email}) : () => {}}>{config.data.email}</h1>
           </div>
         </div>
+        {this.props.rights.email.add &&
         <div onClick={() => this.setState({emailEdit: !this.state.emailEdit})}
           className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
           <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_email}</h1>
-        </div>
+        </div>}
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
           <div className='edit'>
             <input className='edit-input' type='email' value={this.state.email} onChange={e => this.setState({email: e.target.value})} />
@@ -42,3 +50,4 @@ export default class Email extends React.Component {
     )
   }
 }
+export default AccessRights(Email)

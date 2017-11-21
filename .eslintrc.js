@@ -47,6 +47,6 @@ module.exports = {
     "arrow-parens": ["error", "as-needed"],
     "camelcase": "warn",
     "vars-on-top": 1,
-    "no-console": 0
+    "no-console": 1
   }
 };

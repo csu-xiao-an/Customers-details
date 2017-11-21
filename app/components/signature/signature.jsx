@@ -1,13 +1,17 @@
 import {signatureDeleteService, clientReplaceService} from 'project-services'
 import SignatureModal from '../signature-modal/signature-modal.jsx'
+import AccessRights from '../access-rights/access-rights.jsx'
 import {Switch} from 'project-components'
 import './signature.styl'
 
-export default class Signature extends React.Component {
+class Signature extends React.Component {
   state = {
     isEditSignature: false,
     signatureUrl: '',
     isAds: false
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   delete = () =>
     signatureDeleteService().then(r => {
@@ -39,14 +43,17 @@ export default class Signature extends React.Component {
           isAds={this.state.isAds} handleAds={this.handleAds} />
         <div className='checkbox-wrap'>
           <div className='text'><h1 className='text-h1'>{config.data.permit_ads ? config.translations.permitted : config.translations.not_permitted}</h1></div>
-          <div className='switch'><Switch on={config.data.permit_ads} onClick={this.handleAds} className={config.isRtL ? 'switchleft' : 'switchright'} /></div>
+          {this.props.rights.signature.ads &&
+            <div className='switch'><Switch on={config.data.permit_ads} onClick={this.handleAds} className={config.isRtL ? 'switchleft' : 'switchright'} /></div>}
         </div>
         <div className={config.data.signature ? 'autograph-wrap' : 'hidden'}>
           <div className={'autograph ' + (config.isRtL ? 'right' : 'left')}><img src={config.data.signature} /></div>
           <div className='label'>
             <h1>{config.translations.signature_added}</h1>
-            <button onClick={this.delete}>{config.translations.btn_delete}</button>
-            <button onClick={this.handleEditSignature}>{config.translations.btn_replace}</button>
+            {this.props.rights.signature.remove &&
+              <button onClick={this.delete}>{config.translations.btn_delete}</button>}
+            {this.props.rights.signature.change &&
+              <button onClick={this.handleEditSignature}>{config.translations.btn_replace}</button>}
           </div>
         </div>
         <div className={config.data.signature ? 'hidden' : 'add-signature-wrap'} onClick={this.handleEditSignature}>
@@ -57,3 +64,4 @@ export default class Signature extends React.Component {
     )
   }
 }
+export default AccessRights(Signature)

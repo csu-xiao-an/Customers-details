@@ -1,10 +1,14 @@
+import AccessRights from '../access-rights/access-rights.jsx'
 import {clientReplaceService} from 'project-services'
 import './phone.styl'
 
-export default class Phone extends React.Component {
+class Phone extends React.Component {
   state = {
     phoneEdit: false,
     phone: ''
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   submit = () => {
     const body = `${config.urls.phone}=${this.state.phone}`
@@ -16,22 +20,29 @@ export default class Phone extends React.Component {
     })
   }
   render () {
-    return (
+    return this.props.rights.isPhone && (
       <div id='phone'>
-        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-img' : 'hidden'}>
-          <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>
-          <div className='img-wrap'><a href={`/send-sms?client_id=${config.data.id}&referrer=${location.pathname + '?' + location.search}`}><img src={config.urls.media + 'send-sms.svg'} /></a></div>
+        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'data' : 'hidden'}>
+          <div className='phone-img'>
+            {this.props.rights.phone.call &&
+              <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>}
+            {this.props.rights.phone.send_sms &&
+              <div className='img-wrap'><a href={`/send-sms?client_id=${config.data.id}&referrer=${location.pathname + '?' + location.search}`}>
+                <img src={config.urls.media + 'send-sms.svg'} /></a></div>}
+          </div>
+          <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
+            <div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></div>
+            <div className='phone-wrap' onClick={this.props.rights.phone.edit
+              ? () => this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone}) : () => {}}>
+              <h1>{config.data.phone}</h1></div>
+          </div>
         </div>
-        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
-          <div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></div>
-          <div className='phone-wrap' onClick={() => this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone})}>
-            <h1>{config.data.phone}</h1></div>
-        </div>
-        <div onClick={() => this.setState({phoneEdit: !this.state.phoneEdit})}
-          className={config.data.phone || this.state.phoneEdit ? 'hidden' : 'add-phone'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_phone}</h1>
-        </div>
+        {this.props.rights.phone.add &&
+          <div onClick={() => this.setState({phoneEdit: !this.state.phoneEdit})}
+            className={config.data.phone || this.state.phoneEdit ? 'hidden' : 'add-phone'}>
+            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
+            <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_phone}</h1>
+          </div>}
         <div className={this.state.phoneEdit ? 'phone-edit' : 'hidden'}>
           <div className='edit'>
             <input className='edit-input' type='tel' value={this.state.phone} onChange={e => this.setState({phone: e.target.value})} />
@@ -43,3 +54,4 @@ export default class Phone extends React.Component {
     )
   }
 }
+export default AccessRights(Phone)

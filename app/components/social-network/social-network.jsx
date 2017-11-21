@@ -1,14 +1,18 @@
 import {socialPostService, socialDeleteService} from 'project-services'
+import AccessRights from '../access-rights/access-rights.jsx'
 import {Select} from 'project-components'
 import Line from '../line/line.jsx'
 import './social-network.styl'
 
-export default class SocialNetwork extends React.Component {
+class SocialNetwork extends React.Component {
   state = {
     selectedValue: config.translations.social_list[0].value,
     selectedLabel: config.translations.social_list[0].label,
     isEditSocial: false,
     inputValue: ''
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   submit = () => {
     if (!Array.isArray(config.data.soc_media)) config.data.soc_media = []
@@ -40,9 +44,13 @@ export default class SocialNetwork extends React.Component {
         <div className={config.data.soc_media && config.data.soc_media.length > 0 ? 'social-network-list' : 'hidden'}>
           {config.data.soc_media.map((i, k) => (
             <div key={k} className='social-item-wrap'>
-              <div className='delete-wrap'><img className='delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} /></div>
+              <div className='delete-wrap'>
+                {this.props.rights.soc_links.delete &&
+                  <img className='delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />}
+              </div>
               <div className='img-wrap'><img src={config.urls.soc_net + '/' + i.type + '.png'} /></div>
-              <div className='url-wrap' onClick={() => this.setState({isEditSocial: true, selectedValue: i.type})}><h1>{i.url}</h1></div>
+              <div className='url-wrap' onClick={this.props.rights.soc_links.edit ? () => this.setState({isEditSocial: true, selectedValue: i.type}) : () => {}}>
+                <h1>{i.url}</h1></div>
             </div>)
           )}
         </div>
@@ -60,13 +68,14 @@ export default class SocialNetwork extends React.Component {
           </div>
           <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
-        <div className={this.state.isEditSocial ? 'hidden' : 'add-source-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'}
-            onClick={() => this.setState({isEditSocial: !this.state.isEditSocial})} />
-          <h1 className={config.isRtL ? 'left' : 'right'} >{config.translations.add_social_net}</h1>
-        </div>
+        {this.props.rights.soc_links.edit &&
+          <div className={this.state.isEditSocial ? 'hidden' : 'add-source-wrap'} onClick={() => this.setState({isEditSocial: !this.state.isEditSocial})} >
+            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
+            <h1 className={config.isRtL ? 'left' : 'right'} >{config.translations.add_social_net}</h1>
+          </div>}
         <Line />
       </div>
     )
   }
 }
+export default AccessRights(SocialNetwork)

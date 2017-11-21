@@ -1,15 +1,19 @@
 import {debtPostService, debtReplaceService, debtDeleteService} from 'project-services'
+import AccessRights from '../access-rights/access-rights.jsx'
 import {formatDate} from 'project-components'
 import Line from '../line/line.jsx'
 import './debts.styl'
 
-export default class Debts extends React.Component {
+class Debts extends React.Component {
   state = {
     debtReplace: false,
     description: '',
     debtEdit: false,
     total_debt: 0,
     debt: '0'
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   submit = () => {
     const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
@@ -71,19 +75,21 @@ export default class Debts extends React.Component {
         {config.data.debts.map((i, k) => (
           <div key={k} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
             <div className='debt-list-delete-wrap'>
-              <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />
+              {this.props.rights.depts.delete &&
+                <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />}
             </div>
-            <div className='debt-list-data-wrap' onClick={() => this.replace(i, k)}>
+            <div className='debt-list-data-wrap' onClick={this.props.rights.depts.edit ? () => this.replace(i, k) : () => {}}>
               <h1 className='debt-list-name'>{i.sum} {config.data.currency}</h1>
               <h1 className='debt-list-desc'>{i.desc}</h1>
               <p className='debt-list-date'>{formatDate(i.date)}</p>
             </div>
           </div>
         ))}
-        <div onClick={() => this.setState({debtEdit: !this.state.debtEdit})} className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_debt}</h1>
-        </div>
+        {this.props.rights.depts.edit &&
+          <div onClick={() => this.setState({debtEdit: !this.state.debtEdit})} className={this.state.debtEdit ? 'hidden' : 'debt-default'}>
+            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
+            <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_debt}</h1>
+          </div>}
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
           <div className='edit'>
             <div className='description'>
@@ -113,3 +119,4 @@ export default class Debts extends React.Component {
     )
   }
 }
+export default AccessRights(Debts)

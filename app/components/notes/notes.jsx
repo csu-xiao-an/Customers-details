@@ -1,9 +1,10 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
+import AccessRights from '../access-rights/access-rights.jsx'
 import {formatDate, Select} from 'project-components'
 import Line from '../line/line.jsx'
 import './notes.styl'
 
-export default class Notes extends React.Component {
+class Notes extends React.Component {
   state = {
     selectedValue: config.translations.notes_list[0].value,
     selectedLabel: config.translations.notes_list[0].label,
@@ -14,6 +15,9 @@ export default class Notes extends React.Component {
     note_id: 0,
     time: '0',
     key: 0
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   submit = () => {
     let reminder = this.reminder()
@@ -82,9 +86,10 @@ export default class Notes extends React.Component {
         {config.data.notes.map((i, k) => (
           <div key={k} className={this.state.noteReplace ? 'hidden' : 'notes-list ' + (i.reminder_date ? 'pd5' : 'pd17')}>
             <div className='notes-list-delete-wrap'>
-              <img className='notes-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />
+              {this.props.rights.notes.delete &&
+                <img className='notes-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />}
             </div>
-            <div className='notes-list-data-wrap' onClick={() => this.replace(i, k)}>
+            <div className='notes-list-data-wrap' onClick={this.props.rights.notes.edit ? () => this.replace(i, k) : () => {}}>
               <div className={i.reminder_date ? 'notes-list-reminder' : 'hidden'}><img src={config.urls.media + 'bell.svg'} /></div>
               <h1 className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>{i.text}</h1>
               <p className='notes-list-date'>{formatDate(i.date)}</p>
@@ -122,12 +127,14 @@ export default class Notes extends React.Component {
             </div>
           </div>
         </div>
-        <div onClick={() => this.setState({isEditNotes: !this.state.isEditNotes})} className={this.state.isEditNotes ? 'hidden' : 'add-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_note}</h1>
-        </div>
+        {this.props.rights.notes.add &&
+          <div onClick={() => this.setState({isEditNotes: !this.state.isEditNotes})} className={this.state.isEditNotes ? 'hidden' : 'add-wrap'}>
+            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
+            <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_note}</h1>
+          </div>}
         <Line />
       </div>
     )
   }
 }
+export default AccessRights(Notes)

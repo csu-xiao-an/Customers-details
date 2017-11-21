@@ -1,10 +1,11 @@
 import {dataURLtoFile, getOrientation, Swiper} from 'project-components'
+import AccessRights from '../access-rights/access-rights.jsx'
 import MediaModal from '../media-modal/media-modal.jsx'
 import {mediaPostService} from 'project-services'
 import Line from '../line/line.jsx'
 import './media.styl'
 
-export default class Media extends React.Component {
+class Media extends React.Component {
   state = {
     isOpenGalleryContex: false,
     isOpenGallery: false,
@@ -13,6 +14,9 @@ export default class Media extends React.Component {
     initialSlide: 0,
     file: {},
     desc: ''
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   handleGallery = () => {
     this.setState({isOpenGallery: !this.state.isOpenGallery})
@@ -49,13 +53,13 @@ export default class Media extends React.Component {
     if (i.name.indexOf('mp4') !== -1) {
       return (<div>
         <img src={config.urls.media + 'video_play.png'} className='video_play' />
-        <video src={config.urls.gallery + i.name} onClick={() => { this.handleGallery(); this.setState({initialSlide: k}) }} />
+        <video src={config.urls.gallery + i.name} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
       </div>)
     } else {
       if (i.name.indexOf('png') !== -1) { src = config.urls.gallery + i.name } else
       if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
       if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
-      return <img src={src} onClick={() => { this.handleGallery(); this.setState({initialSlide: k}) }} />
+      return <img src={src} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
     }
   }
   resize = f => {
@@ -122,14 +126,15 @@ export default class Media extends React.Component {
           <div className={'gallery-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.gallery}</div>
         </div>
         <div id='swiper-wrap-gallery'>
-          <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} paginationClickable observer>
+          <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} observer>
             {config.data.gallery.map((i, k) => (<div key={k}>{this.typeItem(i, k)}<h1>{i.name}</h1></div>))}
           </Swiper>
         </div>
-        <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})} className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_media}</h1>
-        </div>
+        {this.props.rights.gallery.add &&
+          <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})} className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
+            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
+            <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_media}</h1>
+          </div>}
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <form className='add-input-wrap' ref='fileAddForm'>
             <input className='file-input' type='file' onChange={e => this.addFile(e)} /><div className='previw-wrap'>{$imagePreview}</div>
@@ -142,3 +147,4 @@ export default class Media extends React.Component {
     )
   }
 }
+export default AccessRights(Media)

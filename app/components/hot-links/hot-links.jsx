@@ -1,7 +1,11 @@
+import AccessRights from '../access-rights/access-rights.jsx'
 import {Swiper} from 'project-components'
 import './hot-links.styl'
 
-export default class HotLinks extends React.Component {
+class HotLinks extends React.Component {
+  static propTypes = {
+    rights: PropTypes.object.isRequired
+  }
   link = i => {
     if (i.url[0] === '#') {
       const getOffsetSum = () => {
@@ -30,10 +34,13 @@ export default class HotLinks extends React.Component {
       <div id='hot-links'>
         <Swiper slidesPerView='auto'>
           {config.data.hot_links.map(i => (
-            <div key={i.label} onClick={() => this.link(i)} className={'link ' + (i.url[0] === '#' ? 'circle' : i.url[0] === '/' ? 'square' : '')}>{i.label}</div>)
+            <div key={i.label} onClick={() => this.link(i)}
+              className={'link ' + (i.url[0] === '#' ? this.props.rights.hot_links.internal ? 'circle' : 'hidden'
+                : i.url[0] === '/' ? this.props.rights.hot_links.external ? 'square' : 'hidden' : '')}>{i.label}</div>)
           )}
         </Swiper>
       </div>
     )
   }
 }
+export default AccessRights(HotLinks)
