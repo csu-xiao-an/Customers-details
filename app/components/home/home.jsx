@@ -29,6 +29,7 @@ export default class Home extends React.Component {
         <HotLinks />
         {config.data.recent_appoinments && <Events />}
         <Phone />
+        <Details />
         <Signature />
         {config.data.email && <Email />}
         {config.data.adress && <Adress />}
@@ -40,7 +41,6 @@ export default class Home extends React.Component {
         {config.data.groups && <Groups />}
         {config.data.gender && <Sex />}
         {config.data.birthdate && <Birthdate />}
-        <Details />
         <HiddenFields />
         <div className='test' />
       </div>

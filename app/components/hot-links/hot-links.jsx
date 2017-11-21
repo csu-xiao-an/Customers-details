@@ -3,31 +3,24 @@ import './hot-links.styl'
 
 export default class HotLinks extends React.Component {
   link = i => {
-    // const getOffsetSum = elem => {
-    //   var top = 0, left = 0
-    //   while(elem) {
-    //     top = top + parseFloat(elem.offsetTop)
-    //     left = left + parseFloat(elem.offsetLeft)
-    //     elem = elem.offsetParent
-    //   }
-    //   return {top: Math.round(top), left: Math.round(left)}
-    // }
     if (i.url[0] === '#') {
-      window.location.hash = i.url
-      // let top = getOffsetSum(document.getElementById(i.url.replace('#', '')))
-      // const scrollToTop = () => {
-      //   // let scrollStep = -window.scrollY / (1000 / 15)
-      //   console.log(window.scrollY)
-      //   console.log(top)
-      //   let scrollInterval = setInterval(() => {
-      //     if (window.scrollY !== top) {
-      //       window.scrollBy(top, 15)
-      //     } else clearInterval(scrollInterval)
-      //   }, 15)
-      // }
-      // scrollToTop()
-      // let an = document.getElementsByTagName('body')[0].animate({scrollTop: top}, 1500)
-      // console.log(an)
+      const getOffsetSum = () => {
+        let e = document.getElementById(i.url.replace('#', ''))
+        let top = 0
+        while (e) {
+          top = top + parseFloat(e.offsetTop)
+          e = e.offsetParent
+        }
+        return Math.round(top)
+      }
+      const top = getOffsetSum()
+      const interval = setInterval(() => {
+        let scroll = window.scrollY
+        let diff = top - scroll
+        if (diff < 5) window.scrollBy(0, diff)
+        if (scroll < top) window.scrollBy(0, 5)
+        else clearInterval(interval)
+      }, 3)
     } else if (i.url[0] === '/') {
       window.location = i.url
     }
@@ -35,7 +28,7 @@ export default class HotLinks extends React.Component {
   render () {
     return (
       <div id='hot-links'>
-        <Swiper slidesPerView='auto' spaceBetween={26} slidesOffsetBefore={13} slidesOffsetAfter={13}>
+        <Swiper slidesPerView='auto'>
           {config.data.hot_links.map(i => (
             <div key={i.label} onClick={() => this.link(i)} className={'link ' + (i.url[0] === '#' ? 'circle' : i.url[0] === '/' ? 'square' : '')}>{i.label}</div>)
           )}
