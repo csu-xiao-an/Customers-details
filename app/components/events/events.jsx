@@ -1,8 +1,12 @@
+import AccessRights from '../access-rights/access-rights.jsx'
 import {lastAppoinment, Swiper} from 'project-components'
 import Line from '../line/line.jsx'
 import './events.styl'
 
-export default class Events extends React.Component {
+class Events extends React.Component {
+  static propTypes = {
+    rights: PropTypes.object.isRequired
+  }
   price (i) {
     let sum = 0
     if (i.procedures.length > 1) {
@@ -25,7 +29,8 @@ export default class Events extends React.Component {
     return (
       <div id={config.data.recent_appoinments.length > 0 ? 'events' : 'hidden'}>
         <div className='events'>
-          <a href={config.urls.main + config.urls.appointment + '?client_id=' + config.data.id}><img className='clock' src={config.urls.media + 'clock.png'} /></a>
+          <a href={this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}>
+            <img className='clock' src={config.urls.media + 'clock.png'} /></a>
           <h1 className={'label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.close_visits}</h1>
           <div id='swiper-wrap-notes'>
             <Swiper pagination='.swiper-pagination' slidesPerView='auto' initialSlide={this.initialSlide()}>
@@ -53,3 +58,4 @@ export default class Events extends React.Component {
     )
   }
 }
+export default AccessRights(Events)

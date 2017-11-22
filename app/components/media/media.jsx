@@ -117,7 +117,7 @@ class Media extends React.Component {
     } else {
       $imagePreview = (<div className='previewText'>Please select file for Preview</div>)
     }
-    return (
+    return config.plugins_list.some(i => i === 'gallery') && (
       <div id='gallery'>
         {this.state.isOpenGalleryContex &&
           <MediaModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />}

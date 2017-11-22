@@ -2,6 +2,9 @@ export default Component => {
   const rights = {
     isPhone: false,
     isEmail: false,
+    topnav: {
+      back: true
+    },
     hero: {
       isFavorite: false,
       status: false
@@ -9,6 +12,9 @@ export default Component => {
     hot_links: {
       external: true,
       internal: true
+    },
+    events: {
+      cr_app: true
     },
     phone: {
       send_sms: false,
@@ -19,6 +25,11 @@ export default Component => {
     email: {
       email: false,
       edit: false,
+      add: false
+    },
+    adress: {
+      edit: false,
+      waze: true,
       add: false
     },
     details: {
@@ -53,6 +64,9 @@ export default Component => {
       edit: false,
       add: false
     },
+    groups: {
+      to_group: true
+    },
     gender: {
       edit: false
     },
@@ -80,6 +94,10 @@ export default Component => {
       },
       email: {
         send_email: true,
+        edit: true,
+        add: true
+      },
+      adress: {
         edit: true,
         add: true
       },

@@ -65,7 +65,7 @@ class Debts extends React.Component {
   }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
-    return (
+    return config.plugins_list.some(i => i === 'depts') && (
       <div id='depts'>
         <div className={config.data.debts && config.data.debts.length > 0 ? 'label-wrap' : 'hidden'}>
           <div className={'debt-label ' + (config.isRtL ? 'left' : 'right')}>

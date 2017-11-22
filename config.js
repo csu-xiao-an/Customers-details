@@ -1,7 +1,7 @@
 var config = {
   user: {
     // admin, senior, junior, readonly, untrusted
-    permission_level: 'readonly',
+    permission_level: 'admin',
     business_id: 123,
     worker_id: 1
   },
@@ -145,7 +145,7 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     birthdate: '2001-09-27',
-    email: 'ahuva.ben.shushan@gmail.co',
+    // email: 'ahuva.ben.shushan@gmail.co',
     adress: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
@@ -155,7 +155,7 @@ var config = {
     permit_ads: false,
     signature: './dist/media/autograph.png',
     status: 'Status',
-    source: 'ads',
+    // source: 'ads',
     gender: 'male',
     currency: '₪',
     debt_step: 10,
