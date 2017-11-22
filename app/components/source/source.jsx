@@ -1,9 +1,10 @@
 import {clientReplaceService, clientGetService} from 'project-services'
+import AccessRights from '../access-rights/access-rights.jsx'
 import {Select} from 'project-components'
 import './source.styl'
 let timeout
 
-export default class Source extends React.Component {
+class Source extends React.Component {
   state = {
     selectedLabel: config.data.source || config.translations.source_list[0].label,
     selectedValue: config.data.source || config.translations.source_list[0].value,
@@ -13,6 +14,9 @@ export default class Source extends React.Component {
     inputValue: '',
     userId: null,
     clients: []
+  }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
   }
   submit = () => {
     let body = `${config.urls.source}=${this.state.selectedValue}`
@@ -39,17 +43,20 @@ export default class Source extends React.Component {
   render () {
     return (
       <div id='source'>
-        <div className={this.state.isOpenSource ? 'hidden' : config.data.source ? 'hidden' : 'add-source-wrap'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'}
-            onClick={() => this.setState({ isOpenSource: !this.state.isOpenSource })} />
-          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>
-        </div>
+        {this.props.rights.source.add &&
+          <div className={this.state.isOpenSource ? 'hidden' : config.data.source ? 'hidden' : 'add-source-wrap'}>
+            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'}
+              onClick={() => this.setState({ isOpenSource: !this.state.isOpenSource })} />
+            <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>
+          </div>}
         <div className={this.state.isOpenSource ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85')
           : config.data.source ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : 'hidden'}>
           <h1>{config.translations.traffic_source}</h1>
-          <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
+          <div className='button-wrap'>
+            {this.props.rights.source.save && <button onClick={this.submit}>{config.translations.save}</button>}
+          </div>
           <div className='select-wrap'>
-            <Select value={this.state.selectedLabel} onChange={e => this.changeSelect(e)} options={config.translations.source_list} />
+            <Select value={this.state.selectedLabel} onChange={e => this.changeSelect(e)} options={config.translations.source_list} disabled={!this.props.rights.source.select} />
           </div>
           <div className={this.state.isRecomendation ? 'input-wrap' : 'hidden'}>
             <div className='label'>{config.translations.recommended_by}</div>
@@ -66,3 +73,4 @@ export default class Source extends React.Component {
     )
   }
 }
+export default AccessRights(Source)

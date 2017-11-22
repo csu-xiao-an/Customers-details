@@ -1,4 +1,5 @@
 import SocialNetwork from '../social-network/social-network.jsx'
+import AccessRights from '../access-rights/access-rights.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import Events from '../events/events.jsx'
 import Source from '../source/source.jsx'
@@ -11,12 +12,15 @@ import Debts from '../debts/debts.jsx'
 import Sex from '../sex/sex.jsx'
 import './hidden-fields.styl'
 
-export default class HiddenFields extends React.Component {
+class HiddenFields extends React.Component {
   state = {
     isVisibleFields: false
   }
+  static propTypes = {
+    rights: PropTypes.object.isRequired
+  }
   render () {
-    return (
+    return this.props.rights.more_fields.isVisible && (
       <div id='hidden-fields'>
         <div className={this.state.isVisibleFields ? 'hidden' : 'main-button'}>
           <button onClick={() => this.setState({isVisibleFields: true})}>{config.translations.show_more_fields}</button>
@@ -39,3 +43,4 @@ export default class HiddenFields extends React.Component {
     )
   }
 }
+export default AccessRights(HiddenFields)

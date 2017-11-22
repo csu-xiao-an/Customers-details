@@ -43,6 +43,11 @@ export default Component => {
       open: false,
       add: false
     },
+    source: {
+      add: false,
+      save: false,
+      select: false
+    },
     soc_links: {
       delete: false,
       edit: false,
@@ -53,6 +58,9 @@ export default Component => {
     },
     birthdate: {
       edit: false
+    },
+    more_fields: {
+      isVisible: false
     }
   }
   const AccessRights = props => {
@@ -93,6 +101,11 @@ export default Component => {
         edit: true,
         add: true
       },
+      source: {
+        add: true,
+        save: true,
+        select: true
+      },
       soc_links: {
         delete: true,
         edit: true,
@@ -103,6 +116,9 @@ export default Component => {
       },
       birthdate: {
         edit: true
+      },
+      more_fields: {
+        isVisible: true
       }
     }
     const readonly = {

@@ -1,7 +1,7 @@
 var config = {
   user: {
     // admin, senior, junior, readonly, untrusted
-    permission_level: 'admin',
+    permission_level: 'readonly',
     business_id: 123,
     worker_id: 1
   },
@@ -97,7 +97,7 @@ var config = {
       {value: 'months', label: 'Months'}
     ],
     source_list: [
-      {value: 'ads', label: 'ASds'},
+      {value: 'ads', label: 'Ads'},
       {value: 'fb_page', label: 'fb_page'},
       {value: 'family', label: 'family'},
       {value: 'friends', label: 'friends'},
@@ -145,7 +145,7 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     birthdate: '2001-09-27',
-    // email: 'ahuva.ben.shushan@gmail.co',
+    email: 'ahuva.ben.shushan@gmail.co',
     adress: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
