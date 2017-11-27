@@ -24,7 +24,7 @@ export default class Home extends React.Component {
   render () {
     return (
       <div id='home'>
-        <Topnav />
+        <Topnav customersDetails />
         <Hero />
         <HotLinks />
         {config.data.recent_appoinments && <Events />}

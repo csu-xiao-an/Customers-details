@@ -5,17 +5,20 @@ const alias = {
   'project-services': path.resolve('./services')
 }
 module.exports = env => {
-  let outputJS = './dist/bundle.js'
-  let outputCSS = './dist/bundle.css'
+  let outputJSCK = './dist/[id].bundle.js'
+  let outputCSS = './dist/main.bundle.css'
+  let outputJS = './dist/main.bundle.js'
   let devtool = 'source-map'
   if (env === 'production-p') {
-    outputJS = './dist/bundle.min.js'
-    outputCSS = './dist/bundle.min.css'
+    outputJSCK = './dist/[id].bundle.min.js'
+    outputCSS = './dist/main.bundle.min.css'
+    outputJS = './dist/main.bundle.min.js'
     devtool = false
   }
   return ({
     entry: './app/main.js',
     output: {
+      chunkFilename: outputJSCK,
       filename: outputJS
     },
     devtool: devtool,
@@ -54,6 +57,7 @@ module.exports = env => {
       ]
     },
     devServer: {
+      historyApiFallback: true,
       stats: {
         version: false,
         modules: false,

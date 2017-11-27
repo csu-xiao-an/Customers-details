@@ -133,13 +133,15 @@ var config = {
     isFavorite: 'isFavorite',
     permit_ads: 'permit_ads',
     media: './dist/media/',
+    timeline: '/timeline',
     groups: '/groups/',
     address: 'address',
     status: 'status',
     source: 'source',
     gender: 'gender',
     phone: 'phone',
-    email: 'email'
+    email: 'email',
+    home: '/'
   },
   data: {
     id: 123123,
