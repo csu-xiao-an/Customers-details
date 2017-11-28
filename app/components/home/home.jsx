@@ -1,49 +1,51 @@
-import SocialNetwork from '../social-network/social-network.jsx'
-import HiddenFields from '../hidden-fields/hidden-fields.jsx'
-import Signature from '../signature/signature.jsx'
-import Birthdate from '../birthdate/birthdate.jsx'
-import HotLinks from '../hot-links/hot-links.jsx'
-import Details from '../details/details.jsx'
-import Events from '../events/events.jsx'
+import SocialNetwork from './components/social-network/social-network.jsx'
+import HiddenFields from './components/hidden-fields/hidden-fields.jsx'
+import AccessRights from '../access-rights/access-rights.jsx'
+import Signature from './components/signature/signature.jsx'
+import Birthdate from './components/birthdate/birthdate.jsx'
+import HotLinks from './components/hot-links/hot-links.jsx'
+import Details from './components/details/details.jsx'
+import Events from './components/events/events.jsx'
+import Source from './components/source/source.jsx'
+import Groups from './components/groups/groups.jsx'
+import Adress from './components/adress/adress.jsx'
+import Email from './components/email/email.jsx'
+import Media from './components/media/media.jsx'
+import Notes from './components/notes/notes.jsx'
+import Debts from './components/debts/debts.jsx'
+import Phone from './components/phone/phone.jsx'
+import Hero from './components/hero/hero.jsx'
+import Sex from './components/sex/sex.jsx'
 import Topnav from '../topnav/topnav.jsx'
-import Source from '../source/source.jsx'
-import Groups from '../groups/groups.jsx'
-import Adress from '../adress/adress.jsx'
-import Email from '../email/email.jsx'
-import Media from '../media/media.jsx'
-import Notes from '../notes/notes.jsx'
-import Debts from '../debts/debts.jsx'
-import Phone from '../phone/phone.jsx'
-import Hero from '../hero/hero.jsx'
-import Sex from '../sex/sex.jsx'
 
 import './home.styl'
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   componentWillMount = () => { if (config.data.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl' }
   render () {
     return (
       <div id='home'>
-        <Topnav customersDetails />
-        <Hero />
-        <HotLinks />
-        {config.data.recent_appoinments && <Events />}
-        <Phone />
-        <Details />
-        <Signature />
-        {config.data.email && <Email />}
-        {config.data.adress && <Adress />}
-        {config.data.debts && <Debts />}
-        {config.data.notes && <Notes />}
-        {config.data.gallery && <Media />}
-        {config.data.source && <Source />}
-        {config.data.soc_media && <SocialNetwork />}
-        {config.data.groups && <Groups />}
-        {config.data.gender && <Sex />}
-        {config.data.birthdate && <Birthdate />}
-        <HiddenFields />
+        <Topnav {...this.props} customersDetails />
+        <Hero {...this.props} />
+        <HotLinks {...this.props} />
+        {config.data.recent_appoinments && <Events {...this.props} />}
+        <Phone {...this.props} />
+        <Details {...this.props} />
+        <Signature {...this.props} />
+        {config.data.email && <Email {...this.props} />}
+        {config.data.adress && <Adress {...this.props} />}
+        {config.data.debts && <Debts {...this.props} />}
+        {config.data.notes && <Notes {...this.props} />}
+        {config.data.gallery && <Media {...this.props} />}
+        {config.data.source && <Source {...this.props} />}
+        {config.data.soc_media && <SocialNetwork {...this.props} />}
+        {config.data.groups && <Groups {...this.props} />}
+        {config.data.gender && <Sex {...this.props} />}
+        {config.data.birthdate && <Birthdate {...this.props} />}
+        <HiddenFields {...this.props} />
         <div className='test' />
       </div>
     )
   }
 }
+export default AccessRights(Home)

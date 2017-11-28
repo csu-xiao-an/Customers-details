@@ -1,7 +1,6 @@
-import AccessRights from '../access-rights/access-rights.jsx'
 import './topnav.styl'
 
-class Topnav extends React.Component {
+export default class Topnav extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired,
     customersDetails: PropTypes.bool
@@ -29,4 +28,3 @@ class Topnav extends React.Component {
     )
   }
 }
-export default AccessRights(Topnav)
