@@ -5,30 +5,52 @@ export default () => {
       {
         id: 123123,
         date: '1991-07-07 13:01',
-        added_date: '',
-        is_deleted: '',
-        worker_id: '',
-        worker_name: '',
+        added_date: '1992-07-07 13:01',
+        worker_id: 123123,
+        worker_name: 'Teller',
+        note: 'Aasfasfa Fsdfasd as asdf',
+        address: 'Tel Aviv, Allenby str. 45',
         procedures: [
           {
             id: 123123,
-            name: 'teller',
-            duration: '',
-            price: 12,
+            name: 'asdaaasdfas',
+            duration: 10,
+            price: 100,
+            color: 'green'
+          },
+          {
+            id: 123123,
+            name: 'testttad',
+            duration: 2,
+            price: 1200,
             color: 'red'
+          },
+          {
+            id: 123123,
+            name: 'LOremmasdfasdasdfasdf',
+            duration: 3,
+            price: 142,
+            color: 'yellow'
           }
         ]
       }
     ],
     is_end: false
   }
+  // todo if(plugin.GALLERY)
   const gallery = {
     name: 'gallery',
     data: [
       {
         id: 123123,
-        name: 'tel',
-        date: '2001-07-07 13:01'
+        name: '01.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '1990-07-07 13:01'
+      },
+      {
+        id: 123123,
+        name: '05.png',
+        date: '2017-07-07 13:01'
       }
     ],
     is_end: false
@@ -67,5 +89,5 @@ export default () => {
     is_end: false
   }
   return [appointments, gallery, depts, notes, sms].reduce((arr, item) =>
-    arr.concat(item.data.map(i => { i.field_name = item.name; return i })), []).sort((a, b) => moment(a.date) - moment(b.date))
+    arr.concat(item.data.map(i => { i.field_name = item.name; return i })), []).sort((a, b) => moment(b.date) - moment(a.date))
 }

@@ -75,6 +75,9 @@ export default Component => {
     },
     more_fields: {
       isVisible: false
+    },
+    timeline: {
+      share: false
     }
   }
   const AccessRights = props => {
@@ -137,6 +140,9 @@ export default Component => {
       },
       more_fields: {
         isVisible: true
+      },
+      timeline: {
+        share: true
       }
     }
     const readonly = {
