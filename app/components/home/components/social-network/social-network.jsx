@@ -47,7 +47,7 @@ export default class SocialNetwork extends React.Component {
                 {this.props.rights.soc_links.delete &&
                   <img className='delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />}
               </div>
-              <div className='img-wrap'><img src={config.urls.soc_net + '/' + i.type + '.png'} /></div>
+              <div className='img-wrap'><img src={config.urls.soc_net + i.type + '.png'} /></div>
               <div className='url-wrap' onClick={this.props.rights.soc_links.edit ? () => this.setState({isEditSocial: true, selectedValue: i.type}) : () => {}}>
                 <h1>{i.url}</h1></div>
             </div>)

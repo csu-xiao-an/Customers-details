@@ -1,24 +1,10 @@
-import Dialog from 'share-dialog'
+import Share from '../share/share.jsx'
 import './gallery.styl'
 
 export default class Gallery extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired,
     i: PropTypes.object.isRequired
-  }
-  share = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: config.translations.share_title,
-        text: config.translations.share_text,
-        url: config.urls.gallery_sharing_base_url + this.props.i.name
-      })
-    // .then(() => console.log('Successful share'))
-    // .catch(er => console.log('Error sharing', er))
-    } else {
-      const twitter = Dialog.tumblr.link('http://example.com/', 'Some link')
-      twitter.open()
-    }
   }
   render () {
     return (
@@ -33,9 +19,12 @@ export default class Gallery extends React.Component {
               <h1 className='photo-label'>{config.translations.photo}</h1>
             </div>
           </div>
-          <div className='share'>
-            {this.props.rights.timeline.share &&
-              <img src={config.urls.media + 'share.png'} onClick={this.share} />}
+          <div className='share-wrap'>
+            <Share {...this.props} opt={{
+              title: config.translations.share_title,
+              text: config.translations.share_text,
+              url: config.urls.gallery_sharing_base_url + this.props.i.name
+            }} />
           </div>
         </div>
         <div className='photo-wrap'>
