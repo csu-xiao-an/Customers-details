@@ -1,4 +1,3 @@
-// import {timelineGetService} from 'project-services'
 import Appointments from './components/appointments/appointments.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import Gallery from './components/gallery/gallery.jsx'
@@ -10,15 +9,12 @@ import data from './timeline.worker.js'
 import './timeline.styl'
 
 class Timeline extends React.Component {
-  state = {
-    data: []
-  }
   componentWillMount = () => {
     if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     this.setState({data: data()})
   }
   render () {
-    const f = {
+    const fields = {
       appointments: i => <Appointments i={i} {...this.props} />,
       gallery: i => <Gallery i={i} {...this.props} />,
       depts: i => <Depts i={i} {...this.props} />,
@@ -28,8 +24,18 @@ class Timeline extends React.Component {
     return (
       <div id='timeline'>
         <Topnav {...this.props} />
-        <div className='list'>{this.state.data.map(i => f[i.field_name](i))}</div>
+        <div className='list'>{this.state.data.map(i => <div>
+          {i.separator && <div className='separator-wrap'><div className='separator'>
+            {config.translations.dates.weekdays[moment(i.date).get('day')] + ' ' + moment(i.date).format('YYYY-MM-DD')}</div></div>}
+          {fields[i.field_name](i)}</div>)}
+        </div>
         <div className='test' />
+        <div className='buttons-wrap'>
+          <button>{'appo'}</button>
+          <button>{'Gall'}</button>
+          <button>{'Debts'}</button>
+          <button>{'Other'}</button>
+        </div>
       </div>
     )
   }
