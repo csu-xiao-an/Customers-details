@@ -71,6 +71,10 @@ var config = {
     appointment_creted: 'Appointment created at {time}',
     photo_creted: 'Photo created at {time}',
     appointment_at: 'Appointment at',
+    debts_t: 'Debts',
+    other_t: 'Other',
+    dept_created: 'Debt created at {time}',
+    dept: 'Dept',
     dates: {
       months: {
         1: 'January',

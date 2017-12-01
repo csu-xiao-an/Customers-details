@@ -1,6 +1,7 @@
 // import {timelineGetService} from 'project-services'
 
-export default () => {
+export default f => {
+  let arr = []
   const appointments = {
     name: 'appointments',
     data: [
@@ -63,7 +64,8 @@ export default () => {
       {
         id: 123123,
         sum: 12,
-        date: '2001-09-07 13:01'
+        date: '2001-09-07 13:01',
+        desc: 'asdfasdfasdfasdfasdf'
       }
     ],
     is_end: false
@@ -73,7 +75,7 @@ export default () => {
     data: [
       {
         id: 123123,
-        text: 'sdafasdf',
+        text: 'Sampletesadf asdfa asdfasdsf asasdfasdfad asdasdfasdffas',
         date: '2007-12-12 12:12'
       }
     ],
@@ -90,12 +92,18 @@ export default () => {
     ],
     is_end: false
   }
-  let arr = [appointments, gallery, depts, notes, sms].reduce((arr, item) =>
-    arr.concat(item.data.map(i => { i.field_name = item.name; return i })), []).sort((a, b) => moment(b.date) - moment(a.date))
-  arr.reduce((pI, cI, ind) => {
-    if (moment(pI.date).format('YYYY-MM-DD') !== moment(cI.date).format('YYYY-MM-DD')) { cI.separator = true }
-    if (ind === 1) pI.separator = true
-    return cI
-  })
+  if (f.appointment) arr.push(appointments)
+  if (f.other) arr.push(notes, sms)
+  if (f.gallery) arr.push(gallery)
+  if (f.depts) arr.push(depts)
+  if (arr.length > 0) {
+    arr = arr.reduce((arr, item) =>
+      arr.concat(item.data.map(i => { i.field_name = item.name; return i })), []).sort((a, b) => moment(b.date) - moment(a.date))
+    arr[0].separator = true
+    arr.reduce((pI, cI) => {
+      if (moment(pI.date).format('YYYY-MM-DD') !== moment(cI.date).format('YYYY-MM-DD')) { cI.separator = true }
+      return cI
+    })
+  }
   return arr
 }
