@@ -1,42 +1,50 @@
 import mainRequestService from './request.service'
 
-export const appointments = () => {
-  const url = config.urls.main + '/customers-details/clients/123/timeline/appointments?start=2017-01-01&end=2017-01-07'
+const appointments = d => {
+  const url = config.urls.main + '/customers-details/clients/123/timeline/appointments?start=' + d.s + '&end=' + d.e
   const options = {
     mode: 'cors',
     method: 'GET'
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(r => r.json().then(r => r))
 }
-export const gallery = () => {
-  const url = config.urls.main + '/customers-details/clients/123/timeline/gallery?start=2017-01-01&end=2017-01-07'
+const gallery = d => {
+  const url = config.urls.main + '/customers-details/clients/123/timeline/gallery?start=' + d.s + '&end=' + d.e
   const options = {
     mode: 'cors',
     method: 'GET'
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(r => r.json().then(r => r))
 }
-export const depts = () => {
-  const url = config.urls.main + '/customers-details/clients/123/timeline/depts?start=2017-01-01&end=2017-01-07'
+const dept = d => {
+  const url = config.urls.main + '/customers-details/clients/123/timeline/depts?start=' + d.s + '&end=' + d.e
   const options = {
     mode: 'cors',
     method: 'GET'
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(r => r.json().then(r => r))
 }
-export const notes = () => {
-  const url = config.urls.main + '/customers-details/clients/123/timeline/notes?start=2017-01-01&end=2017-01-07'
+const note = d => {
+  const url = config.urls.main + '/customers-details/clients/123/timeline/notes?start=' + d.s + '&end=' + d.e
   const options = {
     mode: 'cors',
     method: 'GET'
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(r => r.json().then(r => r))
 }
-export const sms = () => {
-  const url = config.urls.main + '/customers-details/clients/123/timeline/sms?start=2017-01-01&end=2017-01-07'
+const sms = d => {
+  const url = config.urls.main + '/customers-details/clients/123/timeline/sms?start=' + d.s + '&end=' + d.e
   const options = {
     mode: 'cors',
     method: 'GET'
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(r => r.json().then(r => r))
+}
+export default (f, d) => {
+  let data = []
+  if (config.plugins_list.some(i => i === 'gallery') && f.gallery) data.push(gallery(d))
+  if (config.plugins_list.some(i => i === 'depts') && f.dept) data.push(dept(d))
+  if (f.appointment) data.push(appointments(d))
+  if (f.other) data.push(note(d), sms(d))
+  return data
 }

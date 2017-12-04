@@ -77,7 +77,8 @@ export default Component => {
       isVisible: false
     },
     timeline: {
-      share: false
+      share: false,
+      isVisibleGalleryButton: false
     }
   }
   const AccessRights = props => {
@@ -142,7 +143,8 @@ export default Component => {
         isVisible: true
       },
       timeline: {
-        share: true
+        share: true,
+        isVisibleGalleryButton: true
       }
     }
     const readonly = {

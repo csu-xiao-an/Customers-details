@@ -1,6 +1,6 @@
-import './appointments.styl'
+import './appointment.styl'
 
-export default class Appoinments extends React.Component {
+export default class Appoinment extends React.Component {
   static propTypes = {
     i: PropTypes.object.isRequired
   }

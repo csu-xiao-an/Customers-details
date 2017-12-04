@@ -1,6 +1,9 @@
-import './notes.styl'
+import './note.styl'
 
-export default class Notes extends React.Component {
+export default class Note extends React.Component {
+  state = {
+    isVisible: false
+  }
   static propTypes = {
     i: PropTypes.object.isRequired
   }
@@ -11,7 +14,7 @@ export default class Notes extends React.Component {
         <div className='icon-wrap'>
           <img src={config.urls.media + 'pencil.svg'} />
         </div>
-        <h1 className='text'>{this.props.i.text}</h1>
+        <h1 onClick={() => this.setState({isVisible: true})} className='text' style={this.state.isVisible ? {} : {height: '25px'}}>{this.props.i.text}</h1>
       </div>
     )
   }

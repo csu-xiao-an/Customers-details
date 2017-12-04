@@ -74,30 +74,33 @@ var config = {
     debts_t: 'Debts',
     other_t: 'Other',
     dept_created: 'Debt created at {time}',
+    dept_modified: 'Debt was updated at {time}',
+    dept_deleted: 'Debt was repaid at {time}',
     dept: 'Dept',
     dates: {
       months: {
-        1: 'January',
-        2: 'February',
-        3: 'March',
-        4: 'April',
-        5: 'May',
-        6: 'June',
-        7: 'July',
-        8: 'August',
-        9: 'September',
-        10: 'October',
-        11: 'November',
-        12: 'December'
+        0: 'January',
+        1: 'February',
+        2: 'March',
+        3: 'April',
+        4: 'May',
+        5: 'June',
+        6: 'July',
+        7: 'August',
+        8: 'September',
+        9: 'October',
+        10: 'November',
+        11: 'December'
       },
       weekdays: {
+        0: 'Sunday',
         1: 'Monday',
         2: 'Tuesday',
         3: 'Wednesday',
         4: 'Thursday',
         5: 'Friday',
-        6: 'Saturday',
-        7: 'Sunday'
+        6: 'Saturday'
+
       },
       days: {
         '-1': 'Yesterday ',
@@ -142,8 +145,8 @@ var config = {
     gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
     appointment: '/creating-appointment/',
     main: 'https://api.bewebmaster.co.il',
+    worker_img: '/worker/{worker_id}.jpg',
     groups_img: './dist/media/groups/',
-    worker_img: '/worker/{worker_id}',
     soc_net: './dist/media/soc_net/',
     recommended_by: 'recommended_by',
     gallery: './dist/media/galery/',
