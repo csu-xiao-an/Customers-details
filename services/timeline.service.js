@@ -41,10 +41,11 @@ const sms = d => {
   return mainRequestService(url, options).then(r => r.json().then(r => r))
 }
 export default (f, d) => {
-  let data = []
-  if (config.plugins_list.some(i => i === 'gallery') && f.gallery) data.push(gallery(d))
-  if (config.plugins_list.some(i => i === 'depts') && f.dept) data.push(dept(d))
-  if (f.appointment) data.push(appointments(d))
-  if (f.other) data.push(note(d), sms(d))
-  return data
+  let array = []
+  f.some(i => i === 'appointments') && array.push(appointments(d))
+  f.some(i => i === 'gallery') && array.push(gallery(d))
+  f.some(i => i === 'dept') && array.push(dept(d))
+  f.some(i => i === 'note') && array.push(note(d))
+  f.some(i => i === 'sms') && array.push(sms(d))
+  return array
 }
