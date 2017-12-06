@@ -5,7 +5,22 @@ var config = {
     business_id: 123,
     worker_id: 1
   },
-  plugins_list: ['gallery', 'depts'],
+  plugins_list: ['gallery', 'depts', 'punch_cards'],
+  punch_cards: [
+    {
+      id: 3,
+      procedure_name: 'поход в Spa',
+      procedure_id: 15,
+      procedure_count: 10,
+      sum: 450,
+      uses: [
+        {date: '2017-01-01'},
+        {date: '2017-02-04'},
+        {date: '2017-03-07'}
+      ],
+      expiration: '2017-12-31'
+    }
+  ],
   isRtL: false,
   translations: {
     language: 'en',
@@ -77,6 +92,7 @@ var config = {
     dept_modified: 'Debt was updated at {time}',
     dept_deleted: 'Debt was repaid at {time}',
     dept: 'Dept',
+    punch_cards_adding: 'Add punch cards',
     dates: {
       months: {
         0: 'January',
@@ -134,6 +150,7 @@ var config = {
   },
   urls: {
     adress: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
+    timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
     signature: '/customers-details/clients/{client_id}/signature',
     media_url: '/customers-details/clients/{client_id}/media',
     fill: '/customers-details/clients/{client_id}/filling-up',
@@ -143,6 +160,7 @@ var config = {
     clients: '/customers-details/clients/{client_id}',
     add_client_url: '/add-client/clients?q={query}',
     gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
+    punch_cards_adding: '/punch_cards_adding',
     appointment: '/creating-appointment/',
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_id}.jpg',
@@ -150,6 +168,7 @@ var config = {
     soc_net: './dist/media/soc_net/',
     recommended_by: 'recommended_by',
     gallery: './dist/media/galery/',
+    punch_cards: '/punch_cards',
     isFavorite: 'isFavorite',
     permit_ads: 'permit_ads',
     media: './dist/media/',
@@ -184,6 +203,7 @@ var config = {
     max_side: 1000,
     timeout: 500,
     hot_links: [
+      {label: 'Punch cards', url: '/punch_cards'},
       {label: 'Timeline', url: '/timeline'},
       {label: 'Gallery', url: '#gallery'},
       {label: 'Depts', url: '#depts'},
