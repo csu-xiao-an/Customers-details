@@ -33,7 +33,7 @@ class Timeline extends React.Component {
   init = () => {
     const list = this.refs.list
     const exp = () => {
-      if (window.pageYOffset >= document.body.clientHeight - (window.innerHeight * 2)) {
+      if (window.pageYOffset > document.body.clientHeight - (window.innerHeight * 2)) {
         !this.state.flag && this.setState({flag: true}, () => this.getData())
       }
     }
@@ -42,62 +42,44 @@ class Timeline extends React.Component {
     list.addEventListener('touchend', exp, false)
   }
   getData = () => {
-    let date = {}
-    date.e = moment().subtract(count * 7, 'days').format('YYYY-MM-DD')
-    date.s = moment().subtract((count + 1) * 7, 'days').format('YYYY-MM-DD')
-    let data = array(isEnd, date)
+    let data = array(isEnd, {
+      e: moment().subtract(count * 7, 'days').format('YYYY-MM-DD'),
+      s: moment().subtract((count + 1) * 7, 'days').format('YYYY-MM-DD')})
     if (data.length > 0) {
-      Promise.all(data)
-        .then(r => {
-          isEnd = r.filter(i => !i.is_end).map(i => i.name)
-          data = r.reduce((arr, item) => arr.concat(item.data.map(i => {
-            i.field_name = item.name
-            if (!this.state.filter.appointments) {
-              if (i.field_name === 'appointments') i.isHide = true
-            } else if (!this.state.filter.gallery) {
-              if (i.field_name === 'gallery') i.isHide = true
-            } else if (!this.state.filter.dept) {
-              if (i.field_name === 'dept') i.isHide = true
-            } else if (!this.state.filter.other) {
-              if (i.field_name === 'note' || i.field_name === 'sms') i.isHide = true
-            }
-            return i
-          })), [])
-          data.sort((a, b) => moment(b.date) - moment(a.date))
-          data[0].separator = true
-          data.reduce((pI, cI) => {
-            if (moment(pI.date).format('YYYY-MM-DD') !== moment(cI.date).format('YYYY-MM-DD')) { cI.separator = true }
-            return cI
-          })
-          count++
-          this.setState({flag: false, data: this.state.data.concat(data)})
+      Promise.all(data).then(r => {
+        isEnd = r.filter(i => !i.is_end).map(i => i.name)
+        data = r.reduce((arr, item) => arr.concat(item.data.map(i => {
+          i.field_name = item.name
+          if (!this.state.filter.appointments && i.field_name === 'appointments') { i.isHide = true } else
+          if (!this.state.filter.gallery && i.field_name === 'gallery') { i.isHide = true } else
+          if (!this.state.filter.dept && i.field_name === 'dept') { i.isHide = true } else
+          if (!this.state.filter.other && (i.field_name === 'note' || i.field_name === 'sms')) { i.isHide = true }
+          i.deleted_date ? i.sort = i.deleted_date : i.modified_date ? i.sort = i.modified_date : i.sort = i.date
+          return i
+        })), [])
+        data.sort((a, b) => moment(b.sort) - moment(a.sort))
+        data[0].separator = true
+        data.reduce((pI, cI) => {
+          if (moment(pI.date).format('YYYY-MM-DD') !== moment(cI.date).format('YYYY-MM-DD')) cI.separator = true
+          return cI
         })
+        count++
+        this.setState({flag: false, data: this.state.data.concat(data)})
+      })
     } else {
       this.setState({flag: false})
     }
   }
   filter = p => {
-    if (this.state.filter[p]) {
+    const f = b => {
       this.setState({data: this.state.data.map(i => {
-        if (p !== 'other') {
-          if (i.field_name === p) { i.isHide = true }
-        } else {
-          if (i.field_name === 'sms' || i.field_name === 'note') { i.isHide = true }
-        }
+        if (p !== 'other' && i.field_name === p) { i.isHide = b } else
+        if (p === 'other' && (i.field_name === 'sms' || i.field_name === 'note')) i.isHide = b
         return i
       }),
-      filter: { ...this.state.filter, [p]: false }})
-    } else {
-      this.setState({data: this.state.data.map(i => {
-        if (p !== 'other') {
-          if (i.field_name === p) { i.isHide = false }
-        } else {
-          if (i.field_name === 'sms' || i.field_name === 'note') { i.isHide = false }
-        }
-        return i
-      }),
-      filter: { ...this.state.filter, [p]: true }})
+      filter: { ...this.state.filter, [p]: !b }})
     }
+    this.state.filter[p] ? f(true) : f(false)
   }
   render () {
     const fields = {

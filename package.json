@@ -1,6 +1,10 @@
 {
   "name": "customers",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Doc999tor/Customers-details"
+  },
   "main": "main.js",
   "description": "",
   "license": "ISC",
