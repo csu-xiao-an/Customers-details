@@ -9,12 +9,70 @@ var config = {
   punch_cards: [
     {
       id: 3,
+      procedure_name: 'Spa',
+      procedure_id: 15,
+      procedure_count: 10,
+      sum: 480,
+      uses: [
+        {date: '2017-01-01'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
+        {date: '2017-03-07'}
+      ]
+    },
+    {
+      id: 3,
       procedure_name: 'поход в Spa',
       procedure_id: 15,
       procedure_count: 10,
-      sum: 450,
+      sum: 750,
       uses: [
         {date: '2017-01-01'},
+        {date: '2017-02-04'},
+        {date: '2017-03-07'}
+      ]
+    },
+    {
+      id: 3,
+      procedure_name: 'поход в Spa',
+      procedure_id: 15,
+      procedure_count: 10,
+      sum: 150,
+      uses: [
+        {date: '2017-01-01'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
+        {date: '2017-03-07'}
+      ],
+      expiration: '2017-12-31'
+    },
+    {
+      id: 3,
+      procedure_name: 'поход в Spa',
+      procedure_id: 15,
+      procedure_count: 10,
+      sum: 50,
+      uses: [
+        {date: '2017-01-01'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
+        {date: '2017-03-07'}
+      ]
+    },
+    {
+      id: 3,
+      procedure_name: 'поход в Spa',
+      procedure_id: 15,
+      procedure_count: 10,
+      sum: 250,
+      uses: [
+        {date: '2017-01-01'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
+        {date: '2017-02-04'},
         {date: '2017-02-04'},
         {date: '2017-03-07'}
       ],
@@ -93,6 +151,8 @@ var config = {
     dept_deleted: 'Debt was repaid at {time}',
     dept: 'Dept',
     punch_cards_adding: 'Add punch cards',
+    punch_topnav: 'Punch "{client_name}"',
+    punch: 'Punch',
     dates: {
       months: {
         0: 'January',

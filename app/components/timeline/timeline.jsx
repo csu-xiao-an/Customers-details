@@ -91,7 +91,7 @@ class Timeline extends React.Component {
     }
     return (
       <div id='timeline'>
-        <Topnav {...this.props} />
+        <Topnav {...this.props} timeline />
         <div className='list' ref='list'>
           {this.state.data.length > 0 && this.state.data.map(i => !i.isHide && <div>
             {i.separator && <div className='separator-wrap'><div className='separator'>

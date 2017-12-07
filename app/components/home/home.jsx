@@ -25,7 +25,7 @@ class Home extends React.Component {
   render () {
     return (
       <div id='home'>
-        <Topnav {...this.props} customersDetails />
+        <Topnav {...this.props} home />
         <Hero {...this.props} />
         <HotLinks {...this.props} />
         {config.data.recent_appoinments && <Events {...this.props} />}
