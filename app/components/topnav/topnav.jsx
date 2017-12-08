@@ -28,10 +28,6 @@ export default class Topnav extends React.Component {
             {this.props.punch && <img className='add' src={config.urls.media + 'add_bt.svg'} onClick={this.handleCreateModal} />}
           </div>
         </div>
-        {this.props.home && <div className='buttons'>
-          <div className='customers-wrap'><button>{config.translations.customer}</button></div>
-          <div className='appointments-wrap'><button >{this.countAppointment()} - {config.translations.appointment}</button></div>
-        </div>}
       </div>
     )
   }
