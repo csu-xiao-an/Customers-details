@@ -8,8 +8,8 @@ var config = {
   plugins_list: ['gallery', 'depts', 'punch_cards'],
   punch_cards: [
     {
-      id: 3,
-      procedure_name: 'Spa',
+      id: 10,
+      procedure_name: 'aSpa',
       procedure_id: 15,
       procedure_count: 10,
       sum: 480,
@@ -23,10 +23,10 @@ var config = {
       ]
     },
     {
-      id: 3,
-      procedure_name: 'поход в Spa',
+      id: 2,
+      procedure_name: 'пд в Spa',
       procedure_id: 15,
-      procedure_count: 10,
+      procedure_count: 3,
       sum: 750,
       uses: [
         {date: '2017-01-01'},
@@ -35,10 +35,10 @@ var config = {
       ]
     },
     {
-      id: 3,
-      procedure_name: 'поход в Spa',
+      id: 300,
+      procedure_name: 'по3од в Spa',
       procedure_id: 15,
-      procedure_count: 10,
+      procedure_count: 3,
       sum: 150,
       uses: [
         {date: '2017-01-01'},
@@ -50,10 +50,10 @@ var config = {
       expiration: '2017-12-31'
     },
     {
-      id: 3,
-      procedure_name: 'поход в Spa',
+      id: 4,
+      procedure_name: 'под в Spa',
       procedure_id: 15,
-      procedure_count: 10,
+      procedure_count: 15,
       sum: 50,
       uses: [
         {date: '2017-01-01'},
@@ -63,10 +63,10 @@ var config = {
       ]
     },
     {
-      id: 3,
+      id: 5,
       procedure_name: 'поход в Spa',
       procedure_id: 15,
-      procedure_count: 10,
+      procedure_count: 2,
       sum: 250,
       uses: [
         {date: '2017-01-01'},
