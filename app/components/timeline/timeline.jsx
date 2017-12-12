@@ -1,4 +1,5 @@
 import Appointment from './components/appointment/appointment.jsx'
+import PunchCard from './components/punch-card/punch-card.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import Gallery from './components/gallery/gallery.jsx'
 import Dept from './components/dept/dept.jsx'
@@ -8,7 +9,7 @@ import Topnav from '../topnav/topnav.jsx'
 import {array} from 'project-services'
 import './timeline.styl'
 
-let isEnd = ['appointments', 'gallery', 'dept', 'note', 'sms']
+let isEnd = ['appointments', 'notes', 'sms']
 let count = 0
 
 class Timeline extends React.Component {
@@ -17,9 +18,10 @@ class Timeline extends React.Component {
     data: [],
     filter: {
       appointments: true,
+      punch_cards: true,
       gallery: true,
-      dept: true,
-      other: true
+      other: true,
+      depts: true
     }
   }
   static propTypes = {
@@ -27,6 +29,7 @@ class Timeline extends React.Component {
   }
   componentWillMount = () => {
     if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+    config.plugins_list.forEach(i => isEnd.push(i))
     this.getData()
   }
   componentDidMount = () => this.init()
@@ -50,11 +53,14 @@ class Timeline extends React.Component {
         isEnd = r.filter(i => !i.is_end).map(i => i.name)
         data = r.reduce((arr, item) => arr.concat(item.data.map(i => {
           i.field_name = item.name
+          if (!this.state.filter.other && (i.field_name === 'notes' || i.field_name === 'sms')) { i.isHide = true } else
           if (!this.state.filter.appointments && i.field_name === 'appointments') { i.isHide = true } else
+          if (!this.state.filter.punch_cards && i.field_name === 'punch_cards') { i.isHide = true } else
           if (!this.state.filter.gallery && i.field_name === 'gallery') { i.isHide = true } else
-          if (!this.state.filter.dept && i.field_name === 'dept') { i.isHide = true } else
-          if (!this.state.filter.other && (i.field_name === 'note' || i.field_name === 'sms')) { i.isHide = true }
-          i.deleted_date ? i.sort = i.deleted_date : i.modified_date ? i.sort = i.modified_date : i.sort = i.date
+          if (!this.state.filter.depts && i.field_name === 'depts') { i.isHide = true }
+          i.uses && i.uses.length > 0 && i.uses.sort((a, b) => moment(b.date) - moment(a.date))
+          i.deleted_date ? i.sort = i.deleted_date : i.modified_date ? i.sort = i.modified_date
+            : i.uses && i.uses.length > 0 ? i.sort = i.uses[0].date : i.date ? i.sort = i.date : i.sort = i.added_date
           return i
         })), [])
         data.sort((a, b) => moment(b.sort) - moment(a.sort))
@@ -74,7 +80,7 @@ class Timeline extends React.Component {
     const f = b => {
       this.setState({data: this.state.data.map(i => {
         if (p !== 'other' && i.field_name === p) { i.isHide = b } else
-        if (p === 'other' && (i.field_name === 'sms' || i.field_name === 'note')) i.isHide = b
+        if (p === 'other' && (i.field_name === 'sms' || i.field_name === 'notes')) i.isHide = b
         return i
       }),
       filter: { ...this.state.filter, [p]: !b }})
@@ -84,9 +90,10 @@ class Timeline extends React.Component {
   render () {
     const fields = {
       appointments: i => <Appointment i={i} {...this.props} />,
+      punch_cards: i => <PunchCard i={i} {...this.props} />,
       gallery: i => <Gallery i={i} {...this.props} />,
-      dept: i => <Dept i={i} {...this.props} />,
-      note: i => <Note i={i} {...this.props} />,
+      depts: i => <Dept i={i} {...this.props} />,
+      notes: i => <Note i={i} {...this.props} />,
       sms: i => <Sms i={i} {...this.props} />
     }
     return (
@@ -111,14 +118,18 @@ class Timeline extends React.Component {
             <img className={this.state.filter.gallery ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
             <h1>{config.translations.gallery}</h1>
           </div>}
-          {config.plugins_list.some(i => i === 'depts') && <div onClick={() => this.filter('dept')}>
-            <img className={this.state.filter.dept ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
+          {config.plugins_list.some(i => i === 'depts') && <div onClick={() => this.filter('depts')}>
+            <img className={this.state.filter.depts ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
             <h1>{config.translations.debts_t}</h1>
           </div>}
           <div onClick={() => this.filter('other')}>
             <img className={this.state.filter.other ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
             <h1>{config.translations.other_t}</h1>
           </div>
+          {config.plugins_list.some(i => i === 'punch_cards') && <div onClick={() => this.filter('punch_cards')}>
+            <img className={this.state.filter.punch_cards ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
+            <h1>{config.translations.punch_cards}</h1>
+          </div>}
         </div>
       </div>
     )

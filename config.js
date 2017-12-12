@@ -153,6 +153,10 @@ var config = {
     punch_cards_adding: 'Add punch cards',
     punch_topnav: 'Punch "{client_name}"',
     punch: 'Punch',
+    punch_cards: 'Punch cards',
+    punch_create: 'Punch was created: {name}, {count} uses',
+    punch_use: 'Punch was used: {name}, {countCur}/{count} uses',
+    punch_end: 'Punch end: {name}',
     dates: {
       months: {
         0: 'January',

@@ -1,34 +1,11 @@
 import mainRequestService from './request.service'
 
-const mainUrl = config.urls.main + config.urls.media_url.replace('{client_id}', config.data.id)
-
 export const postService = body => {
+  const url = config.urls.main + config.urls.media_url.replace('{client_id}', config.data.id)
   const options = {
     mode: 'cors',
     method: 'POST',
     body
-  }
-  return mainRequestService(mainUrl, options)
-}
-
-export const replaceService = (body, id) => {
-  const url = mainUrl + '/' + id
-  const options = {
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    method: 'PATCH',
-    body
-  }
-  return mainRequestService(url, options)
-}
-
-export const deleteService = id => {
-  const url = mainUrl + '/' + id
-  const options = {
-    mode: 'cors',
-    method: 'DELETE'
   }
   return mainRequestService(url, options)
 }
