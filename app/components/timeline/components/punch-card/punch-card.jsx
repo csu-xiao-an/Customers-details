@@ -20,7 +20,7 @@ export default class PunchCard extends React.Component {
   render () {
     return (
       <div id='punch-card'>
-        <div className='order-in'>{moment(this.props.i.added_date).format('HH:hh')}</div>
+        <div className='order-in'>{moment(this.props.i.date).format('HH:hh')}</div>
         <div className='icon-wrap'>
           <img src={config.urls.media + 'calendar.png'} />
         </div>
