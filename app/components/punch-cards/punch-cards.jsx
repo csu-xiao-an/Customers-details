@@ -1,3 +1,4 @@
+import SinglePunch from './components/single-punch/single-punch.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import {Swiper} from 'project-components'
 import Topnav from '../topnav/topnav.jsx'
@@ -24,6 +25,7 @@ class PunchCards extends React.Component {
     })
     return slide
   }
+  update = () => this.forceUpdate()
   render () {
     return (
       <div id='punch_cards'>
@@ -47,14 +49,7 @@ class PunchCards extends React.Component {
             </Swiper>
           </div>
         </div>
-        <div className='single-punch'>
-          <div className='triangle-down-wrap'>
-            <div className='triangle-down' />
-          </div>
-          <div className='punch-data'>
-            {this.state.punch.procedure_name}
-          </div>
-        </div>
+        <SinglePunch i={this.state.punch} update={this.update} />
         <div className='test' />
       </div>
     )

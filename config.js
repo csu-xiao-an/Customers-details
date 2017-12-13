@@ -157,6 +157,13 @@ var config = {
     punch_create: 'Punch was created: {name}, {count} uses',
     punch_use: 'Punch was used: {name}, {countCur}/{count} uses',
     punch_end: 'Punch end: {name}',
+    is_valid: 'Is valid until ',
+    left: 'Left',
+    days: 'days',
+    use: 'Use',
+    delete_punch: 'Delete punch',
+    delete: 'Delete',
+    punch_questions: 'Are you sure you want to delete this punch?',
     dates: {
       months: {
         0: 'January',
@@ -215,6 +222,7 @@ var config = {
   urls: {
     adress: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
     timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
+    punch_cards_req: '/customers-details/clients/{client_id}/punch_cards',
     signature: '/customers-details/clients/{client_id}/signature',
     media_url: '/customers-details/clients/{client_id}/media',
     fill: '/customers-details/clients/{client_id}/filling-up',
