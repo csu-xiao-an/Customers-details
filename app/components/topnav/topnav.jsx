@@ -1,4 +1,5 @@
 import './topnav.styl'
+const {Link} = ReactRouterDOM
 
 export default class Topnav extends React.Component {
   static propTypes = {
@@ -25,7 +26,7 @@ export default class Topnav extends React.Component {
           {this.props.punch && <div className='client-name'><h1>{config.translations.punch_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           <div className='edit-wrap'>
             {this.props.home && <button className='edit'>{config.translations.edit}</button>}
-            {this.props.punch && <img className='add' src={config.urls.media + 'add_bt.svg'} onClick={this.handleCreateModal} />}
+            {this.props.punch && <Link to={config.urls.punch_cards_adding}><img className='add' src={config.urls.media + 'add_bt.svg'} onClick={this.handleCreateModal} /></Link>}
           </div>
         </div>
       </div>

@@ -14,12 +14,22 @@ var config = {
       procedure_count: 10,
       sum: 480,
       uses: [
-        {date: '2017-01-01'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-03-07'}
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        }
       ]
     },
     {
@@ -29,9 +39,30 @@ var config = {
       procedure_count: 3,
       sum: 750,
       uses: [
-        {date: '2017-01-01'},
-        {date: '2017-02-04'},
-        {date: '2017-03-07'}
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        }
       ]
     },
     {
@@ -41,11 +72,18 @@ var config = {
       procedure_count: 3,
       sum: 150,
       uses: [
-        {date: '2017-01-01'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-03-07'}
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        }
       ],
       expiration: '2017-12-31'
     },
@@ -56,10 +94,22 @@ var config = {
       procedure_count: 15,
       sum: 50,
       uses: [
-        {date: '2017-01-01'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-03-07'}
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        }
       ]
     },
     {
@@ -69,12 +119,26 @@ var config = {
       procedure_count: 2,
       sum: 250,
       uses: [
-        {date: '2017-01-01'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-02-04'},
-        {date: '2017-03-07'}
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        },
+        {
+          id: 1,
+          date: '2017-01-01'
+        }
       ],
       expiration: '2017-12-31'
     }
@@ -232,7 +296,7 @@ var config = {
     clients: '/customers-details/clients/{client_id}',
     add_client_url: '/add-client/clients?q={query}',
     gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
-    punch_cards_adding: '/punch_cards_adding',
+    punch_cards_adding: '/punch_cards/adding',
     appointment: '/creating-appointment/',
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_id}.jpg',

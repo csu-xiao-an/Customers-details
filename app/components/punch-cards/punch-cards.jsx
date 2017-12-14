@@ -34,7 +34,7 @@ class PunchCards extends React.Component {
           <div className='punch-label-wrap'><div className={'punch-label ' + (config.isRtL ? 'right' : 'left')}>{config.translations.punch}
             <span> ({config.punch_cards.length})</span></div></div>
           <div id='swiper-wrap-punch'>
-            <Swiper pagination='.swiper-pagination' slidesPerView='auto' initialSlide={this.initialSlide()} centeredSlides>
+            <Swiper pagination='.swiper-pagination' slidesPerView='auto' initialSlide={this.initialSlide()} centeredSlides observer>
               {config.punch_cards.map(i => <div>
                 <div className='punch' style={!i.isActive ? {backgroundColor: 'lightgray'} : {}} onClick={() => this.setState({punch: i})}>
                   <h1 className='name'>{i.procedure_name}</h1>

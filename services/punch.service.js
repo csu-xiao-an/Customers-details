@@ -24,7 +24,7 @@ export const deleteService = id => {
 }
 
 export const deleteServiceUse = (Pid, Uid) => {
-  const url = mainUrl + '/' + Pid + '/use' + Uid
+  const url = mainUrl + '/' + Pid + '/use/' + Uid
   const options = {
     mode: 'cors',
     method: 'DELETE'

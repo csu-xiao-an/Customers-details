@@ -1,19 +1,28 @@
+import {punchPostService} from 'project-services'
 import Delete from '../modal-delete/modal-delete.jsx'
 import './single-punch.styl'
 
 export default class SinglePunch extends React.Component {
   state = {
-    isVisibleModalConfirmed: false
+    isVisibleModalConfirmed: false,
+    isUse: false
   }
   static propTypes = {
     update: PropTypes.func.isRequired,
     i: PropTypes.object.isRequired
   }
-  handleConfirmedModal = () => this.setState({isVisibleModalConfirmed: !this.state.isVisibleModalConfirmed}, () => this.props.update())
+  use = () => {
+    punchPostService(this.props.i.id).then(r => r)
+  }
+  handleConfirmedModal = () => {
+    this.setState({isVisibleModalConfirmed: !this.state.isVisibleModalConfirmed}, () => this.props.update())
+    if (this.state.isVisibleModalConfirmed) this.setState({isUse: false})
+  }
   render () {
     return (
       <div id='single-punch'>
-        <Delete handleConfirmedModal={this.handleConfirmedModal} isVisibleModalConfirmed={this.state.isVisibleModalConfirmed} id={this.props.i.id} />
+        <Delete handleConfirmedModal={this.handleConfirmedModal} isVisibleModalConfirmed={this.state.isVisibleModalConfirmed}
+          id={this.props.i.id} use={this.state.isUse} />
         <div className='triangle-down-wrap'>
           <div className='triangle-down' />
         </div>
@@ -33,17 +42,17 @@ export default class SinglePunch extends React.Component {
             </h1>
           </div>
           <div className='use-wrap'>
-            <div className='button'>
+            <div className='button' onClick={this.use}>
               <h1 className='use'>{config.translations.use}</h1>
             </div>
             <div className='info'>
-              <h1><span>{this.props.i.uses.length}</span>/{this.props.i.procedure_count}</h1>
+              <h1><span>{this.props.i.uses.length + (this.props.i.uses.length === this.props.i.procedure_count ? 0 : 1)}</span>/{this.props.i.procedure_count}</h1>
             </div>
           </div>
           <div className='punch-data-uses-list'>
             {this.props.i.uses.map((i, k) => <div className='uses'>
               <div className='check-wrap'>
-                <img src={config.urls.media + 'check-ok.svg'} />
+                <img src={config.urls.media + 'check-ok.svg'} onClick={() => this.setState({isUse: i.id}, () => this.handleConfirmedModal())} />
               </div>
               <h1 className='count'>{this.props.i.uses.length - k}</h1>
               <h1 className='date'>{i.date}</h1>

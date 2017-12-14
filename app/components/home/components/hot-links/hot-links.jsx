@@ -1,4 +1,3 @@
-import {Swiper} from 'project-components'
 import './hot-links.styl'
 const {Link} = ReactRouterDOM
 
