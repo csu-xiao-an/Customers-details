@@ -25,6 +25,11 @@ class PunchCards extends React.Component {
     })
     return slide
   }
+  updateSingle = () => {
+    if (config.punch_cards.every(i => {
+      if (i.isActive) { this.setState({punch: i}); return false } else return true
+    })) this.setState({punch: config.punch_cards[0]})
+  }
   update = () => this.forceUpdate()
   render () {
     return (
@@ -49,7 +54,7 @@ class PunchCards extends React.Component {
             </Swiper>
           </div>
         </div>
-        <SinglePunch i={this.state.punch} update={this.update} />
+        <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} />
         <div className='test' />
       </div>
     )

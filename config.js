@@ -226,8 +226,10 @@ var config = {
     days: 'days',
     use: 'Use',
     delete_punch: 'Delete punch',
+    delete_use: 'Delete use',
     delete: 'Delete',
     punch_questions: 'Are you sure you want to delete this punch?',
+    use_questions: 'Are you sure you want to delete this use?',
     dates: {
       months: {
         0: 'January',

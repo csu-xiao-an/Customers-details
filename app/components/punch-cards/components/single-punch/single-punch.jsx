@@ -15,14 +15,14 @@ export default class SinglePunch extends React.Component {
     punchPostService(this.props.i.id).then(r => r)
   }
   handleConfirmedModal = () => {
-    this.setState({isVisibleModalConfirmed: !this.state.isVisibleModalConfirmed}, () => this.props.update())
+    this.setState({isVisibleModalConfirmed: !this.state.isVisibleModalConfirmed}, () => !this.state.isVisibleModalConfirmed && this.props.update())
     if (this.state.isVisibleModalConfirmed) this.setState({isUse: false})
   }
   render () {
     return (
       <div id='single-punch'>
         <Delete handleConfirmedModal={this.handleConfirmedModal} isVisibleModalConfirmed={this.state.isVisibleModalConfirmed}
-          id={this.props.i.id} use={this.state.isUse} />
+          id={this.props.i.id} use={this.state.isUse} {...this.props} />
         <div className='triangle-down-wrap'>
           <div className='triangle-down' />
         </div>
