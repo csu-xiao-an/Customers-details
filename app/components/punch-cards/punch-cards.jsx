@@ -10,8 +10,9 @@ class PunchCards extends React.Component {
   }
   componentWillMount = () => {
     config.punch_cards.forEach(i => {
-      if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.procedure_count) || i.uses.length < i.procedure_count) i.isActive = true
-      else i.isActive = false
+      i.uses.length < i.procedure_count
+        ? i.expiration ? moment(i.expiration) > moment() ? i.isActive = true : i.isActive = false : i.isActive = true
+        : i.isActive = false
     })
     config.punch_cards.sort((a, b) => a.id - b.id).sort((a, b) => a.isActive - b.isActive)
     config.punch_cards.every(i => {
@@ -44,10 +45,7 @@ class PunchCards extends React.Component {
                 <div className='punch' style={!i.isActive ? {backgroundColor: 'lightgray'} : {}} onClick={() => this.setState({punch: i})}>
                   <h1 className='name'>{i.procedure_name}</h1>
                   <h1 className='count'><span>{i.uses.length}</span>/{i.procedure_count}</h1>
-                  <div className='date-wrap'>
-                    <h1 className='date'>{i.expiration}</h1>
-                    <h1 className='sum'>{i.sum}{config.data.currency}</h1>
-                  </div>
+                  <h1 className='sum'>{i.sum}{config.data.currency}</h1>
                 </div>
               </div>
               )}

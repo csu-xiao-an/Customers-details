@@ -2,14 +2,15 @@ import mainRequestService from './request.service'
 
 const mainUrl = config.urls.main + config.urls.punch_cards_req.replace('{client_id}', config.data.id)
 
-export const postService = id => {
+export const postService = (id, body) => {
   const url = mainUrl + '/' + id + '/use'
   const options = {
     mode: 'cors',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    method: 'POST'
+    method: 'POST',
+    body
   }
   return mainRequestService(url, options)
 }

@@ -13,22 +13,23 @@ var config = {
       procedure_id: 15,
       procedure_count: 10,
       sum: 480,
+      date: '2017-01-01',
       uses: [
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         }
       ]
     },
@@ -36,32 +37,33 @@ var config = {
       id: 2,
       procedure_name: 'пд в Spa',
       procedure_id: 15,
-      procedure_count: 3,
+      procedure_count: 6,
       sum: 750,
+      date: '2017-01-01',
       uses: [
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         }
       ]
     },
@@ -71,18 +73,19 @@ var config = {
       procedure_id: 15,
       procedure_count: 3,
       sum: 150,
+      date: '2017-01-01',
       uses: [
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         }
       ],
       expiration: '2017-12-31'
@@ -93,22 +96,23 @@ var config = {
       procedure_id: 15,
       procedure_count: 15,
       sum: 50,
+      date: '2017-01-01',
       uses: [
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         }
       ]
     },
@@ -116,31 +120,28 @@ var config = {
       id: 5,
       procedure_name: 'поход в Spa',
       procedure_id: 15,
-      procedure_count: 2,
+      procedure_count: 5,
       sum: 250,
+      date: '2017-01-01',
       uses: [
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         },
         {
           id: 1,
-          date: '2017-01-01'
-        },
-        {
-          id: 1,
-          date: '2017-01-01'
+          date: '2017-01-01T12:00:00Z'
         }
       ],
-      expiration: '2017-12-31'
+      expiration: '2017-11-31'
     }
   ],
   isRtL: false,
@@ -230,6 +231,8 @@ var config = {
     delete: 'Delete',
     punch_questions: 'Are you sure you want to delete this punch?',
     use_questions: 'Are you sure you want to delete this use?',
+    from: ' from {count}',
+    used: 'Used ',
     dates: {
       months: {
         0: 'January',
