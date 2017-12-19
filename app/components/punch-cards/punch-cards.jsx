@@ -10,7 +10,7 @@ class PunchCards extends React.Component {
   }
   componentWillMount = () => {
     config.punch_cards.forEach(i => {
-      i.uses.length < i.procedure_count
+      i.uses.length < i.service_count
         ? i.expiration ? moment(i.expiration) > moment() ? i.isActive = true : i.isActive = false : i.isActive = true
         : i.isActive = false
     })
@@ -43,8 +43,8 @@ class PunchCards extends React.Component {
             <Swiper pagination='.swiper-pagination' slidesPerView='auto' initialSlide={this.initialSlide()} centeredSlides observer>
               {config.punch_cards.map(i => <div>
                 <div className='punch' style={!i.isActive ? {backgroundColor: 'lightgray'} : {}} onClick={() => this.setState({punch: i})}>
-                  <h1 className='name'>{i.procedure_name}</h1>
-                  <h1 className='count'><span>{i.uses.length}</span>/{i.procedure_count}</h1>
+                  <h1 className='name'>{i.service_name}</h1>
+                  <h1 className='count'><span>{i.uses.length}</span>/{i.service_count}</h1>
                   <h1 className='sum'>{i.sum}{config.data.currency}</h1>
                 </div>
               </div>

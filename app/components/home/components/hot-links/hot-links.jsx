@@ -29,7 +29,7 @@ export default class HotLinks extends React.Component {
   }
   componentWillMount = () => {
     config.punch_cards.forEach(i => {
-      if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.procedure_count) || i.uses.length < i.procedure_count) i.isActive = true
+      if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.service_count) || i.uses.length < i.service_count) i.isActive = true
     })
     this.setState({isActivePunchCard: config.punch_cards.some(i => i.isActive)})
   }

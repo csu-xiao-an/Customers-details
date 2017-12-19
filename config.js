@@ -9,9 +9,9 @@ var config = {
   punch_cards: [
     {
       id: 10,
-      procedure_name: 'aSpa',
-      procedure_id: 15,
-      procedure_count: 10,
+      service_name: 'aSpa',
+      service_id: 15,
+      service_count: 10,
       sum: 480,
       date: '2017-01-01',
       uses: [
@@ -35,9 +35,9 @@ var config = {
     },
     {
       id: 2,
-      procedure_name: 'пд в Spa',
-      procedure_id: 15,
-      procedure_count: 6,
+      service_name: 'пд в Spa',
+      service_id: 15,
+      service_count: 6,
       sum: 750,
       date: '2017-01-01',
       uses: [
@@ -69,9 +69,9 @@ var config = {
     },
     {
       id: 300,
-      procedure_name: 'по3од в Spa',
-      procedure_id: 15,
-      procedure_count: 3,
+      service_name: 'по3од в Spa',
+      service_id: 15,
+      service_count: 3,
       sum: 150,
       date: '2017-01-01',
       uses: [
@@ -92,9 +92,9 @@ var config = {
     },
     {
       id: 4,
-      procedure_name: 'под в Spa',
-      procedure_id: 15,
-      procedure_count: 15,
+      service_name: 'под в Spa',
+      service_id: 15,
+      service_count: 15,
       sum: 50,
       date: '2017-01-01',
       uses: [
@@ -118,9 +118,9 @@ var config = {
     },
     {
       id: 5,
-      procedure_name: 'поход в Spa',
-      procedure_id: 15,
-      procedure_count: 5,
+      service_name: 'поход в Spa',
+      service_id: 15,
+      service_count: 5,
       sum: 250,
       date: '2017-01-01',
       uses: [

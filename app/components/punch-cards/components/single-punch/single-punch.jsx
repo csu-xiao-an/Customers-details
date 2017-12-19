@@ -36,16 +36,16 @@ export default class SinglePunch extends React.Component {
             <div className='delete-wrap'>
               <img onClick={this.handleConfirmedModal} src={config.urls.media + 'trash-black.png'} />
             </div>
-            <h1 className='p-name'>{this.props.i.procedure_name}</h1>
+            <h1 className='p-name'>{this.props.i.service_name}</h1>
             <h1 className='p-sum'>{this.props.i.sum}{config.data.currency}</h1>
           </div>
           <h1 className='info'>
             {config.translations.used}
-            <span>{this.props.i.uses.length}</span>{config.translations.from.replace('{count}', this.props.i.procedure_count)}</h1>
-          <div className='use-wrap' onClick={(this.props.i.uses.length === this.props.i.procedure_count) || days < 1 ? () => {} : this.use}
-            style={(this.props.i.uses.length === this.props.i.procedure_count) || days < 1
+            <span>{this.props.i.uses.length}</span>{config.translations.from.replace('{count}', this.props.i.service_count)}</h1>
+          <div className='use-wrap' onClick={(this.props.i.uses.length === this.props.i.service_count) || days < 1 ? () => {} : this.use}
+            style={(this.props.i.uses.length === this.props.i.service_count) || days < 1
               ? {backgroundColor: 'rgba(100, 100, 100, 0.8)'} : {backgroundColor: 'deepskyblue'}}>
-            <img src={config.urls.media + ((this.props.i.uses.length === this.props.i.procedure_count) || days < 1 ? 'block.png' : 'use.png')} />
+            <img src={config.urls.media + ((this.props.i.uses.length === this.props.i.service_count) || days < 1 ? 'block.png' : 'use.png')} />
             <h1>{config.translations.use}</h1>
           </div>
           <div className='punch-data-uses-list'>
