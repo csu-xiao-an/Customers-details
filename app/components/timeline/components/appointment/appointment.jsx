@@ -7,7 +7,7 @@ export default class Appoinment extends React.Component {
   total = () => {
     let p = 0
     let d = 0
-    this.props.i.procedures.forEach(i => {
+    this.props.i.services.forEach(i => {
       d += i.duration
       p += i.price
     })
@@ -36,10 +36,10 @@ export default class Appoinment extends React.Component {
           <div className='img'>
             <img src={config.urls.media + 'elixir.png'} />
           </div>
-          <h1 className='count'>{config.translations.procedures_timeline + '('}<span>{this.props.i.procedures.length}</span>{')'}</h1>
+          <h1 className='count'>{config.translations.services_timeline + '('}<span>{this.props.i.services.length}</span>{')'}</h1>
         </div>
         <div className='procedures-list'>
-          {this.props.i.procedures.map(i => <div>
+          {this.props.i.services.map(i => <div>
             <div className='icon-wrap'><div className='icon' style={{backgroundColor: i.color}} /></div>
             <h1 className='name'>{i.name}</h1>
             <h1 className='duration'>{i.duration + ' ' + config.translations.hours}</h1>

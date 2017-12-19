@@ -190,7 +190,7 @@ var config = {
     clear: 'Clear',
     btn_delete: 'Remove',
     btn_replace: 'Change',
-    procedures: 'procedures',
+    services: 'services',
     all_visits: 'For all visits...',
     url: 'Url',
     customer_pl: 'Customer',
@@ -199,7 +199,7 @@ var config = {
     female: 'Female',
     other: 'Other',
     worker: 'Worker',
-    procedures_timeline: 'Procedures',
+    services_timeline: 'Services',
     hours: 'h',
     note: 'Note',
     meeting: 'Meeting by call',
@@ -573,7 +573,7 @@ var config = {
       {
         id: 321321,
         date: '2017-09-26 15:00',
-        procedures: [
+        services: [
           {
             id: 159159,
             name: 'manicure',
@@ -591,7 +591,7 @@ var config = {
       {
         id: 456465,
         date: '2017-09-27 19:00',
-        procedures: [
+        services: [
           {
             id: 778954,
             name: 'visit',
@@ -603,7 +603,7 @@ var config = {
       {
         id: 456465,
         date: '2017-09-28 18:00',
-        procedures: [
+        services: [
           {
             id: 778954,
             name: 'chemistry',
@@ -615,7 +615,7 @@ var config = {
       {
         id: 456465,
         date: '2017-09-23 18:00',
-        procedures: [
+        services: [
           {
             id: 778954,
             name: 'chemistry',
@@ -627,7 +627,7 @@ var config = {
       {
         id: 456465,
         date: '2018-01-01 18:00',
-        procedures: [
+        services: [
           {
             id: 778954,
             name: 'chemistry',
@@ -639,7 +639,7 @@ var config = {
       {
         id: 456465,
         date: '2017-09-11 18:00',
-        procedures: [
+        services: [
           {
             id: 778954,
             name: 'manicure',
@@ -651,7 +651,7 @@ var config = {
       {
         id: 456465,
         date: '2016-07-21 18:00',
-        procedures: [
+        services: [
           {
             id: 778954,
             name: 'hair coloring',
@@ -663,7 +663,7 @@ var config = {
       {
         id: 456465,
         date: '2010-07-21 18:00',
-        procedures: [
+        services: [
           {
             id: 778954,
             name: 'facial treatment',

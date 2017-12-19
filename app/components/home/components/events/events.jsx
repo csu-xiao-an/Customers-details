@@ -8,9 +8,9 @@ export default class Events extends React.Component {
   }
   price (i) {
     let sum = 0
-    if (i.procedures.length > 1) {
-      for (let c = 0; c < i.procedures.length; c++) sum += i.procedures[c].price
-    } else { sum = i.procedures[0].price }
+    if (i.services.length > 1) {
+      for (let c = 0; c < i.services.length; c++) sum += i.services[c].price
+    } else { sum = i.services[0].price }
     return sum
   }
   initialSlide = () => {
@@ -38,7 +38,7 @@ export default class Events extends React.Component {
                 <div key={k}>
                   <div className='note'>
                     <h1 className='date'>{lastAppoinment(i.date)}</h1>
-                    <h1 className='procedure'>{i.procedures.length > 1 ? i.procedures.length + ' ' + config.translations.procedures : i.procedures[0].name}</h1>
+                    <h1 className='procedure'>{i.services.length > 1 ? i.services.length + ' ' + config.translations.services : i.services[0].name}</h1>
                     <h1 className='price'>{this.price(i)} {config.data.currency}</h1>
                   </div>
                 </div>)
