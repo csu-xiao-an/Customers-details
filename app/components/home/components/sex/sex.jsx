@@ -40,7 +40,7 @@ export default class Sex extends React.Component {
     }, false)
     button.addEventListener('touchend', () => {
       if (position < 207 / 2) {
-        clientReplaceService(`${config.urls.gender}='male'`).then(r => {
+        clientReplaceService(`${config.urls.gender}=male`).then(r => {
           if (r.status === 204) {
             config.data.gender = 'male'
             button.style.left = '0px'
@@ -49,7 +49,7 @@ export default class Sex extends React.Component {
         })
       }
       if (position > 207 / 2) {
-        clientReplaceService(`${config.urls.gender}='female'`).then(r => {
+        clientReplaceService(`${config.urls.gender}=female`).then(r => {
           if (r.status === 204) {
             config.data.gender = 'female'
             button.style.left = '207px'
