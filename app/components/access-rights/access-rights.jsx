@@ -123,6 +123,10 @@ export default Component => {
         edit: true,
         add: true
       },
+      gallery: {
+        open: true,
+        add: true
+      },
       source: {
         add: true,
         save: true,

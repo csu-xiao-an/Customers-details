@@ -1,29 +1,41 @@
 import {dataURLtoFile, getOrientation, Swiper} from 'project-components'
+import GalleryModal from '../media-modal/media-modal.jsx'
 import {mediaPostService} from 'project-services'
 import Line from '../line/line.jsx'
 import './media.styl'
 
 export default class Media extends React.Component {
   state = {
+    isOpenGalleryContex: false,
+    isOpenGallery: false,
     imagePreviewUrl: '',
     isAddMedia: false,
+    initialSlide: 0,
     file: {},
     desc: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
+  handleGallery = () => {
+    this.setState({isOpenGallery: !this.state.isOpenGallery})
+    if (this.state.isOpenGalleryContex) setTimeout(() => this.setState({isOpenGalleryContex: false}), 300)
+    else this.setState({isOpenGalleryContex: true})
+  }
   submit = () => {
+    const d = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
     let body = new FormData()
     body.append('file', this.state.file)
-    body.append('note', this.state.desc)
+    body.append('date', d)
+    if (this.state.desc !== '') body.append('note', this.state.desc)
     mediaPostService(body).then(r => {
       if (r.status === 201) {
-        config.data.gallery.unshift({
-          date: moment().format('YYYY-MM-DD HH:mm'),
-          name: this.state.file.name,
-          note: this.state.desc
-        })
+        let data = {
+          date: d,
+          name: this.state.file.name
+        }
+        if (this.state.desc !== '') data.note = this.state.desc
+        config.data.gallery.unshift(data)
         r.json().then(id => { config.data.gallery[0].id = id })
         this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}})
         this.refs.fileAddForm.reset()
@@ -38,18 +50,18 @@ export default class Media extends React.Component {
     if (file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
     if (file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
   }
-  typeItem = i => {
+  typeItem = (i, k) => {
     let src
     if (i.name.indexOf('mp4') !== -1) {
       return (<div>
         <img src={config.urls.media + 'video_play.png'} className='video_play' />
-        <video src={config.urls.gallery + i.name} />
+        <video src={config.urls.gallery + i.name} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
       </div>)
     } else {
       if (i.name.indexOf('png') !== -1) { src = config.urls.gallery + i.name } else
       if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
       if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
-      return <img src={src} />
+      return <img src={src} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
     }
   }
   resize = f => {
@@ -109,13 +121,15 @@ export default class Media extends React.Component {
     }
     return config.plugins_list.some(i => i === 'gallery') && (
       <div id='gallery'>
+        {this.state.isOpenGalleryContex &&
+          <GalleryModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />}
         <div className='label-wrap'>
           <h1 className={config.isRtL ? 'right' : 'left'}>{config.data.gallery.length} {config.translations.item_count}</h1>
           <div className={'gallery-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.gallery}</div>
         </div>
         <div id='swiper-wrap-gallery'>
           <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} observer>
-            {config.data.gallery.map(i => (<div>{this.typeItem(i)}<h1>{i.name}</h1></div>))}
+            {config.data.gallery.map((i, k) => (<div>{this.typeItem(i, k)}<h1>{i.name}</h1></div>))}
           </Swiper>
         </div>
         {this.props.rights.gallery.add &&
