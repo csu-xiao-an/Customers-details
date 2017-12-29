@@ -362,13 +362,13 @@ var config = {
       {
         id: 123123,
         text: 'sdfsdfsdfdsfd',
-        date: '2017-07-07 13:01'
+        date: '2017-11-29T03:58:49.129Z'
       },
       {
         id: 123123,
         text: 'sdfsdfsdf sdf sdf f',
-        date: '2017-07-07 13:01',
-        reminder_date: '2017-07-07 13:01'
+        date: '2017-10-29T03:58:49.129Z',
+        reminder_date: '2017-12-29T03:58:49.129Z'
       }
     ],
     groups: [

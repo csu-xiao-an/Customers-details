@@ -1,5 +1,5 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
-import {formatDate, Select} from 'project-components'
+import {formatDate, Select, reminder} from 'project-components'
 import Line from '../line/line.jsx'
 import './notes.styl'
 
@@ -19,31 +19,31 @@ export default class Notes extends React.Component {
     rights: PropTypes.object.isRequired
   }
   submit = () => {
-    let reminder = this.reminder()
-    let body = `text=${this.state.description}`
-    if (reminder) body = `text=${this.state.description}&reminder_date=${reminder}`
+    const d = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+    let rem = reminder(this.state.time, this.state.selectedValue)
+    let body = `text=${this.state.description}&date=${d}`
+    if (rem) body = body + `&reminder_date=${rem}`
     notesPostService(body).then(r => {
       if (r.status === 201) {
         config.data.notes.unshift({
           text: this.state.description,
-          date: moment().format('YYYY-MM-DD HH:mm')
+          date: d
         })
-        if (reminder) config.data.notes[0].reminder_date = reminder
+        if (rem) config.data.notes[0].reminder_date = rem
         r.json().then(id => { config.data.notes[0].id = id })
         this.setState({isEditNotes: !this.state.isEditNotes, isReminderEdit: false, description: '', time: '0'})
       }
     })
   }
   update = () => {
-    let reminder = this.reminder()
+    let rem = reminder(this.state.time, this.state.selectedValue)
     let body = `text=${this.state.description}`
-    if (reminder) body = `text=${this.state.description}&reminder_date=${reminder}`
+    if (rem) body = `text=${this.state.description}&reminder_date=${rem}`
     notesReplaceService(body, this.state.note_id).then(r => {
       if (r.status === 204) {
-        config.data.notes[this.state.key].date = moment().format('YYYY-MM-DD HH:mm')
         config.data.notes[this.state.key].text = this.state.description
-        if (reminder) {
-          config.data.notes[this.state.key].reminder_date = reminder
+        if (rem) {
+          config.data.notes[this.state.key].reminder_date = rem
         } else delete config.data.notes[this.state.key].reminder_date
         this.setState({
           noteReplace: !this.state.noteReplace,
@@ -74,8 +74,6 @@ export default class Notes extends React.Component {
       key
     })
   }
-  reminder = () =>
-    this.state.time !== '0' && this.state.time !== 0 ? moment().add(this.state.time, this.state.selectedValue).format('YYYY-MM-DD HH:mm') : undefined
   componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
   render () {
     return (
