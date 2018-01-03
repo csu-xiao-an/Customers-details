@@ -29,7 +29,7 @@ class Timeline extends React.Component {
   }
   componentWillMount = () => {
     if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
-    config.plugins_list.forEach(i => isEnd.push(i))
+    config.plugins_list.forEach(i => i !== 'colors_beautech' && isEnd.push(i)) // TODO colors_beautech
     this.getData()
   }
   componentDidMount = () => this.init()

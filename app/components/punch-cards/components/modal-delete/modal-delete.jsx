@@ -24,7 +24,7 @@ export default class Delete extends React.Component {
   render () {
     return (
       <Modal show={this.props.isVisibleModalConfirmed} onHide={this.cancel}>
-        <div className='modal-header'>
+        <div className='modal-header' id='punch_cards_media'>
           <h1 className={config.isRtL ? 'pd-r' : 'pd-l'} >{this.props.use ? config.translations.delete_use : config.translations.delete_punch}</h1>
           <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add_bt.svg'} onClick={this.cancel} />
         </div>
