@@ -14,7 +14,8 @@ class ColorsBeautech extends React.Component {
         <Topnav {...this.props} color />
         <div className='swiper'>
           <div id='swiper-wrap-punch'>
-            <Swiper pagination='.swiper-pagination' slidesPerView='auto' initialSlide={config.colors_beautech.length - 1} centeredSlides observer>
+            <Swiper pagination='.swiper-pagination' slidesPerView='auto' centeredSlides observer
+              initialSlide={config.colors_beautech.length - 1}>
               {config.colors_beautech.map(i => <div>
                 <div className='color' onClick={() => this.setState({color: i})}>
                   <h1 className='date'>{moment(i.date).format('DD.MM.YYYY')}</h1>

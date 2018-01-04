@@ -37,18 +37,15 @@ class PunchCards extends React.Component {
       <div id='punch_cards'>
         <Topnav {...this.props} punch />
         <div className='swiper'>
-          <div className='punch-label-wrap'><div className={'punch-label ' + (config.isRtL ? 'right' : 'left')}>{config.translations.punch}
-            <span> ({config.punch_cards.length})</span></div></div>
+          <div className='punch-label-wrap'><div className={'punch-label ' + (config.isRtL ? 'right' : 'left')}>
+            {config.translations.punch}<span> ({config.punch_cards.length})</span></div></div>
           <div id='swiper-wrap-punch'>
             <Swiper pagination='.swiper-pagination' slidesPerView='auto' initialSlide={this.initialSlide()} centeredSlides observer>
               {config.punch_cards.map(i => <div>
                 <div className='punch' style={!i.isActive ? {backgroundColor: 'lightgray'} : {}} onClick={() => this.setState({punch: i})}>
-                  <h1 className='name'>{i.service_name}</h1>
-                  <h1 className='count'><span>{i.uses.length}</span>/{i.service_count}</h1>
-                  <h1 className='sum'>{i.sum}{config.data.currency}</h1>
-                </div>
-              </div>
-              )}
+                  <h1 className='name'>{i.service_name}</h1><h1 className='count'><span>{i.uses.length}</span>/{i.service_count}</h1>
+                  <h1 className='sum'>{i.sum}{config.data.currency}</h1></div>
+              </div>)}
             </Swiper>
           </div>
         </div>

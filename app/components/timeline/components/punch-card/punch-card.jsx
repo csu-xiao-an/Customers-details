@@ -9,7 +9,8 @@ export default class PunchCard extends React.Component {
   }
   get = () => {
     if (this.props.i.uses.length === 0) {
-      return config.translations.punch_create.replace('{name}', this.props.i.procedure_name).replace('{count}', this.props.i.procedure_count)
+      return config.translations.punch_create.replace('{name}', this.props.i.procedure_name)
+        .replace('{count}', this.props.i.procedure_count)
     } else if (this.props.i.uses.length === this.props.i.procedure_count) {
       return config.translations.punch_end.replace('{name}', this.props.i.procedure_name)
     } else {
@@ -21,12 +22,9 @@ export default class PunchCard extends React.Component {
     return (
       <div id='punch-card'>
         <div className='order-in'>{moment(this.props.i.date).format('HH:hh')}</div>
-        <div className='icon-wrap'>
-          <img src={config.urls.media + 'calendar.png'} />
-        </div>
-        <h1 onClick={() => this.setState({isVisible: true})} className='text' style={this.state.isVisible ? {} : {height: '25px'}}>
-          {this.get()}
-        </h1>
+        <div className='icon-wrap'><img src={config.urls.media + 'calendar.png'} /></div>
+        <h1 onClick={() => this.setState({isVisible: true})} className='text'
+          style={this.state.isVisible ? {} : {height: '25px'}}>{this.get()}</h1>
       </div>
     )
   }

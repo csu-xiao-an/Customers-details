@@ -72,9 +72,7 @@ class Timeline extends React.Component {
         count++
         this.setState({flag: false, data: this.state.data.concat(data)})
       })
-    } else {
-      this.setState({flag: false})
-    }
+    } else this.setState({flag: false})
   }
   filter = p => {
     const f = b => {
@@ -104,9 +102,7 @@ class Timeline extends React.Component {
             {i.separator && <div className='separator-wrap'><div className='separator'>
               {config.translations.dates.weekdays[moment(i.date).get('day')] + ' ' + moment(i.date).format('YYYY-MM-DD')}</div></div>}
             {fields[i.field_name](i)}</div>)}
-          <div className={this.state.flag ? 'spiner-wrap' : 'hidden'}>
-            <img src={config.urls.media + 'spiner.webp'} />
-          </div>
+          <div className={this.state.flag ? 'spiner-wrap' : 'hidden'}><img src={config.urls.media + 'spiner.webp'} /></div>
         </div>
         <div className='buttons-wrap'>
           <div onClick={() => this.filter('appointments')}>
