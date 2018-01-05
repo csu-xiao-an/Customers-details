@@ -14,15 +14,15 @@ let count = 0
 
 class Timeline extends React.Component {
   state = {
-    flag: false,
-    data: [],
     filter: {
       appointments: true,
       punch_cards: true,
       gallery: true,
       other: true,
       depts: true
-    }
+    },
+    flag: false,
+    data: []
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -57,7 +57,7 @@ class Timeline extends React.Component {
           if (!this.state.filter.appointments && i.field_name === 'appointments') { i.isHide = true } else
           if (!this.state.filter.punch_cards && i.field_name === 'punch_cards') { i.isHide = true } else
           if (!this.state.filter.gallery && i.field_name === 'gallery') { i.isHide = true } else
-          if (!this.state.filter.depts && i.field_name === 'depts') { i.isHide = true }
+          if (!this.state.filter.depts && i.field_name === 'depts') i.isHide = true
           i.uses && i.uses.length > 0 && i.uses.sort((a, b) => moment(b.date) - moment(a.date))
           i.deleted_date ? i.sort = i.deleted_date : i.modified_date ? i.sort = i.modified_date
             : i.uses && i.uses.length > 0 ? i.sort = i.uses[0].date : i.date ? i.sort = i.date : i.sort = i.added_date

@@ -2,6 +2,15 @@ import mainRequestService from './request.service'
 
 const mainUrl = config.urls.main + config.urls.punch_cards_req.replace('{client_id}', config.data.id)
 
+export const getService = () => {
+  const url = config.urls.main + config.urls.punch_cards_get
+  const options = {
+    mode: 'cors',
+    method: 'GET'
+  }
+  return mainRequestService(url, options)
+}
+
 export const postService = (id, body) => {
   const url = mainUrl + '/' + id + '/use'
   const options = {
