@@ -383,6 +383,8 @@ var config = {
     from: ' from {count}',
     used: 'Used ',
     color_card_topnav: 'Colors "{client_name}"',
+    new_punch: 'New punch',
+    serch_proc: 'Search procedure',
     dates: {
       months: {
         0: 'January',
