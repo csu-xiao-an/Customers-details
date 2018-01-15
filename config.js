@@ -385,6 +385,7 @@ var config = {
     color_card_topnav: 'Colors "{client_name}"',
     new_punch: 'New punch',
     serch_proc: 'Search procedure',
+    punch_service: 'Punch for {service_name}',
     dates: {
       months: {
         0: 'January',
