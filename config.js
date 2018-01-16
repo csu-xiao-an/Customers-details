@@ -1,4 +1,5 @@
 var config = {
+  max_services_shown_without_cat: 15,
   user: {
     // admin, senior, junior, readonly, untrusted
     permission_level: 'admin',
@@ -386,6 +387,10 @@ var config = {
     new_punch: 'New punch',
     serch_proc: 'Search procedure',
     punch_service: 'Punch for {service_name}',
+    number_of_uses: 'Num of uses:',
+    discount: 'Discount(%):',
+    total: 'Total:',
+    subscription_period: 'Add subscription period',
     dates: {
       months: {
         0: 'January',
