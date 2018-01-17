@@ -11,8 +11,21 @@ export const getService = () => {
   return mainRequestService(url, options)
 }
 
-export const postService = (id, body) => {
+export const postServiceUse = (id, body) => {
   const url = mainUrl + '/' + id + '/use'
+  const options = {
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST',
+    body
+  }
+  return mainRequestService(url, options)
+}
+
+export const postService = body => {
+  const url = mainUrl
   const options = {
     mode: 'cors',
     headers: {

@@ -1,4 +1,4 @@
-import {punchPostService} from 'project-services'
+import {punchPostServiceUse} from 'project-services'
 import Delete from '../modal-delete/modal-delete.jsx'
 import './single-punch.styl'
 
@@ -13,7 +13,7 @@ export default class SinglePunch extends React.Component {
   }
   use = () => {
     const d = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
-    punchPostService(this.props.i.id, `date=${d}`).then(r => r.json().then(r =>
+    punchPostServiceUse(this.props.i.id, `date=${d}`).then(r => r.json().then(r =>
       config.punch_cards.some(item => (item.id === this.props.i.id && item.uses.unshift({id: r, date: d}) && this.props.update()))))
   }
   handleConfirmedModal = () => {

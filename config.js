@@ -391,6 +391,11 @@ var config = {
     discount: 'Discount(%):',
     total: 'Total:',
     subscription_period: 'Add subscription period',
+    price_single: 'Single service with discount:',
+    valid_until: 'Valid until',
+    valid_until_adding: 'Punch is valid until',
+    cancel: 'Cancel',
+    next: 'Next',
     dates: {
       months: {
         0: 'January',
