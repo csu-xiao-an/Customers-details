@@ -58,6 +58,7 @@ class PunchCardsAdd extends React.Component {
         uses: []
       })
       if (this.state.switch) config.punch_cards[config.punch_cards.length - 1].expiration = this.state.date
+      this.props.history.push(config.urls.punch_cards)
     }))
   }
   getTotal = () => this.setState({total: this.state.i.price * this.state.uses - ((this.state.i.price * this.state.uses * this.state.discount) / 100)})
@@ -101,8 +102,7 @@ class PunchCardsAdd extends React.Component {
             <Switch on={this.state.switch} onClick={this.handleValidity} className={config.isRtL ? 'switchleft' : 'switchright'} />
             <h1 className='subscription_period'>{config.translations.subscription_period}</h1>
             {this.state.switch && <div className='valid_date'>
-              <div className='date_wrap'>
-                <h1>{config.translations.valid_until}</h1>
+              <div className='date_wrap'><h1>{config.translations.valid_until}</h1>
                 <input type='date' value={this.state.date} onChange={e => this.setState({date: e.target.value})} />
               </div>
               <h1 className='is_valid'>{config.translations.valid_until_adding + ' ' + this.state.date}</h1>
@@ -110,8 +110,7 @@ class PunchCardsAdd extends React.Component {
           </div>
           <div className='buttons'>
             <button style={{backgroundColor: 'darkseagreen'}} onClick={() => this.props.history.push(config.urls.punch_cards)}>
-              {config.translations.cancel}</button>
-            <button onClick={this.save}>{config.translations.next}</button>
+              {config.translations.cancel}</button><button onClick={this.save}>{config.translations.next}</button>
           </div>
         </div>}
       </div>

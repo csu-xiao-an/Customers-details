@@ -422,9 +422,22 @@ var config = {
 
       },
       days: {
-        '-1': 'Yesterday ',
-        '1': 'Tommorow ',
-        '0': 'Today '
+        '-1': 'Yesterday',
+        '1': 'Tommorow',
+        '0': 'Today'
+      },
+      last_appointent: {
+        in_days: 'In {count} days',
+        days_ago: '{count} days ago',
+        in_month: 'In {count} month',
+        month_ago: '{count} month ago',
+        in_years: 'In {count} years',
+        years_ago: '{count} years ago',
+        next_year: 'Next year',
+        last_year: 'Last year',
+        in_weeks: 'In {count} weeks',
+        weeks_ago: '{count} weeks ago',
+        last: 'Last'
       }
     },
     notes_list: [

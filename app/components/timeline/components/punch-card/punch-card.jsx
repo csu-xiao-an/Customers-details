@@ -9,13 +9,13 @@ export default class PunchCard extends React.Component {
   }
   get = () => {
     if (this.props.i.uses.length === 0) {
-      return config.translations.punch_create.replace('{name}', this.props.i.procedure_name)
-        .replace('{count}', this.props.i.procedure_count)
-    } else if (this.props.i.uses.length === this.props.i.procedure_count) {
-      return config.translations.punch_end.replace('{name}', this.props.i.procedure_name)
+      return config.translations.punch_create.replace('{name}', this.props.i.service_name)
+        .replace('{count}', this.props.i.service_count)
+    } else if (this.props.i.uses.length === this.props.i.service_count) {
+      return config.translations.punch_end.replace('{name}', this.props.i.service_name)
     } else {
-      return config.translations.punch_use.replace('{name}', this.props.i.procedure_name)
-        .replace('{countCur}', this.props.i.uses.length).replace('{count}', this.props.i.procedure_count)
+      return config.translations.punch_use.replace('{name}', this.props.i.service_name)
+        .replace('{countCur}', this.props.i.uses.length).replace('{count}', this.props.i.service_count)
     }
   }
   render () {
