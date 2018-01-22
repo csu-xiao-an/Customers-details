@@ -9,6 +9,7 @@ class PunchCards extends React.Component {
     punch: {}
   }
   componentWillMount = () => {
+    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     config.punch_cards.forEach(i => {
       i.uses.length < i.service_count
         ? i.expiration ? moment(i.expiration) > moment() ? i.isActive = true : i.isActive = false : i.isActive = true
@@ -44,7 +45,7 @@ class PunchCards extends React.Component {
               {config.punch_cards.map(i => <div>
                 <div className='punch' style={!i.isActive ? {backgroundColor: 'lightgray'} : {}} onClick={() => this.setState({punch: i})}>
                   <h1 className='name'>{i.service_name}</h1><h1 className='count'><span>{i.uses.length}</span>/{i.service_count}</h1>
-                  <h1 className='sum'>{i.sum}{config.data.currency}</h1></div></div>)}</Swiper></div>
+                  <h1 className={'sum ' + (config.isRtL ? 'left' : 'right')}>{i.sum}{config.data.currency}</h1></div></div>)}</Swiper></div>
         </div>
         <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} />
         <div className='test' />

@@ -1,4 +1,5 @@
 var config = {
+  isRtL: false,
   max_services_shown_without_cat: 15,
   user: {
     // admin, senior, junior, readonly, untrusted
@@ -294,7 +295,6 @@ var config = {
       expiration: '2017-11-31'
     }
   ],
-  isRtL: false,
   translations: {
     language: 'en',
     edit: 'Edit',

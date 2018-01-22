@@ -39,11 +39,14 @@ class PunchCardsAdd extends React.Component {
     history: PropTypes.object.isRequired,
     rights: PropTypes.object.isRequired
   }
-  componentWillMount = () => punchGetService().then(r => r.status === 200 &&
+  componentWillMount = () => {
+    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+    punchGetService().then(r => r.status === 200 &&
     r.json().then(data => {
       let isCat = data.length < config.max_services_shown_without_cat + 1 || !data.some(i => data[0].category.id !== i.category.id)
       this.setState({data, isOpenServices: isCat, isCategoryList: !isCat})
     }))
+  }
   save = () => {
     let b = `service_id=${this.state.i.id}&uses=${this.state.uses}&sum=${this.state.total}&date=${moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')}`
     if (this.state.switch) b = b + `&expiration=${this.state.date}`
@@ -70,14 +73,15 @@ class PunchCardsAdd extends React.Component {
       <div id='punch_cards_adding'>
         <div className='topnav_punch'>
           <div className='header'>
-            <div className='arrow-wrap' onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
+            <div className='arrow-wrap' style={config.isRtL ? {float: 'right'} : {float: 'left'}} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
               ? this.state.isOpenServices ? () => this.toogleOpenServices() : () => window.history.go(-1)
               : () => window.history.go(-1) : () => this.setState({isService: true}) : () => {}}>
-              <img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div><span className='before' />
+              <img style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div>
+            <span className='before' />
             {this.state.isService && <div className='client-name'><h1>{config.translations.new_punch}</h1></div>}
             {!this.state.isService && <div className='client-name'>
               <h1>{config.translations.punch_service.replace('{service_name}', this.state.i.name)}</h1></div>}
-            <div className='edit-wrap' />
+            <div className='edit-wrap' style={config.isRtL ? {float: 'left'} : {float: 'right'}} />
           </div>
         </div>
         <div style={this.state.isService ? {display: 'block'} : {display: 'none'}}>

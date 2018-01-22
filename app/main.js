@@ -1,10 +1,10 @@
 import lazy from './lazy.js'
 import './main.styl'
-const ColorsBeautech = lazy(() => import('./components/colors-beautech/colors-beautech.jsx').then(m => m.default))
-const PunchCardsAdd = lazy(() => import('./components/punch-cards-add/punch-cards-add.jsx').then(m => m.default))
-const PunchCards = lazy(() => import('./components/punch-cards/punch-cards.jsx').then(m => m.default))
-const Timeline = lazy(() => import('./components/timeline/timeline.jsx').then(m => m.default))
-const Home = lazy(() => import('./components/home/home.jsx').then(m => m.default))
+const ColorsBeautech = lazy(() => import('./components/colors-beautech/colors-beautech.jsx').then(r => r.default))
+const PunchCardsAdd = lazy(() => import('./components/punch-cards-add/punch-cards-add.jsx').then(r => r.default))
+const PunchCards = lazy(() => import('./components/punch-cards/punch-cards.jsx').then(r => r.default))
+const Timeline = lazy(() => import('./components/timeline/timeline.jsx').then(r => r.default))
+const Home = lazy(() => import('./components/home/home.jsx').then(r => r.default))
 const {BrowserRouter, Switch, Route} = ReactRouterDOM
 
 ReactDOM.render(
