@@ -107,6 +107,13 @@ export default class Media extends React.Component {
         }
         ctx.drawImage(img, 0, 0, w, h)
         let dataURL = canvas.toDataURL()
+          const a =  dataURLtoFile(dataURL, 'media.png')
+          // a.append({lastModifiedDateUTC: moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')})
+          a.dataset.lastModified = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+          console.log(a)
+          console.log(typeof a.lastModified)
+
+
         this.setState({imagePreviewUrl: dataURL, file: dataURLtoFile(dataURL, 'media.png')})
       }
     })
@@ -129,7 +136,7 @@ export default class Media extends React.Component {
         </div>
         <div id='swiper-wrap-gallery'>
           <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} observer>
-            {config.data.gallery.map((i, k) => (<div>{this.typeItem(i, k)}<h1>{i.name}</h1></div>))}
+            {config.data.gallery.map((i, k) => (<div><span className='file-date'>{moment(i.date).format('Y-MM-DD')}</span>{this.typeItem(i, k)}<h1>{i.name}</h1></div>))}
           </Swiper>
         </div>
         {this.props.rights.gallery.add &&
