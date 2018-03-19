@@ -23,7 +23,7 @@ export default class Media extends React.Component {
     else this.setState({isOpenGalleryContex: true})
   }
   submit = () => {
-    const d = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+    const d = moment(this.state.file.lastModified).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
     let body = new FormData()
     body.append('file', this.state.file)
     body.append('date', d)
@@ -107,13 +107,6 @@ export default class Media extends React.Component {
         }
         ctx.drawImage(img, 0, 0, w, h)
         let dataURL = canvas.toDataURL()
-          const a =  dataURLtoFile(dataURL, 'media.png')
-          // a.append({lastModifiedDateUTC: moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')})
-          a.dataset.lastModified = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
-          console.log(a)
-          console.log(typeof a.lastModified)
-
-
         this.setState({imagePreviewUrl: dataURL, file: dataURLtoFile(dataURL, 'media.png')})
       }
     })
