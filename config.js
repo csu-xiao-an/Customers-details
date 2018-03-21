@@ -297,7 +297,7 @@ var config = {
   ],
   translations: {
     language: 'en',
-    edit: 'Edit',
+    edit: '',
     customer: 'Customer details',
     appointment: 'Appointments',
     added_to_favorites: 'Added to favorites',
@@ -504,7 +504,7 @@ var config = {
   data: {
     id: 123123,
     name: 'Ahuva Ben Shushan',
-    birthdate: '2001-09-27',
+    birthdate: '2008-03-30',
     // email: 'ahuva.ben.shushan@gmail.co',
     adress: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
@@ -524,10 +524,10 @@ var config = {
     hot_links: [
       {label: 'Colors beautech', url: '/colors_beautech'},
       {label: 'Punch cards', url: '/punch_cards'},
-      {label: 'Timeline', url: '/timeline'},
+      {label: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {label: 'Gallery', url: '#gallery'},
-      {label: 'Depts', url: '#depts'},
-      {label: 'Notes', url: '#notes'}
+      {label: '/dist/media/ic_debts.svg', url: '#depts'},
+      {label: '/dist/media/ic_subscription.svg', url: '#notes'}
     ],
     debts: [
       {

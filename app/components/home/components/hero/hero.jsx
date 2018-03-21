@@ -44,22 +44,30 @@ export default class Hero extends React.Component {
       <div id='hero'>
         {this.props.rights.hero.isFavorite &&
           <div onClick={this.handleStar} className={'star-wrap ' + (config.isRtL ? 'star-wrap-right' : 'star-wrap-left')}>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 52 50'>
-              <g id='Layer_2' data-name='Layer 2'><g id='Layer_1-2' data-name='Layer 1'><g><path
-                className={config.data.isFavorite ? 'star star-active' : 'star'}
-                d='M26.79,1.56,31.06,14.7a2.26,2.26,0,0,0,2.15,1.56H
-                47a2.26,2.26,0,0,1,1.33,4.09L37.17,28.46A2.26,2.26,0,
-                0,0,36.35,31l4.27,13.14a2.26,2.26,0,0,1-3.48,2.53L26,
-                38.53a2.26,2.26,0,0,0-2.66,0L12.14,46.65a2.26,2.26,0,
-                0,1-3.48-2.53L12.93,31a2.26,2.26,0,0,0-.82-2.53L.94,
-                20.34a2.26,2.26,0,0,1,1.33-4.09H16.08a2.26,2.26,0,0,
-                0,2.15-1.56L22.49,1.56A2.26,2.26,0,0,1,26.79,1.56Z' />
-              </g></g></g>
-            </svg>
+              <svg width="14px" height="14px" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                  <g id="customer-page-(corrected-design)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.800000012">
+                      <g id="Customer-Page-(original-size)" transform="translate(-13.000000, -81.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                          <g id="Group-2" transform="translate(-195.000000, 0.000000)">
+                              <g id="customer-photo" transform="translate(195.000000, 68.000000)">
+                                  <g id="Group-23-Copy-2" transform="translate(13.000000, 13.000000)">
+                                      <g id="ic-star">
+                                          <path d="M3.17065351,13.4395526 C3.02021364,13.4395526 2.91992039,13.3867443 2.81962715,13.3339359 C2.61904065,13.1755108 2.5187474,12.911469 2.56889403,12.5946188 L3.17065351,8.89803318 C3.17065351,8.84522481 3.17065351,8.73960808 3.07036027,8.68679971 L0.512882442,6.0991898 C0.312295946,5.88795634 0.212002698,5.62391451 0.312295946,5.35987268 C0.412589194,5.09583085 0.61317569,4.93740576 0.914055434,4.88459739 L4.47446574,4.35651373 C4.52461236,4.35651373 4.62490561,4.30370537 4.67505223,4.19808864 L6.22959758,0.871161604 C6.2797442,0.44869468 6.53047732,0.290269583 6.78121044,0.290269583 C7.03194356,0.290269583 7.28267668,0.44869468 7.38296993,0.712736508 L8.9876619,4.09247191 C9.03780852,4.14528027 9.08795514,4.19808864 9.18824839,4.19808864 L12.6985121,4.72617229 C12.9993918,4.77898066 13.1999783,4.93740576 13.3002716,5.20144758 C13.4005648,5.46548941 13.3002716,5.72953124 13.0996851,5.9407647 L10.5422072,8.58118298 C10.4920606,8.63399135 10.4920606,8.73960808 10.4920606,8.79241645 L11.0938201,12.489002 C11.1439667,12.8058522 11.0436735,13.0698941 10.843087,13.2283192 C10.6425005,13.3867443 10.3416207,13.3867443 10.0908876,13.2283192 L6.93165031,11.4856431 C6.88150369,11.4856431 6.78121044,11.4856431 6.68091719,11.4856431 L3.52167988,13.2283192 C3.37124001,13.3867443 3.27094676,13.4395526 3.17065351,13.4395526 Z" id="Combined-Shape"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                  </g>
+              </svg>&nbsp;
+              <span>VIP</span>
           </div>}
+          <div className='camera'>
+            <img src='/dist/media/ic_photo.svg' />
+          </div>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
         <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
+            <span className='status-label'>Status:</span>
           <div className='input-group'>
             <div className='input-wrap'>
               <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')} type='text' ref='autofocus' value={this.state.status}
@@ -72,7 +80,9 @@ export default class Hero extends React.Component {
               </span>}
           </div>
         </form>
-        <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => this.setState({imageUrl: config.urls.media + 'default'})} />
+        <div className='img'>
+          <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => this.setState({imageUrl: config.urls.media + 'default'})} />
+        </div>
       </div>
     )
   }

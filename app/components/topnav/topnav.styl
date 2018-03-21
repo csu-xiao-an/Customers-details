@@ -1,41 +1,50 @@
+@import '../../color.styl'
 #topnav
   .header
-    background-color #ffcd00
-    height 50px
-    padding-top 8px
+    background-color $headerColor
+    height 3.45em
+    display flex
+    -webkit-align-items center
+    -webkit-box-align center
+    -ms-flex-align center
+    padding-top auto
+    padding-bottom auto
     position relative
     text-align center
     .arrow-wrap
-      width 15%
+      margin-left 5%
       display inline-block
       .arrow-back
         color white
         cursor pointer
-        width 16px
+        width 0.8em
     .client-name
-      width 70%
+      width 100%
       display inline-block
       margin-top 5px
       .icon-online
+        display none
         background #09ce17
         border 2px solid white
         border-radius 50%
-        display inline-block
         transform translateY(2px)
         height 18px
         width 18px
       h1
         color white
-        display inline-block
-        margin 0 auto
-        padding-left 5px
-        padding-right 5px
+        font-size 1.5em
+      span
+        color white
+        display flex
+        justify-content center
+        padding-top 2px
+        font-size 0.73em
+        font-weight 100
     .edit-wrap
-      width 15%
       display inline-block
-      margin-top 5px
       .edit
-        background-color #ffcd00
+        margin-right 1.5em
+        width 1.5em
         border none
         color white
         &:focus

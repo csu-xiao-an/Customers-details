@@ -1,18 +1,38 @@
+@import "../../../../color.styl"
 #hero
   position relative
-  height 250px
-  .client-img
-    pointer-events none
-    user-select none
-    width 100%
-    object-fit cover
-    z-index 1
-    height 250px
+  height 18em
+  .img
+    .client-img
+      pointer-events none
+      user-select none
+      width 100%
+      object-fit cover
+      z-index 1
+      height 100%
+    &:after
+      background: linear-gradient(to bottom,  $headerColor 0%,rgba(0,0,0,0) 33.33% ,rgba(0,0,0,0) 50% ,rgba(255,255,255,1) 100%)
+      content ""
+      display block
+      height 100%
+      left 0
+      position absolute
+      top 0
+      width 100%
   .star-wrap
     width 42px
     color #6d6d6d
     position absolute
     top 20px
+    z-index 2
+    span
+      letter-spacing 0.2
+      color $white
+  .camera
+    position absolute
+    right 5%
+    top 7%
+    z-index 2
   .star-wrap-left
     left 10px
   .star-wrap-right
@@ -42,10 +62,10 @@
   .input-group
     bottom 0
     position absolute
-    background: rgba(0,0,0,0.3)
-    width 100%
+    width 40%
     display table
     border-collapse separate
+    z-index 2
     .input-group-addon
       background: rgba(0,0,0,0.0)
       border none
@@ -62,26 +82,34 @@
       width 1%
       vertical-align middle
       img
-        width 30px
+        width 10px
     .hidden
       display none
     .input-group-addon-hidden
       visibility hidden
     .input-wrap
-      padding 7px
+      margin-left 30%
+      input
+        border none
+        font-size 0.7em
       .form-control
-        background  white
-        color grey
-        font-weight 600
-        height 30px
-        text-align center
+        background rgba(0,0,0,0)
+        color $black
+        margin-left 25%
         width 100%
         &:focus
           background: rgba(0,0,0,0.0)
-          text-align end
           border none
           box-shadow none
           outline none
-          color #00b6fb
+          color $headerColor
+          margin-bottom 9%
       .form-control-disabled
         pointer-events none
+  .status-label
+    bottom 3.5%
+    position absolute
+    font-size 0.7em
+    font-weight 600
+    z-index 2
+    margin-left 5%

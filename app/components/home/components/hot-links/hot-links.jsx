@@ -40,9 +40,9 @@ export default class HotLinks extends React.Component {
         <Swiper slidesPerView='auto'>
           {config.data.hot_links.map(i => {
             const link = (url, label) =>
-              <div className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')}><Link to={url}>{label}</Link></div>
+              <div className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')}><Link to={url}><img src={label} /></Link></div>
             if (i.url[0] === '#') {
-              return <div onClick={() => this.link(i)} className={'link ' + (this.props.rights.hot_links.internal ? 'circle' : 'hidden')}>{i.label}</div>
+              return <div onClick={() => this.link(i)} className={'link ' + (this.props.rights.hot_links.internal ? 'square' : 'hidden')}><img src={i.label} /></div>
             } else {
               if (i.url === config.urls.punch_cards) {
                 return !this.state.isActivePunchCard ? link(config.urls.punch_cards_adding, config.translations.punch_cards_adding) : link(i.url, i.label)
