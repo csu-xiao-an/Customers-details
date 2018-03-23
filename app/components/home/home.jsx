@@ -13,10 +13,11 @@ import Email from './components/email/email.jsx'
 import Media from './components/media/media.jsx'
 import Notes from './components/notes/notes.jsx'
 import Debts from './components/debts/debts.jsx'
-import Phone from './components/phone/phone.jsx'
+// import Phone from './components/phone/phone.jsx'
 import Hero from './components/hero/hero.jsx'
 import Sex from './components/sex/sex.jsx'
 import Topnav from '../topnav/topnav.jsx'
+import Profile from './components/profile/profile.jsx'
 
 import './home.styl'
 
@@ -28,8 +29,9 @@ class Home extends React.Component {
         <Topnav {...this.props} home />
         <Hero {...this.props} />
         <HotLinks {...this.props} />
+        <Profile {...this.props} />
         {config.data.recent_appoinments && <Events {...this.props} />}
-        <Phone {...this.props} />
+        {/*<Phone {...this.props} />*/}
         <Details {...this.props} />
         <Signature {...this.props} />
         {config.data.email && <Email {...this.props} />}

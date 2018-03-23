@@ -1,44 +1,18 @@
+@import "../../../../color.styl"
 #phone
   .data
-    border-bottom 1px solid silver
-  .phone-img
-    width 27%
-    padding 7.5px 10px
-    display inline-block
-    .img-wrap, .img-wrap
-      width 50%
-      display inline-block
-      height 40px
-      img
-        width 40px
-        height 40px
+    width 100%
+    display flex
+    flex-direction row
+    justify-content space-between
   .phone-labels
-    width 73%
-    height 60px
-    display inline-block
-    padding-top 8px
     .label-wrap
-      width 100%
-      height 25px
       .call-label
-        padding 0px 20px
-        height 20px
-        border-radius 10px
-        background-color #e8ffff
-        margin-right 10px
-        margin-left 10px
-        text-align center
-        font-size 14px
-        color #6b6b6b
+        background-color transparent
     .phone-wrap
-      width 100%
-      height 25px
       h1
-        margin 0px
         width 100%
-        padding 0px 30px 0px 30px
-        text-align end
-        color #00B6FB
+        color $black
         font-weight 500
   .add-phone
     height 60px
@@ -53,21 +27,19 @@
       color #6b6b6b
       display block
   .phone-edit
-    display block
+    display flex
+    flex-direction row
+    justify-content space-between
     width 100%
-    height 90px
-    padding 10px
     .edit
-      width 100%
-      height 30px
+      width 70%
       .edit-input
         display inline-block
+        border none
         height 30px
-        width 75%
-        border 1px solid #6b6b6b
-        text-align right
-        color deepskyblue
+        width 80%
         font-weight 500
+        color $headerColor
         &:focus
           outline none
       .edit-label
@@ -76,18 +48,12 @@
         color #6b6b6b
         display inline-block
         margin 0
-    .button
-      width 100%
-      height 35px
-      padding-top 10px
-      button
+    button
         display inline-block
-        height 30px
         border-radius 15px
-        border 1px solid #6b6b6b
-        background-color white
-        width 80px
-        margin 0 0 20px 0
+        border none
+        background-color $headerColor
+        color white
         &:focus
           outline none
   .hidden

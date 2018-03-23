@@ -49,6 +49,7 @@ export default class HotLinks extends React.Component {
               } else return link(i.url, i.label)
             }
           })}
+            <div className="link add-btn"><img src="/dist/media/ic_add.png" /></div>
         </Swiper>
       </div>
     )

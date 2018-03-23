@@ -15,15 +15,11 @@ export default class Details extends React.Component {
   render () {
     return (
       <div id='details'>
-        <div className='details-wrap'>
-          <div className={'details-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.completion}</div>
-        </div>
         <div className='data-wrap'>
           {this.props.rights.details.send &&
-            <button className={'details-button ' + (config.isRtL ? 'left' : 'right')} disabled={config.data.details_link_active}
-              onClick={this.submit}>{config.data.details_link_active ? config.translations.sent : config.translations.send}</button>}
-          <img className={config.data.details_link_active ? '' : 'hidden'} src={config.urls.media + 'ok.png'} />
-          <h1 className={config.isRtL ? 'right' : 'left'}>{config.translations.request_to_detail}</h1>
+            <img src='./dist/media/ic_send.svg' className={'details-button ' + (config.isRtL ? 'left' : 'right')} disabled={config.data.details_link_active}
+              onClick={this.submit} />}
+          <img className={config.data.details_link_active ? 'ok' : 'ok hidden'} src={config.urls.media + 'ok.png'} />
         </div>
       </div>
     )

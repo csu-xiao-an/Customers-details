@@ -1,7 +1,7 @@
 @import "../../../../color.styl"
 #hero
   position relative
-  height 18em
+  height 17.2em
   .img
     .client-img
       pointer-events none
@@ -9,9 +9,9 @@
       width 100%
       object-fit cover
       z-index 1
-      height 100%
+      max-height 240px
     &:after
-      background: linear-gradient(to bottom,  $headerColor 0%,rgba(0,0,0,0) 33.33% ,rgba(0,0,0,0) 50% ,rgba(255,255,255,1) 100%)
+      background: linear-gradient(to bottom,  $headerColor 0%,rgba(0,0,0,0) 33.33% ,rgba(255,255,255,1) 100%)
       content ""
       display block
       height 100%
@@ -27,7 +27,7 @@
     z-index 2
     span
       letter-spacing 0.2
-      color $white
+      color $blockBackground
   .camera
     position absolute
     right 5%

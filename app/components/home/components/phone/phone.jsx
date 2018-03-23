@@ -22,15 +22,8 @@ export default class Phone extends React.Component {
     return this.props.rights.isPhone && (
       <div id='phone'>
         <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'data' : 'hidden'}>
-          <div className='phone-img'>
-            {this.props.rights.phone.call &&
-              <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>}
-            {this.props.rights.phone.send_sms &&
-              <div className='img-wrap'><a href={`/send-sms?client_id=${config.data.id}&referrer=${location.pathname + '?' + location.search}`}>
-                <img src={config.urls.media + 'send-sms.svg'} /></a></div>}
-          </div>
           <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
-            <div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></div>
+            {/*<div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></div>*/}
             <div className='phone-wrap' onClick={this.props.rights.phone.edit
               ? () => this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone}) : () => {}}>
               <h1>{config.data.phone}</h1></div>
@@ -45,7 +38,7 @@ export default class Phone extends React.Component {
         <div className={this.state.phoneEdit ? 'phone-edit' : 'hidden'}>
           <div className='edit'>
             <input className='edit-input' type='tel' value={this.state.phone} onChange={e => this.setState({phone: e.target.value})} />
-            <h1 className='edit-label'>{config.translations.mobile}</h1>
+            {/*<h1 className='edit-label'>{config.translations.mobile}</h1>*/}
           </div>
           <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
