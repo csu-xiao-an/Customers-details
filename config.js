@@ -763,12 +763,14 @@ var config = {
             id: 159159,
             name: 'manicure',
             price: 100,
+              color: 'red',
             duration: 120
           },
           {
             id: 756756,
             name: 'hair coloring',
             price: 150,
+              color: 'blue',
             duration: 45
           }
         ]
@@ -780,6 +782,7 @@ var config = {
           {
             id: 778954,
             name: 'visit',
+              color: 'green',
             price: 4100,
             duration: 120
           }
@@ -792,6 +795,7 @@ var config = {
           {
             id: 778954,
             name: 'chemistry',
+              color: 'red',
             price: 1200,
             duration: 120
           }
@@ -804,6 +808,7 @@ var config = {
           {
             id: 778954,
             name: 'chemistry',
+              color: 'green',
             price: 10,
             duration: 120
           }
@@ -816,6 +821,7 @@ var config = {
           {
             id: 778954,
             name: 'chemistry',
+              color: 'green',
             price: 1200,
             duration: 120
           }
@@ -828,6 +834,7 @@ var config = {
           {
             id: 778954,
             name: 'manicure',
+              color: 'green',
             price: 700,
             duration: 120
           }
@@ -840,6 +847,7 @@ var config = {
           {
             id: 778954,
             name: 'hair coloring',
+              color: 'green',
             price: 600,
             duration: 120
           }
@@ -852,18 +860,21 @@ var config = {
           {
             id: 778954,
             name: 'facial treatment',
+              color: 'green',
             price: 400,
             duration: 120
           },
           {
             id: 778954,
             name: 'laser hair 3 treatments',
+              color: 'blue',
             price: 500,
             duration: 120
           },
           {
             id: 778954,
             name: 'laser hair 3 treatments',
+              color: 'red',
             price: 100,
             duration: 120
           }

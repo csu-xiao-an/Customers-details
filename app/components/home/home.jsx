@@ -31,19 +31,13 @@ class Home extends React.Component {
         <HotLinks {...this.props} />
         <Profile {...this.props} />
         {config.data.recent_appoinments && <Events {...this.props} />}
-        {/*<Phone {...this.props} />*/}
-        <Details {...this.props} />
         <Signature {...this.props} />
-        {config.data.email && <Email {...this.props} />}
-        {config.data.adress && <Adress {...this.props} />}
         {config.data.debts && <Debts {...this.props} />}
         {config.data.notes && <Notes {...this.props} />}
         {config.data.gallery && <Media {...this.props} />}
         {config.data.source && <Source {...this.props} />}
         {config.data.soc_media && <SocialNetwork {...this.props} />}
         {config.data.groups && <Groups {...this.props} />}
-        {config.data.gender && <Sex {...this.props} />}
-        {config.data.birthdate && <Birthdate {...this.props} />}
         <HiddenFields {...this.props} />
         <div className='test' />
       </div>

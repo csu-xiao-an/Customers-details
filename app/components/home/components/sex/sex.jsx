@@ -4,73 +4,72 @@ import './sex.styl'
 export default class Sex extends React.Component {
   state = {
     label: '',
-    class: ''
+    changeState: false,
+    maleSelected: false,
+    femaleSelected: false
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
   defaultPos = () => {
-    let defaultPos
-    if (config.data.gender === 'male') {
-      defaultPos = 0
-      this.setState({class: 'button-male', label: config.translations.male})
-    } else if (config.data.gender === 'female') {
-      defaultPos = 207
-      this.setState({class: 'button-female', label: config.translations.female})
-    } else {
-      defaultPos = 103.5
-      this.setState({class: '', label: config.translations.other})
+    let initState = config.data.gender
+    if (initState.toLowerCase() === 'male') {
+      this.setState({label: 'Male', maleSelected: true})
+    } else if (initState.toLowerCase() === 'female') {
+      this.setState({label: 'Female', femaleSelected: true})
     }
-    this.refs.button.style.left = defaultPos + 'px'
-    return defaultPos
   }
-  init = () => {
-    let defaultPos = this.defaultPos()
-    let button = this.refs.button
-    let mouseDifference
-    let difference = button.getBoundingClientRect().left
-    let position
-    button.style.left = defaultPos + 'px'
-    button.addEventListener('touchstart', e => { mouseDifference = e.targetTouches[0].clientX - button.getBoundingClientRect().left }, false)
-    button.addEventListener('touchmove', e => {
-      position = e.targetTouches[0].clientX - mouseDifference - difference
-      if (position < 0) position = 0
-      if (position > 207) position = 207
-      button.style.left = position + 'px'
-    }, false)
-    button.addEventListener('touchend', () => {
-      if (position < 207 / 2) {
-        clientReplaceService(`${config.urls.gender}=male`).then(r => {
-          if (r.status === 204) {
-            config.data.gender = 'male'
-            button.style.left = '0px'
-            this.setState({class: 'button-male', label: config.translations.male})
-          }
-        })
-      }
-      if (position > 207 / 2) {
-        clientReplaceService(`${config.urls.gender}=female`).then(r => {
-          if (r.status === 204) {
-            config.data.gender = 'female'
-            button.style.left = '207px'
-            this.setState({class: 'button-female', label: config.translations.female})
-          }
-        })
-      }
-    }, false)
+  handleGenderClick = e => {
+    let currentState = this.state.changeState
+    this.setState({changeState: !currentState})
+  }
+  selectedSex = () => {
+    this.refs.radioMale.addEventListener('touchend', e => {
+      clientReplaceService(`${config.urls.gender}=male`).then(r => {
+        if (r.status === 204) {
+          config.data.gender = 'male'
+          this.setState({label: config.translations.male, maleSelected: true, femaleSelected: false})
+        }
+      })
+    })
+    this.refs.radioFemale.addEventListener('touchend', e => {
+      clientReplaceService(`${config.urls.gender}=female`).then(r => {
+        if (r.status === 204) {
+          config.data.gender = 'female'
+          this.setState({label: config.translations.female, maleSelected: false, femaleSelected: true})
+        }
+      })
+    })
+  }
+
+  componentWillMount = () => {
+    ['male', 'female'].map(item => this.defaultPos(item))
   }
   componentDidMount = () => {
-    this.defaultPos()
-    this.props.rights.gender.edit && this.init()
+    this.selectedSex()
   }
   render () {
     return (
       <div id='sex'>
-        <div className='sex-wrap'>
-          <div className={'button ' + this.state.class} ref='button'>{this.state.label}</div>
-          <div className='label'>{config.translations.male}</div>
-          <div className='label'>{config.translations.other}</div>
-          <div className='label'>{config.translations.female}</div>
+        <div className='block'>
+          <div className='gender' onClick={this.handleGenderClick}>
+            <span className='label'>{config.translations.gender}:</span>
+            <span className='block-content'>
+              <span className='sex-label'>{this.state.label}</span>
+            </span>
+          </div>
+        </div>
+        <div className={!this.state.changeState ? 'block change-state-disable' : 'block'} >
+          <div ref='radioMale' className={this.state.maleSelected ? 'radio checked' : 'radio'}>
+            <div className='radio-label'>{config.translations.male}</div>
+            <div className='circle' />
+          </div>
+        </div>
+        <div className={!this.state.changeState ? 'block change-state-disable' : 'block'} >
+          <div ref='radioFemale' className={this.state.femaleSelected ? 'radio checked' : 'radio'}>
+            <div className='radio-label'>{config.translations.female}</div>
+            <div className='circle' />
+          </div>
         </div>
       </div>
     )
