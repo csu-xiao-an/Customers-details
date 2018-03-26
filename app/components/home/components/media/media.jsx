@@ -1,4 +1,4 @@
-import {dataURLtoFile, getOrientation, Swiper} from 'project-components'
+import {formatDate, dataURLtoFile, getOrientation, Swiper} from 'project-components'
 import GalleryModal from '../media-modal/media-modal.jsx'
 import {mediaPostService} from 'project-services'
 import Line from '../line/line.jsx'
@@ -53,15 +53,15 @@ export default class Media extends React.Component {
   typeItem = (i, k) => {
     let src
     if (i.name.indexOf('mp4') !== -1) {
-      return (<div>
-        <img src={config.urls.media + 'video_play.png'} className='video_play' />
-        <video src={config.urls.gallery + i.name} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
+      return (<div className='video-block'>
+        <img src={config.urls.media + 'video_play.png'} className='video_play media' />
+        <video className='media' src={config.urls.gallery + i.name} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
       </div>)
     } else {
       if (i.name.indexOf('png') !== -1) { src = config.urls.gallery + i.name } else
       if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
       if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
-      return <img src={src} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
+      return <img className='media' src={src} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
     }
   }
   resize = f => {
@@ -121,15 +121,33 @@ export default class Media extends React.Component {
     }
     return config.plugins_list.some(i => i === 'gallery') && (
       <div id='gallery'>
+        <div className='gallery-header'>
+          <div className='title'>
+            {config.translations.gallery}
+          </div>
+          <div className='files-amount'>
+            {config.translations.files + ': ' + config.data.gallery.length}
+            <div className='action'>
+              <img src={config.urls.media + 'ic_share.svg'} />
+              <img src={config.urls.media + 'ic_del.svg'} />
+            </div>
+          </div>
+
+        </div>
         {this.state.isOpenGalleryContex &&
           <GalleryModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />}
-        <div className='label-wrap'>
-          <h1 className={config.isRtL ? 'right' : 'left'}>{config.data.gallery.length} {config.translations.item_count}</h1>
-          <div className={'gallery-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.gallery}</div>
-        </div>
         <div id='swiper-wrap-gallery'>
-          <Swiper pagination='.swiper-pagination' slidesPerView={3} slidesPerColumn={2} observer>
-            {config.data.gallery.map((i, k) => (<div><span className='file-date'>{moment(i.date).format('Y-MM-DD')}</span>{this.typeItem(i, k)}<h1>{i.name}</h1></div>))}
+          <Swiper spaceBetween={5} slidesPerView={3} slidesPerColumn={2} observer>
+            {config.data.gallery.map((i, k) => (
+              <div>
+                {this.typeItem(i, k)}
+                <label className='file-name'>{i.name}</label>
+                <div className='file-date'>
+                  <img className='day-icon' src={config.urls.media + 'ic_day_min.svg'} />
+                  <label className='date'>{formatDate(i.date)}</label>
+                </div>
+              </div>
+            ))}
           </Swiper>
         </div>
         {this.props.rights.gallery.add &&
@@ -144,7 +162,7 @@ export default class Media extends React.Component {
           </form>
           <button onClick={this.submit}>{config.translations.save}</button>
         </div>
-        <Line />
+        {/*<Line />*/}
       </div>
     )
   }

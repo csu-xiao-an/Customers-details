@@ -1,144 +1,85 @@
+@import "../../../../color.styl"
 #depts
-  border-bottom 1px solid silver
-  .label-wrap
-    width 100%
-    height 30px
-    .debt-label
-      padding 0px 20px
-      height 20px
-      border-radius 10px
-      background-color #e8ffff
-      margin 5px 10px 0 10px
-      text-align center
-      font-size 14px
-      color #6b6b6b
-      span
-        display inline-block
-      .count-debt
-        color deepskyblue
-        font-weight 500
-  .debt-list
-    padding-top 5px
-    height 50px
-    .debt-list-delete-wrap
-      width 15%
-      display inline-block
-      padding 0 10px
-      .debt-list-delete
-        position relative
-        transform rotate(45deg)
-        width 30px
-        top -10px
-    .debt-list-data-wrap
-      width 85%
-      display inline-block
-      .debt-list-name
-        margin 0
-        width 20%
-        display inline-block
-        color deepskyblue
-        font-weight 500
-      .debt-list-desc
-        margin 0
-        width 80%
-        display inline-block
-        text-align end
-        padding 0 30px
-        color #6b6b6b
-        font-weight 500
-      .debt-list-date
-        margin 0
-        width 100%
-        text-align end
-        padding 0 30px
-        font-size 12px
-  .debt-default
-    height 60px
-    cursor pointer
-    img
-      width 40px
-      margin 10px 30px 0 30px
-      display block
-    h1
-      margin 18px -10px
-      color #6b6b6b
-      display block
-  .debt-active
-    width 100%
-    display block
-    padding-top 10px
-    height 120px
-    .edit
-      height 140px
-      .description
-        width 100%
-        height 50px
-        padding 0 15px 0 10px
-        .description-input
-          display inline-block
-          height 30px
-          width 60%
-          border 1px solid #6b6b6b
-          text-align end
-          color deepskyblue
-          font-weight 500
-          transform translateY(-15px)
-          &:focus
-            outline none
-        .description-label
-          width 38%
-          padding 0 10px
-          color #6b6b6b
-          display inline-block
-          margin 0
-      .count
-        width 100%
-        height 50px
-        button
-          display inline-block
-          height 30px
-          border-radius 15px
-          border 1px solid #6b6b6b
-          background-color white
-          width 80px
-          margin 0 15px 20px 10px
-          &:focus
-            outline none
-        .ink
-          display inline-block
-          position relative
-          width 30px
-          height 30px
-          border-radius 50%
-          background-color deepskyblue
-          margin 0 10px 0 10px
-          transform translateY(8px)
-          cursor pointer
-          span
-            position absolute
+  background-color $blockBackground
+  border-radius 7px
+  margin 7px 7px
+  .debt-header
+    height 4em
+    display flex
+    label
+      margin auto 10px
+      font-size 1.5em
+      font-weight 700
+  .debt-body
+    .debt-list
+      border-top 1px solid $mainBackground
+      height 4em
+      display flex
+      justify-content space-between
+      .left-side
+        display flex
+        margin auto 10px
+        flex-direction column
+        .debt-list-date
+          color $headerColor
+          font-size 0.8em
+          font-weight 600
+        .debt-list-name
+          display flex
+          font-size 1.3em
+          flex-direction row
+          .debt-list-desc
+            margin-left 10px
+      .right-side
+        margin auto 10px
+    .debt-active
+      .edit
+        margin 0 10px
+        .description
+          .description-input
+            border none
+            width 100%
+            border-bottom 1px solid $mainBackground
+            color $headerColor
+        .count
+          display flex
+          margin 20px 0
+          justify-content center
+          .ink
+            width 40px
             color white
-            font-size 30px
-            padding 0 6px
-            transform translateY(-6.5px)
-          .minus
-            padding 0 10px
-            transform translateY(-9px)
-        .count-input
-          display inline-block
-          height 30px
-          width 20%
-          border 1px solid #6b6b6b
-          border-top 2px solid #6b6b6b
-          border-left 2px solid #6b6b6b
-          color deepskyblue
-          font-weight 500
-          text-align center
-          &:focus
-            outline none
-        h1
-          margin-top 11px
-          color #6b6b6b
-          display inline-block
-          padding 0 25px
+            display flex
+            font-size 2em
+            border-radius 100%
+            background-color $headerColor
+            span
+              margin auto
+          .count-input
+            width 30%
+            border none
+            font-size 2em
+            margin 0 30px
+            text-align center
+        .actions
+          display flex
+          justify-content flex-end
+          padding-bottom 10px
+          button
+            border none
+            background-color $headerColor
+            color white
+            border-radius 100px
+  .debt-footer
+    width 100%
+    height 4em
+    display flex
+    justify-content space-between
+    border-top 1px solid $mainBackground
+    label
+      color $headerColor
+      font-size 0.8em
+      font-weight 800
+      margin auto 10px
+
   .hidden
     display none

@@ -40,7 +40,7 @@ export default class Profile extends React.Component {
               <div className='text'>{config.data.email}</div>
             </div>
           </div>
-            <a className='linkto' href={'mailto:' + config.data.email}><img src='./dist/media/ic_email.svg' /></a>
+            <a className='linkto' href={'mailto:' + config.data.email}><img src={config.urls.media + 'ic_email.svg'} /></a>
         </div>
         {config.data.adress &&
         <div className='block'>
@@ -50,7 +50,7 @@ export default class Profile extends React.Component {
               <div className='text'>{config.data.adress}</div>
             </div>
           </div>
-            <img src='./dist/media/ic_location.svg' />
+            <img src={config.urls.media + 'ic_location.svg'} />
         </div>}
         {config.data.gender && <Sex {...this.props} />}
         {config.data.birthdate && <Birthdate {...this.props} />}

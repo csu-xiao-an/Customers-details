@@ -11,7 +11,7 @@ export default class Events extends React.Component {
     if (i.services.length > 1) {
       for (let c = 0; c < i.services.length; c++) sum += i.services[c].price
     } else { sum = i.services[0].price }
-    return sum + '$'
+    return sum + config.data.currency
   }
   duration (i) {
     let duration = 0
@@ -20,6 +20,26 @@ export default class Events extends React.Component {
     } else { duration = i.services[0].duration }
 
     return moment(i.date).format('HH:mm') + ' - ' + moment(i.date).add(duration * 60 * 1000, 'milliseconds').format('HH:mm')
+  }
+  getColorLine (i) {
+    let nextNum = 0
+    let colorStr = ''
+    let oneColorHeight = (100 / i.services.length).toFixed(2)
+
+    const serviceList = i.services.map((item, index) => {
+      colorStr += ', ' + item.color + ' ' + nextNum + '%, ' + item.color + ' ' + (
+        parseFloat(nextNum) + parseFloat(oneColorHeight)) + '%'
+      nextNum = parseFloat(nextNum) + parseFloat(oneColorHeight)
+
+      return item.name
+    })
+    let leftBorder = {
+      borderImage: 'linear-gradient(to bottom' + colorStr + ') 1 100%',
+      borderWidth: '4px',
+      borderStyle: 'solid',
+      borderRight: 'navajowhite'}
+
+    return leftBorder
   }
   getHeaderTitle (i) {
     let string = ''
@@ -58,51 +78,45 @@ export default class Events extends React.Component {
           {/* <img className='clock' src={config.urls.media + 'clock.png'} /></a> */}
           {/* <h1 className={'label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.close_visits}</h1> */}
           <div id='swiper-wrap-notes'>
-            <Swiper slidesPerView='auto' initialSlide={this.initialSlide()}>
-              {/* <div> */}
-              {/* <div className='note start-note'> */}
-              {/* {config.translations.all_visits} */}
-              {/* </div> */}
-              {/* </div> */}
+            <div className='event-header'>
+              <label>{config.translations.close_queue}</label>
+            </div>
+            <Swiper slidesPerView='auto' initialSlide={this.initialSlide()} centeredSlides='true'>
               {config.data.recent_appoinments.map((i, k) => (
                 <div key={k}>
-                  <div className='note'>
+                  <div className='note' style={this.getColorLine(i)}>
                     <div className='note-head'>
-                      <img className='icon' src='./dist/media/ic_servise.svg' />
+                      <img className='icon' src={config.urls.media + 'ic_servise.svg'} />
                       <span>{this.getHeaderTitle(i)}</span>
                     </div>
-                      <div className='block1' >
-                        <div className='dates'>
-                          <div className='duration'>
-                              <img className='icon' src='./dist/media/ic_time.svg' />
-                              <span>{this.duration(i)}</span>
-                          </div>
-                          <div className='date'>
-                              <img className='icon' src='./dist/media/ic_day.svg' />
-                              <span>{moment(i.date).format('ddd, DD MMMM, Y')}</span>
-                          </div>
+                    <div className='block1' >
+                      <div className='dates'>
+                        <div className='duration'>
+                          <img className='icon' src={config.urls.media + 'ic_time.svg'} />
+                          <span>{this.duration(i)}</span>
+                        </div>
+                        <div className='date'>
+                          <img className='icon' src={config.urls.media + 'ic_day.svg'} />
+                          <span>{moment(i.date).format('ddd, DD MMMM, Y')}</span>
                         </div>
                       </div>
-                      <div className='block2' >
-                          <span>{this.price(i)}</span>
-                          <span className='min'>/&nbsp;summary</span>
-                      </div>
-                    {/* <h1 className='date'>{lastAppoinment(i.date)}</h1> */}
-                    {/* <h1 className='procedure'>{i.services.length > 1 ? i.services.length + ' ' + config.translations.services : i.services[0].name}</h1> */}
-                    {/* <h1 className='price'>{this.price(i)} {config.data.currency}</h1> */}
+                    </div>
+                    <div className='block2' >
+                      <span>{this.price(i)}</span>
+                      <span className='min'>/&nbsp;{config.translations.summary}</span>
+                    </div>
                   </div>
                 </div>)
               )}
-              {/* <div><div className='note end-note'> */}
-              {/* <h1 className='date'><span className='orange'>before</span> week</h1> */}
-              {/* <h1 className='procedure'>Laser hair removal</h1> */}
-              {/* <h1 className='price'>450 {config.data.currency}</h1> */}
-              {/* </div></div> */}
-              {/* TODO dynamic */}
             </Swiper>
+            <div className='event-footer'>
+                <label>{config.translations.add_new_queue}</label>
+              <a href={this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}>
+                <img className='add' src={config.urls.media + 'c_add_stroke.svg'} />
+              </a>
+            </div>
           </div>
         </div>
-        {/* <Line /> */}
       </div>
     )
   }

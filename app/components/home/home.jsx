@@ -31,7 +31,7 @@ class Home extends React.Component {
         <HotLinks {...this.props} />
         <Profile {...this.props} />
         {config.data.recent_appoinments && <Events {...this.props} />}
-        <Signature {...this.props} />
+        {/*<Signature {...this.props} />*/}
         {config.data.debts && <Debts {...this.props} />}
         {config.data.notes && <Notes {...this.props} />}
         {config.data.gallery && <Media {...this.props} />}
