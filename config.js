@@ -304,6 +304,7 @@ var config = {
     gender: 'Gender',
     birthday: 'Birthday',
     summary: 'summary',
+    delete: 'Delete',
     agreement: 'Agreement to send advertising',
     customer: 'Customer details',
     appointment: 'Appointments',
@@ -331,7 +332,7 @@ var config = {
     item_count: 'Items',
     gallery: 'Gallery',
     files: 'Files',
-    add_media: 'Add media',
+    add_media: 'Add New File',
     // add_traffic_source: 'Add traffic source',
     // traffic_source: 'Traffic source',
     recommended_by: 'Recommended by:',
@@ -465,14 +466,14 @@ var config = {
       {value: 'recommendation', label: 'recommendation'}
     ],
     social_list: [
-      {value: 'facebook', label: 'facebook'},
-      {value: 'instagram', label: 'instagram'},
-      {value: 'linkedin', label: 'linkedin'},
-      {value: 'twitter', label: 'twitter'},
-      {value: 'pinterest', label: 'pinterest'},
-      {value: 'google', label: 'google'},
-      {value: 'vk', label: 'vk'},
-      {value: 'website', label: 'website'}
+      {value: 'facebook', label: 'facebook', name: 'Facebook'},
+      {value: 'instagram', label: 'instagram', name: 'Instagram'},
+      {value: 'linkedin', label: 'linkedin', 'LinkedIn'},
+      {value: 'twitter', label: 'twitter', 'Twitter'},
+      {value: 'pinterest', label: 'pinterest', 'Pinterest'},
+      {value: 'google', label: 'google', 'Google'},
+      {value: 'vk', label: 'vk', 'VK'},
+      {value: 'website', label: 'website', 'Website'}
     ]
   },
   urls: {
@@ -627,19 +628,19 @@ var config = {
     ],
     gallery: [
       {
-        id: 123123,
+        id: 1,
         name: '01.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 2,
         name: '02.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 3,
         name: '03.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
@@ -651,43 +652,43 @@ var config = {
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 4,
         name: '05.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 5,
         name: '06.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 6,
         name: '07.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 7,
         name: '08.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 8,
         name: 'video.mp4',
         note: 'Lorem tur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 9,
         name: '09.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
-        id: 123123,
+        id: 10,
         name: '10.png',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'

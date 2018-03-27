@@ -164,7 +164,7 @@ export default class Notes extends React.Component {
         {this.props.rights.notes.add &&
         <div onClick={() => this.setState({isEditNotes: !this.state.isEditNotes})} className={this.state.isEditNotes ? 'hidden' : 'note-footer'}>
           <label>{config.translations.add_note}</label>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'c_add_stroke.svg'} />
+          <img src={config.urls.media + 'c_add_stroke.svg'} />
         </div>}
         {/* <div className=''> */}
         {/* <div className={'add-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.notes}</div></div> */}

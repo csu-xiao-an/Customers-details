@@ -12,7 +12,10 @@ export default class Media extends React.Component {
     isAddMedia: false,
     initialSlide: 0,
     file: {},
-    desc: ''
+    desc: '',
+    slideAmount: 0,
+    multiDel: false,
+    slides: []
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -55,13 +58,26 @@ export default class Media extends React.Component {
     if (i.name.indexOf('mp4') !== -1) {
       return (<div className='video-block'>
         <img src={config.urls.media + 'video_play.png'} className='video_play media' />
-        <video className='media' src={config.urls.gallery + i.name} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
+        <video className='media'
+          src={config.urls.gallery + i.name}
+          onClick={this.state.multiDel
+            ? ''
+            : (this.props.rights.gallery.open
+              ? () => { this.handleGallery(); this.setState({initialSlide: k}) }
+              : () => {})}
+        />
       </div>)
     } else {
       if (i.name.indexOf('png') !== -1) { src = config.urls.gallery + i.name } else
       if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
       if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
-      return <img className='media' src={src} onClick={this.props.rights.gallery.open ? () => { this.handleGallery(); this.setState({initialSlide: k}) } : () => {}} />
+      return <img className='media'
+        src={src}
+        onClick={this.state.multiDel
+          ? '' : (this.props.rights.gallery.open
+            ? () => { this.handleGallery(); this.setState({initialSlide: k}) }
+            : () => {})}
+      />
     }
   }
   resize = f => {
@@ -111,6 +127,21 @@ export default class Media extends React.Component {
       }
     })
   }
+  // let  = []
+  selectSlide = id => {
+    let arr = this.state.slides
+    let buttonClasses = document.getElementById('slide' + id).classList
+    const index = arr.indexOf(id)
+    if (index in arr) {
+      arr.splice(index, 1)
+      buttonClasses.remove('selected')
+    } else {
+      arr.push(id)
+      buttonClasses.add('selected')
+    }
+    this.setState({slides: arr})
+  }
+  componentDidMount = () => { this.setState({slideAmount: config.data.gallery.length}) }
   componentWillMount = () => { if (!Array.isArray(config.data.gallery)) config.data.gallery = [] }
   render () {
     let $imagePreview = null
@@ -126,21 +157,53 @@ export default class Media extends React.Component {
             {config.translations.gallery}
           </div>
           <div className='files-amount'>
-            {config.translations.files + ': ' + config.data.gallery.length}
+            {config.translations.files + ': ' + this.state.slideAmount}
             <div className='action'>
               <img src={config.urls.media + 'ic_share.svg'} />
-              <img src={config.urls.media + 'ic_del.svg'} />
+              <img src={config.urls.media + 'ic_del.svg'}
+                onClick={() => {
+                  if (this.state.multiDel) {
+                    let arr = this.state.slides
+                    arr.map(val => {
+                      document.getElementById('slide' + val).classList.remove('selected')
+                    })
+                    this.setState({slides: []})
+                  }
+                  this.setState({multiDel: !this.state.multiDel})
+                }}
+              />
             </div>
           </div>
-
         </div>
         {this.state.isOpenGalleryContex &&
-          <GalleryModal handleGallery={this.handleGallery} initialSlide={this.state.initialSlide} isOpenGallery={this.state.isOpenGallery} />}
+          <GalleryModal handleGallery={this.handleGallery}
+            initialSlide={this.state.initialSlide}
+            isOpenGallery={this.state.isOpenGallery}
+          />}
         <div id='swiper-wrap-gallery'>
-          <Swiper spaceBetween={5} slidesPerView={3} slidesPerColumn={2} observer>
+          <Swiper spaceBetween={5} slidesPerView='auto' slidesPerGroup={1} slidesPerColumn={2} observer>
             {config.data.gallery.map((i, k) => (
-              <div>
-                {this.typeItem(i, k)}
+              <div id={'slide' + i.id}
+                onClick={() => this.state.multiDel && this.selectSlide(i.id)}
+                // className={() => { this.state.slides.indexOf(i.id) >= 0 ? 'selected' : '' }}
+              >
+                <div className='img-selected'>
+                  {this.typeItem(i, k)}
+                </div>
+                <div className='check-box'>
+                  <svg width='16px' height='16px' viewBox='0 0 16 16' version='1.1'>
+                    <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
+                      <g id='Customer-Page' transform='translate(-553.000000, -961.000000)'>
+                        <g id='1.personal-info' transform='translate(249.000000, 489.000000)'>
+                          <g id='ic-check-box' transform='translate(302.000000, 470.000000)'>
+                            <polygon id='Shape' points='0 0 20 0 20 20 0 20' />
+                            <path d='M16.2222222,2 L3.77777778,2 C2.79555556,2 2,2.79555556 2,3.77777778 L2,16.2222222 C2,17.2044444 2.79555556,18 3.77777778,18 L16.2222222,18 C17.2044444,18 18,17.2044444 18,16.2222222 L18,3.77777778 C18,2.79555556 17.2044444,2 16.2222222,2 Z M8.22222222,14.4444444 L3.77777778,10 L5.03555556,8.74222222 L8.22222222,11.9288889 L14.9644444,5.18666667 L16.2222222,6.44444444 L8.22222222,14.4444444 Z' id='Shape' fill='#5E36B1' fillRule='nonzero' />
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
                 <label className='file-name'>{i.name}</label>
                 <div className='file-date'>
                   <img className='day-icon' src={config.urls.media + 'ic_day_min.svg'} />
@@ -150,19 +213,23 @@ export default class Media extends React.Component {
             ))}
           </Swiper>
         </div>
-        {this.props.rights.gallery.add &&
-          <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})} className={this.state.isAddMedia ? 'hidden' : 'add-media-wrap'}>
-            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-            <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_media}</h1>
-          </div>}
+
+        {this.state.multiDel ? (<div className='multi-del'><span>{config.translations.delete}</span></div>) : (this.props.rights.gallery.add &&
+          <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})} className={this.state.isAddMedia ? 'hidden' : 'gallery-footer'}>
+            <label>{config.translations.add_media}</label>
+            <img src={config.urls.media + 'c_add_stroke.svg'} />
+          </div>)}
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <form className='add-input-wrap' ref='fileAddForm'>
-            <input className='file-input' type='file' onChange={e => this.addFile(e)} /><div className='previw-wrap'>{$imagePreview}</div>
+            <div className='previw-wrap'>{$imagePreview}</div>
+            <input className='file-input' type='file' onChange={e => this.addFile(e)} />
             <textarea className='note-input' type='text-area' onChange={e => this.setState({desc: e.target.value})} value={this.state.desc} />
           </form>
-          <button onClick={this.submit}>{config.translations.save}</button>
+          <div className='action'>
+            <button className='btn-save' onClick={this.submit}>{config.translations.save}</button>
+          </div>
         </div>
-        {/*<Line />*/}
+        {/* <Line /> */}
       </div>
     )
   }
