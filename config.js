@@ -336,10 +336,11 @@ var config = {
     // add_traffic_source: 'Add traffic source',
     // traffic_source: 'Traffic source',
     recommended_by: 'Recommended by:',
-    add_social_net: 'Add a social media link',
-    social_net: 'Social media link',
+    add_new_link: 'Add New Link',
+    social_net: 'Social Links',
     add_link: 'Add link',
-    group_partner: 'Group partner',
+    groups: 'Groups',
+    add_new_group: 'Add New Group',
     // completion: 'Filling up customer`s details',
     request_to_detail: 'Send a link to the customer',
     send: 'Send',
@@ -356,7 +357,8 @@ var config = {
     all_visits: 'For all visits...',
     url: 'Url',
     customer_pl: 'Customer',
-    show_more_fields: 'Show more fields',
+    show_more_fields: 'Show All Fields',
+    delete_customer: 'Delete customer',
     male: 'Male',
     female: 'Female',
     other: 'Other',
@@ -466,14 +468,14 @@ var config = {
       {value: 'recommendation', label: 'recommendation'}
     ],
     social_list: [
-      {value: 'facebook', label: 'facebook', name: 'Facebook'},
-      {value: 'instagram', label: 'instagram', name: 'Instagram'},
-      {value: 'linkedin', label: 'linkedin', 'LinkedIn'},
-      {value: 'twitter', label: 'twitter', 'Twitter'},
-      {value: 'pinterest', label: 'pinterest', 'Pinterest'},
-      {value: 'google', label: 'google', 'Google'},
-      {value: 'vk', label: 'vk', 'VK'},
-      {value: 'website', label: 'website', 'Website'}
+      {value: 'facebook', label: 'Facebook'},
+      {value: 'instagram', label: 'Instagram'},
+      {value: 'linkedin', label: 'LinkedIn'},
+      {value: 'twitter', label: 'Twitter'},
+      {value: 'pinterest', label: 'Pinterest'},
+      {value: 'google', label: 'Google'},
+      {value: 'vk', label: 'VK'},
+      {value: 'website', label: 'Website'}
     ]
   },
   urls: {
@@ -565,64 +567,58 @@ var config = {
     groups: [
       {
         id: 1,
-        name: 'Were born this month',
-        amount: '72'
+        name: 'Birthday',
+        amount: '72',
+        image: 'ic_birth.svg'
       },
       {
         id: 2,
-        name: 'Preferred Customers',
-        amount: '17'
+        name: 'VIP',
+        amount: '17',
+        image: 'ic_vip.svg'
       },
       {
         id: 3,
-        name: 'They did not pay',
-        amount: '8'
-      },
-      {
-        id: 1,
-        name: 'Were born this month',
-        amount: '72'
-      },
-      {
-        id: 2,
-        name: 'Preferred Customers',
-        amount: '17'
-      },
-      {
-        id: 3,
-        name: 'They did not pay',
-        amount: '8'
+        name: 'Debitores',
+        amount: '3',
+        image: 'ic_debitores.svg'
       }
     ],
     soc_media: [
       {
         id: 1,
         type: 'facebook',
+          name: 'Ahuva Ben Shushan',
         url: 'https://www.facebook.com/bewebmaster/'
       },
       {
         id: 2,
         type: 'instagram',
+          name: '@ahuva',
         url: 'https://www.instagram.com/bewebmaster/'
       },
       {
         id: 3,
         type: 'linkedin',
+          name: 'Ahuva Ben Shushan',
         url: 'https://www.linkedin.com/bewebmaster/'
       },
       {
         id: 4,
         type: 'twitter',
+          name: 'Ahuva Ben Shushan',
         url: 'https://www.twitter.com/bewebmaster/'
       },
       {
         id: 5,
         type: 'pinterest',
+          name: 'Ahuva Ben Shushan',
         url: 'https://www.pinterest.com/bewebmaster/'
       },
       {
         id: 6,
         type: 'vk',
+          name: 'Ahuva Ben Shushan',
         url: 'https://www.vk.com/bewebmaster/'
       }
     ],

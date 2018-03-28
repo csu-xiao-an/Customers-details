@@ -22,7 +22,7 @@ export default class HiddenFields extends React.Component {
     return this.props.rights.more_fields.isVisible && (
       <div id='hidden-fields'>
         <div className={this.state.isVisibleFields ? 'hidden' : 'main-button'}>
-          <button onClick={() => this.setState({isVisibleFields: true})}>{config.translations.show_more_fields}</button>
+          <button onClick={() => this.setState({isVisibleFields: true})}>{config.translations.show_more_fields.toUpperCase()}</button>
         </div>
         {this.state.isVisibleFields &&
           <div className=''>
@@ -38,6 +38,9 @@ export default class HiddenFields extends React.Component {
             {!config.data.gender && <Sex {...this.props} />}
             {!config.data.birthdate && <Birthdate {...this.props} />}
           </div>}
+          <div className='del-btn'>
+              <button onClick={/*() => this.setState({isVisibleFields: true})*/''}>{config.translations.delete_customer.toUpperCase()}</button>
+          </div>
       </div>
     )
   }

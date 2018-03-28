@@ -36,10 +36,11 @@ class Home extends React.Component {
         {config.data.notes && <Notes {...this.props} />}
         {config.data.gallery && <Media {...this.props} />}
         {config.data.source && <Source {...this.props} />}
-        {config.data.soc_media && <SocialNetwork {...this.props} />}
         {config.data.groups && <Groups {...this.props} />}
+        {/*<Adress {...this.props} />*/}
+        {config.data.soc_media && <SocialNetwork {...this.props} />}
         <HiddenFields {...this.props} />
-        <div className='test' />
+        {/*<div className='test' />*/}
       </div>
     )
   }

@@ -1,91 +1,76 @@
+@import "../../../../color.styl"
 #social-network
-  border-bottom 1px solid silver
-  .soc-media-label
-    margin 10px 0 5px 0
-    padding 0 20px
-    color #6b6b6b
-    width 100%
-    text-align end
-  .social-item-wrap
-    height 40px
-    width 100%
-    .delete-wrap
-      width 12%
-      display inline-block
-      padding 0 10px
-      .delete
-        position relative
-        transform rotate(45deg)
-        width 30px
-        top -2px
-    .img-wrap
-      display inline-block
-      width 10%
-      img
-        width 33px
-        height 33px
-    .url-wrap
-      width 72%
-      display inline-block
-      h1
-        margin 0
-        width 100%
-        height 30px
-        overflow hidden
-        text-overflow ellipsis
-        padding-left 10px
-  .add-source-wrap
-    height 60px
-    cursor pointer
-    img
-      width 40px
-      margin 10px 30px 0 30px
-      display block
-    h1
-      margin 18px -10px
-      color #6b6b6b
-      display block
-  .add-select-wrap
-    padding-bottom 10px
-    .button-wrap
-      position relative
-      width 100%
-      height 30px
-      display inline-block
-      button
-        height 30px
-        border-radius 15px
-        border 1px solid #6b6b6b
-        background-color white
-        width 80px
-        margin 0 10px
-        &:focus
-          outline none
-    .item-wrap
-      width 100%
-      padding-bottom 10px
-      .img-wrap
-        display inline-block
-        width 8%
+  background-color $blockBackground
+  margin 0 7px
+  border-radius 8px
+  .soc-header
+    height 4em
+    display flex
+    margin auto 0
+    .soc-label
+      margin auto 10px
+      font-weight 600
+      font-size 1.5em
+  .soc-body
+    .soc-block
+      display flex
+      min-height 4em
+      justify-content space-between
+      border-top 1px solid $mainBackground
+      .left-side
+        margin auto 10px
+        .title
+          font-size 0.8em
+          font-weight 600
+          color $headerColor
+        .detail
+          display flex
+          margin-top 5px
+          align-items center
+          .icon
+            width 16px
+            margin-right 5px
+      .right-side
+        display flex
         img
-          position relative
-          width 33px
-          height 33px
-          top 9px
-      .input-wrap
-        width 52%
-        display inline-block
-        padding 0 10px
-        input
-          width 100%
-          height 30px
-          border 1px solid #6b6b6b
-          color #00b6fb
-          text-align end
-          padding 0 5px
-          &:focus
-            outline none
-      .select-wrap
-        margin 0 10px
-        width 34%
-        display inline-block
+          margin auto 10px
+    .add-select-wrap
+      padding 10px
+      border-top 1px solid $mainBackground
+      .item-wrap
+        .select-wrap
+          margin-bottom 10px
+          #select-main
+            .active
+              border none
+              border-bottom 1px solid $mainBackground
+              .icon
+                padding-left 5px
+            .options
+              border none
+        .input-wrap
+          input
+            border none
+            border-bottom 1px solid $mainBackground
+            margin-bottom 5px
+            width 100%
+            color $headerColor
+      .action
+        display flex
+        justify-content flex-end
+        padding 10px 0
+        .save
+          border none
+          background-color $headerColor
+          color white
+          border-radius 100px
+  .soc-footer
+    height 4em
+    display flex
+    border-top 1px solid $mainBackground
+    justify-content space-between
+    label
+      color $headerColor
+      font-size 0.8em
+      font-weight 900
+      margin auto 10px

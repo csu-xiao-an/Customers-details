@@ -1,36 +1,85 @@
+@import "../../../../color.styl"
 #groups
-  border-bottom 1px solid silver
-  background-color #fffbdf
-  .groups-label
-    width 100%
-    margin 0
-    padding 10px 25px 0 25px
-    text-align end
-    color #6b6b6b
-  .group-wrap
-    width 33.33%
-    padding-top 10px
-    padding-bottom 10px
-    display inline-block
-    a
-      text-decoration none
-    .img
-      width 100px
-      margin 0 auto
-      img
-        width 100%
-    h1
-      text-align center
-      color #304f63
-      line-height 20px
-      height 40px
-      overflow hidden
-      text-overflow ellipsis
-      margin 10px
-    .amount
-      color #00b6fb
+  .group-header
+    margin 7px 7px 2px 7px
+    height 4em
+    display flex
+    border-top-left-radius 8px
+    border-top-right-radius 8px
+    background-color $blockBackground
+    .groups-label
+      font-size 1.5em
       font-weight 600
-      text-align center
-      line-height 20px
-      height 20px
-      margin 0
+      margin auto 10px
+   .group-body
+      margin 0 7px
+      background-color $blockBackground
+   .group-footer
+     display flex
+     margin 2px 7px 7px 7px
+     justify-content space-between
+     border-bottom-left-radius 8px
+     border-bottom-right-radius 8px
+     background-color $blockBackground
+     .footer-label
+       margin auto 10px
+       font-size 0.8em
+       color $headerColor
+       font-weight 800
+     .href
+       margin auto 0
+       img
+        display block
+    .group-body
+      .group-wrap
+        width 114px
+        padding-top 20px
+        padding-bottom 10px
+        display inline-block
+        a
+          text-decoration none
+          .img
+            width 58px
+            height 58px
+            display flex
+            margin 0 auto
+            align-items center
+            justify-content center
+            border 2px solid $groupBorder
+            border-radius 100%
+            background-color $mainBackground
+            .icon
+              width 23px
+            img.icon
+              display block
+            .amount
+              color white
+              top 14%
+              right 23%
+              min-width 18px
+              font-size 0.8em
+              position absolute
+              border-radius 100%
+              background-color $delColor
+          .name
+            color black
+            font-size 1.2em
+            font-weight 600
+            display flex
+            justify-content center
+            margin 10px
+        h1
+          text-align center
+          color #304f63
+          line-height 20px
+          height 40px
+          overflow hidden
+          text-overflow ellipsis
+          margin 10px
+        .amount
+          color #00b6fb
+          font-weight 600
+          text-align center
+          line-height 20px
+          height 20px
+          margin 0

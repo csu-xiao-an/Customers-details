@@ -8,22 +8,33 @@ export default class SocialNetwork extends React.Component {
     selectedValue: config.translations.social_list[0].value,
     selectedLabel: config.translations.social_list[0].label,
     isEditSocial: false,
-    inputValue: ''
+    inputValue: '',
+    inputName: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
+  getSocTitle = type => {
+    let willReturn = ''
+    config.translations.social_list.map(val => {
+      if (val.value === type) {
+        willReturn = val.label
+      }
+    })
+    return willReturn
+  }
   submit = () => {
     if (!Array.isArray(config.data.soc_media)) config.data.soc_media = []
-    const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}`
+    const body = `type=${this.state.selectedValue}&url=${this.state.inputValue}&name=${this.state.inputName}`
     socialPostService(body).then(r => {
       if (r.status === 201) {
         config.data.soc_media.push({
           type: this.state.selectedValue,
-          url: this.state.inputValue
+          url: this.state.inputValue,
+          name: this.state.inputName ? this.state.inputName : this.state.inputValue
         })
         r.json().then(id => { config.data.soc_media[config.data.soc_media.length - 1].id = id })
-        this.setState({ isEditSocial: !this.state.isEditSocial, selectedValue: 'facebook', inputValue: '' })
+        this.setState({ isEditSocial: !this.state.isEditSocial, selectedValue: 'facebook', inputValue: '', inputName: '' })
       }
     })
   }
@@ -38,41 +49,63 @@ export default class SocialNetwork extends React.Component {
   componentWillMount = () => { if (!Array.isArray(config.data.soc_media)) config.data.soc_media = [] }
   render () {
     return (
-      <div id='social-network'>
-        <h1 className={config.data.soc_media && config.data.soc_media.length > 0 ? 'soc-media-label' : 'hidden'}>{config.translations.social_net}</h1>
-        <div className={config.data.soc_media && config.data.soc_media.length > 0 ? 'social-network-list' : 'hidden'}>
+      <div id='social-network'
+        className={config.data.soc_media && config.data.soc_media.length > 0 ? 'soc-media-label' : 'hidden'}
+      >
+        <div className='soc-header'>
+          <span className='soc-label'>{config.translations.social_net}</span>
+        </div>
+        <div className='soc-body'>
           {config.data.soc_media.map((i, k) => (
-            <div key={k} className='social-item-wrap'>
-              <div className='delete-wrap'>
-                {this.props.rights.soc_links.delete &&
-                  <img className='delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />}
+            <div className='soc-block' key={k}>
+              <div className='left-side'>
+                <label className='title'>{this.getSocTitle(i.type)}</label>
+                <div className='detail'>
+                  <img className='icon' src={config.urls.soc_net + i.type + '.png'} />
+                  <label className='name'>{i.name}</label>
+                </div>
               </div>
-              <div className='img-wrap'><img src={config.urls.soc_net + i.type + '.png'} /></div>
-              <div className='url-wrap' onClick={this.props.rights.soc_links.edit ? () => this.setState({isEditSocial: true, selectedValue: i.type}) : () => {}}>
-                <h1>{i.url}</h1></div>
+              <div className='right-side'>
+                <img src={config.urls.media + 'ic_edit_stroke.svg'}
+                  onClick={this.props.rights.soc_links.edit
+                    ? () => this.setState({isEditSocial: true, selectedValue: i.type, inputValue: i.url, inputName: i.name})
+                    : () => {}} />
+              </div>
             </div>)
           )}
-        </div>
-        <div className={this.state.isEditSocial ? 'add-select-wrap' : 'hidden'}>
-          <div className='item-wrap'>
-            <div className='select-wrap'>
-              <Select onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})}
-                value={this.state.selectedLabel} options={config.translations.social_list} />
+
+          <div className={this.state.isEditSocial ? 'add-select-wrap' : 'hidden'}>
+            <div className='item-wrap'>
+              <div className='select-wrap'>
+                <Select onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})}
+                  value={this.state.selectedLabel} options={config.translations.social_list} />
+              </div>
+              <div className='input-wrap'>
+                <input type='text'
+                  value={this.state.inputName}
+                  placeholder={config.translations.name}
+                  onChange={e => this.setState({inputName: e.target.value})}
+                />
+                <input type='text' value={this.state.inputValue}
+                  placeholder={config.translations.url}
+                  onChange={e => this.setState({inputValue: e.target.value})}
+                />
+              </div>
             </div>
-            <div className='img-wrap'><img src={config.urls.soc_net + '/' + this.state.selectedValue + '.png'} /></div>
-            <div className='input-wrap'>
-              <input type='text' value={this.state.inputValue} placeholder={config.translations.url}
-                onChange={e => this.setState({inputValue: e.target.value})} />
+            <div className='action'>
+              <button className='save' onClick={this.submit}>{config.translations.save}</button>
             </div>
           </div>
-          <div className='button-wrap'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
         {this.props.rights.soc_links.edit &&
-          <div className={this.state.isEditSocial ? 'hidden' : 'add-source-wrap'} onClick={() => this.setState({isEditSocial: !this.state.isEditSocial})} >
-            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-            <h1 className={config.isRtL ? 'left' : 'right'} >{config.translations.add_social_net}</h1>
+          <div className={this.state.isEditSocial ? 'hidden' : 'soc-footer'}
+            onClick={() => this.setState({isEditSocial: !this.state.isEditSocial})}
+          >
+            <label>{config.translations.add_new_link}</label>
+            <img src={config.urls.media + 'c_add_stroke.svg'} />
           </div>}
-        <Line />
+
+        {/* <Line /> */}
       </div>
     )
   }
