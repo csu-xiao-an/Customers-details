@@ -39,17 +39,30 @@ export default class HotLinks extends React.Component {
       <div id='hot-links'>
         <Swiper slidesPerView='auto'>
           {config.data.hot_links.map(i => {
-            const link = (url, label) =>
-              <div className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')}><Link to={url}><img src={label} /></Link></div>
+            const link = (url, label, img) =>
+              <div>
+                <div className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')}>
+                  <Link to={url}><img src={img} /></Link>
+                </div>
+                  <span>{label}</span>
+              </div>
             if (i.url[0] === '#') {
-              return <div onClick={() => this.link(i)} className={'link ' + (this.props.rights.hot_links.internal ? 'square' : 'hidden')}><img src={i.label} /></div>
+              return <div><div onClick={() => this.link(i)} className={'link ' + (this.props.rights.hot_links.internal ? 'square' : 'hidden')}><img src={i.img} />
+              </div>
+                  <span>{i.label}</span>
+              </div>
             } else {
               if (i.url === config.urls.punch_cards) {
-                return !this.state.isActivePunchCard ? link(config.urls.punch_cards_adding, config.translations.punch_cards_adding) : link(i.url, i.label)
-              } else return link(i.url, i.label)
+                return !this.state.isActivePunchCard ? link(config.urls.punch_cards_adding, config.translations.punch_cards_adding, '') : link(i.url, i.label, i.img)
+              } else return link(i.url, i.label, i.img)
             }
           })}
-            <div className="link add-btn"><img src="/dist/media/ic_add.png" /></div>
+            <div>
+                <div className='link add-btn'>
+                    <img className='add' src='/dist/media/ic_add.png' />
+                </div>
+                <span>{config.translations.add_hot_line}</span>
+            </div>
         </Swiper>
       </div>
     )

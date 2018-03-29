@@ -304,7 +304,11 @@ var config = {
     gender: 'Gender',
     birthday: 'Birthday',
     summary: 'summary',
+      add_hot_line: 'Add Queue',
     delete: 'Delete',
+      del_question: 'Are you sure you want to delete selected customers?',
+      del_no: 'No',
+      del_yes: 'Yes',
     agreement: 'Agreement to send advertising',
     customer: 'Customer details',
     appointment: 'Appointments',
@@ -481,6 +485,8 @@ var config = {
   urls: {
     adress: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
     timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
+    multi_del_url: '/customers-details/clients/{client_id}/media/{media_ids}',
+    media_del: '/customers-details/clients/{client_id}/media/{media_id}',
     punch_cards_req: '/customers-details/clients/{client_id}/punch_cards',
     signature: '/customers-details/clients/{client_id}/signature',
     gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
@@ -536,12 +542,12 @@ var config = {
     max_side: 1000,
     timeout: 500,
     hot_links: [
-      {label: '/dist/media/ic_hair_d.svg', url: '/colors_beautech'},
+        {label: 'Timeline',img: '/dist/media/ic_timeline.svg', url: '/timeline'},
+        {label: 'Subscription',img: '/dist/media/ic_subscription.svg', url: '#notes'},
+        {label: 'Hair Dyeing',img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech'},
       // {label: 'Punch cards', url: '/punch_cards'},
-      {label: '/dist/media/ic_timeline.svg', url: '/timeline'},
       // {label: 'Gallery', url: '#gallery'},
-      {label: '/dist/media/ic_debts.svg', url: '#depts'},
-      {label: '/dist/media/ic_subscription.svg', url: '#notes'}
+      {label: 'Debts',img: '/dist/media/ic_debts.svg', url: '#depts'}
     ],
     debts: [
       {

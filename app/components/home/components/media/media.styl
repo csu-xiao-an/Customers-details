@@ -1,5 +1,9 @@
 @import "../../../../color.styl"
 #gallery
+  .isVisible
+    visibility visible
+    opacity 1
+    transition 0.2s ease-in-out
   .gallery-header
     margin 0 7px
     display flex
@@ -22,8 +26,9 @@
       height 5em
       justify-content space-between
       .action
-        img
-          &:nth-child(2)
+        #share
+          margin-right 40px
+        .delete
             margin-left 8px
   #swiper-wrap-gallery
     margin 5px 7px 0

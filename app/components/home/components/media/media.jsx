@@ -1,24 +1,29 @@
 import {formatDate, dataURLtoFile, getOrientation, Swiper} from 'project-components'
 import GalleryModal from '../media-modal/media-modal.jsx'
-import {mediaPostService} from 'project-services'
+import {mediaPostService, multiMediaDeleteService} from 'project-services'
 import Line from '../line/line.jsx'
 import './media.styl'
+import Share from '../share/share.jsx'
 
 export default class Media extends React.Component {
   state = {
-    isOpenGalleryContex: false,
-    isOpenGallery: false,
-    imagePreviewUrl: '',
-    isAddMedia: false,
-    initialSlide: 0,
     file: {},
     desc: '',
+    slides: [],
+    shares: [],
+    gallery: {},
     slideAmount: 0,
+    initialSlide: 0,
     multiDel: false,
-    slides: []
+    multiShare: false,
+    isAddMedia: false,
+    imagePreviewUrl: '',
+    isOpenGallery: false,
+    isOpenGalleryContex: false
   }
   static propTypes = {
-    rights: PropTypes.object.isRequired
+    rights: PropTypes.object.isRequired,
+    i: PropTypes.object.isRequired
   }
   handleGallery = () => {
     this.setState({isOpenGallery: !this.state.isOpenGallery})
@@ -60,7 +65,7 @@ export default class Media extends React.Component {
         <img src={config.urls.media + 'video_play.png'} className='video_play media' />
         <video className='media'
           src={config.urls.gallery + i.name}
-          onClick={this.state.multiDel
+          onClick={(this.state.multiDel || this.state.multiShare)
             ? ''
             : (this.props.rights.gallery.open
               ? () => { this.handleGallery(); this.setState({initialSlide: k}) }
@@ -73,7 +78,7 @@ export default class Media extends React.Component {
       if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
       return <img className='media'
         src={src}
-        onClick={this.state.multiDel
+        onClick={(this.state.multiDel || this.state.multiShare)
           ? '' : (this.props.rights.gallery.open
             ? () => { this.handleGallery(); this.setState({initialSlide: k}) }
             : () => {})}
@@ -127,22 +132,86 @@ export default class Media extends React.Component {
       }
     })
   }
-  // let  = []
-  selectSlide = id => {
+  selectSlide = (id, path) => {
     let arr = this.state.slides
-    let buttonClasses = document.getElementById('slide' + id).classList
     const index = arr.indexOf(id)
+    let arrShare = this.state.shares
+    let buttonClasses = document.getElementById('slide' + id).classList
     if (index in arr) {
       arr.splice(index, 1)
+      arrShare.splice(index, 1)
       buttonClasses.remove('selected')
     } else {
       arr.push(id)
+      arrShare.push(path)
       buttonClasses.add('selected')
     }
-    this.setState({slides: arr})
+    this.setState({slides: arr, shares: arrShare})
   }
+  multiDeleteFiles = () => {
+    let slides = this.state.slides
+    if (slides.length > 0) {
+      multiMediaDeleteService(slides).then(r => {
+        if (r.status === 204) {
+          let gallery = this.state.gallery
+          gallery.map((val, index) => {
+            if (slides.indexOf(val.id) >= 0) {
+              gallery.splice(index, 1)
+            }
+          })
+          slides.map(val => {
+            document.getElementById('slide' + val).classList.remove('selected')
+          })
+          this.setState({gallery: gallery, slides: [], shares: []})
+        }
+      })
+    }
+  }
+    share = () => {
+      if (navigator.share) {
+        this.state.shares.map(val => {
+          let opt = {
+            title: config.translations.share_title,
+            text: config.translations.share_text,
+            urls: val
+          }
+          navigator.share(opt)
+        })
+        //
+        // .then(() => console.log('Successful share'))
+        // .catch(er => console.log('Error sharing', er))
+      } else this.setState({multiShare: !this.state.multiShare})
+      if (this.state.multiShare) {
+        this.state.slides.map(val => {
+          document.getElementById('slide' + val).classList.remove('selected')
+        })
+        this.setState({slides: [], shares: []})
+      }
+    }
+    renderCheck = () => {
+      return <svg width='16px' height='16px' viewBox='0 0 16 16' version='1.1'>
+        <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
+          <g id='Customer-Page' transform='translate(-553.000000, -961.000000)'>
+            <g id='1.personal-info' transform='translate(249.000000, 489.000000)'>
+              <g id='ic-check-box' transform='translate(302.000000, 470.000000)'>
+                <polygon id='Shape' points='0 0 20 0 20 20 0 20' />
+                <path d='M16.2222222,2 L3.77777778,2 C2.79555556,2 2,2.79555556 2,3.77777778 L2,16.2222222 C2,17.2044444 2.79555556,18 3.77777778,18 L16.2222222,18 C17.2044444,18 18,17.2044444 18,16.2222222 L18,3.77777778 C18,2.79555556 17.2044444,2 16.2222222,2 Z M8.22222222,14.4444444 L3.77777778,10 L5.03555556,8.74222222 L8.22222222,11.9288889 L14.9644444,5.18666667 L16.2222222,6.44444444 L8.22222222,14.4444444 Z' id='Shape' fill='#5E36B1' fillRule='nonzero' />
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+    }
+    checkAccessLevel = () => {
+      return ((config.user.permission_level === 'admin' ||
+            config.user.permission_level === 'senior' ||
+            config.user.permission_level === 'junior'))
+    }
   componentDidMount = () => { this.setState({slideAmount: config.data.gallery.length}) }
-  componentWillMount = () => { if (!Array.isArray(config.data.gallery)) config.data.gallery = [] }
+  componentWillMount = () => {
+    if (!Array.isArray(config.data.gallery)) config.data.gallery = []
+    this.setState({gallery: config.data.gallery})
+  }
   render () {
     let $imagePreview = null
     if (this.state.imagePreviewUrl) {
@@ -159,10 +228,10 @@ export default class Media extends React.Component {
           <div className='files-amount'>
             {config.translations.files + ': ' + this.state.slideAmount}
             <div className='action'>
-              {(config.user.permission_level === 'admin' ||
-                config.user.permission_level === 'senior' ||
-                config.user.permission_level === 'junior') ? <img src={config.urls.media + 'ic_share.svg'} /> : ''}
-              <img src={config.urls.media + 'ic_del.svg'}
+              {this.checkAccessLevel
+                ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
+                : ''}
+              <img className='delete' src={config.urls.media + 'ic_del.svg'}
                 onClick={() => {
                   if (this.state.multiDel) {
                     let arr = this.state.slides
@@ -184,27 +253,16 @@ export default class Media extends React.Component {
           />}
         <div id='swiper-wrap-gallery'>
           <Swiper spaceBetween={5} slidesPerView='auto' slidesPerGroup={1} slidesPerColumn={2} observer>
-            {config.data.gallery.map((i, k) => (
-              <div id={'slide' + i.id}
-                onClick={() => this.state.multiDel && this.selectSlide(i.id)}
-                // className={() => { this.state.slides.indexOf(i.id) >= 0 ? 'selected' : '' }}
+            {this.state.gallery.map((i, k) => (
+              <div key={k} id={'slide' + i.id}
+                onClick={() => (this.state.multiDel || this.state.multiShare) && this.selectSlide(i.id, this.state.multiDel
+                  ? '' : (config.urls.gallery + i.name).substr(1))}
               >
                 <div className='img-selected'>
                   {this.typeItem(i, k)}
                 </div>
                 <div className='check-box'>
-                  <svg width='16px' height='16px' viewBox='0 0 16 16' version='1.1'>
-                    <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
-                      <g id='Customer-Page' transform='translate(-553.000000, -961.000000)'>
-                        <g id='1.personal-info' transform='translate(249.000000, 489.000000)'>
-                          <g id='ic-check-box' transform='translate(302.000000, 470.000000)'>
-                            <polygon id='Shape' points='0 0 20 0 20 20 0 20' />
-                            <path d='M16.2222222,2 L3.77777778,2 C2.79555556,2 2,2.79555556 2,3.77777778 L2,16.2222222 C2,17.2044444 2.79555556,18 3.77777778,18 L16.2222222,18 C17.2044444,18 18,17.2044444 18,16.2222222 L18,3.77777778 C18,2.79555556 17.2044444,2 16.2222222,2 Z M8.22222222,14.4444444 L3.77777778,10 L5.03555556,8.74222222 L8.22222222,11.9288889 L14.9644444,5.18666667 L16.2222222,6.44444444 L8.22222222,14.4444444 Z' id='Shape' fill='#5E36B1' fillRule='nonzero' />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
+                  {this.renderCheck()}
                 </div>
                 <label className='file-name'>{i.name}</label>
                 <div className='file-date'>
@@ -215,12 +273,28 @@ export default class Media extends React.Component {
             ))}
           </Swiper>
         </div>
-
-        {this.state.multiDel ? (<div className='multi-del'><span>{config.translations.delete}</span></div>) : (this.props.rights.gallery.add &&
-          <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})} className={this.state.isAddMedia ? 'hidden' : 'gallery-footer'}>
-            <label>{config.translations.add_media}</label>
-            <img src={config.urls.media + 'c_add_stroke.svg'} />
-          </div>)}
+        {this.state.multiDel
+          ? (<div className='multi-del' onClick={this.multiDeleteFiles}>
+            <span>{config.translations.delete}</span>
+          </div>)
+          : this.state.multiShare ? (
+            <div className={this.state.multiShare ? 'isVisible' : 'hidden'}>
+              <Share {...this.props} opt={{
+                title: config.translations.share_title,
+                text: config.translations.share_text,
+                urls: this.state.shares
+              }} />
+            </div>
+          )
+            : (this.props.rights.gallery.add &&
+            <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})}
+              className={this.state.isAddMedia
+                ? 'hidden'
+                : 'gallery-footer'}
+            >
+              <label>{config.translations.add_media}</label>
+              <img src={config.urls.media + 'c_add_stroke.svg'} />
+            </div>)}
         <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <form className='add-input-wrap' ref='fileAddForm'>
             <div className='previw-wrap'>{$imagePreview}</div>

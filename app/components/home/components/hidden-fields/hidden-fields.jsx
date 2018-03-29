@@ -38,9 +38,6 @@ export default class HiddenFields extends React.Component {
             {!config.data.gender && <Sex {...this.props} />}
             {!config.data.birthdate && <Birthdate {...this.props} />}
           </div>}
-          <div className='del-btn'>
-              <button onClick={/*() => this.setState({isVisibleFields: true})*/''}>{config.translations.delete_customer.toUpperCase()}</button>
-          </div>
       </div>
     )
   }

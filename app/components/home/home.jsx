@@ -13,6 +13,7 @@ import Email from './components/email/email.jsx'
 import Media from './components/media/media.jsx'
 import Notes from './components/notes/notes.jsx'
 import Debts from './components/debts/debts.jsx'
+import DeleteCustomer from './components/delete_customer/delete_customer.jsx'
 // import Phone from './components/phone/phone.jsx'
 import Hero from './components/hero/hero.jsx'
 import Sex from './components/sex/sex.jsx'
@@ -40,6 +41,7 @@ class Home extends React.Component {
         {/*<Adress {...this.props} />*/}
         {config.data.soc_media && <SocialNetwork {...this.props} />}
         <HiddenFields {...this.props} />
+        <DeleteCustomer {...this.props} />
         {/*<div className='test' />*/}
       </div>
     )
