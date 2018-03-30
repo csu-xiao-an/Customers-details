@@ -1,71 +1,106 @@
 import {clientReplaceService, adressGetService} from 'project-services'
-import Line from '../line/line.jsx'
+import {Modal} from 'project-components'
 import './adress.styl'
-let timeout
 
 export default class Adress extends React.Component {
   state = {
-    adressEdit: false,
-    isViewAdress: false,
-    adress_list: [],
-    adress: ''
+    addressEdit: false,
+    sendNewAddress: false,
+    showAgreeForm: false,
+    addressName: ''
   }
   static propTypes = {
-    rights: PropTypes.object.isRequired
+    rights: PropTypes.object.isRequired,
+    show: false,
+    parent: {}
   }
   submit = () => {
-    const body = `${config.urls.address}=${this.state.adress}`
+    const body = `${config.urls.address}=${this.changeAddress.value}`
     clientReplaceService(body).then(r => {
       if (r.status === 204) {
-        config.data.adress = this.state.adress
-        this.setState({ adressEdit: !this.state.adressEdit, isViewAdress: false, adress: '' })
+        config.data.adress = this.changeAddress.value
+        this.setState({
+          addressName: this.changeAddress.value,
+          addressEdit: false
+        })
+        this.state.parent.setState({visibleMapPopup: false, address: this.state.addressName})
       }
     })
   }
-  changeInput = e => {
-    clearTimeout(timeout)
-    this.setState({adress: e})
-    if (e.length > 0) {
-      timeout = setTimeout(() => adressGetService(e).then(r => r.json().then(r =>
-        this.setState({isViewAdress: true, adress_list: r.results}))), config.data.timeout)
-    } else this.setState({isViewAdress: false})
+  changeInput = () => {
+    if (typeof this.changeAddress !== 'undefined' &&
+        this.state.addressName !== '' &&
+        this.changeAddress.value !== '' &&
+        this.state.addressName !== this.changeAddress.value) {
+      this.setState({showAgreeForm: true})
+    } else if (typeof this.changeAddress !== 'undefined' && this.changeAddress.value !== '') {
+      this.submit()
+      this.setState({addressEdit: false})
+      this.state.parent.setState({visibleMapPopup: false, address: this.state.addressName})
+    } else {
+      this.state.parent.setState({visibleMapPopup: false, address: this.state.addressName})
+    }
+  }
+  componentDidMount = () => {
+    this.setState({
+      parent: this.props.parent,
+      addressName: config.data.adress,
+    })
   }
   render () {
     return (
       <div id='adress'>
-        <div className={config.data.adress ? this.state.adressEdit ? 'hidden' : 'adress' : 'hidden'}>
-          <div className={'google-map ' + (config.isRtL ? 'right' : 'left')}>
-            <a href={this.props.rights.adress.waze ? 'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes' : false}>
-              <img src={config.urls.main + '/customers-details/clients/' + config.data.id + '/map'} /></a>
+        <Modal show={this.props.show}>
+          <div className='address-header'>
+            <label className='address-name'>{this.state.addressName}</label>
+            <img className={'close-button'} src={config.urls.media + 'ic_close.svg'}
+              onClick={() => { this.state.parent.setState({visibleMapPopup: false}) }} />
           </div>
-          <div className='data-wrap'>
-            <div className='adress-label-wrap'><div className={'adress-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.adress}</div></div>
-            <div className={'address ' + (config.isRtL ? 'left' : 'right')}>
-              <a href={this.props.rights.adress.waze ? 'waze://?ll=' + config.data.intent_x + ', ' + config.data.intent_y + '&navigate=yes' : false}>
-                <img src={config.urls.media + 'waze.png'} /></a>
-              <h1 className={config.isRtL ? 'left' : 'right'}
-                onClick={this.props.rights.adress.edit ? () => this.setState({adressEdit: !this.state.adressEdit, adress: config.data.adress}) : () => {}}>{config.data.adress}</h1>
+          <div className='address-body'>
+            <div className='search-box'>
+              <input type='text'
+                className='search-input'
+                ref={node => { this.searcInput = node }}
+              />
+              <button><img className='icon'
+                src={config.urls.media + 'search.png'}
+              /></button>
+            </div>
+            <img className='map' src={config.urls.main + '/customers-details/clients/' + config.data.id + '/map'} />
+            <div className='block-text'>
+              {!this.state.addressEdit
+                ? <label className='address-name'>{config.data.adress ? config.data.adress : ''}</label>
+                : <input className='input-change-address'
+                  ref={node => {
+                    this.changeAddress = node
+                  }}
+                />
+              }
+              <img onClick={() => this.setState({addressEdit: !this.state.addressEdit})}
+                className='icon'
+                src={config.urls.media + 'pencil.svg'}
+              />
             </div>
           </div>
-        </div>
-        {this.props.rights.adress.add &&
-          <div onClick={() => this.setState({adressEdit: !this.state.adressEdit})}
-            className={config.data.adress || this.state.adressEdit ? 'hidden' : 'add-adress'}>
-            <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-            <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_adress}</h1>
-          </div>}
-        <div className={this.state.adressEdit ? 'adress-edit' : 'hidden'}>
-          <div className='edit'><input className='edit-input' type='text' value={this.state.adress} onChange={e => this.changeInput(e.target.value)} />
-            <div className={this.state.isViewAdress ? 'adress-list-wrap' : 'hidden'}>
-              {this.state.adress_list.map((i, k) => (
-                <div key={k} onClick={() => this.setState({adress: i.formatted_address, isViewAdress: false})}>{i.formatted_address}</div>)
-              )}
-            </div>
-            <h1 className='edit-label'>{config.translations.adress}</h1>
+          <div className='address-footer' >
+            <button className='no-btn' onClick={() => { this.state.parent.setState({visibleMapPopup: false}) }} >{config.translations.del_no.toUpperCase()}</button>
+            <button className='yes-btn' onClick={() => { this.changeInput() }}>{config.translations.del_yes.toUpperCase()}</button>
           </div>
-          <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
-        </div>
-        <Line />
+        </Modal>
+        { this.state.showAgreeForm &&
+          <Modal show={this.state.showAgreeForm}>
+            <div className='body-agree'>
+              {config.translations.address_agree}
+            </div>
+            <div className='footer-agree'>
+              <button className='no-btn' onClick={() => { this.setState({showAgreeForm: false}) }} >{config.translations.only_now.toUpperCase()}</button>
+              <button className='yes-btn' onClick={() => {
+                this.setState({showAgreeForm: false})
+                this.submit()
+              }}>{config.translations.save.toUpperCase()}</button>
+            </div>
+          </Modal>
+        }
       </div>
     )
   }

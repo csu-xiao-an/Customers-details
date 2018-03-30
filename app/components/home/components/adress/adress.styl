@@ -1,108 +1,81 @@
+@import "../../../../color.styl"
 #adress
-  border-bottom 1px solid silver
-  .adress
-    height 120px
-    .google-map
-      height 100px
-      display inline-block
-      width 24%
-      margin 10px 10px
-      img
-        width 100%
-        height 100%
-    .data-wrap
-      width 71%
-      display inline-block
-      .adress-label-wrap
-        width 100%
-        height 30px
-        .adress-label
-          padding 0px 20px
-          height 20px
-          border-radius 10px
-          background-color #e8ffff
-          margin 5px 10px 0 10px
-          text-align center
-          font-size 14px
-          color #6b6b6b
-      .address
-        width 70%
-        height 80px
-        position relative
-        img
-          position absolute
-          width 35px
-          height 30px
-          top 30px
-        h1
-          margin 10px 30px 0 30px
-          font-weight 500
-          text-align end
-          color #304f63
-          text-decoration none
-  .add-adress
-    height 60px
-    cursor pointer
-    img
-      width 40px
-      margin 10px 30px 0 30px
-      display block
-    h1
-      margin 18px -10px
-      color #6b6b6b
-      display block
-  .adress-edit
-    display block
-    width 100%
-    height 90px
-    padding 10px
-    .edit
+  .address-header
+    background-color $headerColor
+    min-height 3em
+    padding 5px
+    display flex
+    justify-content center
+    border-top-right-radius 8px
+    border-top-left-radius 8px
+    .address-name
+      color white
+      margin auto 0
+      width 55%
+      font-weight 600
+    .close-button
+      right 0
+      position absolute
+      padding 5px 10px
+  .address-body
+    .map
       width 100%
-      height 30px
-      position relative
-      .edit-input
-        display inline-block
-        height 30px
-        width 75%
-        border 1px solid #6b6b6b
-        text-align right
-        color deepskyblue
-        font-weight 500
-        &:focus
-          outline none
-      .edit-label
-        width 25%
-        padding 0 10px
-        color #6b6b6b
-        display inline-block
-        margin 0
-      .adress-list-wrap
-        padding 0 4px
-        width 75.3%
-        background-color white
-        z-index 15
-        position absolute
-        border 1px solid silver
-        max-height 200px
-        overflow-y scroll
-        overflow-x hidden
-        div
-          font-size 21px
-          text-align end
-          padding 0 5px
-    .button
-      width 100%
-      height 35px
-      padding-top 10px
+    .search-box
+      top 12%
+      left 25%
+      width 55%
+      margin auto
+      display flex
+      border-radius 8px
+      position absolute
+      align-items center
+      flex-direction row
+      border 2px solid $headerColor
+      background-color white
+      .search-input
+        width 85%
+        border none
+        margin 0 5px
       button
-        display inline-block
-        height 30px
-        border-radius 15px
-        border 1px solid #6b6b6b
-        background-color white
-        width 80px
-        margin 0 0 20px 0
-        &:focus
-          outline none
-  .hidden
-    display none
+        background-color transparent
+        border none
+        .icon
+          width 10px
+    .block-text
+      padding 20px 0
+      display flex
+      justify-content center
+      flex-direction row
+      .address-name
+        font-weight 600
+      .input-change-address
+        border none
+        border-bottom 1px solid $mainBackground
+        width 70%
+        color $headerColor
+      .icon
+        padding-left 10px
+  .body-agree
+    text-align center
+    padding 10px
+    display flex
+    align-items center
+    justify-content center
+    font-size 1.5em
+    font-weight 600
+    color black
+  .address-footer, .footer-agree
+    border-top 2px solid $mainBackground
+    button
+      background-color transparent
+      border none
+      width 50%
+      height 3em
+    .no-btn
+      border-right 1px solid $mainBackground
+      color $delNo
+    .yes-btn
+      color $delYes
+      border-left 1px solid $mainBackground
+.hidden
+  display none
