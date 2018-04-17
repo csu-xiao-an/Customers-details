@@ -23,14 +23,14 @@ module.exports = env => {
     outputCSS = 'main.bundle.min.css'
     outputJS = 'main.bundle.min.js'
     devtool = false
-    baseChunksPath = '/public/client-details/'
-    baseBuildPath = './public/client-details'
+    baseChunksPath = '/public/clients-details/'
+    baseBuildPath = './public/clients-details'
   }
   return ({
     entry: './app/main.js',
     output: {
-        path: path.resolve(__dirname, baseBuildPath),
-        publicPath: baseChunksPath,
+      path: path.resolve(__dirname, baseBuildPath),
+      publicPath: baseChunksPath,
       chunkFilename: outputJSCK,
       filename: outputJS
     },
