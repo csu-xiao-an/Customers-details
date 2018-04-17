@@ -1,7 +1,5 @@
 const path = require('path')
-// Change if you need replace files and rebuid
-const baseChunksPath = '/dist/'
-const baseBuildPath = './dist'
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const alias = {
   'project-components': path.resolve('./components-lib'),
@@ -12,11 +10,21 @@ module.exports = env => {
   let outputCSS = 'main.bundle.css'
   let outputJS = 'main.bundle.js'
   let devtool = 'source-map'
+  let baseChunksPath = '/dist/'
+  let baseBuildPath = './dist'
   if (env === 'production-p') {
     outputJSCK = '[id].bundle.min.js'
     outputCSS = 'main.bundle.min.css'
     outputJS = 'main.bundle.min.js'
     devtool = false
+  }
+  if (env === 'build-public') {
+    outputJSCK = '[id].bundle.min.js'
+    outputCSS = 'main.bundle.min.css'
+    outputJS = 'main.bundle.min.js'
+    devtool = false
+    baseChunksPath = '/public/client-details/'
+    baseBuildPath = './public/client-details'
   }
   return ({
     entry: './app/main.js',
