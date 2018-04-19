@@ -1,5 +1,6 @@
 var config = {
   isRtL: false,
+  baseUrl: '',
   max_services_shown_without_cat: 15,
   user: {
     // admin, senior, junior, readonly, untrusted
@@ -304,12 +305,12 @@ var config = {
     gender: 'Gender',
     birthday: 'Birthday',
     summary: 'summary',
-      add_hot_line: 'Add Queue',
+    add_hot_line: 'Add Queue',
     delete: 'Delete',
-      del_question: 'Are you sure you want to delete selected customers?',
-      del_no: 'No',
-      del_yes: 'Yes',
-      address_agree: 'Do you want to change this address as a permanent customer address?',
+    del_question: 'Are you sure you want to delete selected customers?',
+    del_no: 'No',
+    del_yes: 'Yes',
+    address_agree: 'Do you want to change this address as a permanent customer address?',
     agreement: 'Agreement to send advertising',
     customer: 'Customer details',
     appointment: 'Appointments',
@@ -327,7 +328,7 @@ var config = {
     add_debt: 'Add New Debt',
     debts: 'Debts',
     save: 'Save',
-      only_now: 'Only now',
+    only_now: 'Only now',
     amount: 'Amount',
     description_debt: 'Description of debt',
     description_notes: 'Description',
@@ -398,7 +399,6 @@ var config = {
     use: 'Use',
     delete_punch: 'Delete punch',
     delete_use: 'Delete use',
-    delete: 'Delete',
     punch_questions: 'Are you sure you want to delete this punch?',
     use_questions: 'Are you sure you want to delete this use?',
     from: ' from {count}',
@@ -506,6 +506,7 @@ var config = {
     punch_cards_get: '/catalog/services',
     colors_beautech: '/colors_beautech',
     groups_img: './dist/media/groups/',
+    groups_img_default: 'default.svg',
     soc_net: './dist/media/soc_net/',
     recommended_by: 'recommended_by',
     gallery: './dist/media/galery/',
@@ -544,12 +545,12 @@ var config = {
     max_side: 1000,
     timeout: 500,
     hot_links: [
-        {label: 'Timeline',img: '/dist/media/ic_timeline.svg', url: '/timeline'},
-        {label: 'Subscription',img: '/dist/media/ic_subscription.svg', url: '#notes'},
-        {label: 'Hair Dyeing',img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech'},
+      {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
+      {label: 'Subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
+      {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech'},
       // {label: 'Punch cards', url: '/punch_cards'},
       // {label: 'Gallery', url: '#gallery'},
-      {label: 'Debts',img: '/dist/media/ic_debts.svg', url: '#depts'}
+      {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#depts'}
     ],
     debts: [
       {
@@ -577,56 +578,56 @@ var config = {
         id: 1,
         name: 'Birthday',
         amount: '72',
-        image: 'ic_birth.svg'
+        image_path: 'ic_birth.svg'
       },
       {
         id: 2,
         name: 'VIP',
         amount: '17',
-        image: 'ic_vip.svg'
+        image_path: 'ic_vip.svg'
       },
       {
         id: 3,
         name: 'Debitores',
         amount: '3',
-        image: 'ic_debitores.svg'
+        image_path: 'ic_debitores.svg'
       }
     ],
     soc_media: [
       {
         id: 1,
         type: 'facebook',
-          name: 'Ahuva Ben Shushan',
+        name: 'Ahuva Ben Shushan',
         url: 'https://www.facebook.com/bewebmaster/'
       },
       {
         id: 2,
         type: 'instagram',
-          name: '@ahuva',
+        name: '@ahuva',
         url: 'https://www.instagram.com/bewebmaster/'
       },
       {
         id: 3,
         type: 'linkedin',
-          name: 'Ahuva Ben Shushan',
+        name: 'Ahuva Ben Shushan',
         url: 'https://www.linkedin.com/bewebmaster/'
       },
       {
         id: 4,
         type: 'twitter',
-          name: 'Ahuva Ben Shushan',
+        name: 'Ahuva Ben Shushan',
         url: 'https://www.twitter.com/bewebmaster/'
       },
       {
         id: 5,
         type: 'pinterest',
-          name: 'Ahuva Ben Shushan',
+        name: 'Ahuva Ben Shushan',
         url: 'https://www.pinterest.com/bewebmaster/'
       },
       {
         id: 6,
         type: 'vk',
-          name: 'Ahuva Ben Shushan',
+        name: 'Ahuva Ben Shushan',
         url: 'https://www.vk.com/bewebmaster/'
       }
     ],
@@ -773,14 +774,14 @@ var config = {
             id: 159159,
             name: 'manicure',
             price: 100,
-              color: 'red',
+            color: 'red',
             duration: 120
           },
           {
             id: 756756,
             name: 'hair coloring',
             price: 150,
-              color: 'blue',
+            color: 'blue',
             duration: 45
           }
         ]
@@ -792,7 +793,7 @@ var config = {
           {
             id: 778954,
             name: 'visit',
-              color: 'green',
+            color: 'green',
             price: 4100,
             duration: 120
           }
@@ -805,7 +806,7 @@ var config = {
           {
             id: 778954,
             name: 'chemistry',
-              color: 'red',
+            color: 'red',
             price: 1200,
             duration: 120
           }
@@ -818,7 +819,7 @@ var config = {
           {
             id: 778954,
             name: 'chemistry',
-              color: 'green',
+            color: 'green',
             price: 10,
             duration: 120
           }
@@ -831,7 +832,7 @@ var config = {
           {
             id: 778954,
             name: 'chemistry',
-              color: 'green',
+            color: 'green',
             price: 1200,
             duration: 120
           }
@@ -844,7 +845,7 @@ var config = {
           {
             id: 778954,
             name: 'manicure',
-              color: 'green',
+            color: 'green',
             price: 700,
             duration: 120
           }
@@ -857,7 +858,7 @@ var config = {
           {
             id: 778954,
             name: 'hair coloring',
-              color: 'green',
+            color: 'green',
             price: 600,
             duration: 120
           }
@@ -870,21 +871,21 @@ var config = {
           {
             id: 778954,
             name: 'facial treatment',
-              color: 'green',
+            color: 'green',
             price: 400,
             duration: 120
           },
           {
             id: 778954,
             name: 'laser hair 3 treatments',
-              color: 'blue',
+            color: 'blue',
             price: 500,
             duration: 120
           },
           {
             id: 778954,
             name: 'laser hair 3 treatments',
-              color: 'red',
+            color: 'red',
             price: 100,
             duration: 120
           }

@@ -19,7 +19,7 @@ export default class Groups extends React.Component {
               <div key={k} className='group-wrap'>
                 <a href={this.props.rights.groups.to_group ? config.urls.main + config.urls.groups + i.id : false}>
                   <div className='img'>
-                    <img className='icon' src={config.urls.groups_img + i.image} />
+                    <img className='icon' src={config.urls.groups_img + (i.image_path || config.urls.groups_img_default)} />
                     <label className='amount'>{i.amount}</label>
                   </div>
                   <label className='name'>{i.name}</label>

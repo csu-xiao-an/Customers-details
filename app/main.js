@@ -10,11 +10,11 @@ const {BrowserRouter, Switch, Route} = ReactRouterDOM
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path={config.urls.punch_cards_adding} component={PunchCardsAdd} />
-      <Route path={config.urls.colors_beautech} component={ColorsBeautech} />
-      <Route path={config.urls.punch_cards} component={PunchCards} />
-      <Route path={config.urls.timeline} component={Timeline} />
-      <Route exact path={config.urls.home} component={Home} />
+      <Route path={config.baseUrl + config.urls.punch_cards_adding} component={PunchCardsAdd} />
+      <Route path={config.baseUrl + config.urls.colors_beautech} component={ColorsBeautech} />
+      <Route path={config.baseUrl + config.urls.punch_cards} component={PunchCards} />
+      <Route path={config.baseUrl + config.urls.timeline} component={Timeline} />
+      <Route exact path={config.baseUrl + config.urls.home} component={Home} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root'))

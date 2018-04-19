@@ -219,7 +219,7 @@ export default class Media extends React.Component {
     } else {
       $imagePreview = (<div className='previewText'>Please select file for Preview</div>)
     }
-    return config.plugins_list.some(i => i === 'gallery') && (
+    return config.plugins_list.includes('gallery') && (
       <div id='gallery'>
         <div className='gallery-header'>
           <div className='title'>
