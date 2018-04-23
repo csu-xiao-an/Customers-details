@@ -49,9 +49,7 @@ export default class SocialNetwork extends React.Component {
   componentWillMount = () => { if (!Array.isArray(config.data.soc_media)) config.data.soc_media = [] }
   render () {
     return (
-      <div id='social-network'
-        className={config.data.soc_media && config.data.soc_media.length > 0 ? 'soc-media-label' : 'hidden'}
-      >
+      <div id='social-network' className='soc-media-label'>
         <div className='soc-header'>
           <span className='soc-label'>{config.translations.social_net}</span>
         </div>

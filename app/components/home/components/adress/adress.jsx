@@ -44,7 +44,7 @@ export default class Adress extends React.Component {
   componentDidMount = () => {
     this.setState({
       parent: this.props.parent,
-      addressName: config.data.adress,
+      addressName: config.data.adress
     })
   }
   render () {

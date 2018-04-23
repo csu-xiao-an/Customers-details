@@ -72,7 +72,7 @@ export default class Events extends React.Component {
   }
   render () {
     return (
-      <div id={config.data.recent_appoinments.length > 0 ? 'events' : 'hidden'}>
+      <div id='events'>
         <div className='events'>
           {/* <a href={this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}> */}
           {/* <img className='clock' src={config.urls.media + 'clock.png'} /></a> */}

@@ -86,8 +86,7 @@ export default class Notes extends React.Component {
   componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
   render () {
     return (
-      <div id='notes'
-        className={config.data.notes && config.data.notes.length > 0 ? '' : 'hidden'}>
+      <div id='notes'>
         <div className='note-header'>
           <label>{config.translations.notes}</label>
         </div>

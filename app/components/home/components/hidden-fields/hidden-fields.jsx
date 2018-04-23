@@ -26,15 +26,15 @@ export default class HiddenFields extends React.Component {
         </div>
         {this.state.isVisibleFields &&
           <div className=''>
-            {!config.data.recent_appoinments && <Events {...this.props} />}
+            {(!config.data.recent_appoinments || !config.data.recent_appoinments.length) && <Events {...this.props} />}
             {!config.data.email && <Email {...this.props} />}
             {!config.data.adress && <Adress {...this.props} />}
-            {!config.data.debts && <Debts {...this.props} />}
-            {!config.data.notes && <Notes {...this.props} />}
-            {!config.data.gallery && <Media {...this.props} />}
+            {(!config.data.debts || !config.data.debts.length) && <Debts {...this.props} />}
+            {(!config.data.notes || !config.data.notes.length) && <Notes {...this.props} />}
+            {(!config.data.gallery || !config.data.gallery.length) && <Media {...this.props} />}
             {!config.data.source && <Source {...this.props} />}
-            {!config.data.soc_media && <SocialNetwork {...this.props} />}
-            {!config.data.groups && <Groups {...this.props} />}
+            {(!config.data.soc_media || !config.data.soc_media.length) && <SocialNetwork {...this.props} />}
+            {(!config.data.groups || !config.data.groups.length) && <Groups {...this.props} />}
             {!config.data.gender && <Sex {...this.props} />}
             {!config.data.birthdate && <Birthdate {...this.props} />}
           </div>}

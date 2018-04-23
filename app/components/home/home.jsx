@@ -8,8 +8,6 @@ import Details from './components/details/details.jsx'
 import Events from './components/events/events.jsx'
 import Source from './components/source/source.jsx'
 import Groups from './components/groups/groups.jsx'
-import Adress from './components/adress/adress.jsx'
-import Email from './components/email/email.jsx'
 import Media from './components/media/media.jsx'
 import Notes from './components/notes/notes.jsx'
 import Debts from './components/debts/debts.jsx'
@@ -31,15 +29,14 @@ class Home extends React.Component {
         <Hero {...this.props} />
         <HotLinks {...this.props} />
         <Profile {...this.props} />
-        {config.data.recent_appoinments && <Events {...this.props} />}
+        {(config.data.recent_appoinments && !!config.data.recent_appoinments.length) && <Events {...this.props} />}
         {/*<Signature {...this.props} />*/}
-        {config.data.debts && <Debts {...this.props} />}
-        {config.data.notes && <Notes {...this.props} />}
-        {config.data.gallery && <Media {...this.props} />}
+        {(config.data.debts && !!config.data.debts.length) && <Debts {...this.props} />}
+        {(config.data.notes && !!config.data.notes.length) && <Notes {...this.props} />}
+        {(config.data.gallery && !!config.data.gallery.length) && <Media {...this.props} />}
         {config.data.source && <Source {...this.props} />}
-        {config.data.groups && <Groups {...this.props} />}
-        {/*<Adress {...this.props} />*/}
-        {config.data.soc_media && <SocialNetwork {...this.props} />}
+        {(config.data.groups && !!config.data.groups.length) && <Groups {...this.props} />}
+        {(config.data.soc_media && !!config.data.soc_media.length) && <SocialNetwork {...this.props} />}
         <HiddenFields {...this.props} />
         <DeleteCustomer {...this.props} />
         {/*<div className='test' />*/}

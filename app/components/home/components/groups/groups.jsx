@@ -9,7 +9,7 @@ export default class Groups extends React.Component {
   componentWillMount = () => { if (!Array.isArray(config.data.groups)) config.data.groups = [] }
   render () {
     return (
-      <div id={config.data.groups.length > 0 ? 'groups' : 'hidden'}>
+      <div id='groups'>
         <div className='group-header'>
           <span className='groups-label'>{config.translations.groups}</span>
         </div>

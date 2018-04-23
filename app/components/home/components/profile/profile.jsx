@@ -10,10 +10,10 @@ const {Link} = ReactRouterDOM
 export default class Profile extends React.Component {
     state = {
       visibleMapPopup: false,
-        address: ''
+      address: ''
     }
     componentDidMount = () => {
-        this.setState({address: config.data.adress})
+      this.setState({address: config.data.adress})
     }
     render () {
       return (
@@ -40,15 +40,19 @@ export default class Profile extends React.Component {
               <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>}
             </div>
           </div>
-          <div className='block'>
-            <div className='email'>
-              <span className='label'>{config.translations.email}:</span>
-              <div className='block-content'>
-                <div className='text'>{config.data.email}</div>
+          {
+            config.data.email && (
+              <div className='block'>
+                <div className='email'>
+                  <span className='label'>{config.translations.email}:</span>
+                  <div className='block-content'>
+                    <div className='text'>{config.data.email}</div>
+                  </div>
+                </div>
+                <a className='linkto' href={'mailto:' + config.data.email}><img src={config.urls.media + 'ic_email.svg'} /></a>
               </div>
-            </div>
-            <a className='linkto' href={'mailto:' + config.data.email}><img src={config.urls.media + 'ic_email.svg'} /></a>
-          </div>
+            )
+          }
           {config.data.adress &&
           <div className='block'>
             <div className='address'>
