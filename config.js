@@ -501,6 +501,7 @@ var config = {
     add_client_url: '/add-client/clients?q={query}',
     punch_cards_adding: '/punch_cards/adding',
     appointment: '/creating-appointment/',
+    get_punch_cards_list: '/customers-details/clients/{client_id}/punch_cards',
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_id}.jpg',
     punch_cards_get: '/catalog/services',
@@ -548,7 +549,7 @@ var config = {
       {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {label: 'Subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
       {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech'},
-      // {label: 'Punch cards', url: '/punch_cards'},
+      {label: 'Punch cards', img: '/dist/media/ic_debts.svg', url: '/punch_cards'},
       // {label: 'Gallery', url: '#gallery'},
       {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#depts'}
     ],
