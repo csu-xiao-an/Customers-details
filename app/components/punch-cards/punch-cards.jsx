@@ -7,7 +7,7 @@ import './punch-cards.styl'
 
 class PunchCards extends React.Component {
   state = {
-    // initialSlide: 0,
+    initialSlide: 0,
     punchs_list: [],
     punch: {}
   }
