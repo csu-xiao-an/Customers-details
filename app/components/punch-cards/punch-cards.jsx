@@ -50,9 +50,6 @@ class PunchCards extends React.Component {
   }
   update = () => this.forceUpdate()
   render () {
-    console.log('punch_list:', this.state.punchs_list)
-    console.log('punch:', this.state.punch)
-    console.log('punch:', this.state.initialSlide)
     return (
       <div id='punch_cards'>
         <Topnav {...this.props} punch />
@@ -66,7 +63,7 @@ class PunchCards extends React.Component {
                   <h1 className='name'>{i.service_name}</h1><h1 className='count'><span>{i.uses && i.uses.length}</span>/{i.service_count}</h1>
                   <h1 className={'sum ' + (config.isRtL ? 'left' : 'right')}>{i.sum}{config.data.currency}</h1></div></div>)}</Swiper></div>
         </div>
-        <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} />
+        <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} punch_cards={this.state.punchs_list} />
         <div className='test' />
       </div>
     )

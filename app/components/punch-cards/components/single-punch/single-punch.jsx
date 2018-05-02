@@ -9,12 +9,13 @@ export default class SinglePunch extends React.Component {
   }
   static propTypes = {
     update: PropTypes.func.isRequired,
-    i: PropTypes.object.isRequired
+    i: PropTypes.object.isRequired,
+    punch_cards: PropTypes.array
   }
   use = () => {
     const d = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
     punchPostServiceUse(this.props.i.id, `date=${d}`).then(r => r.json().then(r =>
-      config.punch_cards.some(item => (item.id === this.props.i.id && item.uses.unshift({id: r, date: d}) && this.props.update()))))
+      this.props.punch_cards.some(item => (item.id === this.props.i.id && item.uses.unshift({id: r, date: d}) && this.props.update()))))
   }
   handleConfirmedModal = () => {
     this.setState({isVisibleModalConfirmed: !this.state.isVisibleModalConfirmed}, () => {
