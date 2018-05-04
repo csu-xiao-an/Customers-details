@@ -6,15 +6,21 @@ export default class Delete extends React.Component {
   static propTypes = {
     isVisibleModalConfirmed: PropTypes.bool.isRequired,
     handleConfirmedModal: PropTypes.func.isRequired,
+    updatePunchList: PropTypes.func.isRequired,
     updateSingle: PropTypes.func.isRequired,
     use: PropTypes.number.isRequired,
+    punch_cards: PropTypes.array,
     id: PropTypes.any.isRequired
   }
   del = () => punchDeleteService(this.props.id)
-    .then(r => r.status === 204 && config.punch_cards.some((i, k) => (i.id === this.props.id &&
-      config.punch_cards.splice(k, 1))) && this.cancelSingle())
+    .then(r => {
+      // r.status === 204 && this.props.punch_cards.some((i, k) => (i.id === this.props.id &&
+      //   this.props.punch_cards.splice(k, 1))) && this.cancelSingle()
+      r.status === 204 && this.props.updatePunchList(this.props.punch_cards.filter(i => i.id !== this.props.id))
+      this.cancelSingle()
+    })
   delUse = () => punchDeleteServiceUse(this.props.id, this.props.use)
-    .then(r => r.status === 204 && config.punch_cards.some(item => (item.id === this.props.id &&
+    .then(r => r.status === 204 && this.props.punch_cards.some(item => (item.id === this.props.id &&
       item.uses.some((i, k) => i.id === this.props.use && item.uses.splice(k, 1)))) && this.cancel())
   cancelSingle = () => {
     this.props.handleConfirmedModal()
@@ -22,6 +28,7 @@ export default class Delete extends React.Component {
   }
   cancel = () => this.props.handleConfirmedModal()
   render () {
+    // console.log('test', this.props)
     return (
       <Modal show={this.props.isVisibleModalConfirmed} onHide={this.cancel}>
         <div className='modal-header' id='punch_cards_media'>

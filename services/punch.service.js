@@ -8,7 +8,22 @@ export const getPunchCards = () => {
     mode: 'cors',
     method: 'GET'
   }
-  return mainRequestService(url, options)
+  return new Promise((resolve, reject) => {
+    mainRequestService(url, options).then(r => {
+      if (r.status !== 200) {
+        // Handle error
+        return reject([])
+      }
+      r.json().then((r = []) => {
+        r.forEach(i => {
+          if (i && i.uses && i.uses.length < i.service_count) {
+            i.isActive = (i.expiration && moment(i.expiration) > moment()) || !i.expiration
+          }
+        })
+        resolve(r)
+      })
+    })
+  })
 }
 
 export const getService = () => {
