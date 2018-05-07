@@ -51,16 +51,6 @@ class PunchCardsAdd extends React.Component {
     let b = `service_id=${this.state.i.id}&uses=${this.state.uses}&sum=${this.state.total}&date=${moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')}`
     if (this.state.switch) b = b + `&expiration=${this.state.date}`
     punchPostService(b).then(r => r.status === 201 && r.json().then(id => {
-      config.punch_cards.push({
-        id,
-        service_name: this.state.i.name,
-        service_id: this.state.i.id,
-        service_count: this.state.uses,
-        sum: this.state.total,
-        date: moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'),
-        uses: []
-      })
-      if (this.state.switch) config.punch_cards[config.punch_cards.length - 1].expiration = this.state.date
       this.props.history.push(config.urls.punch_cards)
     }))
   }

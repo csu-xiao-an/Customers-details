@@ -517,6 +517,7 @@ var config = {
     media: './dist/media/',
     timeline: '/timeline',
     groups: '/groups/',
+    login: '/en/login',
     address: 'address',
     status: 'status',
     source: 'source',

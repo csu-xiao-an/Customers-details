@@ -54,11 +54,6 @@ export default Component => {
       open: false,
       add: false
     },
-    source: {
-      add: false,
-      save: false,
-      select: false
-    },
     soc_links: {
       delete: false,
       edit: false,

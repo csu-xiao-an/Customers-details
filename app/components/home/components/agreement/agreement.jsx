@@ -1,4 +1,3 @@
-import {detailsReplaceService} from 'project-services'
 import './agreement.styl'
 
 export default class Agreement extends React.Component {
@@ -9,7 +8,7 @@ export default class Agreement extends React.Component {
           <span className='label'>{config.translations.agreement}:</span>
         </div>
         <div id='agreement'>
-          <img src='./dist/media/ic_check_box.svg' />
+          <img src={config.urls.media + 'ic_check_box.svg'} />
         </div>
       </div>
     )

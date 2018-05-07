@@ -21,7 +21,7 @@ export default class Details extends React.Component {
             <div id='details'>
               <div className='data-wrap'>
                 {this.props.rights.details.send &&
-                <img src='./dist/media/ic_send.svg' className={'details-button ' + (config.isRtL ? 'left' : 'right')} disabled={config.data.details_link_active}
+                <img src={config.urls.media + 'ic_send.svg'} className={'details-button ' + (config.isRtL ? 'left' : 'right')} disabled={config.data.details_link_active}
                   onClick={this.submit} />}
                 <img className={config.data.details_link_active ? 'ok' : 'ok hidden'} src={config.urls.media + 'ok.png'} />
               </div>
