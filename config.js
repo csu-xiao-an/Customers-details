@@ -579,7 +579,7 @@ var config = {
       {
         id: 1,
         name: 'Birthday',
-        amount: '72',
+        amount: '723',
         image_path: 'ic_birth.svg'
       },
       {

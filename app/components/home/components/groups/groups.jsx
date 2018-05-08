@@ -7,6 +7,12 @@ export default class Groups extends React.Component {
     rights: PropTypes.object.isRequired
   }
   componentWillMount = () => { if (!Array.isArray(config.data.groups)) config.data.groups = [] }
+  componentDidMount = () => {
+    let circle = document.querySelectorAll('.amount')
+    circle.forEach(item => {
+      item.style.height = item.offsetWidth + 'px'
+    })
+  }
   render () {
     return (
       <div id='groups'>
