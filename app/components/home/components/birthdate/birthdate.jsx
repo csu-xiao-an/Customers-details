@@ -9,7 +9,7 @@ export default class Birthdate extends React.Component {
     rights: PropTypes.object.isRequired
   }
   save = () => {
-    clientReplaceService(`birthdate=${this.state.inputValue}`).then(r => {
+    this.state.inputValue && clientReplaceService(`birthdate=${this.state.inputValue}`).then(r => {
       if (r.status === 204) {
         config.data.birthdate = this.state.inputValue
       }
@@ -24,7 +24,7 @@ export default class Birthdate extends React.Component {
             <div id='birthdate'>
               <div className='birthdate-edit'>
                 <div className='input-wrap'><input type='date' onBlur={this.save} disabled={!this.props.rights.birthdate.edit}
-                  value={this.state.inputValue} onChange={e => this.setState({inputValue: e.target.value})} /></div>
+                  value={this.state.inputValue} onChange={e => this.setState({inputValue: e.target.value})} onInput={e => console.log(e.target.value)} /></div>
                 <div className='label-wrap'><h1 className='label'>{config.translations.birthdate}</h1></div>
               </div>
             </div>

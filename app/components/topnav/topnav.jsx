@@ -16,13 +16,17 @@ export default class Topnav extends React.Component {
     return c
   }
   render () {
+    const birthdate = Math.floor(moment.duration(moment() - moment(config.data.birthdate)).asYears())
     return (
       <div id='topnav'>
         <div className='header' style={(this.props.punch || this.props.color) && {backgroundColor: 'darkslateblue'}}>
           <div className={'arrow-wrap ' + (config.isRtL ? 'right' : 'left')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
             <img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
-          {(this.props.home || this.props.timeline) && <div className='client-name'><div className='icon-online' />
-            <h1>{config.data.name}</h1><span>({Math.floor(moment.duration(moment() - moment(config.data.birthdate)).asYears())} years old)</span></div>}
+          {(this.props.home || this.props.timeline) && <div className='client-name'>
+            <div className='icon-online' />
+            <h1>{config.data.name}</h1>
+            {config.data.birthdate && <span>{birthdate} years old</span>}
+          </div>}
           {this.props.punch && <div className='client-name'>
             <h1>{config.translations.punch_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           {this.props.color && <div className='client-name'>

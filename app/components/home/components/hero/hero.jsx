@@ -5,7 +5,8 @@ import './hero.styl'
 export default class Hero extends React.Component {
   state = {
     status: config.data.status || config.translations.placeholder,
-    imageUrl: config.urls.media + config.data.id,
+    // imageUrl: config.urls.media + config.data.id,
+    clientImg: config.urls.client_data + config.data.profile_image,
     isInputDisabled: false,
     succes: false,
     isStar: false
@@ -92,7 +93,8 @@ export default class Hero extends React.Component {
           </div>
         </form>
         <div className='img'>
-          <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => this.setState({imageUrl: config.urls.media + 'default'})} />
+          {/* <img className='client-img' src={this.state.imageUrl + '.jpg'} alt='user-img' onError={() => this.setState({imageUrl: config.urls.media + 'default'})} /> */}
+          <img className='client-img' src={this.state.clientImg} alt='user-img' onError={() => this.setState({clientImg: config.urls.media + 'default.jpg'})} />
         </div>
       </div>
     )
