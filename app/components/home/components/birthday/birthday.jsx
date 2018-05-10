@@ -1,4 +1,15 @@
 import {birthdaysStatus} from 'project-components'
 import './birthday.styl'
-export default () => (<div id={birthdaysStatus(config.data.birthdate) === undefined ? 'birthday-wrap-disabled' : 'birthday-wrap'}
-  className={config.isRtL ? 'birthday-wrap-right' : 'birthday-wrap-left'}><img src={config.urls.media + 'ic_birthday.svg'} />&nbsp;<h1>{birthdaysStatus(config.data.birthdate)}</h1></div>)
+
+export default class Birthday extends React.Component {
+  render () {
+    const birthday = config.data.birthdate && birthdaysStatus(`0000-${config.data.birthdate}`)
+    return (
+      <div id={birthday ? 'birthday-wrap' : 'birthday-wrap-disabled'}
+        className={config.isRtL ? 'birthday-wrap-right' : 'birthday-wrap-left'}>
+        <img src={config.urls.media + 'ic_birthday.svg'} />&nbsp;
+        <h1>{birthday}</h1>
+      </div>
+    )
+  }
+}

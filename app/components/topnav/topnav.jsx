@@ -15,8 +15,18 @@ export default class Topnav extends React.Component {
     config.data.recent_appoinments.forEach(i => i.procedures.forEach(() => c++))
     return c
   }
+
+  getHowYaersOld = () => {
+    const currentDate = config.data.birthdate
+    const currentYear = config.data.birthyear
+    const fullDate = new Date(currentYear + '-' + currentDate)
+    return (currentDate && currentYear)
+      ? Math.floor(moment.duration(moment().diff(moment(fullDate))).asYears())
+      : ''
+  }
+
   render () {
-    const birthdate = Math.floor(moment.duration(moment() - moment(config.data.birthdate)).asYears())
+    const birthdate = this.getHowYaersOld()
     return (
       <div id='topnav'>
         <div className='header' style={(this.props.punch || this.props.color) && {backgroundColor: 'darkslateblue'}}>
@@ -25,7 +35,7 @@ export default class Topnav extends React.Component {
           {(this.props.home || this.props.timeline) && <div className='client-name'>
             <div className='icon-online' />
             <h1>{config.data.name}</h1>
-            {config.data.birthdate && <span>{birthdate} years old</span>}
+            {birthdate && <span>{birthdate} years old</span>}
           </div>}
           {this.props.punch && <div className='client-name'>
             <h1>{config.translations.punch_topnav.replace('{client_name}', config.data.name)}</h1></div>}

@@ -34,7 +34,7 @@ export default class HiddenFields extends React.Component {
             {(!config.data.soc_media || !config.data.soc_media.length) && <SocialNetwork {...this.props} />}
             {(!config.data.groups || !config.data.groups.length) && <Groups {...this.props} />}
             {!config.data.gender && <Sex {...this.props} />}
-            {!config.data.birthdate && <Birthdate {...this.props} />}
+            {(!config.data.birthdate || !config.data.birthyear) && <Birthdate {...this.props} />}
           </div>}
       </div>
     )
