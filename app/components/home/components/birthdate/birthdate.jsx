@@ -3,7 +3,9 @@ import './birthdate.styl'
 
 export default class Birthdate extends React.Component {
   state = {
-    inputValue: config.data.birthdate
+    inputValue: config.data.birthdate && config.data.birthyear
+      ? `${config.data.birthyear}-${config.data.birthdate}`
+      : config.data.birthdate || config.data.birthyear
   }
   static propTypes = {
     rights: PropTypes.object.isRequired

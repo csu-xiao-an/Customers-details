@@ -70,7 +70,7 @@ export default class Profile extends React.Component {
             />
           </div>}
           {config.data.gender && <Sex {...this.props} />}
-          {config.data.birthdate && <Birthdate {...this.props} />}
+          {(config.data.birthdate || config.data.birthyear) && <Birthdate {...this.props} />}
           {config.data.birthdate && <Details {...this.props} />}
           <Agreement {...this.props} />
         </div>
