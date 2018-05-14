@@ -1,85 +1,82 @@
+@import "../../../../color.styl"
 #email
-  border-bottom 1px solid silver
-  .email
-    height 60px
-    .link-wrap
-      width 15%
-      display inline-block
-      img
-        width 40px
-        margin 10px
-    .data-wrap
-      width 85%
-      display inline-block
-      height 100%
-      .label-wrap
-        width 100%
-        height 30px
-        .email-label
-          padding 0px 20px
-          height 20px
-          border-radius 10px
-          background-color #e8ffff
-          margin 5px 10px 0 10px
-          text-align center
-          font-size 14px
-          color #6b6b6b
-      h1
-        width 100%
-        margin 0
-        padding 0 35px 0 30px
-        color #00B6FB
-        font-weight 500
-        overflow hidden
-        text-overflow ellipsis
-  .add-email
-    height 60px
-    cursor pointer
-    img
-      width 40px
-      margin 10px 30px 0 30px
-      display block
-    h1
-      margin 18px -10px
-      color #6b6b6b
-      display block
-  .email-edit
-    display block
+  padding 0 10px
+  border-top 1px solid $mainBackground
+  min-height 4em
+  display flex
+  .gmailwrap
+    display flex
+    min-height 4em
+    justify-content space-between
     width 100%
-    height 90px
-    padding 10px
-    .edit
+  .label
+    font-size 0.8em
+    font-weight 600
+    color $headerColor
+    margin-bottom 2%
+  .linkto
+    display flex
+  .data-wrap
+    display flex
+    margin auto 0
+    // width 100%
+    flex-direction column
+    .label-wrap
       width 100%
       height 30px
-      .edit-input
-        display inline-block
-        height 30px
-        width 75%
-        border 1px solid #6b6b6b
-        text-align right
-        color deepskyblue
-        font-weight 500
-        &:focus
-          outline none
-      .edit-label
-        width 25%
-        padding 0 10px
+      .email-label
+        padding 0px 20px
+        height 20px
+        border-radius 10px
+        background-color #e8ffff
+        margin 5px 10px 0 10px
+        text-align center
+        font-size 14px
         color #6b6b6b
-        display inline-block
-        margin 0
-    .button
-      width 100%
-      height 35px
-      padding-top 10px
-      button
-        display inline-block
-        height 30px
-        border-radius 15px
-        border 1px solid #6b6b6b
-        background-color white
-        width 80px
-        margin 0 0 20px 0
-        &:focus
-          outline none
-  .hidden
-    display none
+    .gmailcom
+      font-size 16px
+.add-email
+  height 60px
+  cursor pointer
+  img
+    width 40px
+    margin 10px 30px 0 30px
+    display block
+  h1
+    margin 18px -10px
+    color #6b6b6b
+    display block
+.email-edit
+  justify-content space-between
+  align-items center
+  display flex
+  margin auto 0
+  width 100%
+  .edit
+    width 100%
+    display flex
+    flex-direction column
+    .edit-input
+      font-size 16px
+      border transparent
+      margin-top 5px
+      color deepskyblue
+      &:focus
+        outline none
+    .edit-label
+      width 25%
+      padding 0 10px
+      color #6b6b6b
+      display inline-block
+      margin 0
+  .button
+    button
+      height 30px
+      border-radius 15px
+      border 1px solid #6b6b6b
+      background-color white
+      width 80px
+      &:focus
+        outline none
+.hidden
+  display none

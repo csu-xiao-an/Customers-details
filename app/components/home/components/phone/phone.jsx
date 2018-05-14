@@ -26,7 +26,7 @@ export default class Phone extends React.Component {
             {/*<div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></div>*/}
             <div className='phone-wrap' onClick={this.props.rights.phone.edit
               ? () => this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone}) : () => {}}>
-              <h1>{config.data.phone}</h1></div>
+              <span>{config.data.phone}</span></div>
           </div>
         </div>
         {this.props.rights.phone.add &&

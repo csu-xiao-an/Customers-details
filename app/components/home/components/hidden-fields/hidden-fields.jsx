@@ -11,19 +11,20 @@ import Sex from '../sex/sex.jsx'
 import './hidden-fields.styl'
 
 export default class HiddenFields extends React.Component {
-  state = {
-    isVisibleFields: false
-  }
+  // state = {
+  //   isVisibleFields: false
+  // }
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
   render () {
+    // console.log('new', this.props)
     return this.props.rights.more_fields.isVisible && (
       <div id='hidden-fields'>
-        <div className={this.state.isVisibleFields ? 'hidden' : 'main-button'}>
-          <button onClick={() => this.setState({isVisibleFields: true})}>{config.translations.show_more_fields.toUpperCase()}</button>
+        <div className={this.props.isVisibleFields ? 'hidden' : 'main-button'}>
+          <button onClick={() => this.props.test()}>{config.translations.show_more_fields.toUpperCase()}</button>
         </div>
-        {this.state.isVisibleFields &&
+        {/* {this.state.isVisibleFields &&
           <div className=''>
             {(!config.data.recent_appoinments || !config.data.recent_appoinments.length) && <Events {...this.props} />}
             {!config.data.email && <Email {...this.props} />}
@@ -35,7 +36,7 @@ export default class HiddenFields extends React.Component {
             {(!config.data.groups || !config.data.groups.length) && <Groups {...this.props} />}
             {!config.data.gender && <Sex {...this.props} />}
             {(!config.data.birthdate || !config.data.birthyear) && <Birthdate {...this.props} />}
-          </div>}
+          </div>} */}
       </div>
     )
   }
