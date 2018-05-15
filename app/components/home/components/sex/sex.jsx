@@ -12,12 +12,15 @@ export default class Sex extends React.Component {
     rights: PropTypes.object.isRequired
   }
   defaultPos = () => {
-    let initState = config.data.gender
-    if (initState.toLowerCase() === 'male') {
-      this.setState({label: 'Male', maleSelected: true})
-    } else if (initState.toLowerCase() === 'female') {
-      this.setState({label: 'Female', femaleSelected: true})
+    if (config.data.gender) {
+      let initState = config.data.gender
+      if (initState.toLowerCase() === 'male') {
+        this.setState({label: 'Male', maleSelected: true})
+      } else if (initState.toLowerCase() === 'female') {
+        this.setState({label: 'Female', femaleSelected: true})
+      }
     }
+    // let initState = config.data.gender
   }
   handleGenderClick = e => {
     let currentState = this.state.changeState

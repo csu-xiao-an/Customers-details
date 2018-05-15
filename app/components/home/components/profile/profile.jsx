@@ -17,7 +17,7 @@ export default class Profile extends React.Component {
       this.setState({address: config.data.adress})
     }
     render () {
-      console.log('profile', this.props)
+      const { isVisibleFields } = this.props
       return (
         <div id='profile'>
           <div className='block'>
@@ -29,19 +29,7 @@ export default class Profile extends React.Component {
               <span className='block-content'>{config.data.name}</span>
             </div>
           </div>
-          {(this.props.isVisibleFields || config.data.phone) && (<div className='block'>
-            <div className='phone'>
-              <span className='label'>{config.translations.phone}:</span>
-              <div className='block-content'><Phone {...this.props} /></div>
-            </div>
-            <div className='phone-img'>
-              {this.props.rights.phone.send_sms &&
-              <div className='img-wrap'><a href={`/send-sms?client_id=${config.data.id}&referrer=${location.pathname + '?' + location.search}`}>
-                <img src={config.urls.media + 'send-sms.svg'} /></a></div>}
-              {this.props.rights.phone.call &&
-              <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>}
-            </div>
-          </div>)}
+          {(this.props.isVisibleFields || config.data.phone) && <Phone {...this.props} />}
           {(this.props.isVisibleFields || config.data.email) && <Email {...this.props} />}
           {(this.props.isVisibleFields || config.data.adress) &&
           (<div className='block'>
@@ -59,7 +47,8 @@ export default class Profile extends React.Component {
               parent={this}
             />
           </div>)}
-          {config.data.gender && <Sex {...this.props} />}
+          {/* {!config.data.gender && <Sex {...this.props} />} */}
+          {(this.props.isVisibleFields || config.data.gender) && <Sex {...this.props} />}
           {(this.props.isVisibleFields || (config.data.birthdate || config.data.birthyear)) && <Birthdate {...this.props} />}
           {config.data.birthdate && <Details {...this.props} />}
           <Agreement {...this.props} />

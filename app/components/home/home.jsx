@@ -1,6 +1,5 @@
 import DeleteCustomer from './components/delete_customer/delete_customer.jsx'
 import SocialNetwork from './components/social-network/social-network.jsx'
-import HiddenFields from './components/hidden-fields/hidden-fields.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import HotLinks from './components/hot-links/hot-links.jsx'
 import Profile from './components/profile/profile.jsx'
@@ -18,12 +17,11 @@ class Home extends React.Component {
     isVisibleFields: false
   }
 
-  test = () => this.setState({ isVisibleFields: !this.state.isVisibleFields })
+  showFields = () => this.setState({ isVisibleFields: true })
 
   componentWillMount = () => { if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl' }
 
   render () {
-    console.log('test', this.state)
     return (
       <div id='home'>
         <Topnav {...this.props} home />
@@ -36,7 +34,9 @@ class Home extends React.Component {
         {(config.data.gallery && !!config.data.gallery.length) && <Media {...this.props} />}
         {(config.data.groups && !!config.data.groups.length) && <Groups {...this.props} />}
         {(config.data.soc_media && !!config.data.soc_media.length) && <SocialNetwork {...this.props} />}
-        <HiddenFields {...this.props} isVisibleFields={this.state.isVisibleFields} test={this.test} />
+        {!this.state.isVisibleFields && <div className='main-button'>
+          <button onClick={this.showFields}>{config.translations.show_more_fields.toUpperCase()}</button>
+        </div>}
         <DeleteCustomer {...this.props} />
       </div>
     )

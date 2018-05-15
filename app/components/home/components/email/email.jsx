@@ -21,7 +21,7 @@ export default class Email extends React.Component {
   render () {
     return this.props.rights.isEmail && (
       <div id='email'>
-        <div className={!this.state.emailEdit ? 'gmailwrap' : 'hidden'}>
+        <div className={config.data.email ? this.state.emailEdit ? 'hidden' : 'gmailwrap' : 'hidden'}>
           <div className='data-wrap'>
             <span className='label'>{config.translations.email}:</span>
             <div className='gmailcom'>
@@ -33,15 +33,20 @@ export default class Email extends React.Component {
           </div>
           {this.props.rights.email.send_email && <a className='linkto' href={'mailto:' + config.data.email}><img src={config.urls.media + 'ic_email.svg'} /></a>}
         </div>
-        {this.props.rights.email.add &&
-        <div onClick={() => this.setState({emailEdit: !this.state.emailEdit})}
-          className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
-          <img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'} />
-          <h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_email}</h1>
-        </div>}
+        {
+          this.props.rights.email.add &&
+          <div onClick={() => this.setState({emailEdit: !this.state.emailEdit})}
+            className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
+            <div className='wrap-mail'>
+              <span className='label'>{config.translations.email}:</span>
+              <h1>{config.translations.add_email}</h1>
+            </div>
+            <img src={config.urls.media + 'add.svg'} />
+          </div>
+        }
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
           <div className='edit'>
-            <span className='label'>{config.translations.email}</span>
+            <span className='label'>{config.translations.email}:</span>
             <input className='edit-input' type='email' value={this.state.email} onChange={e => this.setState({email: e.target.value})} />
           </div>
           <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>

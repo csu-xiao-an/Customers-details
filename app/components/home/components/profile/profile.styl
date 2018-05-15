@@ -13,11 +13,13 @@
     border-top 1px solid $mainBackground
     min-height 4em
     display flex
-    .fullname, .phone, .email, .address, .gender, .birthday, .completion, .agreement
+    .fullname, .address, .birthday, .completion, .agreement
       display flex
       margin auto 0
       width 100%
       flex-direction column
+    .address, .birthday
+      margin: 1% 0
     .completion, .agreement
       flex-direction row
     .agreement
@@ -37,9 +39,3 @@
         display flex
         flex-direction row
         justify-content space-between
-    .phone-img
-      display flex
-      flex-direction row
-      margin auto
-      .img-wrap
-        margin-left 10px
