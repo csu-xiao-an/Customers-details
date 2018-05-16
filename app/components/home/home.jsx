@@ -22,18 +22,26 @@ class Home extends React.Component {
   componentWillMount = () => { if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl' }
 
   render () {
+    const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!config.data.debts.length)
+    const isEventVisible = this.state.isVisibleFields || (config.data.recent_appoinments && !!config.data.recent_appoinments.length)
+    const isNotesVisible = this.state.isVisibleFields || (config.data.notes && !!config.data.notes.length)
+    const isGalleryVisible = this.state.isVisibleFields || (config.data.gallery && !!config.data.gallery.length)
+    const isGroupsVisible = this.state.isVisibleFields || (config.data.groups && !!config.data.groups.length)
+    const isSocialNetworkVisible = this.state.isVisibleFields || (config.data.soc_media && !!config.data.soc_media.length)
+
+    console.log(this.state)
     return (
       <div id='home'>
         <Topnav {...this.props} home />
         <Hero {...this.props} />
         <HotLinks {...this.props} />
         <Profile {...this.props} isVisibleFields={this.state.isVisibleFields} />
-        {(config.data.recent_appoinments && !!config.data.recent_appoinments.length) && <Events {...this.props} />}
-        {(config.data.debts && !!config.data.debts.length) && <Debts {...this.props} />}
-        {(config.data.notes && !!config.data.notes.length) && <Notes {...this.props} />}
-        {(config.data.gallery && !!config.data.gallery.length) && <Media {...this.props} />}
-        {(config.data.groups && !!config.data.groups.length) && <Groups {...this.props} />}
-        {(config.data.soc_media && !!config.data.soc_media.length) && <SocialNetwork {...this.props} />}
+        {isEventVisible && <Events {...this.props} />}
+        {isDebtsVisible && <Debts {...this.props} /> }
+        {isNotesVisible && <Notes {...this.props} />}
+        {isGalleryVisible && <Media {...this.props} />}
+        {isGroupsVisible && <Groups {...this.props} />}
+        {isSocialNetworkVisible && <SocialNetwork {...this.props} />}
         {!this.state.isVisibleFields && <div className='main-button'>
           <button onClick={this.showFields}>{config.translations.show_more_fields.toUpperCase()}</button>
         </div>}
