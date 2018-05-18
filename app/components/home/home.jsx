@@ -28,8 +28,6 @@ class Home extends React.Component {
     const isGalleryVisible = this.state.isVisibleFields || (config.data.gallery && !!config.data.gallery.length)
     const isGroupsVisible = this.state.isVisibleFields || (config.data.groups && !!config.data.groups.length)
     const isSocialNetworkVisible = this.state.isVisibleFields || (config.data.soc_media && !!config.data.soc_media.length)
-
-    console.log(this.state)
     return (
       <div id='home'>
         <Topnav {...this.props} home />
