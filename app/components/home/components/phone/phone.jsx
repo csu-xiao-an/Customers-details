@@ -21,11 +21,10 @@ export default class Phone extends React.Component {
   render () {
     return this.props.rights.isPhone && (
       <div id='phone'>
-        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'data' : 'hidden'}>
+        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'data-phone' : 'hidden'}>
           <div className='wrap'>
             <span className='label'>{config.translations.phone}:</span>
             <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
-              { /* <div className='label-wrap'><div className={'call-label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.mobile}</div></di v  >*/}
               <div className='phone-wrap' onClick={this.props.rights.phone.edit
                 ? () => this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone}) : () => {}}>
                 <span>{config.data.phone}</span>
@@ -53,7 +52,6 @@ export default class Phone extends React.Component {
           <div className='edit'>
             <span className='label'>{config.translations.phone}:</span>
             <input className='edit-input' type='tel' value={this.state.phone} onChange={e => this.setState({phone: e.target.value})} />
-            {/*<h1 className='edit-label'>{config.translations.mobile}</h1>*/}
           </div>
           <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>

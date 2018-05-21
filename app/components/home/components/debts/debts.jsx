@@ -73,7 +73,7 @@ export default class Debts extends React.Component {
   }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
-    return config.plugins_list.some(i => i === 'depts') && (
+    return config.plugins_list.includes('depts') && (
       <div id='depts'>
         <div className='debt-header'>
           <label>{config.translations.debts}</label>

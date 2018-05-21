@@ -10,10 +10,11 @@ export default class HotLinks extends React.Component {
     rights: PropTypes.object.isRequired
   }
   componentWillMount = () => {
-    config.punch_cards.forEach(i => {
+    config.punch_cards && config.punch_cards.forEach(i => {
       if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.service_count) || i.uses.length < i.service_count) i.isActive = true
     })
-    this.setState({isActivePunchCard: config.punch_cards.some(i => i.isActive)})
+    this.setState(config.punch_cards && {isActivePunchCard: config.punch_cards.some(i => i.isActive)})
+    config.data.hot_links = config.data.hot_links.filter(j => (config.plugins_list.some(i => i === j.plugin_name)) || (j.plugin_name === undefined))
   }
   link = i => {
     const getOffsetSum = () => {
@@ -36,9 +37,7 @@ export default class HotLinks extends React.Component {
   }
   renderExternalLink = (url, label, img) => (
     <div>
-      <div className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')}>
-        <Link to={config.baseUrl + url}><img src={img} /></Link>
-      </div>
+      <Link className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')} to={config.baseUrl + url}><img src={img} /></Link>
       <span>{label}</span>
     </div>
   )
@@ -69,7 +68,7 @@ export default class HotLinks extends React.Component {
           })}
           <div>
             <div className='link add-btn'>
-              <img className='add' src='/dist/media/ic_add.png' />
+              <img className='add' src={config.urls.media + 'ic_add.png'} />
             </div>
             <span>{config.translations.add_hot_line}</span>
           </div>

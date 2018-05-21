@@ -8,7 +8,7 @@ var config = {
     business_id: 123,
     worker_id: 1
   },
-  plugins_list: ['gallery', 'depts', 'punch_cards', 'colors_beautech'],
+  plugins_list: ['depts'],
   colors_beautech: [
     {
       name: 'שורש גוונים',
@@ -531,7 +531,7 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     // birthdate: '1990-03-30',
-    birthdate: '01-01',
+    birthdate: '12-12',
     birthyear: '1990',
     email: 'ahuva.ben.shushan@gmail.co',
     adress: 'Tel Aviv, Allenby str. 45',
@@ -553,10 +553,10 @@ var config = {
     hot_links: [
       {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {label: 'Subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
-      {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech'},
-      {label: 'Punch cards', img: '/dist/media/ic_debts.svg', url: '/punch_cards'},
-      // {label: 'Gallery', url: '#gallery'},
-      {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#depts'}
+      {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
+      {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#depts', plugin_name: 'depts'},
+      {label: 'Gallery', url: '#gallery', plugin_name: 'gallery'},
+      {label: 'Punch cards', url: '/punch_cards', plugin_name: 'punch_cards'}
     ],
     debts: [
       {
