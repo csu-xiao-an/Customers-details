@@ -8,7 +8,7 @@ var config = {
     business_id: 123,
     worker_id: 1
   },
-  plugins_list: ['depts'],
+  plugins_list: ['gallery', 'depts', 'punch_cards', 'colors_beautech'],
   colors_beautech: [
     {
       name: 'שורש גוונים',
