@@ -7,12 +7,15 @@ const Timeline = lazy(() => import('./components/timeline/timeline.jsx').then(r 
 const Home = lazy(() => import('./components/home/home.jsx').then(r => r.default))
 const {BrowserRouter, Switch, Route} = ReactRouterDOM
 
+const isPunchCards = config.plugins_list.includes('punch_cards')
+const isColorsBeautech = config.plugins_list.includes('colors_beautech')
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path={config.baseUrl + config.urls.punch_cards_adding} component={PunchCardsAdd} />
-      <Route path={config.baseUrl + config.urls.colors_beautech} component={ColorsBeautech} />
-      <Route path={config.baseUrl + config.urls.punch_cards} component={PunchCards} />
+      {isPunchCards && <Route path={config.baseUrl + config.urls.punch_cards_adding} component={PunchCardsAdd} />}
+      {isColorsBeautech && <Route path={config.baseUrl + config.urls.colors_beautech} component={ColorsBeautech} />}
+      {isPunchCards && <Route path={config.baseUrl + config.urls.punch_cards} component={PunchCards} />}
       <Route path={config.baseUrl + config.urls.timeline} component={Timeline} />
       <Route exact path={config.baseUrl + config.urls.home} component={Home} />
     </Switch>

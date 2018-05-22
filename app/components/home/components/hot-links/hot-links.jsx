@@ -14,7 +14,7 @@ export default class HotLinks extends React.Component {
       if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.service_count) || i.uses.length < i.service_count) i.isActive = true
     })
     this.setState(config.punch_cards && {isActivePunchCard: config.punch_cards.some(i => i.isActive)})
-    config.data.hot_links = config.data.hot_links.filter(j => (config.plugins_list.some(i => i === j.plugin_name)) || (j.plugin_name === undefined))
+    config.data.hot_links = config.data.hot_links.filter(j => !j.plugin_name || config.plugins_list.includes(j.plugin_name))
   }
   link = i => {
     const getOffsetSum = () => {
