@@ -534,7 +534,7 @@ var config = {
     birthdate: '12-12',
     birthyear: '1990',
     email: 'ahuva.ben.shushan@gmail.co',
-    adress: 'Tel Aviv, Allenby str. 45',
+    address: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
     phone: '0545421321',
