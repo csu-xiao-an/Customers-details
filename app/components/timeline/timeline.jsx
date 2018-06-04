@@ -2,7 +2,7 @@ import Appointment from './components/appointment/appointment.jsx'
 import PunchCard from './components/punch-card/punch-card.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import Gallery from './components/gallery/gallery.jsx'
-import Dept from './components/dept/dept.jsx'
+import Debt from './components/debt/debt.jsx'
 import Note from './components/note/note.jsx'
 import Sms from './components/sms/sms.jsx'
 import Topnav from '../topnav/topnav.jsx'
@@ -19,7 +19,7 @@ class Timeline extends React.Component {
       punch_cards: true,
       gallery: true,
       other: true,
-      depts: true
+      debts: true
     },
     flag: false,
     data: []
@@ -57,7 +57,7 @@ class Timeline extends React.Component {
           if (!this.state.filter.appointments && i.field_name === 'appointments') { i.isHide = true } else
           if (!this.state.filter.punch_cards && i.field_name === 'punch_cards') { i.isHide = true } else
           if (!this.state.filter.gallery && i.field_name === 'gallery') { i.isHide = true } else
-          if (!this.state.filter.depts && i.field_name === 'depts') i.isHide = true
+          if (!this.state.filter.debts && i.field_name === 'debts') i.isHide = true
           i.uses && i.uses.length > 0 && i.uses.sort((a, b) => moment(b.date) - moment(a.date))
           i.deleted_date ? i.sort = i.deleted_date : i.modified_date ? i.sort = i.modified_date
             : i.uses && i.uses.length > 0 ? i.sort = i.uses[0].date : i.date ? i.sort = i.date : i.sort = i.added_date
@@ -90,7 +90,7 @@ class Timeline extends React.Component {
       appointments: i => <Appointment i={i} {...this.props} />,
       punch_cards: i => <PunchCard i={i} {...this.props} />,
       gallery: i => <Gallery i={i} {...this.props} />,
-      depts: i => <Dept i={i} {...this.props} />,
+      debts: i => <Debt i={i} {...this.props} />,
       notes: i => <Note i={i} {...this.props} />,
       sms: i => <Sms i={i} {...this.props} />
     }
@@ -114,8 +114,8 @@ class Timeline extends React.Component {
             <img className={this.state.filter.gallery ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
             <h1>{config.translations.gallery}</h1>
           </div>}
-          {config.plugins_list.some(i => i === 'depts') && <div onClick={() => this.filter('depts')}>
-            <img className={this.state.filter.depts ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
+          {config.plugins_list.some(i => i === 'debts') && <div onClick={() => this.filter('debts')}>
+            <img className={this.state.filter.debts ? '' : 'nVisible'} src={config.urls.media + 'ok.png'} />
             <h1>{config.translations.debts_t}</h1>
           </div>}
           <div onClick={() => this.filter('other')}>

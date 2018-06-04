@@ -73,8 +73,8 @@ export default class Debts extends React.Component {
   }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
-    return config.plugins_list.includes('depts') && (
-      <div id='depts'>
+    return config.plugins_list.includes('debts') && (
+      <div id='debts'>
         <div className='debt-header'>
           <label>{config.translations.debts}</label>
         </div>
@@ -89,7 +89,7 @@ export default class Debts extends React.Component {
                 </div>
               </div>
               <div className='right-side'>
-                <img src={config.urls.media + 'ic_edit_stroke.svg'} onClick={this.props.rights.depts.edit ? () => this.replace(i, k) : () => {}} />
+                <img src={config.urls.media + 'ic_edit_stroke.svg'} onClick={this.props.rights.debts.edit ? () => this.replace(i, k) : () => {}} />
               </div>
             </div>
           ))}
@@ -114,13 +114,13 @@ export default class Debts extends React.Component {
               </div>
               <div className='actions'>
                 <button onClick={this.state.debtReplace ? this.update : this.submit}>{config.translations.save}</button>
-                {/* {this.props.rights.depts.delete && */}
+                {/* {this.props.rights.debts.delete && */}
                 {/* <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />} */}
               </div>
             </div>
           </div>
         </div>
-        {this.props.rights.depts.edit &&
+        {this.props.rights.debts.edit &&
         <div onClick={() => this.setState({debtEdit: !this.state.debtEdit})} className={this.state.debtEdit ? 'hidden' : 'debt-footer'}>
           <label>{config.translations.add_debt}</label>
           <img src={config.urls.media + 'c_add_stroke.svg'} />

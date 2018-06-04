@@ -40,7 +40,7 @@ export default Component => {
       change: false,
       ads: false
     },
-    depts: {
+    debts: {
       delete: false,
       edit: false,
       add: false
@@ -108,7 +108,7 @@ export default Component => {
         change: true,
         ads: true
       },
-      depts: {
+      debts: {
         delete: true,
         edit: true,
         add: true

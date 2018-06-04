@@ -8,7 +8,7 @@ var config = {
     business_id: 123,
     worker_id: 1
   },
-  plugins_list: ['gallery', 'depts', 'punch_cards', 'colors_beautech'],
+  plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech'],
   colors_beautech: [
     {
       name: 'שורש גוונים',
@@ -382,10 +382,10 @@ var config = {
     appointment_at: 'Appointment at',
     debts_t: 'Debts',
     other_t: 'Other',
-    dept_created: 'Debt created at {time}',
-    dept_modified: 'Debt was updated at {time}',
-    dept_deleted: 'Debt was repaid at {time}',
-    dept: 'Dept',
+    debt_created: 'Debt created at {time}',
+    debt_modified: 'Debt was updated at {time}',
+    debt_deleted: 'Debt was repaid at {time}',
+    debt: 'Debt',
     punch_cards_adding: 'Add punch cards',
     punch_topnav: 'Punch "{client_name}"',
     punch: 'Punch',
@@ -554,7 +554,7 @@ var config = {
       {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {label: 'Subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
       {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
-      {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#depts', plugin_name: 'depts'},
+      {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
       {label: 'Gallery', url: '#gallery', plugin_name: 'gallery'},
       {label: 'Punch cards', url: '/punch_cards', plugin_name: 'punch_cards'}
     ],
