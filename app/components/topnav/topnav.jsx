@@ -1,3 +1,4 @@
+import Menu from '../menu/menu.jsx'
 import './topnav.styl'
 
 export default class Topnav extends React.Component {
@@ -9,6 +10,11 @@ export default class Topnav extends React.Component {
     color: PropTypes.bool,
     home: PropTypes.bool
   }
+
+  state = {
+    isActive: false
+  }
+
   countAppointment = () => {
     let c = 0
     config.data.recent_appoinments && config.data.recent_appoinments[0] &&
@@ -23,6 +29,20 @@ export default class Topnav extends React.Component {
     return (currentDate && currentYear)
       ? Math.floor(moment.duration(moment().diff(moment(fullDate))).asYears())
       : ''
+  }
+
+  menuOnOff = () => {
+    this.setState(state => ({
+      isActive: !state.isActive
+    }))
+    document.querySelector('body').classList.toggle('no-scroll')
+  }
+
+  closeMenu = e => {
+    if (e.target.className === 'menu_wrap' || e.target.id === 'menu_modal') {
+      this.setState({isActive: false})
+      document.querySelector('body').classList.remove('no-scroll')
+    }
   }
 
   render () {
@@ -42,11 +62,12 @@ export default class Topnav extends React.Component {
           {this.props.color && <div className='client-name'>
             <h1>{config.translations.color_card_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           <div className={'edit-wrap ' + (config.isRtL ? 'left' : 'right')}>
-            {this.props.home && <img className='edit' src={config.urls.media + 'ic_menu.svg'} />}
+            {this.props.home && <img className='edit' onClick={this.menuOnOff} src={config.urls.media + 'ic_menu.svg'} />}
             {this.props.punch && <img className='add' src={config.urls.media + 'add_bt.svg'}
               onClick={() => this.props.history.push(config.urls.punch_cards_adding)} />}
           </div>
         </div>
+        {this.state.isActive && <Menu closeMenu={this.closeMenu} />}
       </div>
     )
   }
