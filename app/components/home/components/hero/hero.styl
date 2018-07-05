@@ -64,7 +64,7 @@
   .input-group
     bottom 0
     position absolute
-    width 40%
+    width 50%
     display table
     border-collapse separate
     z-index 2
@@ -85,27 +85,40 @@
       vertical-align middle
       img
         width 10px
-    .hidden
-      display none
-    .input-group-addon-hidden
-      visibility hidden
+    .input-group-addon-2
+      background: rgba(0,0,0,0.0)
+      border none
+      cursor pointer
+      visibility visible
+      padding 6px 8px 6px 8px
+      font-size 14px
+      font-weight 400
+      line-height 1
+      color #555
+      text-align center
+      border-radius 4px
+      display table-cell
+      //width 1%
+      vertical-align middle
+      img
+        width 10px
+    .input-group-addon-3
+      visibility visible
     .input-wrap
-      margin-left 30%
+      margin-left 34%
       input
         border none
         font-size 0.7em
       .form-control
         background rgba(0,0,0,0)
         color $black
-        margin-left 20px
-        width 100%
         &:focus
           background: rgba(0,0,0,0.0)
           border none
           box-shadow none
           outline none
           color $headerColor
-          margin-bottom 9%
+          padding-bottom: 9px
       .form-control-disabled
         pointer-events none
   .status-label
@@ -114,4 +127,4 @@
     font-size 0.7em
     font-weight 600
     z-index 2
-    margin-left 5%
+    margin-left 4%

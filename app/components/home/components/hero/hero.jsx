@@ -31,7 +31,7 @@ export default class Hero extends React.Component {
     e.preventDefault()
     this.setState({isInputDisabled: true})
     if (!this.state.isInputDisabled) {
-      this.setState({status: ''})
+      this.setState({status: e.target.value})
       this.refs.autofocus.focus()
     } else {
       const body = `${config.urls.status}=${this.state.status}`
@@ -86,8 +86,8 @@ export default class Hero extends React.Component {
                 onChange={e => this.setState({status: e.target.value, statusRem: e.target.value})} />
             </div>
             {this.props.rights.hero.status &&
-              <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'hidden' : 'input-group-addon'}>
-                <img className={this.state.isInputDisabled ? 'input-group-addon-hidden' : ''} src={config.urls.media + 'pencil.svg'} />
+              <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
+                <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'}/>
               </span>}
           </div>
         </form>
