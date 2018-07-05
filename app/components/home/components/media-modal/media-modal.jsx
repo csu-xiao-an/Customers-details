@@ -46,6 +46,24 @@ export default class MediaModal extends React.Component {
       }
     })
   }
+  componentDidMount = () => {
+    var divNode = document.createElement('div')
+    var divNode2 = document.createElement('div')
+    const url = `${config.urls.media}ic_left.svg`
+    const url2 = `${config.urls.media}ic_right.svg`
+    divNode.innerHTML = `<style>
+    .swiper-button-prev:before{
+      content: url(${url});
+    }
+    </style>`
+    document.body.appendChild(divNode)
+    divNode2.innerHTML = `<style>
+    .swiper-button-next:before{
+      content: url(${url2});
+    }
+    </style>`
+    document.body.appendChild(divNode2)
+  }
   render () {
     return (
       <Modal show={this.props.isOpenGallery}>
@@ -87,7 +105,7 @@ export default class MediaModal extends React.Component {
               <div className='action'>
                 <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
                   onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
-                    {config.translations.save}
+                  {config.translations.save}
                 </button>
               </div>
             </div>

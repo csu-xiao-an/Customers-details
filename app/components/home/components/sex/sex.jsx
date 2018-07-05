@@ -49,7 +49,23 @@ export default class Sex extends React.Component {
     ['male', 'female'].map(item => this.defaultPos(item))
   }
   componentDidMount = () => {
+    var divNode = document.createElement('div')
+    var divNode2 = document.createElement('div')
     this.selectedSex()
+    const url = `${config.urls.media}ic_radio_button.svg`
+    const url2 = `${config.urls.media}ic_radio_button_checked.svg`
+    divNode.innerHTML = `<style>
+    .circle:before{
+      content: url(${url});
+    }
+    </style>`
+    document.body.appendChild(divNode)
+    divNode2.innerHTML = `<style>
+    .radio.checked .circle:before{
+      content: url(${url2});
+    }
+    </style>`
+    document.body.appendChild(divNode2)
   }
   render () {
     return (
