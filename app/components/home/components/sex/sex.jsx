@@ -22,9 +22,9 @@ export default class Sex extends React.Component {
     }
     // let initState = config.data.gender
   }
-  handleGenderClick = e => {
-    let currentState = this.state.changeState
-    this.setState({changeState: !currentState})
+  handleGenderClick = () => {
+    let changeState = !this.state.changeState
+    this.setState({changeState})
   }
   selectedSex = () => {
     this.refs.radioMale.addEventListener('touchend', e => {
@@ -70,23 +70,27 @@ export default class Sex extends React.Component {
   render () {
     return (
       <div id='sex'>
-        <div className='block'>
-          <div className='gender' onClick={this.handleGenderClick}>
+        <div className='block' onClick={this.handleGenderClick}>
+          <div className='gender'>
             <span className='label'>{config.translations.gender}:</span>
             <span className='block-content'>
               <span className='sex-label'>{this.state.label}</span>
             </span>
           </div>
+          <div className='delete-gender'>
+            <img src={config.urls.media + 'ic_email.svg'}></img>
+          </div>
         </div>
-        <div className={!this.state.changeState ? 'block change-state-disable' : 'block'} >
-          <div ref='radioMale' className={this.state.maleSelected ? 'radio checked' : 'radio'}>
-            <div className='radio-label'>{config.translations.male}</div>
+
+        <div className={!this.state.changeState ? 'block change-state-disable' : 'block1'} >
+          <div ref='radioMale' className={this.state.maleSelected ? 'radio checked' : 'radio'} >
+            <div className='radio-label'>{config.translations.male} &#9794;</div>
             <div className='circle' />
           </div>
         </div>
-        <div className={!this.state.changeState ? 'block change-state-disable' : 'block'} >
+        <div className={!this.state.changeState ? 'block change-state-disable' : 'block1'} >
           <div ref='radioFemale' className={this.state.femaleSelected ? 'radio checked' : 'radio'}>
-            <div className='radio-label'>{config.translations.female}</div>
+            <div className='radio-label'>{config.translations.female} &#9792;</div>
             <div className='circle' />
           </div>
         </div>

@@ -521,7 +521,7 @@ var config = {
     fill: '/customers-details/clients/{client_id}/filling-up',
     social: '/customers-details/clients/{client_id}/social',
     notes: '/customers-details/clients/{client_id}/notes',
-    dept: '/customers-details/clients/{client_id}/dept',
+    debt: '/customers-details/clients/{client_id}/debt',
     clients: '/customers-details/clients/{client_id}',
     add_client_url: '/add-client/clients?q={query}',
     punch_cards_adding: '/punch_cards/adding',

@@ -1,6 +1,6 @@
 import mainRequestService from './request.service'
 
-const mainUrl = config.urls.main + config.urls.dept.replace('{client_id}', config.data.id)
+const mainUrl = config.urls.main + config.urls.debt.replace('{client_id}', config.data.id)
 
 export const postService = body => {
   const options = {
