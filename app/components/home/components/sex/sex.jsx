@@ -94,13 +94,13 @@ export default class Sex extends React.Component {
         <div className={this.state.changeState ? 'block1' : 'block change-state-disable'} >
           <div ref='radioMale' className={this.state.maleSelected ? 'radio checked' : 'radio'} >
             <div className='radio-label'>{config.translations.male} &#9794;</div>
-            <div className='circle' />
+            <div className='circle'/>
           </div>
         </div>
         <div className={this.state.changeState ? 'block1' : 'block change-state-disable'} >
           <div ref='radioFemale' className={this.state.femaleSelected ? 'radio checked' : 'radio'}>
             <div className='radio-label'>{config.translations.female} &#9792;</div>
-            <div className='circle' />
+            <div className='circle'/>
           </div>
         </div>
       </div>
