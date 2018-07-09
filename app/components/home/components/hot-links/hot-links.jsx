@@ -50,7 +50,7 @@ export default class HotLinks extends React.Component {
               return (
                 <div>
                   <div onClick={() => this.link(i)}
-                    className={'link ' + (this.props.rights.hot_links.internal ? 'circle' : 'hidden')}>
+                    className={'link ' + (this.props.rights.hot_links.internal ? 'circle1' : 'hidden')}>
                     <img src={i.img} />
                   </div>
                   <span>{i.label}</span>

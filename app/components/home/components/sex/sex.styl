@@ -2,13 +2,19 @@
 #sex
   .block
     display flex
-    width 100%
-    flex-direction column
+    cursor pointer
+    justify-content space-between
     .gender
       display flex
       flex-direction column
+      justify-content space-around
     .label
       margin 1% 0 3%
+  .block1
+      display flex
+      cursor pointer
+      justify-content space-between
+      padding-right 10px
     .radio
       display flex
       margin auto 0
@@ -23,9 +29,22 @@
         width 20px
         height 20px
         margin auto 0
-        background url(/dist/media/ic_radio_button.svg) no-repeat
     .radio.checked
       .circle
-        background url(/dist/media/ic_radio_button_checked.svg) no-repeat
+        background-repeat no-repeat
   .block.change-state-disable
     display none
+  .delete-gender
+    cursor pointer
+    display flex
+
+  .block1:hover
+    background #efefff
+    box-shadow 0 0 8px 0 #deceff, 0 0 4px 0 rgba(0, 0, 0, 0)
+
+  .oval {
+  width 38px
+  height 38px
+  border solid 2px #bfafe0
+  border-radius 50%
+  }
