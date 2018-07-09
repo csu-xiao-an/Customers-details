@@ -392,6 +392,7 @@ var config = {
     delete_customer: 'Delete customer',
     male: 'Male',
     female: 'Female',
+    selectGender: 'Select gender',
     other: 'Other',
     worker: 'Worker',
     services_timeline: 'Services',
