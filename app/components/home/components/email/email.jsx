@@ -4,19 +4,26 @@ import './email.styl'
 export default class Email extends React.Component {
   state = {
     emailEdit: false,
-    email: ''
+    email: '',
+    error: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
   submit = () => {
-    const body = `${config.urls.email}=${this.state.email}`
-    clientReplaceService(body).then(r => {
-      if (r.status === 204) {
-        config.data.email = this.state.email
-        this.setState({emailEdit: !this.state.emailEdit, email: ''})
-      }
-    })
+    const { email } = this.state
+    const isEmail = ~email.search(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
+    if (isEmail) {
+      const body = `${config.urls.email}=${email}`
+      clientReplaceService(body).then(r => {
+        if (r.status === 204) {
+          config.data.email = this.state.email
+          this.setState({emailEdit: !this.state.emailEdit, email: ''})
+        }
+      })
+    } else {
+      this.setState({error: 'E-mail is incorrect!'})
+    }
   }
   render () {
     return this.props.rights.isEmail && (
@@ -47,7 +54,8 @@ export default class Email extends React.Component {
         <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
           <div className='edit'>
             <span className='label'>{config.translations.email}:</span>
-            <input className='edit-input' type='email' value={this.state.email} onChange={e => this.setState({email: e.target.value})} />
+            <input className='edit-input' type='email' value={this.state.email} onChange={e => this.setState({email: e.target.value, error: ''})} />
+            {this.state.error && <div className='error'>{this.state.error}</div>}
           </div>
           <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
         </div>
