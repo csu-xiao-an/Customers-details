@@ -6,7 +6,7 @@ export default class Sex extends React.Component {
     label: config.translations.selectGender,
     changeState: false,
     maleSelected: false,
-    femaleSelected: false
+    femaleSelected: false,
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -60,22 +60,20 @@ export default class Sex extends React.Component {
   }
   componentDidMount = () => {
     const divNode = document.createElement('div')
-    const divNode2 = document.createElement('div')
     this.selectedSex()
-    const url = `${config.urls.media}ic_radio_button.svg`
-    const url2 = `${config.urls.media}ic_radio_button_checked.svg`
+    const url = `${config.urls.media}ic-marked.svg`
     divNode.innerHTML = `<style>
     .circle:before{
       content: url(${url});
     }
     </style>`
     document.body.appendChild(divNode)
-    divNode2.innerHTML = `<style>
+    divNode.innerHTML = `<style>
     .radio.checked .circle:before{
-      content: url(${url2});
+      content: url(${url});
     }
     </style>`
-    document.body.appendChild(divNode2)
+    document.body.appendChild(divNode)
   }
   render () {
     return (
@@ -88,7 +86,7 @@ export default class Sex extends React.Component {
             </span>
           </div>
           <div className='delete-gender' onClick={this.deleteGender} >
-            <img className={config.translations.selectGender} src={config.urls.media + 'ic_email.svg'}></img>
+            {(config.data.gender === 'male' || config.data.gender === 'female') &&  <img className={config.translations.selectGender} src={config.urls.media + 'btn-not.svg'}></img> }
           </div>
         </div>
         <div className={this.state.changeState ? 'block1' : 'block change-state-disable'} >

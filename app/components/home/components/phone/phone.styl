@@ -34,6 +34,7 @@
         background-color transparent
     .phone-wrap
       span
+        cursor pointer
         font-size 18px
   .add-phone
     display flex
@@ -57,11 +58,11 @@
     justify-content space-between
     width 100%
     .edit
-      display flex
+
       flex-direction column
-      // width 70%
+       width 70%
       .edit-input
-        // display inline-block
+        display flex
         border none
         font-size 18px
         margin-top 4px
@@ -82,6 +83,7 @@
       margin auto 0
       button
           display inline-block
+          cursor pointer
           border-radius 15px
           border none
           background-color $headerColor
@@ -90,3 +92,8 @@
             outline none
   .hidden
     display none
+.error
+  display flex
+  justify-content center
+  color red
+  font-size 16px
