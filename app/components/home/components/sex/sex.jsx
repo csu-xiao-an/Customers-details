@@ -86,7 +86,7 @@ export default class Sex extends React.Component {
             </span>
           </div>
           <div className='delete-gender' onClick={this.deleteGender} >
-            <img className={config.translations.selectGender} src={config.urls.media + 'btn-not.svg'}></img>
+            {(config.data.gender === 'male' || config.data.gender === 'female') &&  <img className={config.translations.selectGender} src={config.urls.media + 'btn-not.svg'}></img> }
           </div>
         </div>
         <div className={this.state.changeState ? 'block1' : 'block change-state-disable'} >
