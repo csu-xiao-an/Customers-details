@@ -13,7 +13,6 @@ export const postService = body => {
   }
   return mainRequestService(mainUrl, options)
 }
-
 export const replaceService = (body, id) => {
   const url = mainUrl + '/' + id
   const options = {
@@ -26,7 +25,6 @@ export const replaceService = (body, id) => {
   }
   return mainRequestService(url, options)
 }
-
 export const deleteService = id => {
   const url = mainUrl + '/' + id
   const options = {
