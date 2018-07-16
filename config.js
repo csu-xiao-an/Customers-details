@@ -307,7 +307,7 @@ var config = {
     {text: 'support', link: '/en/support', icon: 'support.jpg'},
     {text: 'suggest_feature', link: '/en/suggest_feature', icon: 'suggest_feature.jpg'},
     {text: 'rate_us', link: '/en/rate_us', icon: 'rate_us.jpg'},
-    {text: 'logout', link: '/e n/logout', icon: 'logout.jpg'}
+    {text: 'logout', link: '/e n/logout', icon: 'logout.jpg'},
   ],
   translations: {
     menu: {
@@ -324,6 +324,7 @@ var config = {
     language: 'en',
     edit: '',
     profile: 'Personal Info',
+    sent: 'Sent',
     name: 'Name',
     phone: 'Phone',
     gender: 'Gender',
@@ -519,7 +520,7 @@ var config = {
     signature: '/customers-details/clients/{client_id}/signature',
     gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
     media_url: '/customers-details/clients/{client_id}/media',
-    fill: '/customers-details/clients/{client_id}/send-filling-up',
+    fill: '/send-filling-up',
     social: '/customers-details/clients/{client_id}/social',
     notes: '/customers-details/clients/{client_id}/notes',
     debt: '/customers-details/clients/{client_id}/debt',
