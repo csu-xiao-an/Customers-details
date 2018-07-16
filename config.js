@@ -307,7 +307,7 @@ var config = {
     {text: 'support', link: '/en/support', icon: 'support.jpg'},
     {text: 'suggest_feature', link: '/en/suggest_feature', icon: 'suggest_feature.jpg'},
     {text: 'rate_us', link: '/en/rate_us', icon: 'rate_us.jpg'},
-    {text: 'logout', link: '/e n/logout', icon: 'logout.jpg'},
+    {text: 'logout', link: '/e n/logout', icon: 'logout.jpg'}
   ],
   translations: {
     menu: {

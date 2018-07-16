@@ -7,10 +7,10 @@ export default class Details extends React.Component {
   }
   submit = () =>
     detailsReplaceService().then(r => {
-      // if (r.status === 204) {
+       if (r.status === 204) {
         config.data.details_link_active = true
         this.forceUpdate()
-      // }
+       }
     })
   render () {
     console.log(this.props.rights.details.send)
@@ -24,7 +24,7 @@ export default class Details extends React.Component {
                 {this.props.rights.details.send &&
                 !config.data.details_link_active ? <input type="image" src={config.urls.media + 'ic_send.svg'} className={'details-button ' + (config.isRtL ? 'left' : 'right')}
                   disabled={config.data.details_link_active}
-                  onClick={this.submit} /> : config.translations.sent}
+                  onClick={this.submit} /> : <div className='data-wrap2'>{config.translations.sent}</div>}
                 <img className={config.data.details_link_active ? 'ok' : 'ok hidden'} src={config.urls.media + 'ok.png'} />
               </div>
             </div>
