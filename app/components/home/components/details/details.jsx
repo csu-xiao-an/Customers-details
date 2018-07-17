@@ -13,7 +13,6 @@ export default class Details extends React.Component {
        }
     })
   render () {
-    console.log(this.props.rights.details.send)
     return (
       <div className='block'>
         <div className='completion'>
