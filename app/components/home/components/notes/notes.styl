@@ -30,12 +30,16 @@
         .notes-list-desc
           font-size 1.3em
       .right-side
+        display flex
         margin auto 10px
     .edit-note
+      border-top 1px solid #dedeff
       margin 0 10px
+      margin-top 5%
       .description
         .description-input
           border none
+          background #efefff
           color $headerColor
           width 100%
       .reminder
@@ -63,13 +67,17 @@
             justify-content flex-end
             .ink
               width 40px
+              height 40px
               color white
               display flex
+              justify-content center
               font-size 2em
-              border-radius 100%
+              align-items center
+              border-radius 50%
               background-color $headerColor
               span
-                margin auto
+               margin-top 3px
+
             .count-input
               width 30%
               border none
@@ -82,6 +90,7 @@
           padding 10px 0
           .save
             border none
+            padding-top: 3px
             background-color $headerColor
             color white
             border-radius 100px
@@ -96,6 +105,67 @@
         font-size 0.8em
         font-weight 800
         margin auto 10px
-
   .hidden
     display none
+.edit-note
+  border-top 1px solid #dedeff
+  margin 0 10px
+  margin-top 5%
+  .description
+    .description-input
+      border none
+      background #efefff
+      color $headerColor
+      width 100%
+  .reminder
+    border-top 1px solid $mainBackground
+    .reminder-text
+      display flex
+      margin-top 10px
+      flex-direction row
+      justify-content flex-end
+    .reminder-time
+      display flex
+      flex-direction row
+      margin-top 20px
+      justify-content space-between
+      .select-wrap
+        width 60%
+        #select-main
+          .active
+            border none
+            border-bottom 1px solid $mainBackground
+          .options
+            border none
+      .input-wrap
+        display flex
+        justify-content flex-end
+        .ink
+          width 40px
+          height 40px
+          color white
+          display flex
+          justify-content center
+          font-size 2em
+          align-items center
+          border-radius 50%
+          background-color $headerColor
+          span
+           margin-top 3px
+
+        .count-input
+          width 30%
+          border none
+          margin 0 10px
+          font-size 2em
+          text-align center
+    .actions
+      display flex
+      justify-content flex-end
+      padding 10px 0
+      .save
+        border none
+        padding-top: 3px
+        background-color $headerColor
+        color white
+        border-radius 100px

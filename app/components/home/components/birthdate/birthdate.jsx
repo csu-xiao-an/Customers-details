@@ -26,6 +26,7 @@ export default class Birthdate extends React.Component {
             month: day && month && month.padStart(2, '0'),
             year: (year < 1900 && moment().year()) || year
           })
+          this.setState({birthdateEdit: this.state.birthdateEdit})
         }
       })
     }
