@@ -488,8 +488,8 @@ var config = {
       }
     },
     notes_list: [
-      {value: 'hours', label: 'Hours'},
       {value: 'days', label: 'Days'},
+      {value: 'hours', label: 'Hours'},
       {value: 'weeks', label: 'Weeks'},
       {value: 'months', label: 'Months'}
     ],
@@ -559,7 +559,7 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     // birthdate: '1990-03-30',
-    birthdate: '12-12',
+    birthdate: '07-25',
     birthyear: '1990',
     email: 'ahuva.ben.shushan@gmail.com',
     address: 'Tel Aviv, Allenby str. 45',
@@ -578,6 +578,7 @@ var config = {
     currency: '₪',
     debt_step: 10,
     max_side: 1000,
+    time: 1,
     timeout: 500,
     hot_links: [
       {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
