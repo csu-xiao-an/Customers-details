@@ -13,7 +13,7 @@ export default class Notes extends React.Component {
     isEditNotes: false,
     description: '',
     note_id: 0,
-    time: '0',
+    time: config.data.time,
     key: 0
   }
   static propTypes = {
@@ -57,7 +57,7 @@ export default class Notes extends React.Component {
           isReminderEdit: false,
           description: '',
           note_id: 0,
-          time: '0'
+
         })
       }
     })
