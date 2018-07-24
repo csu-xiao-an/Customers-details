@@ -37,7 +37,6 @@ export default class Notes extends React.Component {
     })
   }
   update = () => {
-
     let rem = reminder(this.state.time, this.state.selectedValue)
     let body = `text=${this.state.description}`
     if (rem) body = `text=${this.state.description}&reminder_date=${rem}`
@@ -83,14 +82,36 @@ export default class Notes extends React.Component {
   }
   replace = (i, key) => {
     this.setState({
-      noteReplace: this.state.noteReplace ? this.state.noteReplace : !this.state.noteReplace,
-      isEditNotes: this.state.isEditNotes ? this.state.isEditNotes : !this.state.isEditNotes,
+      noteReplace: !this.state.noteReplace,
+      isEditNotes: !this.state.isEditNotes,
       isReminderEdit: i.reminder_date,
       description: i.text,
       note_id: i.id,
       key
     })
   }
+
+  closeEdit = () => {
+    this.setState({
+    noteReplace: !this.state.noteReplace,
+    isEditNotes: !this.state.isEditNotes,
+    newEditNotes: this.state.newEditNotes,
+    isReminderEdit: false,
+    note_id: 0,
+    description: ''
+    })
+  }
+  closeEditNoteFooter = () => {
+    this.setState({
+    noteReplace: !this.state.noteReplace,
+    isEditNotes: !this.state.isEditNotes,
+    newEditNotes: !this.state.newEditNotes,
+    isReminderEdit: false,
+    note_id: 0,
+    description: ''
+    })
+  }
+
   componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
 
   renderNoteEdit = () => {
@@ -134,11 +155,16 @@ export default class Notes extends React.Component {
               </div>
             </div>
           </div>
-          <div className='actions'>
+          <div className='actions-note'>
             <button
               className='save'
               onClick={this.state.noteReplace ? this.update : this.submit}>
               {config.translations.save}
+            </button>
+            <button
+              className='delete'
+              onClick={this.closeEdit}>
+              <span>{config.translations.del}</span>
             </button>
           </div>
         </div>
@@ -146,6 +172,65 @@ export default class Notes extends React.Component {
     )
   }
 
+// ////////////////////// nOTE FOOTER //////////////////////
+
+  renderNoteAdd = () => {
+    return (
+      <div className={this.state.isEditNotes ? 'edit-note' : 'hidden'}>
+        <div className='description'>
+          <input className='description-input'
+            type='text'
+            value={this.state.description}
+            onChange={e => this.setState({description: e.target.value})}
+            placeholder={config.translations.description_notes}
+          />
+        </div>
+        <div className='reminder'>
+          <div className='reminder-text'
+            onClick={() => this.setState({isReminderEdit: !this.state.isReminderEdit})}>
+            <span>{config.translations.reminder}</span>
+            <div className={'img-wrap'}>
+              <img src={config.urls.media + 'ic_notifications_active.svg'} />
+            </div>
+          </div>
+          <div className={this.state.isReminderEdit ? 'reminder-time ' : 'hidden'}>
+            <div className='select-wrap'>
+              <Select value={this.state.selectedLabel}
+                options={config.translations.notes_list}
+                onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} />
+            </div>
+            <div className={'input-wrap ' + (config.isRtL ? 'left' : 'right')}>
+              <div className='ink'
+                onClick={() => this.setState({time: +this.state.time + 1})}>
+                <span>+</span>
+              </div>
+              <input className='count-input'
+                type='number'
+                value={this.state.time}
+                onFocus={e => { if (toString(e.target.value) === '0') e.target.value = '' }}
+                onBlur={e => { if (toString(e.target.value) === '') e.target.value = '0' }}
+                onChange={e => this.setState({time: +e.target.value})} />
+              <div className='ink' onClick={() => { if (+this.state.time > 0) this.setState({time: +this.state.time - 1}) }}>
+                <span className='minus'>-</span>
+              </div>
+            </div>
+          </div>
+          <div className='actions-note'>
+            <button
+              className='save'
+              onClick={this.state.noteReplace && this.submit}>
+              {config.translations.save}
+            </button>
+            <button
+              className='delete'
+              onClick={this.closeEditNoteFooter}>
+              <span>{config.translations.del}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
   render () {
     return (
       <div id='notes'>
@@ -176,11 +261,11 @@ export default class Notes extends React.Component {
             </div>
           ))}
         </div>
-        {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteEdit()}
+        {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteAdd()}
         {this.props.rights.notes.add &&
           <div className='note-footer'>
           <label>{config.translations.add_note}</label>
-          <img src={config.urls.media + 'c_add_stroke.svg'} onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes})} />
+          <img src={config.urls.media + 'c_add_stroke.svg'} onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})} />
         </div>}
       </div>
     )
