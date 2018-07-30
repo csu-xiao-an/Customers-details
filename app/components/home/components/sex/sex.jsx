@@ -41,7 +41,7 @@ export default class Sex extends React.Component {
       clientReplaceService(`${config.urls.gender}=male`).then(r => {
         if (r.status === 204) {
           config.data.gender = 'male'
-          this.setState({label: config.translations.male, maleSelected: true, femaleSelected: false})
+          this.setState({label: config.translations.male, maleSelected: true, femaleSelected: false, changeState: false})
         }
       })
     })
@@ -49,7 +49,7 @@ export default class Sex extends React.Component {
       clientReplaceService(`${config.urls.gender}=female`).then(r => {
         if (r.status === 204) {
           config.data.gender = 'female'
-          this.setState({label: config.translations.female, maleSelected: false, femaleSelected: true})
+          this.setState({label: config.translations.female, maleSelected: false, femaleSelected: true, changeState: false})
         }
       })
     })
