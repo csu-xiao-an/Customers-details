@@ -9,11 +9,13 @@ export default class Notes extends React.Component {
     selectedLabel: config.translations.notes_list[0].label,
     isReminderEdit: false,
     newEditNotes: false,
+    isReminderDate: null,
     noteReplace: false,
     isEditNotes: false,
     description: '',
     note_id: 0,
-    time: config.data.time,
+    timeStart: config.data.timeStart,
+    time: '0',
     key: 0
   }
   static propTypes = {
@@ -21,10 +23,11 @@ export default class Notes extends React.Component {
   }
   submit = () => {
     const d = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+    // (c, u) => c !== '0' && c !== 0 ? moment.utc().add(c, u).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]') : undefined
     let rem = reminder(this.state.time, this.state.selectedValue)
-    let body = `text=${this.state.description}&date=${d}`
+    let body = `text=${this.state.description}&added=${d}`
     if (rem) body = body + `&reminder_date=${rem}`
-    notesPostService(body).then(r => {
+    notesPostService(body, this.state.note_id).then(r => {
       if (r.status === 201) {
         config.data.notes.unshift({
           text: this.state.description,
@@ -32,16 +35,21 @@ export default class Notes extends React.Component {
         })
         if (rem) config.data.notes[0].reminder_date = rem
         r.json().then(id => { config.data.notes[0].id = id })
-        this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, isReminderEdit: false, description: '', time: '0'})
+        this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, isReminderEdit: false, noteReplace: !this.state.noteReplace, description: '', time: '0'})
       }
     })
+// console.log('this.state.timeStart', this.state.timeStart);
+// console.log('this.state.time', this.state.timeStart);
+// console.log('body', body);
   }
   update = () => {
     let rem = reminder(this.state.time, this.state.selectedValue)
+
     let body = `text=${this.state.description}`
     if (rem) body = `text=${this.state.description}&reminder_date=${rem}`
     notesReplaceService(body, this.state.note_id).then(r => {
       if (r.status === 204) {
+        console.log('R', r)
         let idNote = config.data.notes.find(note => {
           if(+this.state.key === note.id){
             return note
@@ -50,17 +58,24 @@ export default class Notes extends React.Component {
         idNote.text = this.state.description
         if (rem) {
           idNote.reminder_date = rem
+
         } else delete idNote.reminder_date
         this.setState({
           noteReplace: !this.state.noteReplace,
           isEditNotes: !this.state.isEditNotes,
           isReminderEdit: false,
+          // isReminderDate: idNote.date,
           description: '',
           note_id: 0,
-
+          time: '0'
         })
+        console.log('reminder_date', idNote.reminder_date);
+
+        // console.log(idNote)
       }
     })
+    // console.log('this.state.timeStart', this.state.timeStart);
+    // console.log('this.state.time', this.state.timeStart);
   }
 
   checkLength (desc) {
@@ -84,8 +99,10 @@ export default class Notes extends React.Component {
     this.setState({
       noteReplace: !this.state.noteReplace,
       isEditNotes: !this.state.isEditNotes,
-      isReminderEdit: i.reminder_date,
+      // isReminderEdit: i.reminder_date,
+      // isReminderEdit: true,
       description: i.text,
+      isReminderDate: i.reminder_date,
       note_id: i.id,
       key
     })
@@ -127,7 +144,7 @@ export default class Notes extends React.Component {
         </div>
         <div className='reminder'>
           <div className='reminder-text'
-            onClick={() => this.setState({isReminderEdit: !this.state.isReminderEdit})}>
+            onClick={() => this.setState({isReminderEdit: !this.state.isReminderEdit,  time: this.state.timeStart})}>
             <span>{config.translations.reminder}</span>
             <div className={'img-wrap'}>
               <img src={config.urls.media + 'ic_notifications_active.svg'} />
@@ -187,7 +204,7 @@ export default class Notes extends React.Component {
         </div>
         <div className='reminder'>
           <div className='reminder-text'
-            onClick={() => this.setState({isReminderEdit: !this.state.isReminderEdit})}>
+            onClick={() => this.setState({isReminderEdit: !this.state.isReminderEdit, time: this.state.timeStart})}>
             <span>{config.translations.reminder}</span>
             <div className={'img-wrap'}>
               <img src={config.urls.media + 'ic_notifications_active.svg'} />
@@ -232,6 +249,10 @@ export default class Notes extends React.Component {
     )
   }
   render () {
+    console.log('this.state.timeStart', this.state.timeStart);
+    console.log('this.state.time', this.state.time);
+    console.log('isReminderEdit', this.state.isReminderEdit);
+    console.log('isReminderDate', this.state.isReminderDate);
     return (
       <div id='notes'>
         <div className='note-header'>
