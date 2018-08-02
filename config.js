@@ -578,7 +578,7 @@ var config = {
     currency: '₪',
     debt_step: 10,
     max_side: 1000,
-    time: 1,
+    timeStart: 1,
     timeout: 500,
     hot_links: [
       {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
