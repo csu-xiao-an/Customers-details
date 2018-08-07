@@ -22,11 +22,12 @@ export default class Birthdate extends React.Component {
       clientReplaceService([birthyear, birthdate].filter(i => i).join('&')).then(r => {
         if (r.status === 204) {
           this.setState({
-            day: day && month && day.padStart(2, '0'),
-            month: day && month && month.padStart(2, '0'),
-            year: (year < 1900 && moment().year()) || year
+            // day: day && month && day.padStart(2, '0'),
+            // month: day && month && month.padStart(2, '0'),
+            // year: (year < 1900 && moment().year()) || year
+            configValue: `${(year < 1900 && moment().year()) || year}-${day && month && month.padStart(2, '0')}-${day && month && day.padStart(2, '0')}`,
+            birthdateEdit: false
           })
-          this.setState({birthdateEdit: this.state.birthdateEdit})
         }
       })
     }
@@ -45,19 +46,20 @@ export default class Birthdate extends React.Component {
     target.value = (target.value < 0 && 1) || (target.value >= currentYear && currentYear) || (+target.value && target.value) || ''
     this.setState({year: target.value})
   }
-
   render () {
     return (
       <div id='birthdate' className='block'>
         <div className={this.state.configValue ? this.state.birthdateEdit ? 'hidden' : 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.birthday}:</span>
-          <span>
+          <span onClick={this.props.rights.birthdate.edit
+            ? () => this.setState({birthdateEdit: !this.state.birthdateEdit})
+            : () => {}}>
             {moment(this.state.configValue).format(
               `${config.data.birthyear ? 'YYYY' : ''} ${config.data.birthdate ? 'MMMM Do' : ''}`
             )}
           </span>
         </div>
-        {!this.state.configValue && <div className='birthdate-edit'>
+        <div className={this.state.birthdateEdit ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
             <div className='input-wrap'>
@@ -67,7 +69,7 @@ export default class Birthdate extends React.Component {
             </div>
           </div>
           <div className='button'><button onClick={this.save}>{config.translations.save}</button></div>
-        </div>}
+        </div>
       </div>
     )
   }

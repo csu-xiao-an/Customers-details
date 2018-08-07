@@ -537,6 +537,8 @@ var config = {
     groups_img_default: 'default.svg',
     soc_net: './dist/media/soc_net/',
     recommended_by: 'recommended_by',
+    defaultClientImg: 'default.jpg',
+    defaultPathToClientImg: './dist/media/',
     gallery: './dist/media/galery/',
     client_data: './dist/clients/',
     punch_cards: '/punch_cards',
