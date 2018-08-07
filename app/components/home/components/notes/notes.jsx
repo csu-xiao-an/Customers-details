@@ -49,16 +49,14 @@ export default class Notes extends React.Component {
     if (rem) body = `text=${this.state.description}&reminder_date=${rem}`
     notesReplaceService(body, this.state.note_id).then(r => {
       if (r.status === 204) {
-        console.log('R', r)
         let idNote = config.data.notes.find(note => {
           if(+this.state.key === note.id){
-            return note
+          return note
           }
         })
         idNote.text = this.state.description
         if (rem) {
           idNote.reminder_date = rem
-
         } else delete idNote.reminder_date
         this.setState({
           noteReplace: !this.state.noteReplace,
@@ -69,8 +67,6 @@ export default class Notes extends React.Component {
           note_id: 0,
           time: '0'
         })
-        console.log('reminder_date', idNote.reminder_date);
-
         // console.log(idNote)
       }
     })

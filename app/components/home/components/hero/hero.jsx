@@ -27,6 +27,11 @@ export default class Hero extends React.Component {
       }
     })
   }
+  onError= e => {
+    if (!e.target.src.endsWith(config.urls.defaultClientImg)) {
+      e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
+    }
+  }
   handleStatus = e => {
     e.preventDefault()
     this.setState({isInputDisabled: true})
@@ -92,7 +97,7 @@ export default class Hero extends React.Component {
           </div>
         </form>
         <div className='img'>
-          <img className='client-img' src={this.state.clientImg} alt='user-img' onError={() => this.setState({clientImg: config.urls.media + 'default.jpg'})} />
+          <img className='client-img' src={this.state.clientImg} alt='user-img' onError={e => { this.onError(e) }} />
         </div>
       </div>
     )
