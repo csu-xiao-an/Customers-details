@@ -21,3 +21,12 @@ export const getService = q => {
   }
   return mainRequestService(url, options)
 }
+
+export const deleteService = q => {
+  const url = config.urls.main + config.urls.clients.replace('{client_id}', q)
+  const options = {
+    mode: 'cors',
+    method: 'DELETE'
+  }
+  return mainRequestService(url, options)
+}

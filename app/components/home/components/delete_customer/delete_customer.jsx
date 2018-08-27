@@ -1,5 +1,6 @@
 import './delete_customer.styl'
 import {Modal} from 'project-components'
+import { clientDeleteService } from 'project-services'
 
 export default class HiddenFields extends React.Component {
   state = {
@@ -7,6 +8,13 @@ export default class HiddenFields extends React.Component {
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
+  }
+  deleteClient = () => {
+    clientDeleteService(config.data.id).then(r => {
+      if (r.status === 204) {
+        this.setState({ isVisiblePopup: false })
+      }
+    })
   }
   render () {
     return this.props.rights.more_fields.isVisible && (
@@ -20,8 +28,8 @@ export default class HiddenFields extends React.Component {
             <label>{config.translations.del_question}</label>
           </div>
           <div className='modal-footer'>
-              <button className='no-btn' onClick={() => this.setState({isVisiblePopup: false})}>{config.translations.del_no.toUpperCase()}</button>
-              <button className='yes-btn' onClick={() => { alert('Delete'); this.setState({isVisiblePopup: false}) }}>{config.translations.del_yes.toUpperCase()}</button>
+            <button className='no-btn' onClick={() => this.setState({isVisiblePopup: false})}>{config.translations.del_no.toUpperCase()}</button>
+            <button className='yes-btn' onClick={() => { this.deleteClient() }}>{config.translations.del_yes.toUpperCase()}</button>
           </div>
         </Modal>
       </div>
