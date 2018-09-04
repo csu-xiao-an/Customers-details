@@ -28,20 +28,25 @@ export default class Notes extends React.Component {
     let body = `text=${this.state.description}&added=${d}`
     if (rem) body = body + `&reminder_date=${rem}`
     notesPostService(body, this.state.note_id).then(r => {
-      if (r.status === 201) {
+      if (r.status === 204) {
         config.data.notes.unshift({
           text: this.state.description,
           date: d
         })
         if (rem) config.data.notes[0].reminder_date = rem
         r.json().then(id => { config.data.notes[0].id = id })
-        this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, isReminderEdit: false, noteReplace: !this.state.noteReplace, description: '', time: '0'})
+        this.setState({
+          isEditNotes: !this.state.isEditNotes,
+          newEditNotes: !this.state.newEditNotes,
+          isReminderEdit: false,
+          description: '',
+          time: '0'
+        })
       }
     })
   }
   update = () => {
     let rem = reminder(this.state.time, this.state.selectedValue)
-
     let body = `text=${this.state.description}`
     if (rem) body = `text=${this.state.description}&reminder_date=${rem}`
     notesReplaceService(body, this.state.note_id).then(r => {
@@ -59,6 +64,7 @@ export default class Notes extends React.Component {
           noteReplace: !this.state.noteReplace,
           isEditNotes: !this.state.isEditNotes,
           isReminderEdit: false,
+          // isReminderDate: idNote.date,
           description: '',
           note_id: 0,
           time: '0'
@@ -66,7 +72,6 @@ export default class Notes extends React.Component {
       }
     })
   }
-
   checkLength (desc) {
     let str = ''
     if (desc.length > 70) {
@@ -88,6 +93,8 @@ export default class Notes extends React.Component {
     this.setState({
       noteReplace: !this.state.noteReplace,
       isEditNotes: !this.state.isEditNotes,
+      // isReminderEdit: i.reminder_date,
+      // isReminderEdit: true,
       description: i.text,
       isReminderDate: i.reminder_date,
       note_id: i.id,
@@ -97,22 +104,22 @@ export default class Notes extends React.Component {
 
   closeEdit = () => {
     this.setState({
-      noteReplace: !this.state.noteReplace,
-      isEditNotes: !this.state.isEditNotes,
-      newEditNotes: this.state.newEditNotes,
-      isReminderEdit: false,
-      note_id: 0,
-      description: ''
+    noteReplace: !this.state.noteReplace,
+    isEditNotes: !this.state.isEditNotes,
+    newEditNotes: this.state.newEditNotes,
+    isReminderEdit: false,
+    note_id: 0,
+    description: ''
     })
   }
   closeEditNoteFooter = () => {
     this.setState({
-      noteReplace: !this.state.noteReplace,
-      isEditNotes: !this.state.isEditNotes,
-      newEditNotes: !this.state.newEditNotes,
-      isReminderEdit: false,
-      note_id: 0,
-      description: ''
+    noteReplace: !this.state.noteReplace,
+    isEditNotes: !this.state.isEditNotes,
+    newEditNotes: !this.state.newEditNotes,
+    isReminderEdit: false,
+    note_id: 0,
+    description: ''
     })
   }
 
@@ -176,7 +183,7 @@ export default class Notes extends React.Component {
     )
   }
 
-  // ////////////////////// nOTE FOOTER //////////////////////
+// ////////////////////// nOTE FOOTER //////////////////////
 
   renderNoteAdd = () => {
     return (
@@ -236,6 +243,7 @@ export default class Notes extends React.Component {
     )
   }
   render () {
+
     return (
       <div id='notes'>
         <div className='note-header'>
@@ -245,32 +253,32 @@ export default class Notes extends React.Component {
           {config.data.notes.map(i => (
             this.state.note_id === i.id
               ? this.renderNoteEdit()
-              : <div key={i.id} className='note-list '>
-                <div className='left-side'>
-                  <div className='date'>
-                    <span className='notes-list-date'>{formatDate(i.date)}</span>
-                    <div className={i.reminder_date ? 'notes-list-reminder' : 'hidden'}>
-                      <img src={config.urls.media + 'ic_notifications_active.svg'} />
-                    </div>
+            : <div key={i.id} className='note-list '>
+              <div className='left-side'>
+                <div className='date'>
+                  <span className='notes-list-date'>{formatDate(i.date)}</span>
+                  <div className={i.reminder_date ? 'notes-list-reminder' : 'hidden'}>
+                    <img src={config.urls.media + 'ic_notifications_active.svg'} />
                   </div>
-                  <span className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>
-                    {config.translations.remember + ': ' + this.checkLength(i.text)}
-                  </span>
                 </div>
-                <div className='right-side'>
-                  <img src={config.urls.media + 'ic_edit_stroke.svg'}
-                    onClick={this.props.rights.notes.edit ? () => this.replace(i, i.id) : () => {}}
-                  />
-                </div>
+                <span className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>
+                  {config.translations.remember + ': ' + this.checkLength(i.text)}
+                </span>
               </div>
+              <div className='right-side'>
+                <img src={config.urls.media + 'ic_edit_stroke.svg'}
+                  onClick={this.props.rights.notes.edit ? () => this.replace(i, i.id) : () => {}}
+                   />
+              </div>
+                </div>
           ))}
         </div>
         {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteAdd()}
         {this.props.rights.notes.add &&
           <div className='note-footer'>
-            <label>{config.translations.add_note}</label>
-            <img src={config.urls.media + 'c_add_stroke.svg'} onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})} />
-          </div>}
+          <label>{config.translations.add_note}</label>
+          <img src={config.urls.media + 'c_add_stroke.svg'} onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})} />
+        </div>}
       </div>
     )
   }
