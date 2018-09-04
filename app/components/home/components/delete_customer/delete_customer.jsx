@@ -13,6 +13,7 @@ export default class HiddenFields extends React.Component {
     clientDeleteService(config.data.id).then(r => {
       if (r.status === 204) {
         this.setState({ isVisiblePopup: false })
+        window.location = config.urls.client_page_url.replace('{id}', config.data.id)
       }
     })
   }
