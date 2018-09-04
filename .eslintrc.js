@@ -5,6 +5,7 @@ module.exports = {
   },
   "extends": ["standard", "standard-react"],
   "globals": {
+    ComboDatePicker: false,
     ReactRouterDOM: false,
     PropTypes: false,
     ReactDOM: false,

@@ -9,7 +9,7 @@ export default class Birthdate extends React.Component {
     year: '',
     configValue: config.data.birthdate && config.data.birthyear
       ? `${config.data.birthyear}-${config.data.birthdate}`
-      : config.data.birthdate || config.data.birthyear
+      : config.data.birthyear || config.data.birthdate
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -17,15 +17,12 @@ export default class Birthdate extends React.Component {
   save = () => {
     const { day, month, year } = this.state
     const birthdate = day && month && `birthdate=${month}-${day}`
-    const birthyear = `birthyear=${(year < 1900 && moment().year()) || year}`
+    const birthyear = `birthyear=${year}`
     if (birthdate || birthyear) {
       clientReplaceService([birthyear, birthdate].filter(i => i).join('&')).then(r => {
         if (r.status === 204) {
           this.setState({
-            // day: day && month && day.padStart(2, '0'),
-            // month: day && month && month.padStart(2, '0'),
-            // year: (year < 1900 && moment().year()) || year
-            configValue: `${(year < 1900 && moment().year()) || year}-${day && month && month.padStart(2, '0')}-${day && month && day.padStart(2, '0')}`,
+            configValue: `${year}-${day && month && month}-${day && month && day}`,
             birthdateEdit: false
           })
         }
@@ -46,6 +43,7 @@ export default class Birthdate extends React.Component {
     target.value = (target.value < 0 && 1) || (target.value >= currentYear && currentYear) || (+target.value && target.value) || ''
     this.setState({year: target.value})
   }
+
   render () {
     return (
       <div id='birthdate' className='block'>
@@ -55,18 +53,26 @@ export default class Birthdate extends React.Component {
             ? () => this.setState({birthdateEdit: !this.state.birthdateEdit})
             : () => {}}>
             {moment(this.state.configValue).format(
-              `${config.data.birthyear ? 'YYYY' : ''} ${config.data.birthdate ? 'MMMM Do' : ''}`
+              'YYYY-MM-DD'
             )}
           </span>
         </div>
         <div className={this.state.birthdateEdit ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
-            <div className='input-wrap'>
-              <input type='number' placeholder='MM' min={1} max={12} value={this.state.month} onChange={this.changeMonth} />
-              <input type='number' placeholder='DD' min={1} max={31} value={this.state.day} onChange={this.changeDay} />
-              <input type='number' placeholder='YYYY' min={1900} max={moment().year()} value={this.state.year} onChange={this.changeYear} />
-            </div>
+            <ComboDatePicker
+              order='ymd'
+              placeholder='Year,Month,Date'
+              date={this.state.configValue}
+              onChange={(e, date) => {
+                this.setState({
+                  configValue: moment(date).format('YYYY-MM-DD'),
+                  day: moment(date).format('DD'),
+                  month: moment(date).format('MM'),
+                  year: moment(date).format('YYYY')
+                })
+              }}
+            />
           </div>
           <div className='button'><button onClick={this.save}>{config.translations.save}</button></div>
         </div>
