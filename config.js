@@ -522,6 +522,7 @@ var config = {
     gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
     media_url: '/customers-details/clients/{client_id}/media',
     fill: '/send-filling-up',
+    client_page_url: '/clients/{id}',
     social: '/customers-details/clients/{client_id}/social',
     notes: '/customers-details/clients/{client_id}/notes',
     debt: '/customers-details/clients/{client_id}/debt',
