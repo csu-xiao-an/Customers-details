@@ -2,8 +2,8 @@ import mainRequestService from './request.service'
 
 const mainUrl = config.urls.main + config.urls.notes.replace('{client_id}', config.data.id)
 
-export const postService = (body, id) => {
-  const url = mainUrl + '/' + id
+export const postService = body => {
+  const url = mainUrl
   const options = {
     mode: 'cors',
     headers: {
