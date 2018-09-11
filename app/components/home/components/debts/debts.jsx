@@ -15,7 +15,8 @@ export default class Debts extends React.Component {
     rights: PropTypes.object.isRequired
   }
   submit = () => {
-    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
+    const d = moment().format('YYYY-MM-DD HH:mm')
+    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}&added=${d}`
     debtPostService(body).then(r => {
       if (r.status === 201) {
         config.data.debts.unshift({
