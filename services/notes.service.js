@@ -9,7 +9,7 @@ export const postService = (body, id) => {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    method: 'PUT',
+    method: 'POST',
     body
   }
   return mainRequestService(url, options)
