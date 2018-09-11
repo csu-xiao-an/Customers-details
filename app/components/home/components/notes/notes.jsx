@@ -22,8 +22,7 @@ export default class Notes extends React.Component {
     rights: PropTypes.object.isRequired
   }
   submit = () => {
-    const d = moment.utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
-    // (c, u) => c !== '0' && c !== 0 ? moment.utc().add(c, u).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]') : undefined
+    const d = moment().format('YYYY-MM-DD hh:mm:ss')
     let rem = reminder(this.state.time, this.state.selectedValue)
     let body = `text=${this.state.description}&added=${d}`
     if (rem) body = body + `&reminder_date=${rem}`
@@ -275,10 +274,10 @@ export default class Notes extends React.Component {
         </div>
         {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteAdd()}
         {this.props.rights.notes.add &&
-          <div className='note-footer'>
-          <label>{config.translations.add_note}</label>
-          <img src={config.urls.media + 'c_add_stroke.svg'} onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})} />
-        </div>}
+          <div className='note-footer' onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})}>
+            <label>{config.translations.add_note}</label>
+            <img src={config.urls.media + 'c_add_stroke.svg'} />
+          </div>}
       </div>
     )
   }
