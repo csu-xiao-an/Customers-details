@@ -1,6 +1,6 @@
 var config = {
   isRtL: false,
-  baseUrl: '',
+  baseUrl: '/en/clients/{client_id}',
   max_services_shown_without_cat: 15,
   user: {
     // admin, senior, junior, readonly, untrusted

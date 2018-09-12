@@ -37,7 +37,7 @@ export default class HotLinks extends React.Component {
   }
   renderExternalLink = (url, label, img) => (
     <div>
-      <Link className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')} to={config.baseUrl + url}><img src={img} /></Link>
+      <Link className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')} to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + url : url}><img src={img} /></Link>
       <span>{label}</span>
     </div>
   )
