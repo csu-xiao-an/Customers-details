@@ -1,4 +1,4 @@
-import {clientReplaceService} from 'project-services'
+import {clientReplaceService, clientPostServiceImg} from 'project-services'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
 
@@ -49,8 +49,21 @@ export default class Hero extends React.Component {
       })
     }
   }
-  handleClick () {
-    this.refs.photoUploader.click()
+  photoUpload = img => {
+    let photo = img.target.files[0]
+    let d = moment(photo.lastModified).format('YYYY-MM-DD hh:mm:ss')
+    let body = new FormData()
+    body.append('date', d)
+    body.append('file', photo)
+    // const body = {
+    //   date: d,
+    //   file: photo
+    // }
+    clientPostServiceImg(body).then(r => {
+      if (r.status === 201) {
+        this.setState({clientImg: URL.createObjectURL(img.target.files[0])})
+      }
+    })
   }
   componentDidMount = () => {
     this.setState({isStar: config.data.isFavorite})
@@ -76,10 +89,10 @@ export default class Hero extends React.Component {
           </svg>&nbsp;
           <span>VIP</span>
         </div>
-        <div className='camera' onClick={this.handleClick.bind(this)}>
+        <label className='camera'>
           <img src={config.urls.media + 'ic_photo.svg'} />
-          <input type='file' id='file' ref='photoUploader' style={{display: 'none'}} />
-        </div>
+          <input type='file' style={{display: 'none'}} onChange={this.photoUpload} />
+        </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
         <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>

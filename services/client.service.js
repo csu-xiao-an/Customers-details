@@ -30,3 +30,16 @@ export const deleteService = q => {
   }
   return mainRequestService(url, options)
 }
+
+export const postServiceTest = body => {
+  const url = config.urls.main + config.urls.clients.replace('{client_id}', config.data.id) + '/profile_image'
+  const options = {
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST',
+    body
+  }
+  return mainRequestService(url, options)
+}
