@@ -55,13 +55,9 @@ export default class Hero extends React.Component {
     let body = new FormData()
     body.append('date', d)
     body.append('file', photo)
-    // const body = {
-    //   date: d,
-    //   file: photo
-    // }
     clientPostServiceImg(body).then(r => {
-      if (r.status === 201) {
-        this.setState({clientImg: URL.createObjectURL(img.target.files[0])})
+      if (r.res.status === 201) {
+        this.setState({clientImg: `${config.urls.client_data}${r.data.id}/${r.data.name}`})
       }
     })
   }
