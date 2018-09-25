@@ -57,7 +57,7 @@ export default class Hero extends React.Component {
     body.append('file', photo)
     clientPostServiceImg(body).then(r => {
       if (r.res.status === 201) {
-        this.setState({clientImg: `${config.urls.client_data}${r.data.id}/${r.data.name}`})
+        this.setState({clientImg: `${config.urls.client_data}${config.data.id}/${r.data.name}`})
       }
     })
   }
