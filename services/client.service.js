@@ -38,5 +38,5 @@ export const postServiceTest = body => {
     method: 'POST',
     body
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(res => res.json().then(data => ({ data, res })))
 }
