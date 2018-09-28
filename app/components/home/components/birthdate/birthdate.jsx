@@ -16,7 +16,6 @@ export default class Birthdate extends React.Component {
       : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
         : `${''}${!!config.data.birthdate ? config.data.birthdate : ''}`)
   }
-  // (!!config.data.birthyear) ? (config.data.birthyear + дата) : (текущий год + дата)moment().format('YYYY')
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
@@ -51,17 +50,6 @@ export default class Birthdate extends React.Component {
     this.setState({year: target.value})
   }
   render () {
-    console.log('configValue', this.state.configValue)
-    console.log('configValue1', this.state.configValue1)
-    // console.log('config.data.birthdate', config.data.birthdate);
-    // console.log('this.state.configValue', this.state.configValue)
-    // console.log(config.data.birthdate && config.data.birthyear
-    //   ? `${config.data.birthyear}-${config.data.birthdate}`
-    // !!config.data.birthyear && !!config.data.birthdate
-    // ? 'wrapBDay' : 'birthdate-edit'
-    //   ? 'hidden' : 'birthdate-edit'
-    //   : ((!!config.data.birthyear) ? (`${config.data.birthyear}-${!!config.data.birthdate ? config.data.birthdate : ''}`)
-    //     : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : ''}`))
     return (
       <div id='birthdate' className='block'>
         <div className={this.state.configValue1 ? this.state.birthdateEdit ? 'hidden' : 'wrapBDay' : 'hidden'}>

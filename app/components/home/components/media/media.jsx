@@ -31,7 +31,7 @@ export default class Media extends React.Component {
     else this.setState({isOpenGalleryContex: true})
   }
   submit = () => {
-    const d = moment(this.state.file.lastModified).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+    const d = moment(this.state.file.lastModified).format('YYYY-MM-DD hh:mm:ss')
     let body = new FormData()
     body.append('file', this.state.file)
     body.append('date', d)
@@ -52,11 +52,11 @@ export default class Media extends React.Component {
   }
   addFile = e => {
     let file = e.target.files[0]
-    this.setState({file: file})
     if (file.type.indexOf('image') !== -1) { e.preventDefault(); this.resize(file) } else
     if (file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
     if (file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
     if (file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
+    this.setState({file: file})
   }
   typeItem = (i, k) => {
     let src
@@ -128,7 +128,9 @@ export default class Media extends React.Component {
         }
         ctx.drawImage(img, 0, 0, w, h)
         let dataURL = canvas.toDataURL()
-        this.setState({imagePreviewUrl: dataURL, file: dataURLtoFile(dataURL, 'media.png')})
+        this.setState({
+          imagePreviewUrl: dataURL,
+          file: dataURLtoFile(dataURL, `${this.state.file.name}`)})
       }
     })
   }
@@ -213,6 +215,7 @@ export default class Media extends React.Component {
     this.setState({gallery: config.data.gallery})
   }
   render () {
+    console.log(this.state.file);
     let $imagePreview = null
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
