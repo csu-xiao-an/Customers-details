@@ -62,7 +62,7 @@ export default class Events extends React.Component {
   initialSlide = () => {
     let slide
     config.data.recent_appoinments && config.data.recent_appoinments.every((i, k) => {
-      if (moment() < moment(i.date)) { slide = k; return false } else return true
+      if (moment() > moment(i.date)) { slide = k; return false } else return true
     })
     return slide
   }
