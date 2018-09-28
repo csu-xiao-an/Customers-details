@@ -9,8 +9,14 @@ export default class Birthdate extends React.Component {
     year: '',
     configValue: config.data.birthdate && config.data.birthyear
       ? `${config.data.birthyear}-${config.data.birthdate}`
-      : config.data.birthyear || config.data.birthdate
+      : ((!!config.data.birthyear) ? (`${config.data.birthyear}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)
+        : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`),
+    configValue1: config.data.birthdate && config.data.birthyear
+      ? `${config.data.birthyear}${config.data.birthdate}`
+      : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
+        : `${''}${!!config.data.birthdate ? config.data.birthdate : ''}`)
   }
+  // (!!config.data.birthyear) ? (config.data.birthyear + дата) : (текущий год + дата)moment().format('YYYY')
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
@@ -23,6 +29,7 @@ export default class Birthdate extends React.Component {
         if (r.status === 204) {
           this.setState({
             configValue: `${year}-${day && month && month}-${day && month && day}`,
+            configValue1: `${year}-${day && month && month}-${day && month && day}`,
             birthdateEdit: false
           })
         }
@@ -43,20 +50,39 @@ export default class Birthdate extends React.Component {
     target.value = (target.value < 0 && 1) || (target.value >= currentYear && currentYear) || (+target.value && target.value) || ''
     this.setState({year: target.value})
   }
-
   render () {
+    console.log('configValue', this.state.configValue)
+    console.log('configValue1', this.state.configValue1)
+    // console.log('config.data.birthdate', config.data.birthdate);
+    // console.log('this.state.configValue', this.state.configValue)
+    // console.log(config.data.birthdate && config.data.birthyear
+    //   ? `${config.data.birthyear}-${config.data.birthdate}`
+    // !!config.data.birthyear && !!config.data.birthdate
+    // ? 'wrapBDay' : 'birthdate-edit'
+    //   ? 'hidden' : 'birthdate-edit'
+    //   : ((!!config.data.birthyear) ? (`${config.data.birthyear}-${!!config.data.birthdate ? config.data.birthdate : ''}`)
+    //     : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : ''}`))
     return (
       <div id='birthdate' className='block'>
-        <div className={this.state.configValue ? this.state.birthdateEdit ? 'hidden' : 'wrapBDay' : 'hidden'}>
+        <div className={this.state.configValue1 ? this.state.birthdateEdit ? 'hidden' : 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.birthday}:</span>
           <span onClick={this.props.rights.birthdate.edit
             ? () => this.setState({birthdateEdit: !this.state.birthdateEdit})
             : () => {}}>
-            {moment(this.state.configValue).format(
-              'YYYY-MM-DD'
-            )}
+            {this.state.configValue}
           </span>
         </div>
+        {
+          !this.state.birthdateEdit && !this.state.configValue1 &&
+          <div onClick={() => this.setState({birthdateEdit: !this.state.birthdateEdit})}
+            className={!this.state.configValue1 || this.state.birthdateEdit ? 'add-birth' : 'hidden'}>
+            <div className='wrap-birth'>
+              <span className='label'>{config.translations.birthday}:</span>
+              <h1>{config.translations.add_birth}</h1>
+            </div>
+            <img src={config.urls.media + 'add.svg'} />
+          </div>
+        }
         <div className={this.state.birthdateEdit ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
@@ -66,7 +92,6 @@ export default class Birthdate extends React.Component {
               date={this.state.configValue}
               onChange={(e, date) => {
                 this.setState({
-                  configValue: moment(date).format('YYYY-MM-DD'),
                   day: moment(date).format('DD'),
                   month: moment(date).format('MM'),
                   year: moment(date).format('YYYY')
