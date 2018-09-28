@@ -409,6 +409,7 @@ var config = {
     appointment_at: 'Appointment at',
     debts_t: 'Debts',
     other_t: 'Other',
+    add_birth: 'Add Birthdate',
     debt_created: 'Debt created at {time}',
     debt_modified: 'Debt was updated at {time}',
     debt_deleted: 'Debt was repaid at {time}',
@@ -808,7 +809,7 @@ var config = {
     recent_appoinments: [
       {
         id: 321321,
-        date: '2017-09-26 15:00',
+        date: '2010-01-01 15:00',
         services: [
           {
             id: 159159,
@@ -828,7 +829,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2017-09-27 19:00',
+        date: '2010-01-02 19:00',
         services: [
           {
             id: 778954,
@@ -841,7 +842,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2017-09-28 18:00',
+        date: '2010-01-03 18:00',
         services: [
           {
             id: 778954,
@@ -854,7 +855,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2017-09-23 18:00',
+        date: '2025-01-01 18:00',
         services: [
           {
             id: 778954,
@@ -867,7 +868,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2018-01-01 18:00',
+        date: '2025-01-02 18:00',
         services: [
           {
             id: 778954,
@@ -880,7 +881,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2017-09-11 18:00',
+        date: '2025-01-03 18:00',
         services: [
           {
             id: 778954,
@@ -893,7 +894,7 @@ var config = {
       },
       {
         id: 456465,
-        date: '2016-07-21 18:00',
+        date: '2025-01-04 18:00',
         services: [
           {
             id: 778954,
@@ -906,7 +907,20 @@ var config = {
       },
       {
         id: 456465,
-        date: '2010-07-21 18:00',
+        date: '2025-01-05 18:00',
+        services: [
+          {
+            id: 778954,
+            name: 'hair coloring',
+            color: 'green',
+            price: 600,
+            duration: 120
+          }
+        ]
+      },
+      {
+        id: 456465,
+        date: '2025-01-06 18:00',
         services: [
           {
             id: 778954,
