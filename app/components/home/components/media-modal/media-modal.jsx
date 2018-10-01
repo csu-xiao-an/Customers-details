@@ -96,7 +96,7 @@ export default class MediaModal extends React.Component {
               <span className='date'>{config.data.gallery[this.state.activeIndex] && formatDate(config.data.gallery[this.state.activeIndex].date)}</span>
             </div>
           </div>
-          <div className='data'>
+          <div className={!config.data.gallery[this.state.activeIndex].note ? 'hidden' : 'data'}>
             <span className={this.state.isEditNote ? 'hidden' : 'note'}>
               {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
             <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
