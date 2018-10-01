@@ -15,7 +15,7 @@ export default class MediaModal extends React.Component {
   }
   typeItem = (i, k) => {
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
-      if (i.name.indexOf('png') !== -1) { return <img src={config.urls.gallery + i.name} /> } else
+      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { return <img src={config.urls.gallery + i.name} /> } else
       if (i.name.indexOf('mp4') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
       if (i.name.indexOf('mp3') !== -1) {
         return (<div>
