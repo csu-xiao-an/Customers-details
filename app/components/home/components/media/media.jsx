@@ -73,7 +73,7 @@ export default class Media extends React.Component {
         />
       </div>)
     } else {
-      if (i.name.indexOf('png') !== -1) { src = config.urls.gallery + i.name } else
+      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name } else
       if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
       if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
       return <img className='media'
@@ -215,7 +215,6 @@ export default class Media extends React.Component {
     this.setState({gallery: config.data.gallery})
   }
   render () {
-    console.log(this.state.file);
     let $imagePreview = null
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
@@ -267,7 +266,7 @@ export default class Media extends React.Component {
                 <div className='check-box'>
                   {this.renderCheck()}
                 </div>
-                <label className='file-name'>{i.name}</label>
+                <div className='file-name'>{i.name}</div>
                 <div className='file-date'>
                   <img className='day-icon' src={config.urls.media + 'ic_day_min.svg'} />
                   <label className='date'>{formatDate(i.date)}</label>
