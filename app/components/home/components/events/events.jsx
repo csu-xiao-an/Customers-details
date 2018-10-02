@@ -9,23 +9,18 @@ export default class Events extends React.Component {
   price (i) {
     let sum = 0
     if (i.services.length > 1) {
-      for (let c = 0; c < i.services.length; c++) sum += i.services[c].price
-    } else { sum = i.services[0].price }
+      for (let c = 0; c < i.services.length; c++) sum += i.services[c].total_price
+    } else { sum = i.services[0].total_price }
     return sum + config.data.currency
   }
   duration (i) {
-    let duration = 0
-    if (i.services.length > 1) {
-      for (let c = 0; c < i.services.length; c++) duration += i.services[c].duration
-    } else { duration = i.services[0].duration }
-
-    return moment(i.date).format('HH:mm') + ' - ' + moment(i.date).add(duration * 60 * 1000, 'milliseconds').format('HH:mm')
+    const duration = i.services.reduce((sum, item) => sum + (item.duration || 0), 0)
+    return moment(i.start).format('HH:mm') + ' - ' + moment(i.start).add(duration, 'minutes').format('HH:mm')
   }
   getColorLine (i) {
     let nextNum = 0
     let colorStr = ''
     let oneColorHeight = (100 / i.services.length).toFixed(2)
-
     const serviceList = i.services.map((item, index) => {
       colorStr += ', ' + item.color + ' ' + nextNum + '%, ' + item.color + ' ' + (
         parseFloat(nextNum) + parseFloat(oneColorHeight)) + '%'
@@ -35,7 +30,7 @@ export default class Events extends React.Component {
     })
     let leftBorder = {
       borderImage: 'linear-gradient(to bottom' + colorStr + ') 1 100%',
-      borderWidth: '4px',
+      borderWidth: '2px',
       borderStyle: 'solid',
       borderRight: 'navajowhite'}
 
@@ -97,7 +92,7 @@ export default class Events extends React.Component {
                         </div>
                         <div className='date'>
                           <img className='icon' src={config.urls.media + 'ic_day.svg'} />
-                          <span>{moment(i.date).format('ddd, DD MMMM, Y')}</span>
+                          <span>{moment(i.start).format('ddd, DD MMMM, Y')}</span>
                         </div>
                       </div>
                     </div>
@@ -109,12 +104,14 @@ export default class Events extends React.Component {
                 </div>)
               )}
             </Swiper>
-            <div className='event-footer'>
-              <label>{config.translations.add_new_queue}</label>
-              <a href={this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}>
+            <a href={this.props.rights.events.cr_app
+              ? `${config.urls.main}${config.urls.appointment}?client_id=${config.data.id}&worker_id=${config.user.worker_id}`
+              : false}>
+              <div className='event-footer'>
+                <label>{config.translations.add_new_queue}</label>
                 <img className='add' src={config.urls.media + 'c_add_stroke.svg'} />
-              </a>
-            </div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
