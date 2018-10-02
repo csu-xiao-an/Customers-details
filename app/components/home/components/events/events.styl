@@ -1,5 +1,7 @@
 @import "../../../../color.styl"
 #events
+  a
+    text-decoration: none;
   background-color transparent
   .event-header
     margin 0 7px 3px 7px
@@ -25,13 +27,15 @@
       font-size 0.8em
       color $headerColor
       font-weight 800
+
+
   #swiper-wrap-notes
     .swiper-container
       margin 0 7px 3px 7px
       .swiper-wrapper
         margin-left: -54px
         .swiper-slide
-          padding 0 7px 0 0
+          padding 0 3px 0 0
           width auto
           .note
             background-color $blockBackground
@@ -45,9 +49,18 @@
               min-height 3.5em
               border-bottom 1px solid $mainBackground
               span
+                font-family: Roboto;
+                font-size: 12px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.67;
+                letter-spacing: 0.1px;
+                text-align: left;
+                color: #222222;
                 margin auto 10px
             .block1
-              padding 0 10px
+              padding-left: 2px
               width 60%
               margin auto 0
               float left
@@ -56,7 +69,16 @@
               .dates
                 margin auto
                 span
-                  font-size 0.8em
+                  font-family: Roboto;
+                  font-size: 12px;
+                  font-weight: 300;
+                  font-style: normal;
+                  font-stretch: normal;
+                  line-height: 1.67;
+                  letter-spacing: 0.2px;
+                  text-align: left;
+                  color: #222222;
+                  // font-size 0.8em
                   margin auto 10px
             .block2
               width 40%
