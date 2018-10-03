@@ -531,6 +531,7 @@ var config = {
     clients: '/customers-details/clients/{client_id}',
     add_client_url: '/add-client/clients?q={query}',
     punch_cards_adding: '/punch_cards/adding',
+    calendar_link: '/calendar',
     appointment: '/creating-appointment/',
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_id}.jpg',
@@ -811,20 +812,17 @@ var config = {
         id: 321321,
         start: '2010-01-01 15:00',
         end: '2010-01-01 19:00',
+        total_price: '250',
         services: [
           {
             id: 159159,
             name: 'manicure',
-            total_price: 100,
-            color: 'red',
-            duration: 30
+            color: 'red'
           },
           {
             id: 756756,
             name: 'hair coloring',
-            total_price: 150,
-            color: 'blue',
-            duration: 30
+            color: 'blue'
           }
         ]
       },
@@ -832,13 +830,12 @@ var config = {
         id: 456465,
         start: '2010-01-01 15:00',
         end: '2010-01-01 15:30',
+        total_price: '4100',
         services: [
           {
             id: 778954,
             name: 'visit',
-            color: 'green',
-            total_price: 4100,
-            duration: 30
+            color: 'green'
           }
         ]
       },
@@ -846,13 +843,12 @@ var config = {
         id: 456465,
         start: '2010-01-01 15:00',
         end: '2010-01-01 15:30',
+        total_price: '1200',
         services: [
           {
             id: 778954,
             name: 'chemistry',
-            color: 'red',
-            total_price: 1200,
-            duration: 30
+            color: 'red'
           }
         ]
       },
@@ -860,13 +856,12 @@ var config = {
         id: 456465,
         start: '2025-01-01 15:00',
         end: '2025-01-01 15:30',
+        total_price: '10',
         services: [
           {
             id: 778954,
             name: 'chemistry',
-            color: 'green',
-            total_price: 10,
-            duration: 30
+            color: 'green'
           }
         ]
       },
@@ -874,13 +869,12 @@ var config = {
         id: 456465,
         start: '2025-01-01 15:00',
         end: '2025-01-01 15:30',
+        total_price: '1200',
         services: [
           {
             id: 778954,
             name: 'chemistry',
-            color: 'green',
-            total_price: 1200,
-            duration: 30
+            color: 'green'
           }
         ]
       },
@@ -888,13 +882,12 @@ var config = {
         id: 456465,
         start: '2025-01-01 15:00',
         end: '2025-01-01 15:30',
+        total_price: '700',
         services: [
           {
             id: 778954,
             name: 'manicure',
-            color: 'green',
-            total_price: 700,
-            duration: 30
+            color: 'green'
           }
         ]
       },
@@ -902,13 +895,12 @@ var config = {
         id: 456465,
         start: '2025-01-01 15:00',
         end: '2025-01-01 15:30',
+        total_price: '600',
         services: [
           {
             id: 778954,
             name: 'hair coloring',
-            color: 'green',
-            total_price: 600,
-            duration: 30
+            color: 'green'
           }
         ]
       },
@@ -916,13 +908,12 @@ var config = {
         id: 456465,
         start: '2025-01-01 15:00',
         end: '2025-01-01 15:30',
+        total_price: '600',
         services: [
           {
             id: 778954,
             name: 'hair coloring',
-            color: 'green',
-            total_price: 600,
-            duration: 30
+            color: 'green'
           }
         ]
       },
@@ -930,27 +921,22 @@ var config = {
         id: 456465,
         start: '2025-01-01 15:00',
         end: '2025-01-01 15:30',
+        total_price: '1000',
         services: [
           {
             id: 778954,
             name: 'facial treatment',
-            color: 'green',
-            total_price: 400,
-            duration: 30
+            color: 'green'
           },
           {
             id: 778954,
             name: 'laser hair 3 treatments',
-            color: 'blue',
-            total_price: 500,
-            duration: 30
+            color: 'blue'
           },
           {
             id: 778954,
             name: 'laser hair 3 treatments',
-            color: 'red',
-            total_price: 100,
-            duration: 30
+            color: 'red'
           }
         ]
       }

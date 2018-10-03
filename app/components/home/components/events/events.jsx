@@ -6,17 +6,24 @@ export default class Events extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
-  price (i) {
-    let sum = 0
-    if (i.services.length > 1) {
-      for (let c = 0; c < i.services.length; c++) sum += i.services[c].total_price
-    } else { sum = i.services[0].total_price }
-    return sum + config.data.currency
-  }
-  duration (i) {
-    const duration = i.services.reduce((sum, item) => sum + (item.duration || 0), 0)
-    return moment(i.start).format('HH:mm') + ' - ' + moment(i.start).add(duration, 'minutes').format('HH:mm')
-  }
+  // price (i) {
+  //   let sum = 0
+  //   if (i.length > 1) {
+  //     for (let c = 0; c < i.length; c++) sum += i[c].total_price
+  //   } else { sum = i[0].total_price }
+  //   return sum + config.data.currency
+  // }
+  //   duration (i) {
+  //     let duration = 0
+  //     if (i.services.length > 1) {
+  //       for (let c = 0; c < i.services.length; c++) duration += i.services[c].duration
+  //     } else { duration = i.services[0].duration }
+  //     return `${moment(i.start).format('HH:mm')}-${moment(i.end).subtract(moment(i.start)).format('HH:mm')}`
+  // }
+  // duration (i) {
+  //   const duration = i.services.reduce((sum, item) => sum + (item.duration || 0), 0)
+  //   return moment(i.start).format('HH:mm') + ' - ' + moment(i.start).add(duration, 'minutes').format('HH:mm')
+  // }
   getColorLine (i) {
     let nextNum = 0
     let colorStr = ''
@@ -41,7 +48,7 @@ export default class Events extends React.Component {
     let itemsCount = 0
     if (i.services.length > 1) {
       for (let c = 0; c < i.services.length; c++) {
-        if ((string + i.services[c].name + ', ').length < 25) {
+        if ((string + i.services[c].name + ', ').length < 70) {
           string += i.services[c].name + ', '
         } else {
           itemsCount++
@@ -79,28 +86,30 @@ export default class Events extends React.Component {
             <Swiper slidesPerView='auto' initialSlide={this.initialSlide()} centeredSlides='true'>
               {config.data.recent_appoinments.map((i, k) => (
                 <div key={k}>
-                  <div className='note' style={this.getColorLine(i)}>
-                    <div className='note-head'>
-                      <img className='icon' src={config.urls.media + 'ic_servise.svg'} />
-                      <span>{this.getHeaderTitle(i)}</span>
-                    </div>
-                    <div className='block1' >
-                      <div className='dates'>
-                        <div className='duration'>
-                          <img className='icon' src={config.urls.media + 'ic_time.svg'} />
-                          <span>{this.duration(i)}</span>
-                        </div>
-                        <div className='date'>
-                          <img className='icon' src={config.urls.media + 'ic_day.svg'} />
-                          <span>{moment(i.start).format('ddd, DD MMMM, Y')}</span>
+                  <a href={`${config.urls.calendar_link}?appointment_id=${config.data.recent_appoinments[k].id}`}>
+                    <div className='note' style={this.getColorLine(i)} >
+                      <div className='note-head'>
+                        <img className='icon' src={config.urls.media + 'ic_servise.svg'} />
+                        <span>{this.getHeaderTitle(i)}</span>
+                      </div>
+                      <div className='block1' >
+                        <div className='dates'>
+                          <div className='duration'>
+                            <img className='icon' src={config.urls.media + 'ic_time.svg'} />
+                            <span>{`${moment(i.start).format('HH:mm')} - ${moment(i.end).format('HH:mm')}`}</span>
+                          </div>
+                          <div className='date'>
+                            <img className='icon' src={config.urls.media + 'ic_day.svg'} />
+                            <span>{moment(i.start).format('ddd, DD MMMM, Y')}</span>
+                          </div>
                         </div>
                       </div>
+                      <div className='block2' >
+                        <span>{i.total_price}{config.data.currency}</span>
+                        <span className='min'>/&nbsp;{config.translations.summary}</span>
+                      </div>
                     </div>
-                    <div className='block2' >
-                      <span>{this.price(i)}</span>
-                      <span className='min'>/&nbsp;{config.translations.summary}</span>
-                    </div>
-                  </div>
+                  </a>
                 </div>)
               )}
             </Swiper>
