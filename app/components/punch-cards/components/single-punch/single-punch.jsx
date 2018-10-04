@@ -33,7 +33,10 @@ export default class SinglePunch extends React.Component {
         <div className='triangle-down-wrap'><div className='triangle-down' /></div>
         <div className='punch-data'>
           <div className='head'><div className='delete-wrap'><img onClick={this.handleConfirmedModal} src={config.urls.media + 'trash-black.png'} /></div>
-            <h1 className='p-name'>{this.props.i.service_name}</h1><h1 className='p-sum'>{this.props.i.sum}{config.data.currency}</h1></div>
+            <h1 className='p-name'>{this.props.i.service_name}</h1>
+            {this.props.i.sum &&
+            <h1 className='p-sum'>{this.props.i.sum}{config.data.currency}</h1>}
+          </div>
           <h1 className='info'>{config.translations.used}
             <span>{this.props.i.uses && this.props.i.uses.length}</span>{config.translations.from.replace('{count}', this.props.i.service_count)}</h1>
           <div className='use-wrap' onClick={(this.props.i.uses && this.props.i.uses.length === this.props.i.service_count) || days < 1 ? () => {} : this.use}
