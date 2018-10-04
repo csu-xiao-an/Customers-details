@@ -27,7 +27,7 @@ export default class Notes extends React.Component {
     let body = `text=${this.state.description}&added=${d}`
     if (rem) body = body + `&reminder_date=${rem}`
     notesPostService(body, this.state.note_id).then(r => {
-      if (r.status === 204) {
+      if (r.status === 201) {
         config.data.notes.unshift({
           text: this.state.description,
           date: d
@@ -252,24 +252,24 @@ export default class Notes extends React.Component {
           {config.data.notes.map(i => (
             this.state.note_id === i.id
               ? this.renderNoteEdit()
-            : <div key={i.id} className='note-list '>
-              <div className='left-side'>
-                <div className='date'>
-                  <span className='notes-list-date'>{formatDate(i.date)}</span>
-                  <div className={i.reminder_date ? 'notes-list-reminder' : 'hidden'}>
-                    <img src={config.urls.media + 'ic_notifications_active.svg'} />
+              : <div key={i.id} className='note-list '>
+                <div className='left-side'>
+                  <div className='date'>
+                    <span className='notes-list-date'>{formatDate(i.date)}</span>
+                    <div className={i.reminder_date ? 'notes-list-reminder' : 'hidden'}>
+                      <img src={config.urls.media + 'ic_notifications_active.svg'} />
+                    </div>
                   </div>
+                  <span className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>
+                    {this.checkLength(i.text)}
+                  </span>
                 </div>
-                <span className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>
-                  {config.translations.remember + ': ' + this.checkLength(i.text)}
-                </span>
-              </div>
-              <div className='right-side'>
-                <img src={config.urls.media + 'ic_edit_stroke.svg'}
-                  onClick={this.props.rights.notes.edit ? () => this.replace(i, i.id) : () => {}}
-                   />
-              </div>
+                <div className='right-side'>
+                  <img src={config.urls.media + 'ic_edit_stroke.svg'}
+                    onClick={this.props.rights.notes.edit ? () => this.replace(i, i.id) : () => {}}
+                  />
                 </div>
+              </div>
           ))}
         </div>
         {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteAdd()}
