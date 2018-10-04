@@ -27,28 +27,33 @@ export default class Events extends React.Component {
   getColorLine (i) {
     let nextNum = 0
     let colorStr = ''
-    let oneColorHeight = (100 / i.services.length).toFixed(2)
-    const serviceList = i.services.map((item, index) => {
-      colorStr += ', ' + item.color + ' ' + nextNum + '%, ' + item.color + ' ' + (
+    let filteredColor = i.services.filter(i => !!i.color)
+    let oneColorHeight = (100 / (filteredColor.length).toFixed(2))
+    filteredColor.map((i, k) => {
+      colorStr += ', ' + (i.color || '') + ' ' + nextNum + '%, ' + (i.color || '') + ' ' + (
         parseFloat(nextNum) + parseFloat(oneColorHeight)) + '%'
       nextNum = parseFloat(nextNum) + parseFloat(oneColorHeight)
-
-      return item.name
     })
     let leftBorder = {
       borderImage: 'linear-gradient(to bottom' + colorStr + ') 1 100%',
       borderWidth: '2px',
       borderStyle: 'solid',
-      borderRight: 'navajowhite'}
-
-    return leftBorder
+      borderRight: 'navajowhite'
+    }
+    let BorderNone = {
+      borderImage: '',
+      borderWidth: '',
+      borderStyle: '',
+      borderRight: ''
+    }
+    return (colorStr ? leftBorder : BorderNone)
   }
   getHeaderTitle (i) {
     let string = ''
     let itemsCount = 0
     if (i.services.length > 1) {
       for (let c = 0; c < i.services.length; c++) {
-        if ((string + i.services[c].name + ', ').length < 70) {
+        if ((string + i.services[c].name + ', ').length > 0) {
           string += i.services[c].name + ', '
         } else {
           itemsCount++
