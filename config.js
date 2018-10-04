@@ -360,7 +360,6 @@ var config = {
     description_notes: 'Description',
     reminder: 'Set a reminder',
     add_note: 'Add Note',
-    remember: 'Remember',
     notes: 'Notes',
     item_count: 'Items',
     gallery: 'Gallery',
