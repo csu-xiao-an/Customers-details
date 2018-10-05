@@ -88,7 +88,10 @@ export default class Events extends React.Component {
             <div className='event-header'>
               <label>{config.translations.close_queue}</label>
             </div>
-            <Swiper slidesPerView='auto' initialSlide={this.initialSlide()} centeredSlides='true'>
+            <Swiper slidesPerView='auto'
+              initialSlide={this.initialSlide()}
+              slidesOffsetBefore={0}
+              slidesOffsetAfter={-3}>
               {config.data.recent_appoinments.map((i, k) => (
                 <div key={k}>
                   <a href={`${config.urls.calendar_link}?appointment_id=${config.data.recent_appoinments[k].id}`}>
