@@ -4,7 +4,7 @@ import './hero.styl'
 
 export default class Hero extends React.Component {
   state = {
-    status: config.data.status || config.translations.placeholder,
+    status: config.data.status,
     clientImg: config.urls.client_data + config.data.profile_image,
     isInputDisabled: false,
     succes: false,
@@ -65,6 +65,7 @@ export default class Hero extends React.Component {
     this.setState({isStar: config.data.isFavorite})
   }
   render () {
+    console.log(this.state.isInputDisabled)
     return (
       <div id='hero'>
         <div onClick={this.handleStar} className={'star-wrap'}>
@@ -95,13 +96,17 @@ export default class Hero extends React.Component {
           <span className='status-label'>Status:</span>
           <div className='input-group'>
             <div className='input-wrap'>
-              <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')} type='text' ref='autofocus' value={this.state.status}
-                onBlur={() => this.setState({isInputDisabled: false, status: config.data.status ? config.data.status : config.translations.placeholder})}
+              <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
+                type='text'
+                ref='autofocus'
+                value={this.state.status}
+                placeholder={config.translations.placeholder}
+                onBlur={() => this.setState({isInputDisabled: false, status: config.data.status})}
                 onChange={e => this.setState({status: e.target.value, statusRem: e.target.value})} />
             </div>
             {this.props.rights.hero.status &&
               <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
-                <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'}/>
+                <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
               </span>}
           </div>
         </form>
