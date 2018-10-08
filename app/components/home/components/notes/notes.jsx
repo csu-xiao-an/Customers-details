@@ -37,6 +37,7 @@ export default class Notes extends React.Component {
         this.setState({
           isEditNotes: !this.state.isEditNotes,
           newEditNotes: !this.state.newEditNotes,
+          noteReplace: !this.state.noteReplace,
           isReminderEdit: false,
           description: '',
           time: '0'
@@ -242,13 +243,12 @@ export default class Notes extends React.Component {
     )
   }
   render () {
-
     return (
       <div id='notes'>
         <div className='note-header'>
           <label>{config.translations.notes}</label>
         </div>
-        <div className='note-body'>
+        <div className='note-body' style={{'max-height': (config.notes_height_limit * 56)}}>
           {config.data.notes.map(i => (
             this.state.note_id === i.id
               ? this.renderNoteEdit()

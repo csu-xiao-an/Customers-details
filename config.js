@@ -2,6 +2,7 @@ var config = {
   isRtL: false,
   baseUrl: '/en/clients/{client_id}',
   max_services_shown_without_cat: 15,
+  notes_height_limit: 5,
   user: {
     // admin, senior, junior, readonly, untrusted
     business_logo: 'public/business_data/1/logo.jpg',
