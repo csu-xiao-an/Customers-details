@@ -351,7 +351,7 @@ var config = {
     add_email: 'Add an email',
     email: 'Email',
     add_adress: 'Add an address',
-    adress: 'Address',
+    address: 'Address',
     add_debt: 'Add New Debt',
     debts: 'Debts',
     save: 'Save',
