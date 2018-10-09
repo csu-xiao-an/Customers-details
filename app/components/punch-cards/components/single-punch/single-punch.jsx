@@ -14,7 +14,7 @@ export default class SinglePunch extends React.Component {
     punch_cards: PropTypes.array
   }
   use = () => {
-    const d = moment.format('YYYY-MM-DD hh:mm:ss')
+    const d = moment().format('YYYY-MM-DD hh:mm:ss')
     punchPostServiceUse(this.props.i.id, `date=${d}`).then(r => r.json().then(r =>
       this.props.punch_cards.some(item => (item.id === this.props.i.id && item.uses.unshift({id: r, date: d}) && this.props.update()))))
   }
