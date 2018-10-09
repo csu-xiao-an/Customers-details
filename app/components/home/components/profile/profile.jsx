@@ -14,7 +14,7 @@ export default class Profile extends React.Component {
       address: ''
     }
     componentDidMount = () => {
-      this.setState({address: config.data.adress})
+      this.setState({address: config.data.address})
     }
     render () {
       const { isVisibleFields } = this.props
@@ -31,10 +31,10 @@ export default class Profile extends React.Component {
           </div>
           {(this.props.isVisibleFields || config.data.phone) && <Phone {...this.props} />}
           {(this.props.isVisibleFields || config.data.email) && <Email {...this.props} />}
-          {(this.props.isVisibleFields || config.data.adress) &&
+          {(this.props.isVisibleFields || config.data.address) &&
           (<div className='block'>
             <div className='address'>
-              <span className='label'>{config.translations.adress}:</span>
+              <span className='label'>{config.translations.address}:</span>
               <div className='block-content'>
                 <div className='text'>{this.state.address}</div>
               </div>

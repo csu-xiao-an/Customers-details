@@ -65,7 +65,6 @@ export default class Hero extends React.Component {
     this.setState({isStar: config.data.isFavorite})
   }
   render () {
-    console.log(this.state.isInputDisabled)
     return (
       <div id='hero'>
         <div onClick={this.handleStar} className={'star-wrap'}>
