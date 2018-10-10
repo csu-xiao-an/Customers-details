@@ -101,7 +101,7 @@ class Timeline extends React.Component {
           {this.state.data.length > 0 && this.state.data.map(i => !i.isHide && <div>
             {i.separator && <div className='separator-wrap'><div className='separator'>
               {config.translations.dates.weekdays[moment(i.date).get('day')] + ' ' + moment(i.date).format('YYYY-MM-DD')}</div></div>}
-            {fields[i.field_name](i)}</div>)}
+            {i.name}</div>)}
           <div className={this.state.flag ? 'spiner-wrap' : 'hidden'}><img src={config.urls.media + 'spiner.webp'} /></div>
         </div>
         <div className='buttons-wrap'>

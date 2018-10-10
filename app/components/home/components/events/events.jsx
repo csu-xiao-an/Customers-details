@@ -48,24 +48,8 @@ export default class Events extends React.Component {
     }
     return (colorStr ? leftBorder : BorderNone)
   }
-  getHeaderTitle (i) {
-    let string = ''
-    let itemsCount = 0
-    if (i.services.length > 1) {
-      for (let c = 0; c < i.services.length; c++) {
-        if ((string + i.services[c].name + ', ').length > 0) {
-          string += i.services[c].name + ', '
-        } else {
-          itemsCount++
-        }
-      }
-    } else { string = i.services[0].name }
+  getHeaderTitle = i => i.services.map(i => i.name).join(', ')
 
-    string = string.substring(0, string.length - 2)
-    string += itemsCount > 0 ? ' (+' + itemsCount + ')' : ''
-
-    return string
-  }
   initialSlide = () => {
     let slide
     config.data.recent_appoinments && config.data.recent_appoinments.every((i, k) => {
