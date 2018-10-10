@@ -24,7 +24,6 @@ export default class SinglePunch extends React.Component {
     })
   }
   render () {
-    console.log(this.props.i.uses);
     const nan = moment.duration(moment(this.props.i.expiration) - moment()).asDays()
     const days = this.props.i.expiration ? Math.floor(isNaN(nan) ? 0 : nan) : undefined
     return (
