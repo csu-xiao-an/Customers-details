@@ -92,8 +92,8 @@ export default class Hero extends React.Component {
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
         <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
-          <span className='status-label'>Status:</span>
           <div className='input-group'>
+            <span className='status-label'>Status:</span>
             <div className='input-wrap'>
               <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
                 type='text'

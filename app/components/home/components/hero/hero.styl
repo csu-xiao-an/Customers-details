@@ -62,10 +62,13 @@
     transition opacity 0.5s ease-in-out
     opacity 1
   .input-group
+    margin-left 2%
     bottom 0
     position absolute
     width 50%
     display flex
+    justify-content start
+    align-items: center;
     border-collapse separate
     z-index 2
     .input-group-addon
@@ -73,16 +76,16 @@
       border none
       cursor pointer
       visibility visible
-      padding 6px 8px 6px 8px
+      // padding 6px 8px 6px 8px
       font-size 14px
       font-weight 400
       line-height 1
       color #555
-      text-align center
-      border-radius 4px
-      display table-cell
+      // text-align center
+      // border-radius 4px
+      // display table-cell
       //width 1%
-      vertical-align middle
+      // vertical-align middle
       img
         width 10px
     .input-group-addon-2
@@ -90,23 +93,21 @@
       border none
       cursor pointer
       visibility visible
-      padding 6px 8px 6px 8px
       font-size 14px
       font-weight 400
       line-height 1
       color #555
-      text-align center
-      border-radius 4px
-      display table-cell
-      //width 1%
-      vertical-align middle
+      // text-align center
+      // border-radius 4px
+      // display table-cell
+      // //width 1%
+      // vertical-align middle
       img
         width 10px
     .input-group-addon-3
       visibility visible
     .input-wrap
-      margin-left 34%
-      display: flex;
+      margin-left 2%
       input
         border none
         font-size 0.7em
@@ -119,13 +120,9 @@
           box-shadow none
           outline none
           color $headerColor
-          
       .form-control-disabled
         pointer-events none
   .status-label
-    bottom 3.5%
-    position absolute
     font-size 0.7em
     font-weight 600
     z-index 2
-    margin-left 4%
