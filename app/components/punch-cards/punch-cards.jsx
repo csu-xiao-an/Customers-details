@@ -38,7 +38,7 @@ class PunchCards extends React.Component {
           slidesPerView='auto' centeredSlides observer>
           {this.state.punchsList.map(i => (
             <div>
-              <div className='punch' style={i.isActive ? {} : {backgroundColor: 'lightgray'}} onClick={() => this.setState({punch: i})}>
+              <div className='punch' style={i.uses && i.uses.length === i.service_count ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}} onClick={() => this.setState({punch: i})}>
                 <h1 className='name'>{i.service_name}</h1>
                 <h1 className='count'><span>{i.uses && i.uses.length}</span>/{i.service_count}</h1>
                 <h1 className={'sum ' + (config.isRtL ? 'left' : 'right')}>{i.sum}{config.data.currency}</h1>
