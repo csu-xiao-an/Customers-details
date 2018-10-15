@@ -12,293 +12,6 @@ var config = {
     worker_id: 1
   },
   plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech'],
-  colors_beautech: [
-    {
-      name: 'שורש גוונים',
-      date: '2017-12-30T19:52:08.195Z',
-      services: [
-        {
-          name: 'שורש',
-          colors: [
-            {
-              color_number: 7.61,
-              color_quantity: '20גר',
-              brand: 'Inoa Supreme',
-              oxy_percent: '9%',
-              oxy_quantity: '10 גר',
-              comments: 'להרבב עם אבקת הבהרה של 15%'
-            },
-            {
-              color_number: 6.60,
-              color_quantity: '15גר',
-              brand: 'Inoa Supreme',
-              comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-            },
-            {
-              color_number: 5.1,
-              color_quantity: '10גר',
-              brand: 'Rischesse'
-            }
-          ]
-        },
-        {
-          name: 'קצוות',
-          colors: [
-            {
-              color_number: 7.61,
-              color_quantity: '20גר',
-              brand: 'High Rischesse',
-              oxy_percent: '9%',
-              oxy_quantity: '10 גר'
-            },
-            {
-              color_number: 5.1,
-              color_quantity: '10גר',
-              brand: 'Rischesse'
-            }
-          ]
-        }
-      ],
-      comments: 'sdfad',
-      waiting_time: 'adfasd'
-    },
-    {
-      name: 'asdfasdf',
-      date: '2018-02-10T19:52:08.195Z',
-      services: [
-        {
-          name: 'שורש',
-          colors: [
-            {
-              color_number: 7.21,
-              color_quantity: '2dd',
-              brand: 'Supdreme',
-              oxy_percent: '7%',
-              oxy_quantity: '10 גר',
-              comments: 'להרבב עם אבקת הבהרה של 15%'
-            },
-            {
-              color_number: 6.60,
-              color_quantity: '15גר',
-              brand: 'Inoa Supreme',
-              comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-            },
-            {
-              color_number: 5.1,
-              color_quantity: '10גר',
-              brand: 'Rischesse'
-            }
-          ]
-        },
-        {
-          name: 'asdfasd',
-          colors: [
-            {
-              color_number: 7.61,
-              color_quantity: '20גר',
-              brand: 'High Rischesse',
-              oxy_percent: '9%',
-              oxy_quantity: '10 גר'
-            },
-            {
-              color_number: 5.1,
-              color_quantity: '10גר',
-              brand: 'Rischesse'
-            }
-          ]
-        }
-      ],
-      comments: 'dasdf',
-      waiting_time: 'adfasdfa'
-    },
-    {
-      name: 'test',
-      date: '2057-12-30T19:52:08.195Z',
-      services: [
-        {
-          name: 'lol',
-          colors: [
-            {
-              color_number: 7.61,
-              color_quantity: '20גר',
-              brand: 'Inoa Supreme',
-              oxy_percent: '9%',
-              oxy_quantity: '10 גר',
-              comments: 'להרבב עם אבקת הבהרה של 15%'
-            },
-            {
-              color_number: 6.60,
-              color_quantity: '15גר',
-              brand: 'Inoa Supreme',
-              comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-            },
-            {
-              color_number: 5.1,
-              color_quantity: '10גר',
-              brand: 'Rischesse'
-            }
-          ]
-        },
-        {
-          name: 'lal',
-          colors: [
-            {
-              color_number: 7.61,
-              color_quantity: '20גר',
-              brand: 'High Rischesse',
-              oxy_percent: '9%',
-              oxy_quantity: '10 גר'
-            },
-            {
-              color_number: 5.1,
-              color_quantity: '10גר',
-              brand: 'Rischesse'
-            }
-          ]
-        }
-      ],
-      comments: 'asdfasdf',
-      waiting_time: 'asdfasdfasdfasdf'
-    }
-  ],
-  punch_cards: [
-    {
-      id: 10,
-      service_name: 'aSpa',
-      service_id: 15,
-      service_count: 10,
-      sum: 480,
-      date: '2017-01-01',
-      uses: [
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        }
-      ]
-    },
-    {
-      id: 2,
-      service_name: 'пд в Spa',
-      service_id: 15,
-      service_count: 6,
-      sum: 750,
-      date: '2017-01-01',
-      uses: [
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        }
-      ]
-    },
-    {
-      id: 300,
-      service_name: 'по3од в Spa',
-      service_id: 15,
-      service_count: 3,
-      sum: 150,
-      date: '2017-01-01',
-      uses: [
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        }
-      ],
-      expiration: '2017-12-31'
-    },
-    {
-      id: 4,
-      service_name: 'под в Spa',
-      service_id: 15,
-      service_count: 15,
-      sum: 50,
-      date: '2017-01-01',
-      uses: [
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        }
-      ]
-    },
-    {
-      id: 5,
-      service_name: 'поход в Spa',
-      service_id: 15,
-      service_count: 5,
-      sum: 250,
-      date: '2017-01-01',
-      uses: [
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        },
-        {
-          id: 1,
-          date: '2017-01-01T12:00:00Z'
-        }
-      ],
-      expiration: '2017-11-31'
-    }
-  ],
   menu: [
     {text: 'calendar', link: '/en/calendar', icon: 'calendar.jpg'},
     {text: 'clients_list', link: '/en/clients_list', icon: 'clients_list.jpg'},
@@ -565,7 +278,7 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     // birthdate: '1990-03-30',
-    birthdate: '12-12',
+    birthdate: '11-12',
     birthyear: '1994',
     email: 'ahuva.ben.shushan@gmail.com',
     address: 'Tel Aviv, Allenby str. 45',
@@ -939,6 +652,293 @@ var config = {
             color: 'red'
           }
         ]
+      }
+    ],
+    colors_beautech: [
+      {
+        name: 'שורש גוונים',
+        date: '2017-12-30T19:52:08.195Z',
+        services: [
+          {
+            name: 'שורש',
+            colors: [
+              {
+                color_number: 7.61,
+                color_quantity: '20גר',
+                brand: 'Inoa Supreme',
+                oxy_percent: '9%',
+                oxy_quantity: '10 גר',
+                comments: 'להרבב עם אבקת הבהרה של 15%'
+              },
+              {
+                color_number: 6.60,
+                color_quantity: '15גר',
+                brand: 'Inoa Supreme',
+                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
+              },
+              {
+                color_number: 5.1,
+                color_quantity: '10גר',
+                brand: 'Rischesse'
+              }
+            ]
+          },
+          {
+            name: 'קצוות',
+            colors: [
+              {
+                color_number: 7.61,
+                color_quantity: '20גר',
+                brand: 'High Rischesse',
+                oxy_percent: '9%',
+                oxy_quantity: '10 גר'
+              },
+              {
+                color_number: 5.1,
+                color_quantity: '10גר',
+                brand: 'Rischesse'
+              }
+            ]
+          }
+        ],
+        comments: 'sdfad',
+        waiting_time: 'adfasd'
+      },
+      {
+        name: 'asdfasdf',
+        date: '2018-02-10T19:52:08.195Z',
+        services: [
+          {
+            name: 'שורש',
+            colors: [
+              {
+                color_number: 7.21,
+                color_quantity: '2dd',
+                brand: 'Supdreme',
+                oxy_percent: '7%',
+                oxy_quantity: '10 גר',
+                comments: 'להרבב עם אבקת הבהרה של 15%'
+              },
+              {
+                color_number: 6.60,
+                color_quantity: '15גר',
+                brand: 'Inoa Supreme',
+                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
+              },
+              {
+                color_number: 5.1,
+                color_quantity: '10גר',
+                brand: 'Rischesse'
+              }
+            ]
+          },
+          {
+            name: 'asdfasd',
+            colors: [
+              {
+                color_number: 7.61,
+                color_quantity: '20גר',
+                brand: 'High Rischesse',
+                oxy_percent: '9%',
+                oxy_quantity: '10 גר'
+              },
+              {
+                color_number: 5.1,
+                color_quantity: '10גר',
+                brand: 'Rischesse'
+              }
+            ]
+          }
+        ],
+        comments: 'dasdf',
+        waiting_time: 'adfasdfa'
+      },
+      {
+        name: 'test',
+        date: '2057-12-30T19:52:08.195Z',
+        services: [
+          {
+            name: 'lol',
+            colors: [
+              {
+                color_number: 7.61,
+                color_quantity: '20גר',
+                brand: 'Inoa Supreme',
+                oxy_percent: '9%',
+                oxy_quantity: '10 גר',
+                comments: 'להרבב עם אבקת הבהרה של 15%'
+              },
+              {
+                color_number: 6.60,
+                color_quantity: '15גר',
+                brand: 'Inoa Supreme',
+                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
+              },
+              {
+                color_number: 5.1,
+                color_quantity: '10גר',
+                brand: 'Rischesse'
+              }
+            ]
+          },
+          {
+            name: 'lal',
+            colors: [
+              {
+                color_number: 7.61,
+                color_quantity: '20גר',
+                brand: 'High Rischesse',
+                oxy_percent: '9%',
+                oxy_quantity: '10 גר'
+              },
+              {
+                color_number: 5.1,
+                color_quantity: '10גר',
+                brand: 'Rischesse'
+              }
+            ]
+          }
+        ],
+        comments: 'asdfasdf',
+        waiting_time: 'asdfasdfasdfasdf'
+      }
+    ],
+    punch_cards: [
+      {
+        id: 10,
+        service_name: 'aSpa',
+        service_id: 15,
+        service_count: 10,
+        sum: 480,
+        date: '2017-01-01',
+        uses: [
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          }
+        ]
+      },
+      {
+        id: 2,
+        service_name: 'пд в Spa',
+        service_id: 15,
+        service_count: 6,
+        sum: 750,
+        date: '2017-01-01',
+        uses: [
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          }
+        ]
+      },
+      {
+        id: 300,
+        service_name: 'по3од в Spa',
+        service_id: 15,
+        service_count: 3,
+        sum: 150,
+        date: '2017-01-01',
+        uses: [
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          }
+        ],
+        expiration: '2017-12-31'
+      },
+      {
+        id: 4,
+        service_name: 'под в Spa',
+        service_id: 15,
+        service_count: 15,
+        sum: 50,
+        date: '2017-01-01',
+        uses: [
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          }
+        ]
+      },
+      {
+        id: 5,
+        service_name: 'поход в Spa',
+        service_id: 15,
+        service_count: 5,
+        sum: 250,
+        date: '2017-01-01',
+        uses: [
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          },
+          {
+            id: 1,
+            date: '2017-01-01T12:00:00Z'
+          }
+        ],
+        expiration: '2017-11-31'
       }
     ]
   }

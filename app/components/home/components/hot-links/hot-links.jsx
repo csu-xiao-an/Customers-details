@@ -10,10 +10,10 @@ export default class HotLinks extends React.Component {
     rights: PropTypes.object.isRequired
   }
   componentWillMount = () => {
-    config.punch_cards && config.punch_cards.forEach(i => {
+    config.data.punch_cards && config.data.punch_cards.forEach(i => {
       if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.service_count) || i.uses.length < i.service_count) i.isActive = true
     })
-    this.setState(config.punch_cards && {isActivePunchCard: config.punch_cards.some(i => i.isActive)})
+    this.setState(config.data.punch_cards && {isActivePunchCard: config.data.punch_cards.some(i => i.isActive)})
     config.data.hot_links = config.data.hot_links.filter(j => !j.plugin_name || config.plugins_list.includes(j.plugin_name))
   }
   link = i => {
