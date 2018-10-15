@@ -6,7 +6,7 @@ import './colors-beautech.styl'
 
 class ColorsBeautech extends React.Component {
   state = {
-    color: config.colors_beautech[config.colors_beautech.length - 1]
+    color: config.data.colors_beautech[config.data.colors_beautech.length - 1]
   }
   render () {
     return (
@@ -14,8 +14,8 @@ class ColorsBeautech extends React.Component {
         <Topnav {...this.props} color />
         <div className='swiper'>
           <div id='swiper-wrap-punch'>
-            <Swiper pagination='.swiper-pagination' slidesPerView='auto' centeredSlides observer initialSlide={config.colors_beautech.length - 1}>
-              {config.colors_beautech.map(i => <div>
+            <Swiper pagination='.swiper-pagination' slidesPerView='auto' centeredSlides observer initialSlide={config.data.colors_beautech.length - 1}>
+              {config.data.colors_beautech.map(i => <div>
                 <div className='color' onClick={() => this.setState({color: i})}><h1 className='date'>{moment(i.date).format('DD.MM.YYYY')}</h1>
                   <h1 className='name'>{i.name}</h1></div></div>)}</Swiper></div></div>
         <Color i={this.state.color} />
