@@ -74,13 +74,14 @@ export default class Debts extends React.Component {
   }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
+    const sortDebts = config.data.debts.sort((a, b) => moment(b.date) - moment(a.date))
     return config.plugins_list.includes('debts') && (
       <div id='debts'>
         <div className='debt-header'>
           <label>{config.translations.debts}</label>
         </div>
         <div className='debt-body'>
-          {config.data.debts.map((i, k) => (
+          {sortDebts.map((i, k) => (
             <div key={k} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
               <div className='left-side'>
                 <span className='debt-list-date'>{formatDate(i.date)}</span>

@@ -312,6 +312,18 @@ var config = {
         id: 123123,
         sum: 20,
         desc: 'did not pay for a month',
+        date: '2015-07-07 13:01'
+      },
+      {
+        id: 123123,
+        sum: 22,
+        desc: 'did not pay for a month',
+        date: '2016-07-07 13:01'
+      },
+      {
+        id: 123123,
+        sum: 20,
+        desc: 'did not pay for a month',
         date: '2017-07-07 13:01'
       }
     ],
