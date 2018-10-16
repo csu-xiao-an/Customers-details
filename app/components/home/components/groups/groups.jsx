@@ -34,13 +34,12 @@ export default class Groups extends React.Component {
             )}
           </Swiper>
         </div>
-        <div className='group-footer'>
+        {/* <div className='group-footer'>
           <label className='footer-label'>{config.translations.add_new_group}</label>
-          <a className='href'
-            href={''/* this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false */}>
+          <a className='href' href={'' this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}>
             <img className='add' src={config.urls.media + 'c_add_stroke.svg'} />
           </a>
-        </div>
+        </div> */}
         {/* <Line /> */}
       </div>
     )
