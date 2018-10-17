@@ -40,11 +40,13 @@ export default class Phone extends React.Component {
           </div>
           <div className='phone-img'>
             {this.props.rights.phone.send_sms &&
-            <div className='img-wrap'><a href={`/send-sms?client_id=${config.data.id}&referrer=${location.pathname + '?' + location.search}`}>
+            <div className='img-wrap'><a href={'sms:' + config.data.phone}>
               <img src={config.urls.media + 'send-sms.svg'} /></a></div>}
+            {/* <div className='img-wrap'><a href={`/send-sms?client_id=${config.data.id}&referrer=${location.pathname + '?' + location.search}`}>
+              <img src={config.urls.media + 'send-sms.svg'} /></a></div>} */}
             {this.props.rights.phone.call &&
-            // <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>}
-            <div className='img-wrap'><a href={'tel:'}><img src={config.urls.media + 'call.svg'} /></a></div>}
+            <div className='img-wrap'><a href={'tel:' + config.data.phone}><img src={config.urls.media + 'call.svg'} /></a></div>}
+            {/* // <div className='img-wrap'><a href={'tel:'}><img src={config.urls.media + 'call.svg'} /></a></div>} */}
           </div>
         </div>
         {this.props.rights.phone.add &&
