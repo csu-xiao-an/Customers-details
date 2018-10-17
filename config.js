@@ -244,7 +244,7 @@ var config = {
     clients: '/customers-details/clients/{client_id}',
     add_client_url: '/add-client/clients?q={query}',
     punch_cards_adding: '/punch_cards/adding',
-    calendar_link: '/calendar',
+    calendar_link: '/calendar/',
     appointment: '/creating-appointment/',
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_id}.jpg',
