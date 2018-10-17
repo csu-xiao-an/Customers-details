@@ -39,7 +39,7 @@ export default class Email extends React.Component {
             </div>
           </div>
           {/* {this.props.rights.email.send_email && <a className='linkto' href={'mailto:' + config.data.email}><img src={config.urls.media + 'ic_email.svg'} /></a>} */}
-          {this.props.rights.email.send_email && <a className='linkto' href={'mailto:'}><img src={config.urls.media + 'ic_email.svg'} /></a>}
+          {this.props.rights.email.send_email && <a className='linkto' href={'mailto:' + config.data.phone}><img src={config.urls.media + 'ic_email.svg'} /></a>}
         </div>
         {
           this.props.rights.email.add &&

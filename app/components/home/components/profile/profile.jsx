@@ -39,9 +39,24 @@ export default class Profile extends React.Component {
                 <div className='text'>{this.state.address}</div>
               </div>
             </div>
-            <img onClick={() => this.setState({visibleMapPopup: true})}
-              src={config.urls.media + 'ic_location.svg'}
-            />
+            <div className='images'>
+              <div className='img-wrap'>
+                <a href={config.urls.waze.replace('{address}', config.data.address)}>
+                  <img
+                    // onClick={() => this.setState({visibleMapPopup: true})}
+                    src={config.urls.media + 'waze.png'}
+                  />
+                </a>
+              </div>
+              <div className='img-wrap'>
+                <a href={config.urls.google_maps.replace('{address}', config.data.address)}>
+                  <img
+                    // onClick={() => this.setState({visibleMapPopup: true})}
+                    src={config.urls.media + 'icon-adress.png'}
+                  />
+                </a>
+              </div>
+            </div>
             <Adress {...this.props}
               show={this.state.visibleMapPopup}
               parent={this}
