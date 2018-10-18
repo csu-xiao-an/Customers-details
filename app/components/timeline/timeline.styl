@@ -1,3 +1,4 @@
+@import "../../variables.styl"
 #timeline
   background-color gainsboro
   overflow hidden
@@ -8,16 +9,24 @@
     min-height 736px
     width 100%
     margin-bottom 100px
+    background-color $secondaryColor
     .separator-wrap
       padding-bottom 10px
-      width 100%
+      background-image linear-gradient(to top, #efefff, #ffffff)
       .separator
-        border-top 1px solid lightslategray
-        border-bottom 1px solid lightslategray
-        width 80%
+        border-top 1px dashed $primaryColor
+        border-bottom 1px dashed $primaryColor
+        font-size 18px
+        font-weight 900
         margin 0 auto
         text-align center
-        color deepskyblue
+        .date_weekday
+          color $primaryColor
+        .date_month
+          margin 0 5px
+          color $primaryBlackColor
+        .date_day
+          color $primaryBlackColor
     .spiner-wrap
       width 100%
       height 50px

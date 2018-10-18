@@ -123,7 +123,7 @@ var config = {
     debts_t: 'Debts',
     other_t: 'Other',
     add_birth: 'Add Birthdate',
-    debt_created: 'Debt created at {time}',
+    debt_created: 'The debt is add: {time}',
     debt_modified: 'Debt was updated at {time}',
     debt_deleted: 'Debt was repaid at {time}',
     debt: 'Debt',

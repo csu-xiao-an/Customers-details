@@ -48,9 +48,9 @@ class Timeline extends React.Component {
     let data = array(isEnd, {
       e: moment().subtract(count * 7, 'days').format('YYYY-MM-DD'),
       s: moment().subtract((count + 1) * 7, 'days').format('YYYY-MM-DD')})
-    if (data.length > 0) {
+    if (data.length) {
       Promise.all(data).then(r => {
-        isEnd = r.filter(i => !i.is_end).map(i => i.name)
+        isEnd = r.filter(i => !i.is_end).map(i => i.name.replace('depts', 'debts'))
         data = r.reduce((arr, item) => arr.concat(item.data.map(i => {
           i.field_name = item.name
           if (!this.state.filter.other && (i.field_name === 'notes' || i.field_name === 'sms')) { i.isHide = true } else
@@ -90,17 +90,23 @@ class Timeline extends React.Component {
       appointments: i => <Appointment i={i} {...this.props} />,
       punch_cards: i => <PunchCard i={i} {...this.props} />,
       gallery: i => <Gallery i={i} {...this.props} />,
-      debts: i => <Debt i={i} {...this.props} />,
+      depts: i => <Debt i={i} {...this.props} />,
       notes: i => <Note i={i} {...this.props} />,
       sms: i => <Sms i={i} {...this.props} />
     }
+    console.log(this.state.data)
     return (
       <div id='timeline'>
         <Topnav {...this.props} timeline />
         <div className='list' ref='list'>
           {this.state.data.length > 0 && this.state.data.map(i => !i.isHide && <div>
             {i.separator && <div className='separator-wrap'><div className='separator'>
-              {config.translations.dates.weekdays[moment(i.date).get('day')] + ' ' + moment(i.date).format('YYYY-MM-DD')}</div></div>}
+              <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(i.date).get('day')]},`}</span>
+              <span className='date_month'>{config.translations.dates.months[moment(i.date).get('month')]}</span>
+              <span className='date_day'>{moment(i.date).format('DD')}</span>
+            </div>
+            </div>}
+            {fields[i.field_name] && fields[i.field_name](i)}
             {i.name}</div>)}
           <div className={this.state.flag ? 'spiner-wrap' : 'hidden'}><img src={config.urls.media + 'spiner.webp'} /></div>
         </div>
