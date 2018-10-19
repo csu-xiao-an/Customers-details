@@ -19,7 +19,7 @@ export default class Share extends React.Component {
   render () {
     return this.props.rights.timeline.share && (
       <div id='share'>
-        <img className='share' src={config.urls.media + 'share.png'} onClick={this.share} />
+        <img className='share' src={config.urls.media + 'ic-share-pink.svg'} onClick={this.share} />
         <img src={config.urls.soc_net + 'facebook.png'} onClick={() => Dialog.facebook(this.props.opt.url).open()}
           className={'icon-default ' + (this.state.isVisibleIcons ? 'isVisible facebook' : '')} />
         <img className={'icon-default ' + (this.state.isVisibleIcons ? 'isVisible twitter' : '')}

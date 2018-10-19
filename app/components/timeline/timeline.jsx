@@ -107,7 +107,7 @@ class Timeline extends React.Component {
             </div>
             </div>}
             {fields[i.field_name] && fields[i.field_name](i)}
-            {i.name}</div>)}
+          </div>)}
           <div className={this.state.flag ? 'spiner-wrap' : 'hidden'}><img src={config.urls.media + 'spiner.webp'} /></div>
         </div>
         <div className='buttons-wrap'>

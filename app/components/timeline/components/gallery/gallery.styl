@@ -1,21 +1,21 @@
+@import '../../../../variables.styl'
 #gallery-timeline
   margin 0 auto 10px auto
+  padding 11px 0 21px
   background-color white
-  border-radius 10px
+  border-radius 8px
   box-shadow 0 0 8px
-  padding 5px 0px
   font-size 20px
   width 95%
   .header
+    display flex
+    justify-content space-between
+    padding 0 17px 0 15px
     .labels
-      display inline-block
-      width 85%
-      .order-in
-        text-align start
-        padding 3px 10px
-        font-size 16px
+      display flex
+      justify-content center
+      align-items center
       .photo
-        padding 5px 15px
         .img-wrap
           display inline-block
           height 25px
@@ -29,12 +29,44 @@
           display inline-block
           padding 0 5px
     .share-wrap
-      display inline-block
+      width 45px
       height 45px
-      width 15%
+  .order-in
+    display flex
+    padding-left .8rem
+    font-size .8rem
+    color $primaryPurpleColor
+    span
+      padding-left 0.4rem
+    .create-date
+      margin-left 1rem 
   .photo-wrap
+    display flex
+    justify-content center
+    align-items center
+    margin .5rem 0 .9rem
     img
       object-fit cover
       width 100%
+      height auto
   .note
     padding 0 15px
+    .title
+      font-weight bold
+      font-size 0.8rem
+      color $primaryColor
+    .gallery-note
+      display flex
+      justify-content space-between
+    .note-txt
+      font-size 0.9rem
+      p
+        max-width 19rem
+      .ellipsis
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+    .text-expand
+      padding-bottom 5px
+      .rotate
+        transform rotate(180deg)
