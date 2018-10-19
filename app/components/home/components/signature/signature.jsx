@@ -22,7 +22,7 @@ export default class Signature extends React.Component {
     })
   handleAds = () => {
     if (config.data.signature) {
-      const body = `${config.urls.permit_ads}=${!config.data.permit_ads}`
+      const body = `${config.translations.permit_ads}=${!config.data.permit_ads}`
       clientReplaceService(body).then(r => {
         if (r.status === 204) {
           config.data.permit_ads = !config.data.permit_ads
