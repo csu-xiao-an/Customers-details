@@ -10,7 +10,7 @@ import Notes from './components/notes/notes.jsx'
 import Debts from './components/debts/debts.jsx'
 import Hero from './components/hero/hero.jsx'
 import Topnav from '../topnav/topnav.jsx'
-import Signature from './components/signature/signature.jsx'
+// import Signature from './components/signature/signature.jsx'
 import './home.styl'
 
 class Home extends React.Component {
@@ -41,7 +41,7 @@ class Home extends React.Component {
         {isNotesVisible && <Notes {...this.props} />}
         {isGalleryVisible && <Media {...this.props} />}
         {isGroupsVisible && <Groups {...this.props} />}
-        <Signature {...this.props} />
+        {/* <Signature {...this.props} /> */}
         {isSocialNetworkVisible && <SocialNetwork {...this.props} />}
         {!this.state.isVisibleFields && <div className='main-button'>
           <button onClick={this.showFields}>{config.translations.show_more_fields.toUpperCase()}</button>
