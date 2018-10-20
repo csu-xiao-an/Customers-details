@@ -94,7 +94,6 @@ class Timeline extends React.Component {
       notes: i => <Note i={i} {...this.props} />,
       sms: i => <Sms i={i} {...this.props} />
     }
-    console.log(this.state.data)
     return (
       <div id='timeline'>
         <Topnav {...this.props} timeline />

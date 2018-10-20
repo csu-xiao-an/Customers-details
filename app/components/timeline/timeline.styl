@@ -1,18 +1,19 @@
 @import "../../variables.styl"
 #timeline
-  background-color gainsboro
   overflow hidden
   width 100%
+  background-color $secondaryColor
   position relative
   .list
-    padding-top 10px
     min-height 736px
     width 100%
-    margin-bottom 100px
-    background-color $secondaryColor
+    margin-bottom 70px
     .separator-wrap
-      padding-bottom 10px
-      background-image linear-gradient(to top, #efefff, #ffffff)
+      margin 1rem 0
+      box-shadow -1px 0px 14px 16px rgba(255,255,255,1)
+      -webkit-box-shadow -1px 0px 14px 16px rgba(255,255,255,1)
+      -moz-box-shadow -1px 0px 14px 16px rgba(255,255,255,1)
+      background-color #fff
       .separator
         border-top 1px dashed $primaryColor
         border-bottom 1px dashed $primaryColor

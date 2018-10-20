@@ -10,10 +10,10 @@ export default class Sms extends React.Component {
   render () {
     return (
       <div id='sms-timeline'>
+        <div className='icon-wrap'><img src={`${config.urls.media}ic-sms.svg`} /></div>
         <div className='order-in'>{moment(this.props.i.date).format('HH:hh')}</div>
-        <div className='icon-wrap'><img src={config.urls.media + 'sms.png'} /></div>
-        <h1 className='text' style={this.state.isVisible ? {} : {height: '25px'}}
-          onClick={() => this.setState({isVisible: true})}>{this.props.i.text}</h1>
+        <p className={`text ${this.state.isVisible ? '' : 'ellipsis'}`}
+          onClick={() => this.setState({isVisible: !this.state.isVisible})}>{this.props.i.text}</p>
       </div>
     )
   }
