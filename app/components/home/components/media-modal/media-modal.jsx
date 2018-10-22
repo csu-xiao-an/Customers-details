@@ -77,6 +77,7 @@ export default class MediaModal extends React.Component {
               nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
               prevButton={config.isRtL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}
               onSetTranslate={e => this.setState({activeIndex: e.activeIndex})}
+              spaceBetween={3}
               slidesPerView='auto' initialSlide={this.props.initialSlide}>
               {config.data.gallery.map((i, k) => (<div key={k} className='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
             </Swiper>
