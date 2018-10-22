@@ -63,7 +63,7 @@ export default class Media extends React.Component {
     if (i.name.indexOf('mp4') !== -1) {
       return (<div className='video-block'>
         <img src={config.urls.media + 'video_play.png'} className='video_play media' />
-        <video className='media'
+        <video className='media-vid'
           src={config.urls.gallery + i.name}
           onClick={(this.state.multiDel || this.state.multiShare)
             ? ''
@@ -76,7 +76,7 @@ export default class Media extends React.Component {
       if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name } else
       if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
       if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
-      return <img className='media'
+      return <img className='media-img'
         src={src}
         onClick={(this.state.multiDel || this.state.multiShare)
           ? '' : (this.props.rights.gallery.open
