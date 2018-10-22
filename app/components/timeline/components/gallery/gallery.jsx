@@ -29,7 +29,7 @@ export default class Gallery extends React.Component {
         <div className='order-in'>
           <div className='create-time'>
             <img src={`${config.urls.media}ic_time.svg`} />
-            <span>{moment(this.props.i.date).format('HH:hh')}</span>
+            <span>{moment(this.props.i.date).format('HH:mm')}</span>
           </div>
           <div className='create-date'>
             <img src={`${config.urls.media}ic-day.svg`} />
