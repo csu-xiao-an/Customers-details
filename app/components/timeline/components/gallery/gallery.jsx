@@ -36,8 +36,7 @@ export default class Gallery extends React.Component {
             <span>{moment(this.props.i.date).format('ddd, MMMM DD')}</span>
           </div>
         </div>
-        <div className='photo-wrap'><img src={config.urls.gallery + '01.png'} /></div>
-        {/* <div className='photo-wrap'><img src={config.urls.gallery + this.props.i.name} /></div> */}
+        <div className='photo-wrap'><img src={config.urls.gallery + this.props.i.name} /></div>
         <div className={this.props.i.note ? 'note' : 'hidden'}>
           <div className='title'>
             <span>{`${config.translations.notes}`}</span>

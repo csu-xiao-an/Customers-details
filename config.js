@@ -11,7 +11,7 @@ var config = {
     business_id: 123,
     worker_id: 1
   },
-  plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech'],
+  plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes', 'sms'],
   menu: [
     {text: 'calendar', link: '/en/calendar', icon: 'calendar.jpg'},
     {text: 'clients_list', link: '/en/clients_list', icon: 'clients_list.jpg'},
@@ -125,6 +125,9 @@ var config = {
     procedures: 'Procedures:',
     debts_t: 'Debts',
     other_t: 'Other',
+    note_t: 'Notes',
+    sms_t: 'Sms',
+    queues: 'Queues',
     add_birth: 'Add Birthdate',
     debt_add: 'The debt is add: {time}',
     debt_edited: 'The debt is edited: {time}',
