@@ -69,10 +69,10 @@ class Timeline extends React.Component {
             : i.uses && i.uses.length > 0 ? i.sort = i.uses[0].date : i.date ? i.sort = i.date : i.sort = i.added_date
           return i
         })), [])
-        data.sort((a, b) => moment(b.sort) - moment(a.sort))
         let obj = {}
         data.forEach(i => { obj[i.id + i.date] = i })
         data = Object.values(obj)
+        data.sort((a, b) => moment(b.date) - moment(a.date))
         data[0].separator = true
         data.reduce((pI, cI) => {
           if (moment(pI.date).format('YYYY-MM-DD') !== moment(cI.date).format('YYYY-MM-DD')) cI.separator = true
