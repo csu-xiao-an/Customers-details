@@ -11,7 +11,7 @@ var config = {
     business_id: 123,
     worker_id: 1
   },
-  plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes', 'sms'],
+  plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech'],
   menu: [
     {text: 'calendar', link: '/en/calendar', icon: 'calendar.jpg'},
     {text: 'clients_list', link: '/en/clients_list', icon: 'clients_list.jpg'},
@@ -90,7 +90,6 @@ var config = {
     // completion: 'Filling up customer`s details',
     request_to_detail: 'Send a link to the customer',
     send: 'Send',
-    sent: 'Sent',
     permitted: 'The client have permitted sending ads',
     not_permitted: 'The client haven`t permitted sending ads',
     signature_added: 'Signature added successfully',
@@ -144,7 +143,6 @@ var config = {
     left: 'Left',
     permit_ads: 'permit_ads',
     days: 'days',
-    add_birth: 'Add Birthdate',
     use: 'Use',
     delete_punch: 'Delete punch',
     delete_use: 'Delete use',

@@ -58,7 +58,7 @@ class Timeline extends React.Component {
         data = r.reduce((arr, item) => arr.concat(item.data.map(i => {
           i.field_name = item.name
           // if (!this.state.filter.other && (i.field_name === 'notes' || i.field_name === 'sms')) { i.isHide = true } else
-          if (!this.state.filter.other && i.field_name === 'sms') { i.isHide = true } else
+          if (!this.state.filter.sms && i.field_name === 'sms') { i.isHide = true } else
           if (!this.state.filter.notes && i.field_name === 'notes') { i.isHide = true } else
           if (!this.state.filter.appointments && i.field_name === 'appointments') { i.isHide = true } else
           if (!this.state.filter.punch_cards && i.field_name === 'punch_cards') { i.isHide = true } else
@@ -87,8 +87,9 @@ class Timeline extends React.Component {
     const f = b => {
       this.setState({data: this.state.data.map(i => {
         if (p !== 'other' && i.field_name === p) { i.isHide = b } else
-        // if (p === 'other' && i.field_name === 'sms') i.isHide = b
-        if (p === 'other' && (i.field_name === 'sms' || i.field_name === 'notes')) i.isHide = b
+        if (p === 'sms' && i.field_name === 'sms') { i.isHide = b } else
+        if (p === 'notes' && i.field_name === 'notes') { i.isHide = b }
+        // if (p === 'other' && (i.field_name === 'sms' || i.field_name === 'notes')) i.isHide = b
         return i
       }),
       filter: { ...this.state.filter, [p]: !b }})
@@ -148,16 +149,16 @@ class Timeline extends React.Component {
               <img className='main-img' src={`${config.urls.media}ic-sub.svg`} />
               <span>{config.translations.punch_cards}</span>
             </div>}
-            {config.plugins_list.some(i => i === 'notes') && <div onClick={() => this.filter('notes')}>
+            <div onClick={() => this.filter('notes')}>
               <img className={`mark ${this.state.filter.notes ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-n.svg`} />
               <span>{config.translations.note_t}</span>
-            </div>}
-            {config.plugins_list.some(i => i === 'sms') && <div onClick={() => this.filter('sms')}>
+            </div>
+            <div onClick={() => this.filter('sms')}>
               <img className={`mark ${this.state.filter.sms ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-s.svg`} />
               <span>{config.translations.sms_t}</span>
-            </div>}
+            </div>
           </Swiper>
         </div>
       </div>
