@@ -35,6 +35,20 @@ var config = {
       rate_us: 'Rate us',
       logout: 'Log out'
     },
+    colors_beautech_old: {
+      hightlights: 'Hightlights',
+      date: 'date',
+      colors: 'Colors',
+      brand: 'Brand:',
+      series: 'Series:',
+      color: 'Color:',
+      quantity: 'Quantity:',
+      comments: 'Comments:',
+      oxygen: 'Oxygen',
+      concentration: 'Concentration:',
+      percentage: '%',
+      waiting_time: 'Waiting time:'
+    },
     language: 'en',
     edit: '',
     del: 'X',
@@ -257,6 +271,7 @@ var config = {
     worker_img: '/worker/{worker_id}.jpg',
     punch_cards_get: '/catalog/services',
     colors_beautech: '/colors_beautech',
+    colors_beautech_old: '/colors_beautech_old',
     groups_img: './dist/media/groups/',
     groups_img_default: 'default.svg',
     soc_net: './dist/media/soc_net/',
@@ -308,6 +323,7 @@ var config = {
     hot_links: [
       {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {label: 'Subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
+      {label: 'Hair Dyeing 2', url: '/colors_beautech_old'},
       {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
       {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
       {label: 'Gallery', url: '#gallery', plugin_name: 'gallery'},
@@ -669,6 +685,73 @@ var config = {
             name: 'laser hair 3 treatments',
             color: 'red'
           }
+        ]
+      }
+    ],
+    colors_beautech_old: [
+      {
+        id: 139,
+        type: 'Highlights',
+        company: 'WELLA SP',
+        series: 'ILLUMINA',
+        date: '2018-09-28',
+        comments: 'The client loved the color much, not to change the formula!',
+        waiting_time: 'usually 35 minutes',
+        colors: [{
+          id: 2022,
+          color: '4',
+          dosing: '15g',
+          comments: 'not too much'
+        },
+        {
+          id: 2023,
+          color: '5/7',
+          dosing: '45g'
+        }
+        ],
+        oxy: [{
+          percent: '9%',
+          dosing: '1-1'
+        },
+        {
+          percent: '6%'
+        }
+        ]
+      },
+      {
+        id: 139139,
+        type: 'Highlights',
+        company: 'BELLA FLEX',
+        series: 'ILLUMINATE',
+        date: '2019-12-15',
+        comments: 'The client loved whiskey',
+        waiting_time: 'usually 1 hour',
+        colors: [{
+          id: 20222,
+          color: '5',
+          dosing: '15g',
+          comments: 'not too much'
+        },
+        {
+          id: 20232,
+          color: '5/7',
+          dosing: '55g'
+        },
+        {
+          id: 202324,
+          color: '5/7/20',
+          dosing: '1kg',
+          comments: 'crazy'
+        }
+        ],
+        oxy: [{
+          percent: '10%',
+          dosing: '1-1'
+        },
+        {
+          percent: '9%',
+          dosing: '2-1'
+        }
         ]
       }
     ],

@@ -12,10 +12,7 @@ export default getComponent => {
       }
       render () {
         const { Component } = this.state
-        if (Component) {
-          return <Component {...this.props} />
-        }
-        return null
+        return Component ? <Component {...this.props} /> : null
       }
   }
   return AsyncComponent
