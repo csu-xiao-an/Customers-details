@@ -270,8 +270,8 @@ var config = {
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_id}.jpg',
     punch_cards_get: '/catalog/services',
-    colors_beautech: '/colors_beautech',
-    colors_beautech_old: '/colors_beautech_old',
+    // colors_beautech: '/colors_beautech',
+    colors_beautech_old: '/colors_beautech',
     groups_img: './dist/media/groups/',
     groups_img_default: 'default.svg',
     soc_net: './dist/media/soc_net/',
@@ -323,8 +323,8 @@ var config = {
     hot_links: [
       {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {label: 'Subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
-      {label: 'Hair Dyeing 2', url: '/colors_beautech_old'},
-      {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
+      {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech'},
+      // {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
       {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
       {label: 'Gallery', url: '#gallery', plugin_name: 'gallery'},
       {label: 'Punch cards', url: '/punch_cards', plugin_name: 'punch_cards'}
@@ -750,6 +750,42 @@ var config = {
         },
         {
           percent: '9%',
+          dosing: '2-1'
+        }
+        ]
+      },
+      {
+        id: 13,
+        type: 'Highlights',
+        company: 'FLEX',
+        series: 'ILLUMINATE',
+        date: '2018-11-12',
+        comments: 'The client',
+        waiting_time: 'usually 1.5 hour',
+        colors: [{
+          id: 22,
+          color: '58',
+          dosing: '1kg',
+          comments: 'too much'
+        },
+        {
+          id: 32,
+          color: '5/7/1',
+          dosing: '0.5kg'
+        },
+        {
+          id: 24,
+          color: '5/7/20/1',
+          dosing: '11kg',
+          comments: 'mad'
+        }
+        ],
+        oxy: [{
+          percent: '100%',
+          dosing: '1'
+        },
+        {
+          percent: '99%',
           dosing: '2-1'
         }
         ]

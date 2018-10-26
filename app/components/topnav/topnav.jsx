@@ -49,7 +49,7 @@ export default class Topnav extends React.Component {
     const birthdate = this.getHowYaersOld()
     return (
       <div id='topnav'>
-        <div className='header' style={(this.props.punch || this.props.color) && {backgroundColor: 'darkslateblue'}}>
+        <div className='header' >
           <div className={'arrow-wrap ' + (config.isRtL ? 'right' : 'left')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
             <img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           {(this.props.home || this.props.timeline) && <div className='client-name'>
