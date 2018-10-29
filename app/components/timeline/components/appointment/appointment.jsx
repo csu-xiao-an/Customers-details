@@ -42,9 +42,9 @@ export default class Appoinment extends React.Component {
               <span>{`${moment(this.props.i.start).format('HH:mm')} - ${moment(this.props.i.end).format('HH:mm')}`}</span>
             </div>
           </div>
-          <div className='cancel-wrap'>
+          {this.props.i.is_deleted && <div className='cancel-wrap'>
             <span className='cancel'>{config.translations.canceled}</span>
-          </div>
+          </div>}
         </div>
         <div className='worker-info'>
           <p className='worker-label'>{config.translations.employer}</p>
