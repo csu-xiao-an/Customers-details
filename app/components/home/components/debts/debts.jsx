@@ -30,7 +30,8 @@ export default class Debts extends React.Component {
     })
   }
   update = () => {
-    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}`
+    const d = moment().format('YYYY-MM-DD HH:mm')
+    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}&added=${d}`
     debtReplaceService(body, this.state.debt_id).then(r => {
       if (r.status === 204) {
         config.data.debts[this.state.key].sum = this.state.debt
@@ -87,7 +88,7 @@ export default class Debts extends React.Component {
                 <span className='debt-list-date'>{formatDate(i.date)}</span>
                 <div className='debt-list-name'>
                   <label className='currency'>{i.sum} {config.data.currency}</label>
-                  <span className='debt-list-desc'>{this.checkLength(i.desc)}</span>
+                  {i.desc && <span className='debt-list-desc'>{this.checkLength(i.desc)}</span>}
                 </div>
               </div>
               <div className='right-side'>
