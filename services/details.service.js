@@ -1,7 +1,7 @@
 import mainRequestService from './request.service'
 
 export const replaceService = () => {
-  const url = config.urls.main + config.urls.fill + `?phone=${config.data.phone}`
+  const url = config.urls.main + config.urls.fill + `?client_id=${config.data.id}`
   const options = {
     mode: 'cors',
     headers: {
