@@ -1,6 +1,6 @@
 import { Swiper } from 'project-components'
 import './hot-links.styl'
-const {Link} = ReactRouterDOM
+const { Link } = ReactRouterDOM
 
 export default class HotLinks extends React.Component {
   state = {
@@ -13,7 +13,7 @@ export default class HotLinks extends React.Component {
     config.data.punch_cards && config.data.punch_cards.forEach(i => {
       if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.service_count) || i.uses.length < i.service_count) i.isActive = true
     })
-    this.setState(config.data.punch_cards && {isActivePunchCard: config.data.punch_cards.some(i => i.isActive)})
+    this.setState(config.data.punch_cards && { isActivePunchCard: config.data.punch_cards.some(i => i.isActive) })
     config.data.hot_links = config.data.hot_links.filter(j => !j.plugin_name || config.plugins_list.includes(j.plugin_name))
   }
   link = i => {
@@ -26,15 +26,8 @@ export default class HotLinks extends React.Component {
       }
       return Math.round(top)
     }
-    const top = getOffsetSum()
-    const interval = setInterval(() => {
-      let e = document.getElementById(i.url.replace('#', ''))
-      let scroll = e.scrollIntoView({ behavior: 'smooth' })
-      let diff = top - scroll
-      if (diff < 5) e.scrollIntoView(0, diff)
-      if (scroll < top) e.scrollIntoView(0, 5)
-      else clearInterval(interval)
-    }, 3)
+    let e = document.getElementById(i.url.replace('#', ''))
+    let scroll = e.scrollIntoView()
   }
   renderExternalLink = (url, name, img) => (
     <div>
