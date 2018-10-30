@@ -35,6 +35,14 @@ var config = {
       rate_us: 'Rate us',
       logout: 'Log out'
     },
+    hot_links: {
+      timeline: 'Timeline',
+      subscription: 'Subscription',
+      hair_dyeing: 'Hair Dyeing',
+      debts: 'Debts',
+      gallery: 'Gallery',
+      punch_cards: 'Punch cards'
+    },
     language: 'en',
     edit: '',
     del: 'X',
@@ -308,12 +316,12 @@ var config = {
     timeStart: 1,
     timeout: 500,
     hot_links: [
-      {label: 'Timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
-      {label: 'Subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
-      {label: 'Hair Dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
-      {label: 'Debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
-      {label: 'Gallery', url: '#gallery', plugin_name: 'gallery'},
-      {label: 'Punch cards', url: '/punch_cards', plugin_name: 'punch_cards'}
+      {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
+      {name: 'subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
+      {name: 'hair_dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
+      {name: 'debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
+      {name: 'gallery', url: '#gallery', plugin_name: 'gallery'},
+      {name: 'punch_cards', url: '/punch_cards', plugin_name: 'punch_cards'}
     ],
     debts: [
       {
