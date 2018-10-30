@@ -11,7 +11,7 @@ var config = {
     business_id: 123,
     worker_id: 1
   },
-  plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes', 'sms'],
+  plugins_list: ['gallery', 'debts', 'punch_cards', 'colors_beautech'],
   menu: [
     {text: 'calendar', link: '/en/calendar', icon: 'calendar.jpg'},
     {text: 'clients_list', link: '/en/clients_list', icon: 'clients_list.jpg'},
@@ -42,6 +42,20 @@ var config = {
       debts: 'Debts',
       gallery: 'Gallery',
       punch_cards: 'Punch cards'
+    },
+    colors_beautech_old: {
+      hightlights: 'Hightlights',
+      date: 'date',
+      colors: 'Colors',
+      brand: 'Brand:',
+      series: 'Series:',
+      color: 'Color:',
+      quantity: 'Quantity:',
+      comments: 'Comments:',
+      oxygen: 'Oxygen',
+      concentration: 'Concentration:',
+      percentage: '%',
+      waiting_time: 'Waiting time:'
     },
     language: 'en',
     edit: '',
@@ -98,7 +112,6 @@ var config = {
     // completion: 'Filling up customer`s details',
     request_to_detail: 'Send a link to the customer',
     send: 'Send',
-    sent: 'Sent',
     permitted: 'The client have permitted sending ads',
     not_permitted: 'The client haven`t permitted sending ads',
     signature_added: 'Signature added successfully',
@@ -152,7 +165,6 @@ var config = {
     left: 'Left',
     permit_ads: 'permit_ads',
     days: 'days',
-    add_birth: 'Add Birthdate',
     use: 'Use',
     delete_punch: 'Delete punch',
     delete_use: 'Delete use',
@@ -266,7 +278,8 @@ var config = {
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_id}.jpg',
     punch_cards_get: '/catalog/services',
-    colors_beautech: '/colors_beautech',
+    // colors_beautech: '/colors_beautech',
+    colors_beautech_old: '/colors_beautech',
     groups_img: './dist/media/groups/',
     groups_img_default: 'default.svg',
     soc_net: './dist/media/soc_net/',
@@ -679,6 +692,109 @@ var config = {
             name: 'laser hair 3 treatments',
             color: 'red'
           }
+        ]
+      }
+    ],
+    colors_beautech_old: [
+      {
+        id: 139,
+        type: 'Highlights',
+        company: 'WELLA SP',
+        series: 'ILLUMINA',
+        date: '2018-09-28',
+        comments: 'The client loved the color much, not to change the formula!',
+        waiting_time: 'usually 35 minutes',
+        colors: [{
+          id: 2022,
+          color: '4',
+          dosing: '15g',
+          comments: 'not too much'
+        },
+        {
+          id: 2023,
+          color: '5/7',
+          dosing: '45g'
+        }
+        ],
+        oxy: [{
+          percent: '9%',
+          dosing: '1-1'
+        },
+        {
+          percent: '6%'
+        }
+        ]
+      },
+      {
+        id: 139139,
+        type: 'Highlights',
+        company: 'BELLA FLEX',
+        series: 'ILLUMINATE',
+        date: '2019-12-15',
+        comments: 'The client loved whiskey',
+        waiting_time: 'usually 1 hour',
+        colors: [{
+          id: 20222,
+          color: '5',
+          dosing: '15g',
+          comments: 'not too much'
+        },
+        {
+          id: 20232,
+          color: '5/7',
+          dosing: '55g'
+        },
+        {
+          id: 202324,
+          color: '5/7/20',
+          dosing: '1kg',
+          comments: 'crazy'
+        }
+        ],
+        oxy: [{
+          percent: '10%',
+          dosing: '1-1'
+        },
+        {
+          percent: '9%',
+          dosing: '2-1'
+        }
+        ]
+      },
+      {
+        id: 13,
+        type: 'Highlights',
+        company: 'FLEX',
+        series: 'ILLUMINATE',
+        date: '2018-11-12',
+        comments: 'The client',
+        waiting_time: 'usually 1.5 hour',
+        colors: [{
+          id: 22,
+          color: '58',
+          dosing: '1kg',
+          comments: 'too much'
+        },
+        {
+          id: 32,
+          color: '5/7/1',
+          dosing: '0.5kg'
+        },
+        {
+          id: 24,
+          color: '5/7/20/1',
+          dosing: '11kg',
+          comments: 'mad'
+        }
+        ],
+        oxy: [{
+          percent: '100%',
+          dosing: '1'
+        },
+        {
+          percent: '99%',
+          dosing: '2-1'
+        }
         ]
       }
     ],
