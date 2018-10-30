@@ -35,10 +35,10 @@ export default class HotLinks extends React.Component {
       else clearInterval(interval)
     }, 3)
   }
-  renderExternalLink = (url, label, img) => (
+  renderExternalLink = (url, name, img) => (
     <div>
       <Link className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')} to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + url : url}><img src={img} /></Link>
-      <span>{label}</span>
+      <span>{name}</span>
     </div>
   )
   render () {
@@ -53,25 +53,25 @@ export default class HotLinks extends React.Component {
                     className={'link ' + (this.props.rights.hot_links.internal ? 'circle1' : 'hidden')}>
                     <img src={i.img} />
                   </div>
-                  <span>{i.label}</span>
+                  <span>{config.translations.hot_links[i.name]}</span>
                 </div>
               )
             } else {
               if (i.url === config.urls.punch_cards) {
                 return this.state.isActivePunchCard
-                  ? this.renderExternalLink(i.url, i.label, i.img)
+                  ? this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
                   : this.renderExternalLink(config.urls.punch_cards_adding, config.translations.punch_cards_adding, '')
               } else {
-                return this.renderExternalLink(i.url, i.label, i.img)
+                return this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
               }
             }
           })}
-          <div>
+          {/* <div>
             <div className='link add-btn'>
               <img className='add' src={config.urls.media + 'ic_add.png'} />
             </div>
             <span>{config.translations.add_hot_line}</span>
-          </div>
+          </div> */}
         </Swiper>
       </div>
     )
