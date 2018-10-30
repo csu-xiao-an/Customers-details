@@ -28,10 +28,11 @@ export default class HotLinks extends React.Component {
     }
     const top = getOffsetSum()
     const interval = setInterval(() => {
-      let scroll = window.scrollY
+      let e = document.getElementById(i.url.replace('#', ''))
+      let scroll = e.scrollIntoView({ behavior: 'smooth' })
       let diff = top - scroll
-      if (diff < 5) window.scrollBy(0, diff)
-      if (scroll < top) window.scrollBy(0, 5)
+      if (diff < 5) e.scrollIntoView(0, diff)
+      if (scroll < top) e.scrollIntoView(0, 5)
       else clearInterval(interval)
     }, 3)
   }
