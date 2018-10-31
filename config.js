@@ -37,7 +37,7 @@ var config = {
     },
     hot_links: {
       timeline: 'Timeline',
-      subscription: 'Subscription',
+      notes: 'Notes',
       hair_dyeing: 'Hair Dyeing',
       debts: 'Debts',
       gallery: 'Gallery',
@@ -330,7 +330,7 @@ var config = {
     timeout: 500,
     hot_links: [
       {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
-      {name: 'subscription', img: '/dist/media/ic_subscription.svg', url: '#notes'},
+      {name: 'notes', img: '/dist/media/notes.svg', url: '#notes'},
       {name: 'hair_dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
       {name: 'debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
       {name: 'gallery', url: '#gallery', plugin_name: 'gallery'},
