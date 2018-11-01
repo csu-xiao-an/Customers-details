@@ -68,7 +68,7 @@ export default class MediaModal extends React.Component {
   }
   render () {
     return (
-      <Modal show={this.props.isOpenGallery}>
+      <Modal show={this.props.isOpenGallery} >
         <div className='modal-body'>
           <img className={'close-button'} src={config.urls.media + 'ic_close.svg'}
             onClick={() => { this.props.handleGallery(); this.setState({activeIndex: 0}) }} />
@@ -77,7 +77,6 @@ export default class MediaModal extends React.Component {
               nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
               prevButton={config.isRtL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}
               onSetTranslate={e => this.setState({activeIndex: e.activeIndex})}
-              spaceBetween={3}
               slidesPerView='auto' initialSlide={this.props.initialSlide}>
               {config.data.gallery.map((i, k) => (<div key={k} className='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
             </Swiper>

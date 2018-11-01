@@ -229,7 +229,7 @@ export default class Media extends React.Component {
           </div>
           <div className='files-amount'>
             {config.translations.files + ': ' + this.state.slideAmount}
-            {this.state.slideAmount && <div className='action'>
+            {this.state.slideAmount ? <div className='action'>
               {this.checkAccessLevel
                 ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
                 : ''}
@@ -245,7 +245,7 @@ export default class Media extends React.Component {
                   this.setState({multiDel: !this.state.multiDel})
                 }}
               />
-            </div>}
+            </div> : ''}
           </div>
         </div>
         {this.state.isOpenGalleryContex &&
