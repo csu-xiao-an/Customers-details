@@ -6,7 +6,7 @@ import './notes.styl'
 export default class Notes extends React.Component {
   state = {
     selectedValue: config.translations.notes_list[0].value,
-    selectedLabel: config.translations.notes_list[0].label,
+    selectedLabel: config.data.reminders_default_date_period,
     isReminderEdit: false,
     newEditNotes: false,
     isReminderDate: null,
@@ -14,7 +14,7 @@ export default class Notes extends React.Component {
     isEditNotes: false,
     description: '',
     note_id: 0,
-    timeStart: config.data.timeStart,
+    timeStart: config.data.reminders_default_period_amount,
     time: '0',
     key: 0
   }
@@ -104,22 +104,22 @@ export default class Notes extends React.Component {
 
   closeEdit = () => {
     this.setState({
-    noteReplace: !this.state.noteReplace,
-    isEditNotes: !this.state.isEditNotes,
-    newEditNotes: this.state.newEditNotes,
-    isReminderEdit: false,
-    note_id: 0,
-    description: ''
+      noteReplace: !this.state.noteReplace,
+      isEditNotes: !this.state.isEditNotes,
+      newEditNotes: this.state.newEditNotes,
+      isReminderEdit: false,
+      note_id: 0,
+      description: ''
     })
   }
   closeEditNoteFooter = () => {
     this.setState({
-    noteReplace: !this.state.noteReplace,
-    isEditNotes: !this.state.isEditNotes,
-    newEditNotes: !this.state.newEditNotes,
-    isReminderEdit: false,
-    note_id: 0,
-    description: ''
+      noteReplace: !this.state.noteReplace,
+      isEditNotes: !this.state.isEditNotes,
+      newEditNotes: !this.state.newEditNotes,
+      isReminderEdit: false,
+      note_id: 0,
+      description: ''
     })
   }
 

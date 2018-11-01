@@ -326,7 +326,8 @@ var config = {
     currency: '₪',
     debt_step: 10,
     max_side: 1000,
-    timeStart: 1,
+    reminders_default_period_amount: 1,
+    reminders_default_date_period: 'Days',
     timeout: 500,
     hot_links: [
       {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
