@@ -68,10 +68,10 @@ export default class MediaModal extends React.Component {
   }
   render () {
     return (
-      <Modal show={this.props.isOpenGallery} >
+      <Modal show={this.props.isOpenGallery} onHide={this.props.handleGallery}>
         <div className='modal-body'>
           <img className={'close-button'} src={config.urls.media + 'ic_close.svg'}
-            onClick={() => { this.props.handleGallery(); this.setState({activeIndex: 0}) }} />
+            onClick={() => { this.props.handleGallery() }} />
           <div className={this.state.isEditNote ? 'noSwiping' : ''}>
             <Swiper observer onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
               nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
