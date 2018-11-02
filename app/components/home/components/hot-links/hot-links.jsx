@@ -27,7 +27,7 @@ export default class HotLinks extends React.Component {
       return Math.round(top)
     }
     let e = document.getElementById(i.url.replace('#', ''))
-    let scroll = e.scrollIntoView()
+    let scroll = e.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
   renderExternalLink = (url, name, img) => (
     <div>
