@@ -67,7 +67,8 @@ export default class Hero extends React.Component {
   render () {
     return (
       <div id='hero'>
-        <div onClick={this.handleStar} className={'star-wrap'}>
+      {/* hidden button 'VIP' */}
+        {/* <div onClick={this.handleStar} className={'star-wrap'}>
           <svg width='14px' height='14px' viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'>
             <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd' opacity='0.800000012'>
               <g id='Customer-Page-(original-size)' transform='translate(-13.000000, -81.000000)' fill='#FFFFFF' fillRule='nonzero'>
@@ -84,14 +85,15 @@ export default class Hero extends React.Component {
             </g>
           </svg>&nbsp;
           <span>VIP</span>
-        </div>
+        </div> */}
         <label className='camera'>
           <img src={config.urls.media + 'ic_photo.svg'} />
           <input type='file' style={{display: 'none'}} onChange={this.photoUpload} />
         </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
-        <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
+        {/* hidden ststus strip */}
+        {/* <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
           <div className='input-group'>
             <span className='status-label'>Status:</span>
             <div className='input-wrap'>
@@ -108,7 +110,7 @@ export default class Hero extends React.Component {
                 <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
               </span>}
           </div>
-        </form>
+        </form> */}
         <div className='img'>
           <img className='client-img' src={this.state.clientImg} alt='user-img' onError={e => { this.onError(e) }} />
         </div>
