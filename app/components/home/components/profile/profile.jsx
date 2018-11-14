@@ -1,8 +1,8 @@
 import './profile.styl'
 import Phone from '../phone/phone.jsx'
-import Adress from '../adress/adress.jsx'
+// import Adress from '../adress/adress.jsx'
 import Sex from '../sex/sex.jsx'
-import Details from '../details/details.jsx'
+import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
@@ -20,10 +20,10 @@ export default class Profile extends React.Component {
       const { isVisibleFields } = this.props
       return (
         <div id='profile'>
-          <div className='block'>
+          <div id='profile-header'>
             <h2 className='block-title'>{config.translations.profile}</h2>
           </div>
-          <div className='block'>
+          <div id='name'>
             <div className='fullname'>
               <span className='label'>{config.translations.name}:</span>
               <span className='block-content'>{config.data.name}</span>
@@ -32,8 +32,8 @@ export default class Profile extends React.Component {
           {(this.props.isVisibleFields || config.data.phone) && <Phone {...this.props} />}
           {(this.props.isVisibleFields || config.data.email) && <Email {...this.props} />}
           {(this.props.isVisibleFields || config.data.address) &&
-          (<div className='block'>
-            <div className='address'>
+          (<div id='address'>
+            <div className='address-wrap'>
               <span className='label'>{config.translations.address}:</span>
               <div className='block-content'>
                 <div className='text'>{this.state.address}</div>
@@ -57,15 +57,15 @@ export default class Profile extends React.Component {
                 </a>
               </div>
             </div>
-            <Adress {...this.props}
+            {/* <Adress {...this.props}
               show={this.state.visibleMapPopup}
               parent={this}
-            />
+            /> */}
           </div>)}
           {/* {!config.data.gender && <Sex {...this.props} />} */}
           {(this.props.isVisibleFields || config.data.gender) && <Sex {...this.props} />}
           {(this.props.isVisibleFields || (config.data.birthdate || config.data.birthyear)) && <Birthdate {...this.props} />}
-          {config.data.phone && <Details {...this.props} />}
+          {config.data.phone && <Sendlink {...this.props} />}
           <Agreement {...this.props} />
         </div>
       )

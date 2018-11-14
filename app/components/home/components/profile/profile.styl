@@ -21,7 +21,7 @@
         img
           width 38px
           height 38px
-    .fullname, .address, .birthday, .completion, .agreement
+    .birthday, .completion, .agreement
       display flex
       margin auto 0
       width 100%
@@ -33,7 +33,7 @@
     .agreement
       .label
         width 50%
-    .fullname, .phone, .email, .address, .gender, .completion, .agreement
+    .phone, .email, .address, .gender, .completion, .agreement
       .label
         font-size 0.8em
         font-weight 600
@@ -48,3 +48,48 @@
         display flex
         flex-direction row
         justify-content space-between
+  #profile-header
+    padding 0 10px
+    border-top 1px solid $mainBackground
+    min-height 4em
+    display flex
+  #name
+    padding 0 10px
+    border-top 1px solid $mainBackground
+    min-height 4em
+    display flex
+    .fullname
+      display flex
+      margin auto 0
+      width 100%
+      flex-direction column
+      .label
+        font-size 0.8em
+        font-weight 600
+        color $headerColor
+        display: flex;
+        align-items: center;
+  #address
+    padding 0 10px
+    border-top 1px solid $mainBackground
+    min-height 4em
+    display flex
+    .address-wrap
+      display flex
+      margin auto 0
+      width 100%
+      flex-direction column
+      .label
+        font-size 0.8em
+        font-weight 600
+        color $headerColor
+        display: flex;
+        align-items: center;
+    .images
+      display flex
+      align-items center
+      .img-wrap
+        margin-left 10px
+        img
+          width 38px
+          height 38px
