@@ -1,5 +1,3 @@
-import {Swiper} from 'project-components'
-import Line from '../line/line.jsx'
 import './groups.styl'
 
 export default class Groups extends React.Component {
@@ -20,19 +18,17 @@ export default class Groups extends React.Component {
           <span className='groups-label'>{config.translations.groups}</span>
         </div>
         <div className='group-body'>
-          <Swiper slidesPerView='auto'>
-            {config.data.groups.map((i, k) => (
-              <div key={k} className='group-wrap'>
-                <a href={this.props.rights.groups.to_group ? config.urls.main + config.urls.groups + i.id : false}>
-                  <div className='img'>
-                    <img className='icon' src={config.urls.groups_img + (i.image_path || config.urls.groups_img_default)} />
-                    <label className='amount'>{i.amount}</label>
-                  </div>
-                  <label className='name'>{i.name}</label>
-                </a>
-              </div>)
-            )}
-          </Swiper>
+          {config.data.groups.map((i, k) => (
+            <div key={k} className='group-wrap'>
+              <a href={this.props.rights.groups.to_group ? config.urls.main + config.urls.groups + i.id : false}>
+                <div className='img'>
+                  <img className='icon' src={config.urls.groups_img + (i.image_path || config.urls.groups_img_default)} />
+                  <label className='amount'>{i.amount}</label>
+                </div>
+                <label className='name'>{i.name}</label>
+              </a>
+            </div>)
+          )}
         </div>
         {/* <div className='group-footer'>
           <label className='footer-label'>{config.translations.add_new_group}</label>
