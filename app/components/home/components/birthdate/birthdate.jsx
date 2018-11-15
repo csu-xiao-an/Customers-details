@@ -1,9 +1,12 @@
 import {clientReplaceService} from 'project-services'
+import {Datepicker} from 'project-components'
 import './birthdate.styl'
 
 export default class Birthdate extends React.Component {
   state = {
     birthdateEdit: false,
+    birthdate: '',
+    birthyear: '',
     day: '',
     month: '',
     year: '',
@@ -49,6 +52,11 @@ export default class Birthdate extends React.Component {
     target.value = (target.value < 0 && 1) || (target.value >= currentYear && currentYear) || (+target.value && target.value) || ''
     this.setState({year: target.value})
   }
+  getBirthdate = value => this.setState({birthdate: value})
+  getBirthyear = value => this.setState({birthyear: value})
+  getHandleDay = value => this.setState({day: value})
+  getHandleMonth = value => this.setState({month: value})
+  getHandleYear = value => this.setState({year: value})
   render () {
     return (
       <div id='birthdate' className='block'>
@@ -74,17 +82,13 @@ export default class Birthdate extends React.Component {
         <div className={this.state.birthdateEdit ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
-            <ComboDatePicker
-              order='ymd'
-              placeholder='Year,Month,Date'
-              date={this.state.configValue}
-              onChange={(e, date) => {
-                this.setState({
-                  day: moment(date).format('DD'),
-                  month: moment(date).format('MM'),
-                  year: moment(date).format('YYYY')
-                })
-              }}
+            <Datepicker defaultValue={this.state.configValue} 
+              defaultValue1={this.state.configValue1} 
+              getBirthdate={this.getBirthdate} 
+              getBirthyear={this.getBirthyear}
+              getHandleDay={this.getHandleDay}
+              getHandleMonth={this.getHandleMonth}
+              getHandleYear={this.getHandleYear}
             />
           </div>
           <div className='button'><button onClick={this.save}>{config.translations.save}</button></div>
