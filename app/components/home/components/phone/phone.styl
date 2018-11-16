@@ -1,13 +1,13 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #phone
   padding 0 10px
   min-height 4em
   display flex
-  border-top 1px solid $mainBackground
+  border-top 1px solid var(--mainBackground)
   .label
     font-size 0.8em
     font-weight 600
-    color $headerColor
+    color var(--headerColor)
   .phone-img
     display flex
     align-items center
@@ -68,7 +68,7 @@
         // height 30px
         width 80%
         font-weight 500
-        color $headerColor
+        color var(--headerColor)
         &:focus
           outline none
       .label
@@ -86,7 +86,7 @@
           cursor pointer
           border-radius 15px
           border none
-          background-color $headerColor
+          background-color var(--headerColor)
           color white
           &:focus
             outline none
