@@ -56,7 +56,7 @@ export default class Appoinment extends React.Component {
         <p className='procedures'>{config.translations.procedures}</p>
         <div className='service-wrap'>
           <div className='procedures-list'>
-            {this.props.i.services.map(i => <div className='procedures-item'>
+            {this.props.i.services && this.props.i.services.map(i => <div className='procedures-item'>
               <div className='service'>
                 <span className='icon' style={{backgroundColor: i.color}} />
                 <span className='name'>{i.name}</span>

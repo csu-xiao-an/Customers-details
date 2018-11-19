@@ -6,7 +6,8 @@ var config = {
   user: {
     // admin, senior, junior, readonly, untrusted
     business_logo: 'public/business_data/1/logo.jpg',
-    business_name: 'Rob Roy',
+    business_name: 'Beauty and cosmetics salons',
+    business_address: '11301 West Olympic Boulevard, Apt.100',
     permission_level: 'admin',
     business_id: 123,
     worker_id: 1

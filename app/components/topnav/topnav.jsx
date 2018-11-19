@@ -1,4 +1,4 @@
-import Menu from '../menu/menu.jsx'
+import { Menu } from 'project-components'
 import './topnav.styl'
 
 export default class Topnav extends React.Component {
@@ -38,11 +38,9 @@ export default class Topnav extends React.Component {
     document.querySelector('body').classList.toggle('no-scroll')
   }
 
-  closeMenu = e => {
-    if (e.target.className === 'menu_wrap' || e.target.id === 'menu_modal') {
-      this.setState({isActive: false})
-      document.querySelector('body').classList.remove('no-scroll')
-    }
+  closeMenu = () => {
+    this.setState({isActive: false})
+    document.querySelector('body').classList.remove('no-scroll')
   }
 
   render () {
