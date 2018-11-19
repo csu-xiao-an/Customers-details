@@ -1,4 +1,4 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #groups
   margin 7px 7px 7px
   .group-header
@@ -6,7 +6,7 @@
     display flex
     border-top-left-radius 8px
     border-top-right-radius 8px
-    background-color $blockBackground
+    background-color var(--blockBackground)
     .groups-label
       font-size 1.5em
       font-weight 600
@@ -14,17 +14,17 @@
    .group-body
       margin 1px 0 0
       border-radius: 0 0 8px 8px;
-      background-color $blockBackground
+      background-color var(--blockBackground)
    .group-footer
      display flex
      justify-content space-between
      border-bottom-left-radius 8px
      border-bottom-right-radius 8px
-     background-color $blockBackground
+     background-color var(--blockBackground)
      .footer-label
        margin auto 10px
        font-size 0.8em
-       color $headerColor
+       color var(--headerColor)
        font-weight 800
      .href
        margin auto 0
@@ -45,9 +45,9 @@
             margin 0 auto
             align-items center
             justify-content center
-            border 2px solid $groupBorder
+            border 2px solid var(--groupBorder)
             border-radius 100%
-            background-color $mainBackground
+            background-color var(--mainBackground)
             .icon
               width 23px
             img.icon
@@ -66,7 +66,7 @@
               font-size 0.8em
               position absolute
               border-radius 100%
-              background-color $delColor
+              background-color var(--delColor)
           .name
             color black
             font-size 1.2em

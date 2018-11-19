@@ -1,4 +1,4 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #hero
   position relative
   height 17.2em
@@ -12,7 +12,7 @@
       z-index 1
       height -webkit-fill-available
     &:after
-      background: linear-gradient(to bottom,  $headerColor 0%,rgba(0,0,0,0) 33.33% ,rgba(255,255,255,1) 100%)
+      background: linear-gradient(to bottom,  #4f2da7 0%,rgba(0,0,0,0) 33.33% ,rgba(255,255,255,1) 100%)
       content ""
       display block
       height 100%
@@ -29,7 +29,7 @@
     z-index 2
     span
       letter-spacing 0.2
-      color $blockBackground
+      color var(--blockBackground)
   .camera
     position absolute
     right 5%
@@ -114,13 +114,13 @@
         font-size 0.7em
       .form-control
         background rgba(0,0,0,0)
-        color $black
+        color var(--black)
         &:focus
           background: rgba(0,0,0,0.0)
           border none
           box-shadow none
           outline none
-          color $headerColor
+          color var(--headerColor)
       .form-control-disabled
         pointer-events none
   .status-label
