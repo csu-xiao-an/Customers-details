@@ -24,7 +24,7 @@ export default class Agreement extends React.Component {
             <span className='label'>{config.translations.agreement}:</span>
           </div>
           <div className={'check ' + (config.isRtL ? 'right' : 'left')} onClick={this.handleAds}>
-            <img src={config.urls.media + (config.data.permit_ads ? 'chekbox-unmarked.svg' : 'chekbox-marked.svg')} />
+            <img src={config.urls.media + (config.data.permit_ads ? 'checkbox-unmarked.svg' : 'checkbox-marked.svg')} />
             <img className={`checking ${config.data.permit_ads ? 'show' : ''}`} src={config.urls.media + 'checkok.svg'} />
           </div>
         </div>
