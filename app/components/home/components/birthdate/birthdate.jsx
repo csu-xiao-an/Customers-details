@@ -1,4 +1,5 @@
 import {clientReplaceService} from 'project-services'
+import {Datepicker} from 'project-components'
 import './birthdate.styl'
 
 export default class Birthdate extends React.Component {
@@ -19,6 +20,11 @@ export default class Birthdate extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
+  getBirthdate = value => this.setState({birthdate: value})
+  getBirthyear = value => this.setState({birthyear: value})
+  getHandleDay = value => this.setState({day: value})
+  getHandleMonth = value => this.setState({month: value})
+  getHandleYear = value => this.setState({year: value})
   save = () => {
     const { day, month, year } = this.state
     const birthdate = day && month && `birthdate=${month}-${day}`
@@ -54,9 +60,7 @@ export default class Birthdate extends React.Component {
       <div id='birthdate' className='block'>
         <div className={this.state.configValue1 ? this.state.birthdateEdit ? 'hidden' : 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.birthday}:</span>
-          <span onClick={this.props.rights.birthdate.edit
-            ? () => this.setState({birthdateEdit: !this.state.birthdateEdit})
-            : () => {}}>
+          <span>
             {this.state.configValue}
           </span>
         </div>
@@ -74,20 +78,16 @@ export default class Birthdate extends React.Component {
         <div className={this.state.birthdateEdit ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
-            <ComboDatePicker
-              order='ymd'
-              placeholder='Year,Month,Date'
-              date={this.state.configValue}
-              onChange={(e, date) => {
-                this.setState({
-                  day: moment(date).format('DD'),
-                  month: moment(date).format('MM'),
-                  year: moment(date).format('YYYY')
-                })
-              }}
+            <Datepicker defaultValue={this.state.configValue} 
+              defaultValue1={this.state.configValue1} 
+              getBirthdate={this.getBirthdate} 
+              getBirthyear={this.getBirthyear}
+              getHandleDay={this.getHandleDay}
+              getHandleMonth={this.getHandleMonth}
+              getHandleYear={this.getHandleYear}
             />
           </div>
-          <div className='button'><button onClick={this.save}>{config.translations.save}</button></div>
+          {/* <div className='button'><button onClick={this.save}>{config.translations.save}</button></div> */}
         </div>
       </div>
     )
