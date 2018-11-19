@@ -1,7 +1,7 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #adress
   .address-header
-    background-color $headerColor
+    background-color var(--headerColor)
     min-height 3em
     padding 5px
     display flex
@@ -30,7 +30,7 @@
       position absolute
       align-items center
       flex-direction row
-      border 2px solid $headerColor
+      border 2px solid var(--headerColor)
       background-color white
       .search-input
         width 85%
@@ -50,9 +50,9 @@
         font-weight 600
       .input-change-address
         border none
-        border-bottom 1px solid $mainBackground
+        border-bottom 1px solid var(--mainBackground)
         width 70%
-        color $headerColor
+        color var(--headerColor)
       .icon
         padding-left 10px
   .body-agree
@@ -65,17 +65,17 @@
     font-weight 600
     color black
   .address-footer, .footer-agree
-    border-top 2px solid $mainBackground
+    border-top 2px solid var(--mainBackground)
     button
       background-color transparent
       border none
       width 50%
       height 3em
     .no-btn
-      border-right 1px solid $mainBackground
-      color $delNo
+      border-right 1px solid var(--mainBackground)
+      color var(--delNo)
     .yes-btn
-      color $delYes
-      border-left 1px solid $mainBackground
+      color var(--delYes)
+      border-left 1px solid var(--mainBackground)
 .hidden
   display none

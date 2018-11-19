@@ -1,0 +1,37 @@
+:root{
+    --primaryColor: #4f2da7;
+    --primarySameColor: #5e36b1;
+    --secondaryColor: #efefff;
+    --primaryBlackColor: #4b4b4b;
+    --primaryPinkColor: #ff358c;
+    --primaryPurpleColor: #bfafe0;
+
+    --blockBackground: #fff;
+    --black: #000;
+    --fontSize: 14px;
+
+    --fontBody: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    --marginDates: 5px;
+
+
+    --cornflowerBlue: #333;
+    --mainBackground: #dedeff;
+
+
+    --headerColor: #4f2da7;
+
+ 
+
+    --hotLinkBackground: #bfafe0;
+    --slideBackGround: #fff;
+    --delColor: #ff358c;
+    --groupBorder: #d1c7e7;
+    --delYes: red;
+    --delNo: green;
+
+
+
+    --deptDeleteColor: #72C71C;
+    --canceledColor: #FF2D2D;
+}

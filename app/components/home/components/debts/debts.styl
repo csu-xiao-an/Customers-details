@@ -1,6 +1,6 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #debts
-  background-color $blockBackground
+  background-color var(--blockBackground)
   border-radius 7px
   margin 7px 7px
   .debt-header
@@ -12,7 +12,7 @@
       font-weight 700
   .debt-body
     .debt-list
-      border-top 1px solid $mainBackground
+      border-top 1px solid var(--mainBackground)
       height 4em
       display flex
       justify-content space-between
@@ -21,7 +21,7 @@
         margin auto 10px
         flex-direction column
         .debt-list-date
-          color $headerColor
+          color var(--headerColor)
           font-size 0.8em
           font-weight 600
         .debt-list-name
@@ -39,8 +39,8 @@
           .description-input
             border none
             width 100%
-            border-bottom 1px solid $mainBackground
-            color $headerColor
+            border-bottom 1px solid var(--mainBackground)
+            color var(--headerColor)
         .count
           display flex
           margin 20px 0
@@ -51,7 +51,7 @@
             display flex
             font-size 2em
             border-radius 100%
-            background-color $headerColor
+            background-color var(--headerColor)
             span
               margin auto
           .count-input
@@ -66,7 +66,7 @@
           padding-bottom 10px
           button
             border none
-            background-color $headerColor
+            background-color var(--headerColor)
             color white
             border-radius 100px
   .debt-footer
@@ -74,9 +74,9 @@
     height 4em
     display flex
     justify-content space-between
-    border-top 1px solid $mainBackground
+    border-top 1px solid var(--mainBackground)
     label
-      color $headerColor
+      color var(--headerColor)
       font-size 0.8em
       font-weight 800
       margin auto 10px

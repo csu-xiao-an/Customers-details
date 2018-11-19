@@ -1,11 +1,11 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #hot-links
   height fit-content
   padding-top 10px
   display flex
   justify-content space-between
   overflow-x auto
-  background $blockBackground
+  background var(--blockBackground)
   .link-wrap
     .link
       height 60px
@@ -16,7 +16,7 @@
       flex-direction column
       justify-content center
       align-items center
-      background $hotLinkBackground
+      background var(--hotLinkBackground)
     .link.add-btn
       background transparent
     .circle1
