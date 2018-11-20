@@ -50,7 +50,9 @@ export default class HotLinks extends React.Component {
             )
           } else {
             if (i.url === config.urls.punch_cards) {
-              return this.state.isActivePunchCard && this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
+              return this.state.isActivePunchCard
+              ? this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
+              : ''
             } else {
               return this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
             }
