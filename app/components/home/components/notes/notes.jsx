@@ -260,9 +260,9 @@ export default class Notes extends React.Component {
                       <img src={config.urls.media + 'ic_notifications_active.svg'} />
                     </div>
                   </div>
-                  <span className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>
+                  <p className={'notes-list-desc ' + (i.reminder_date ? 'rem_true' : 'rem_false')}>
                     {this.checkLength(i.text)}
-                  </span>
+                  </p>
                 </div>
                 <div className='right-side'>
                   <img src={config.urls.media + 'ic_edit_stroke.svg'}
