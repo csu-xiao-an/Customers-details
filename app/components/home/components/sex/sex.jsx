@@ -32,10 +32,10 @@ export default class Sex extends React.Component {
       }
     })
   }
-  handleGenderClick = () => {
-    let changeState = !this.state.changeState
-    this.setState({changeState})
-  }
+  // handleGenderClick = () => {
+  //   let changeState = !this.state.changeState
+  //   this.setState({changeState})
+  // }
   selectedSex = () => {
     this.refs.radioMale.addEventListener('click', e => {
       clientReplaceService(`${config.urls.gender}=male`).then(r => {
