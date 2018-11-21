@@ -4,11 +4,12 @@
   width 100%
   background-color var(--secondaryColor)
   position relative
-  height 100%
   .list
     // min-height 736px
     width 100%
-    margin-bottom 8.4rem
+    overflow-y auto
+    max-height 75vh
+    // margin-bottom 8.4rem
     .separator-wrap
       margin 1rem 0
       box-shadow -1px 0px 14px 16px rgba(255,255,255,1)
@@ -40,39 +41,23 @@
         width 50px
         height 50px
   .buttons-wrap
-    background-color var(--secondaryColor)
-    width 100%
-    position fixed
-    bottom 0
+    margin 10px
+    text-align center
+    display flex
+    justify-content space-between
+    overflow-x auto
+    align-items center
+    position relative
     .main-img
       width 3.75rem
       height 3.75rem
+      margin 10px
     .mark
       height 1.2rem
       width 1.2rem
       position absolute
       top .2rem
       right .4rem
-  .swiper-container
-    margin 0
-    width 100%
-    margin .2rem 0 .9rem .6rem
-    overflow hidden
-    border-radius .5rem
-    background-color #fff
-    .swiper-wrapper
-      width 100%
-      margin-bottom 1rem 
-      .swiper-slide
-        width 5rem
-        display flex
-        flex-direction column
-        align-items center
-        position relative
-        padding-top .7rem
-        margin 0 .25rem 0
-        border none
-        text-align center
         span
           font-weight bold
           font-size 0.7rem
