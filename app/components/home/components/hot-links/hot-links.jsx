@@ -10,8 +10,7 @@ export default class HotLinks extends React.Component {
   }
   componentWillMount = () => {
     config.data.punch_cards && config.data.punch_cards.forEach(i => {
-      if ((i.expiration && moment(i.expiration) > moment() &&
-      (i.uses && (i.uses.length < i.service_count))) || (i.uses && (i.uses.length < i.service_count))) i.isActive = true
+      if ((i.expiration && moment(i.expiration) > moment() && i.uses.length < i.service_count) || i.uses.length < i.service_count) i.isActive = true
     })
     this.setState(config.data.punch_cards && { isActivePunchCard: config.data.punch_cards.some(i => i.isActive) })
     config.data.hot_links = config.data.hot_links.filter(j => !j.plugin_name || config.plugins_list.includes(j.plugin_name))
@@ -36,9 +35,15 @@ export default class HotLinks extends React.Component {
     </div>
   )
   render () {
+    const hotLinks = config.data.hot_links.filter(i => {
+      if (i.url[0] === '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      else if (i.name === 'timeline') return i
+      else if (i.name === 'hair_dyeing' && (config.data.colors_beautech_old && config.data.colors_beautech_old.length !== 0)) return i
+    })
     return (
       <div id='hot-links'>
-        {config.data.hot_links.map(i => {
+        {hotLinks.map(i => {
           if (i.url[0] === '#') {
             return (
               <div className='link-wrap'>
@@ -53,7 +58,7 @@ export default class HotLinks extends React.Component {
             if (i.url === config.urls.punch_cards) {
               return this.state.isActivePunchCard
                 ? this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
-                : ''
+                : this.renderExternalLink(config.urls.punch_cards_adding, config.translations.punch_cards_adding, '')
             } else {
               return this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
             }
