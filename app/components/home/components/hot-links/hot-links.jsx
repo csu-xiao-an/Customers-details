@@ -1,4 +1,5 @@
 import './hot-links.styl'
+import chalk from 'chalk';
 const { Link } = ReactRouterDOM
 
 export default class HotLinks extends React.Component {
@@ -35,9 +36,15 @@ export default class HotLinks extends React.Component {
     </div>
   )
   render () {
+    const hotLinks = config.data.hot_links.filter(i => {
+      if (i.url[0] === '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      else if (i.name === 'timeline') return i
+      else if (i.name === 'hair_dyeing' && (config.data.colors_beautech_old && config.data.colors_beautech_old.length !== 0)) return i
+    })
     return (
       <div id='hot-links'>
-        {config.data.hot_links.map(i => {
+        {hotLinks.map(i => {
           if (i.url[0] === '#') {
             return (
               <div className='link-wrap'>
