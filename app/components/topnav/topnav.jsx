@@ -59,11 +59,11 @@ export default class Topnav extends React.Component {
             <h1>{config.translations.punch_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           {this.props.color && <div className='client-name'>
             <h1>{config.translations.color_card_topnav.replace('{client_name}', config.data.name)}</h1></div>}
-          {/* <div className={'edit-wrap ' + (config.isRtL ? 'left' : 'right')}>
+          <div className={'edit-wrap ' + (config.isRtL ? 'left' : 'right')}>
             {this.props.home && <img className='edit' onClick={this.menuOnOff} src={config.urls.media + 'ic_menu.svg'} />}
             {this.props.punch && <img className='add' src={config.urls.media + 'add_bt.svg'}
               onClick={() => this.props.history.push(config.urls.punch_cards_adding)} />}
-          </div> */}
+          </div>
         </div>
         {this.state.isActive && <Menu closeMenu={this.closeMenu} />}
       </div>
