@@ -16,7 +16,7 @@ export default class SinglePunch extends React.Component {
   use = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
     punchPostServiceUse(this.props.i.id, `date=${d}`).then(r => r.json().then(r =>
-      this.props.punch_cards.some(item => (item.id === this.props.i.id && item.uses.unshift({id: r, date: d}) && this.props.update()))))
+      this.props.punch_cards.some(item => (item.id === this.props.i.id && (item.uses && item.uses.unshift({id: r, date: d})) && this.props.update()))))
   }
   handleConfirmedModal = () => {
     this.setState({isVisibleModalConfirmed: !this.state.isVisibleModalConfirmed}, () => {
@@ -24,7 +24,6 @@ export default class SinglePunch extends React.Component {
     })
   }
   render () {
-    console.log(this.props);
     const nan = moment.duration(moment(this.props.i.expiration) - moment()).asDays()
     const days = this.props.i.expiration ? Math.floor(isNaN(nan) ? 0 : nan) : undefined
     return (
@@ -39,16 +38,16 @@ export default class SinglePunch extends React.Component {
             <h1 className='p-sum'>{this.props.i.sum}{config.data.currency}</h1>}
           </div>
           <h1 className='info'>{config.translations.used}
-            <span>{this.props.i.uses && !!this.props.i.uses.length}</span>{config.translations.from.replace('{count}', this.props.i.service_count)}</h1>
-          <div className='use-wrap' onClick={(this.props.i.uses && !!this.props.i.uses.length === this.props.i.service_count) || days < 1 ? () => {} : this.use}
-            style={(this.props.i.uses && !!this.props.i.uses.length === this.props.i.service_count) || days < 1
+            <span>{this.props.i.uses && this.props.i.uses.length}</span>{config.translations.from.replace('{count}', this.props.i.service_count)}</h1>
+          <div className='use-wrap' onClick={(this.props.i.uses && this.props.i.uses.length === this.props.i.service_count) || days < 1 ? () => {} : this.use}
+            style={(this.props.i.uses && this.props.i.uses.length === this.props.i.service_count) || days < 1
               ? {backgroundColor: 'rgba(100, 100, 100, 0.8)'} : {backgroundColor: 'deepskyblue'}}>
-            <img style={config.isRtL ? {right: ' 20px'} : {}} src={config.urls.media + ((this.props.i.uses && !!this.props.i.uses.length === this.props.i.service_count) || days < 1 ? 'block.png' : 'use.png')} />
+            <img style={config.isRtL ? {right: ' 20px'} : {}} src={config.urls.media + ((this.props.i.uses && this.props.i.uses.length === this.props.i.service_count) || days < 1 ? 'block.png' : 'use.png')} />
             <h1>{config.translations.use}</h1></div>
           <div className='punch-data-uses-list'>{this.props.i.uses && this.props.i.uses.map((i, k) => <div className='uses'>
             <div className='check-wrap'><img src={config.urls.media + 'check-ok.svg'}
               onClick={() => this.setState({isUse: i.id}, () => this.handleConfirmedModal())} /></div>
-            <h1 className='count'>{!!this.props.i.uses.length - [k]}</h1><h1 className={'date ' + (config.isRtL ? 'left' : 'right')}>{moment(i.date).format('YYYY.MM.DD')}</h1>
+            <h1 className='count'>{this.props.i.uses && this.props.i.uses.length - [k]}</h1><h1 className={'date ' + (config.isRtL ? 'left' : 'right')}>{moment(i.date).format('YYYY.MM.DD')}</h1>
           </div>)}</div>
           <div className={this.props.i.expiration ? 'date-to-wrap' : 'hidden'} style={days < 1
             ? {backgroundColor: 'rgba(255, 0, 0, 0.6)'} : {backgroundColor: 'rgba(0, 159, 255, 0.6)'}}>
