@@ -21,12 +21,12 @@ class ColorsBeautechOld extends React.Component {
     return (
       <div id='punch_cards_old'>
         <div className='btn-wrap'>
-          <div className={`btn ${this.state.ind === 0 ? 'ban' : ''}`} onClick={this.goPrev}><img src={`${config.urls.media}chevron-left.svg`} /></div>
+          <div className='btn' onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} /></div>
           <div className='middle-section'>
             <p className='middle-type'>{beautech[ind].type}</p>
             <p className='middle-date'>{`${translations.date} ${moment(beautech[ind].date).format('DD/MM/YY')}`}</p>
           </div>
-          <div className={`btn ${this.state.ind === beautech.length - 1 ? 'ban' : ''}`} onClick={this.goNext}><img src={`${config.urls.media}chevron-right.svg`} /></div>
+          {/* <div className={`btn ${this.state.ind === beautech.length - 1 ? 'ban' : ''}`}><img src={`${config.urls.media}chevron-right.svg`} /></div> */}
         </div>
         <div className='highlights'>
           <img className='fill-color' src={`${config.urls.media}icons-8-fill-color.png`} />
@@ -89,6 +89,14 @@ class ColorsBeautechOld extends React.Component {
                 </div>
               </div>)}
             </Swiper>
+          </div>
+        </div>
+        <div className='buttons-bot'>
+          <div className='buttons-bot-wrap' onClick={this.goPrev}>{config.translations.colors_beautech_old.back}
+            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} /></div>
+          </div>
+          <div className='buttons-bot-wrap' onClick={this.goNext}>{config.translations.colors_beautech_old.next}
+            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} /></div>
           </div>
         </div>
       </div>

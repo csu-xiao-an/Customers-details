@@ -56,7 +56,9 @@ var config = {
       oxygen: 'Oxygen',
       concentration: 'Concentration:',
       percentage: '%',
-      waiting_time: 'Waiting time:'
+      waiting_time: 'Waiting time:',
+      back: 'Back',
+      next: 'Next'
     },
     language: 'en',
     edit: '',

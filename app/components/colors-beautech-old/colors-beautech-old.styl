@@ -2,9 +2,11 @@
 #punch_cards_old
   width 100%
   height 100%
+  .swiper
+    max-height 70vh
+    overflow-y auto
   .btn-wrap
     display flex
-    justify-content space-between
     align-items center
     padding .5rem .7rem
     background-color var(--primaryColor)
@@ -12,6 +14,7 @@
       opacity .5
     .btn
       width 2rem
+      margin-right 88px
       height 2rem
       display flex
       justify-content center
@@ -56,6 +59,7 @@
     border-radius .5rem
     background-color #fff
     padding 1.5rem 1.1rem 1rem
+    box-shadow: 0 2px 4px 0 #bfafe0;
     .brand
       padding-left
     .colors
@@ -79,6 +83,7 @@
     margin 0 .5rem .5rem
     border-radius .5rem
     background-color #fff
+    box-shadow: 0 2px 4px 0 #bfafe0;
     .oxy-header
       display flex
       padding 1rem 0 .7rem
@@ -114,3 +119,25 @@
       margin 1.3rem 0 0
       .common-img
         margin-right 0.7rem
+  .buttons-bot
+    margin 0 0.5rem 0.5rem
+    background-color #fff
+    height 60px
+    display flex
+    box-shadow 0 2px 4px 0 #bfafe0
+    .buttons-bot-wrap, .buttons-bot-wrap
+      width 50%
+      text-transform uppercase
+      display flex
+      align-items center
+      justify-content center
+      color var(--primaryColor)
+      font-weight: 600;
+      .btn-bot-img
+        justify-content center
+        display flex
+        width 40px
+        padding-right 10px
+  .buttons-bot-wrap:last-child
+    border-left 1px solid #bfafe0
+    
