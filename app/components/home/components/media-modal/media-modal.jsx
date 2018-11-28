@@ -52,16 +52,20 @@ export default class MediaModal extends React.Component {
     const url = `${config.urls.media}ic_left.svg`
     const url2 = `${config.urls.media}ic_right.svg`
     divNode.innerHTML = `<style>
-    .swiper-button-prev:before{
+    .swiper-button-prev{
       content: url(${url});
-      width: 1.25rem;
+      width: 15px;
+      height: 15px;
+      padding: 4px;
     }
     </style>`
     document.body.appendChild(divNode)
     divNode2.innerHTML = `<style>
-    .swiper-button-next:before{
+    .swiper-button-next{
       content: url(${url2});
-      width: 1.25rem;
+      width: 15px;
+      height: 15px;
+      padding: 4px;
     }
     </style>`
     document.body.appendChild(divNode2)
@@ -70,7 +74,7 @@ export default class MediaModal extends React.Component {
     return (
       <Modal show={this.props.isOpenGallery} onHide={this.props.handleGallery}>
         <div className='modal-body'>
-          <img className={'close-button'} src={config.urls.media + 'ic_close.svg'}
+          <img className={'close-button'} src={config.urls.media + 'back-del.svg'}
             onClick={() => { this.props.handleGallery() }} />
           <div className={this.state.isEditNote ? 'noSwiping' : ''}>
             <Swiper observer onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
@@ -86,14 +90,14 @@ export default class MediaModal extends React.Component {
               <div className='row1'>
                 <span className='name'>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].name}</span>
                 <div className='icons'>
-                  <img src={config.urls.media + 'pencil.svg'} onClick={() => {
+                  <img src={config.urls.media + 'pencil-edit.svg'} onClick={() => {
                     if (!this.state.isEditNote) this.setState({ isEditNote: !this.state.isEditNote, textareaValue: config.data.gallery[this.state.activeIndex].note })
                   }} />
-                  <img src={config.urls.media + 'ic_delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
+                  <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
                 </div>
               </div>
               <div className='row2'>
-                <img className='icon' src={config.urls.media + 'ic_day.svg'} />
+                <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} /></div>
                 <span className='date'>{config.data.gallery[this.state.activeIndex] && formatDate(config.data.gallery[this.state.activeIndex].date)}</span>
               </div>
             </div>
