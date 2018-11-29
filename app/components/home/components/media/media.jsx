@@ -197,22 +197,6 @@ export default class Media extends React.Component {
         this.setState({slides: [], shares: []})
       }
     }
-    renderCheck = () => {
-      return (<svg width="20" height="20" viewBox="0 0 20 20">
-      <defs>
-          <path id="a" d="M3.53 9.22a.75.75 0 0 0-1.06 1.06l3.75 3.75a.75.75 0 0 0 1.06 0l8.25-8.25a.75.75 0 0 0-1.06-1.06l-7.72 7.72-3.22-3.22z"/>
-      </defs>
-      <g fill="none" fill-rule="evenodd">
-          <rect width="18" height="18" x="1" y="1" fill="#BFAFE0" stroke="#BFAFE0" stroke-width="2" rx="4"/>
-          <g transform="translate(1 1)">
-              <mask id="b" fill="#fff">
-                  <use href="#a"/>
-              </mask>
-              <use fill="#fff" fill-rule="nonzero" href="#a"/>
-          </g>
-      </g>
-  </svg>)
-    }
     checkAccessLevel = () => {
       return ((config.user.permission_level === 'admin' ||
             config.user.permission_level === 'senior' ||
@@ -228,13 +212,14 @@ export default class Media extends React.Component {
       () => {
         $imagePreview = null
       })
-      document.querySelector('body').classList.remove('no-scroll')
+    document.querySelector('body').classList.remove('no-scroll')
   }
   handleDescBack = (e) => {
     this.setState({desc: e.target.value})
   }
   render () {
-    if (this.state.imagePreviewUrl) { 
+    console.log(this.state.multiDel);
+    if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
     }
     return config.plugins_list.includes('gallery') && (
@@ -286,13 +271,15 @@ export default class Media extends React.Component {
             {this.state.gallery.map((i, k) => (
               <div key={k} id={'slide' + i.id}
                 onClick={() => (this.state.multiDel || this.state.multiShare) && this.selectSlide(i.id, this.state.multiDel
-                  ? '' : (config.urls.gallery + i.name).substr(1))}
+                  ? '' : (config.urls.gallery + i.name).substr(1))
+                }
               >
                 <div className='img-selected'>
                   {this.typeItem(i, k)}
+                  {this.state.multiDel && <img className='empty-check' src={config.urls.media + 'checkbox-empty.svg'} />}
                 </div>
                 <div className='check-box'>
-                  {this.renderCheck()}
+                  <img src={config.urls.media + 'checkbox-select.svg'} />
                 </div>
                 <div className='file-name'>{i.name}</div>
                 <div className='file-date'>
