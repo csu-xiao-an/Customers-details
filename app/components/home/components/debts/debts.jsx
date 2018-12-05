@@ -71,7 +71,23 @@ export default class Debts extends React.Component {
   price = () => {
     let sum = 0
     config.data.debts.forEach(i => { sum += i.sum })
-    return sum === 0 || isNaN(sum) ? 0 : sum
+    this.setState({
+      total_debt: sum
+    })
+    // this.forceUpdate()
+  }
+  delDesc = () => {
+    this.setState({
+      description: ''
+    })
+  }
+  backDesc = () => {
+    this.setState({
+      sum: this.state.debt,
+      desc: this.state.description,
+      debtEdit: false
+    })
+    this.forceUpdate()
   }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
@@ -80,14 +96,66 @@ export default class Debts extends React.Component {
       <div id='debts'>
         <div className='debt-header'>
           <label>{config.translations.debts}</label>
+          {config.data.debts && this.price}
+          {/* <div>{this.state.total_debt}</div> */}
+          {this.state.debtEdit &&
+          <div className='btn-header' onClick={this.backDesc}>
+            <div className='btn-header-wrap'><img src={config.urls.media + 'arrow-left.svg'} /></div>
+            <p>{config.translations.back}</p>
+          </div>}
+        </div>
+        <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
+          <div className='edit'>
+            <div className='edit-debt-head'>
+              <label>{config.translations.debt_add_new}</label>
+              <div className='count'>
+                <div className='ink' onClick={() => {
+                  let debt = +this.state.debt - config.data.debt_step
+                  if (debt < 0) debt = 0
+                  this.setState({ debt })
+                }}>
+                  <img src={config.urls.media + 'minus.svg'} />
+                </div>
+                <div className='currency-debt'>{config.translations.currency_debt}</div>
+                <input className='count-input' type='number'
+                  value={this.state.debt} onChange={e => this.setState({ debt: +e.target.value })}
+                  onFocus={e => { if (toString(e.target.value) === '0') e.target.value = '' }}
+                  onBlur={e => { if (toString(e.target.value) === '') e.target.value = '0' }} />
+                <div className='ink' onClick={() => this.setState({ debt: +this.state.debt + config.data.debt_step })}>
+                  <img src={config.urls.media + 'plus.svg'} />
+                </div>
+              </div>
+            </div>
+            <label>{config.translations.description_debts}</label>
+            <div className='description'>
+              <input className='description-input' type='text' value={this.state.description}
+                onChange={e => this.setState({ description: e.target.value })} placeholder={config.translations.description_debt} />
+              <div className='btn-desc-del' onClick={this.delDesc}>
+                <img src={config.urls.media + 'butn-not.svg'} />
+              </div>
+            </div>
+            <div className='actions'>
+              {/* <button onClick={this.state.debtReplace ? this.update : this.submit}>{config.translations.save}</button> */}
+              <div className='del-debts' onClick={this.delete}>
+                <img src={config.urls.media + 'trash-debts.svg'} />
+                <p>{config.translations.delete}</p>
+              </div>
+              <div className='button-apply' onClick={this.state.debtReplace ? this.update : this.submit}>
+                <img src={config.urls.media + 'apply.svg'} />
+                <p>{config.translations.done}</p>
+              </div>
+              {/* {this.props.rights.debts.delete && */}
+              {/* <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />} */}
+            </div>
+          </div>
         </div>
         <div className='debt-body'>
           {sortDebts.map((i, k) => (
-            <div key={k} className={this.state.debtReplace ? 'hidden' : 'debt-list'}>
+            <div key={k} className={this.state.debtReplace ? 'debt-list' : 'debt-list'}>
               <div className='left-side'>
                 <span className='debt-list-date'>{formatDate(i.date)}</span>
                 <div className='debt-list-name'>
-                  <label className='currency'>{i.sum} {config.data.currency}</label>
+                  <label className='currency'>{i.sum} {config.translations.currency_debt}</label>
                   {i.desc && <span className='debt-list-desc'>{this.checkLength(i.desc)}</span>}
                 </div>
               </div>
@@ -96,35 +164,9 @@ export default class Debts extends React.Component {
               </div>
             </div>
           ))}
-          <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
-            <div className='edit'>
-              <div className='description'>
-                <input className='description-input' type='text' value={this.state.description}
-                  onChange={e => this.setState({description: e.target.value})} placeholder={config.translations.description_debt} />
-              </div>
-              <div className='count'>
-                <div className='ink' onClick={() => this.setState({debt: +this.state.debt + config.data.debt_step})}><span>+</span></div>
-                <input className='count-input' type='number'
-                  value={this.state.debt} onChange={e => this.setState({debt: +e.target.value})}
-                  onFocus={e => { if (toString(e.target.value) === '0') e.target.value = '' }}
-                  onBlur={e => { if (toString(e.target.value) === '') e.target.value = '0' }} />
-                <div className='ink' onClick={() => {
-                  let debt = +this.state.debt - config.data.debt_step
-                  if (debt < 0) debt = 0
-                  this.setState({debt})
-                }}><span className='minus'>-</span>
-                </div>
-              </div>
-              <div className='actions'>
-                <button onClick={this.state.debtReplace ? this.update : this.submit}>{config.translations.save}</button>
-                {/* {this.props.rights.debts.delete && */}
-                {/* <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />} */}
-              </div>
-            </div>
-          </div>
         </div>
         {this.props.rights.debts.edit &&
-        <div onClick={() => this.setState({debtEdit: !this.state.debtEdit})} className={this.state.debtEdit ? 'hidden' : 'debt-footer'}>
+        <div onClick={() => this.setState({debtEdit: !this.state.debtEdit, debt: '0', description: ''})} className={this.state.debtEdit ? 'debt-footer' : 'debt-footer'}>
           <label>{config.translations.add_debt}</label>
           <img src={config.urls.media + 'c_add_stroke.svg'} />
         </div>}

@@ -1,16 +1,32 @@
 @import "../../../../variables.css"
 #debts
-  background-color var(--blockBackground)
   border-radius 7px
   margin 7px 7px
   .debt-header
+    background-color var(--blockBackground)
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     height 4em
     display flex
+    justify-content space-between
+    align-items center
+    margin-bottom 2px
     label
       margin auto 10px
       font-size 1.5em
       font-weight 700
+    p
+      font-size var(--fontSize)
+      color var(--primaryColor)
+      padding-left 6px
+    .btn-header
+      display flex
+      padding-right 14px
+      align-items center
+      .btn-header-wrap
+        display flex
   .debt-body
+    background-color var(--blockBackground)
     .debt-list
       border-top 1px solid var(--mainBackground)
       height 4em
@@ -32,49 +48,96 @@
             margin-left 10px
       .right-side
         margin auto 10px
-    .debt-active
-      .edit
-        margin 0 10px
-        .description
-          .description-input
-            border none
-            width 100%
-            border-bottom 1px solid var(--mainBackground)
-            color var(--headerColor)
+  .debt-active
+    background-color var(--blockBackground)
+    .edit
+      margin 3px 10px
+      label
+        font-size 0.8em
+        font-weight 600
+        color var(--headerColor)
+      .description
+        margin-top 7px
+        border-radius 4px
+        height 56px
+        display flex
+        box-shadow inset 0 1px 3px 0 var(--secondaryColor)
+        background-image linear-gradient(to bottom, #f8f8ff, #efefff)
+        align-items center
+        justify-content space-between
+        .description-input
+          padding-left 6px
+          background-color transparent
+          border none
+          font-size var(--fontSize16)
+        .btn-desc-del
+          display flex
+          padding-right 14px
+      .edit-debt-head
+        display flex
+        align-items center
+        justify-content space-between
+        padding-top 15px
+        label
+          font-size 0.8em
+          font-weight 600
+          color var(--headerColor)
         .count
           display flex
-          margin 20px 0
-          justify-content center
+          justify-content flex-end
+          align-items center
           .ink
-            width 40px
-            color white
+            width 28px
+            height 28px
             display flex
-            font-size 2em
+            border 1px solid var(--primaryPurpleColor)
             border-radius 100%
-            background-color var(--headerColor)
+            justify-content center
+            align-items center
             span
               margin auto
           .count-input
-            width 30%
+            width 15%
             border none
-            font-size 2em
-            margin 0 30px
+            font-size var(--fontSize16)
             text-align center
-        .actions
+            padding-right 10px
+          .currency-debt
+            padding-left 15px
+      .actions
+        display flex
+        justify-content flex-end
+        padding 10px 0 10px
+        .button-apply
           display flex
-          justify-content flex-end
-          padding-bottom 10px
-          button
-            border none
-            background-color var(--headerColor)
-            color white
-            border-radius 100px
+          align-items center
+          color #50e3c1
+          img 
+            padding-right 5px
+            width 23px
+            height 23px
+        .del-debts
+          display flex
+          margin-right 26px
+          align-items center
+          color var(--primaryPurpleColor)
+          img
+            width 18px
+            margin-right 5px
+        // button
+        //   border none
+        //   background-color var(--headerColor)
+        //   color white
+        //   border-radius 100px
   .debt-footer
+    background-color var(--blockBackground)
     width 100%
     height 4em
     display flex
     justify-content space-between
-    border-top 1px solid var(--mainBackground)
+    margin-top 3px
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     label
       color var(--headerColor)
       font-size 0.8em

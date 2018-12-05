@@ -218,7 +218,6 @@ export default class Media extends React.Component {
     this.setState({desc: e.target.value})
   }
   render () {
-    console.log(this.state.multiDel);
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
     }
