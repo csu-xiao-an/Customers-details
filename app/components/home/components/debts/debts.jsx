@@ -69,12 +69,12 @@ export default class Debts extends React.Component {
     })
   }
   price = () => {
-    let sum = 0
-    config.data.debts.forEach(i => { sum += i.sum })
-    this.setState({
-      total_debt: sum
-    })
-    // this.forceUpdate()
+    let arrDebts = config.data.debts.map(i => i.sum)
+    let totalDebt = arrDebts.reduce((sum, item) => {
+      return sum + item
+    }, 0)
+    // console.log(total_debt)
+    return totalDebt
   }
   delDesc = () => {
     this.setState({
@@ -91,13 +91,12 @@ export default class Debts extends React.Component {
   }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
+    let total = this.price() + ` You're fired`
     const sortDebts = config.data.debts.sort((a, b) => moment(b.date) - moment(a.date))
     return config.plugins_list.includes('debts') && (
       <div id='debts'>
         <div className='debt-header'>
-          <label>{config.translations.debts}</label>
-          {config.data.debts && this.price}
-          {/* <div>{this.state.total_debt}</div> */}
+          <label>{config.translations.debts} {total}</label>
           {this.state.debtEdit &&
           <div className='btn-header' onClick={this.backDesc}>
             <div className='btn-header-wrap'><img src={config.urls.media + 'arrow-left.svg'} /></div>
