@@ -76,6 +76,8 @@ export default class Debts extends React.Component {
   price = () => {
     let arrDebts = config.data.debts.map(i => i.sum)
     let totalDebt = arrDebts.reduce((sum, item) => {
+      return sum + item
+    })
     return totalDebt
   }
   delDesc = () => {
