@@ -76,8 +76,6 @@ export default class Debts extends React.Component {
   price = () => {
     let arrDebts = config.data.debts.map(i => i.sum)
     let totalDebt = arrDebts.reduce((sum, item) => {
-      return sum + item
-    })
     return totalDebt
   }
   delDesc = () => {
@@ -99,7 +97,6 @@ export default class Debts extends React.Component {
   }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
-    console.log('this.state.debt_id', this.state.debt_id);
     let total = this.price()
     const sortDebts = config.data.debts.sort((a, b) => moment(b.date) - moment(a.date))
     return config.plugins_list.includes('debts') && (
