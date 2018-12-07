@@ -39,13 +39,11 @@ export default class Debts extends React.Component {
       }
     })
   }
-  delete = i => {
-    // debugger
+  delete = () => {
     let id = this.state.debt_id
     debtDeleteService(id).then(r => {
       if (r.status === 204) {
-        config.data.debts.splice(this.state.debt_id, 1)
-        // console.log('config.data.debts.id', config.data.debts.id);
+        config.data.debts = config.data.debts.filter(i => i.id !== id)
         this.setState({
           debtEdit: false,
           debt_id: 0
@@ -145,11 +143,10 @@ export default class Debts extends React.Component {
             </div>
             <div className='actions'>
               {/* <button onClick={this.state.debtReplace ? this.update : this.submit}>{config.translations.save}</button> */}
-              {config.data.debts.map((i, k) =>
-                <div className='del-debts' onClick={() => this.delete(i.id, k)} >
-                  <img src={config.urls.media + 'trash-debts.svg'} />
-                  <p>{config.translations.delete}</p>
-                </div>)}
+              <div className='del-debts' onClick={() => this.delete()} >
+                <img src={config.urls.media + 'trash-debts.svg'} />
+                <p>{config.translations.delete}</p>
+              </div>
               <div className='button-apply' onClick={this.state.debtReplace ? this.update : this.submit}>
                 <img src={config.urls.media + 'apply.svg'} />
                 <p>{config.translations.done}</p>
