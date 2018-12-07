@@ -1,6 +1,4 @@
 import {debtPostService, debtReplaceService, debtDeleteService} from 'project-services'
-import {formatDate} from 'project-components'
-import Line from '../line/line.jsx'
 import './debts.styl'
 
 export default class Debts extends React.Component {
@@ -41,10 +39,17 @@ export default class Debts extends React.Component {
       }
     })
   }
-  delete = (id, k) => {
+  delete = i => {
+    // debugger
+    let id = this.state.debt_id
     debtDeleteService(id).then(r => {
       if (r.status === 204) {
-        config.data.debts.splice(k, 1)
+        config.data.debts.splice(this.state.debt_id, 1)
+        // console.log('config.data.debts.id', config.data.debts.id);
+        this.setState({
+          debtEdit: false,
+          debt_id: 0
+        })
         this.forceUpdate()
       }
     })
@@ -71,9 +76,6 @@ export default class Debts extends React.Component {
   price = () => {
     let arrDebts = config.data.debts.map(i => i.sum)
     let totalDebt = arrDebts.reduce((sum, item) => {
-      return sum + item
-    }, 0)
-    // console.log(total_debt)
     return totalDebt
   }
   delDesc = () => {
@@ -89,14 +91,20 @@ export default class Debts extends React.Component {
     })
     this.forceUpdate()
   }
+  newDateFormat = i => {
+    let a = moment(i).format('ddd, DD MMM, Y, HH:mm')
+    return a
+  }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
-    let total = this.price() + ` You're fired`
+    let total = this.price()
     const sortDebts = config.data.debts.sort((a, b) => moment(b.date) - moment(a.date))
     return config.plugins_list.includes('debts') && (
       <div id='debts'>
         <div className='debt-header'>
-          <label>{config.translations.debts} {total}</label>
+          <div className='header-text'>{config.translations.debts}
+            <div className='total-debts-wrap'>{config.translations.currency_debt} {total}</div>
+          </div>
           {this.state.debtEdit &&
           <div className='btn-header' onClick={this.backDesc}>
             <div className='btn-header-wrap'><img src={config.urls.media + 'arrow-left.svg'} /></div>
@@ -135,16 +143,17 @@ export default class Debts extends React.Component {
             </div>
             <div className='actions'>
               {/* <button onClick={this.state.debtReplace ? this.update : this.submit}>{config.translations.save}</button> */}
-              <div className='del-debts' onClick={this.delete}>
-                <img src={config.urls.media + 'trash-debts.svg'} />
-                <p>{config.translations.delete}</p>
-              </div>
+              {config.data.debts.map((i, k) =>
+                <div className='del-debts' onClick={() => this.delete(i.id, k)} >
+                  <img src={config.urls.media + 'trash-debts.svg'} />
+                  <p>{config.translations.delete}</p>
+                </div>)}
               <div className='button-apply' onClick={this.state.debtReplace ? this.update : this.submit}>
                 <img src={config.urls.media + 'apply.svg'} />
                 <p>{config.translations.done}</p>
               </div>
-              {/* {this.props.rights.debts.delete && */}
-              {/* <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />} */}
+              {/* {this.props.rights.debts.delete &&
+              <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />} */}
             </div>
           </div>
         </div>
@@ -152,7 +161,7 @@ export default class Debts extends React.Component {
           {sortDebts.map((i, k) => (
             <div key={k} className={this.state.debtReplace ? 'debt-list' : 'debt-list'}>
               <div className='left-side'>
-                <span className='debt-list-date'>{formatDate(i.date)}</span>
+                <span className='debt-list-date'>{this.newDateFormat(i.date)}</span>
                 <div className='debt-list-name'>
                   <label className='currency'>{i.sum} {config.translations.currency_debt}</label>
                   {i.desc && <span className='debt-list-desc'>{this.checkLength(i.desc)}</span>}

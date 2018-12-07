@@ -349,19 +349,19 @@ var config = {
     ],
     debts: [
       {
-        id: 1231231,
+        id: 1,
         sum: 20,
         desc: 'did not pay for a month',
-        date: '2015-07-07 13:01'
+        date: '2015-07-07 13:20'
       },
       {
-        id: 1231232,
+        id: 2,
         sum: 22,
         desc: 'did not pay for a month',
         date: '2016-07-07 13:01'
       },
       {
-        id: 1231233,
+        id: 3,
         sum: 20,
         desc: 'did not pay for a month',
         date: '2017-07-07 13:01'
