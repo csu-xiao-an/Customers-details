@@ -46,7 +46,8 @@ export default class Debts extends React.Component {
         config.data.debts = config.data.debts.filter(i => i.id !== id)
         this.setState({
           debtEdit: false,
-          debt_id: 0
+          debt_id: 0,
+          debtReplace: false
         })
         this.forceUpdate()
       }
@@ -73,7 +74,7 @@ export default class Debts extends React.Component {
   }
   price = () => {
     let arrDebts = config.data.debts.map(i => i.sum)
-    let totalDebt = arrDebts.reduce((sum, item) => {
+    let totalDebt = (arrDebts.length !== 0) && arrDebts.reduce((sum, item) => {
       return sum + item
     })
     return totalDebt
