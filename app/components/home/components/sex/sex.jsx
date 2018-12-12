@@ -78,7 +78,6 @@ export default class Sex extends React.Component {
     document.body.appendChild(divNode)
   }
   render () {
-    console.log(this.props);
     return (
       <div id='sex'>
         <div className='block'>
@@ -88,9 +87,11 @@ export default class Sex extends React.Component {
               <span className='sex-label'>{this.state.label}</span>
             </span>
           </div>
-          <div className='delete-gender' onClick={this.deleteGender} >
-            {this.props.editProfile && <div>X</div>}
-          </div>
+          {/* <div className='delete-gender' onClick={this.deleteGender} > */}
+          {this.props.editProfile && <div className='del-wrap' onClick={this.deleteGender} >
+            <img src={config.urls.media + 'plus2.svg'} />
+          </div>}
+          {/* </div> */}
         </div>
         <div className={this.state.changeState ? 'block1' : 'block change-state-disable'} >
           <div ref='radioMale' className={this.state.maleSelected ? 'radio checked' : 'radio'} >

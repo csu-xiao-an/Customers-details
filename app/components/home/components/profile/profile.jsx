@@ -40,8 +40,6 @@ export default class Profile extends React.Component {
     }
     render () {
       const { isVisibleFields } = this.props
-      // console.log(this.state.editProfile);
-      console.log(this.state.email);
       return (
         <div id='profile'>
           <div id='profile-header'>
@@ -62,7 +60,9 @@ export default class Profile extends React.Component {
                   <span className='label'>{config.translations.name}:</span>
                   <input className='edit-input' type='text' value={this.state.name} onChange={e => this.setState({name: e.target.value})} />
                 </div>
-                <div onClick={this.delName}>X</div>
+                <div className='del-wrap' onClick={this.delName}>
+                  <img src={config.urls.media + 'plus2.svg'} />
+                </div>
               </div>}
           </div>
           {(this.props.isVisibleFields || config.data.phone) && <Phone editProfile={this.state.editProfile}{...this.props} />}
@@ -104,7 +104,9 @@ export default class Profile extends React.Component {
                     <input className='edit-input' type='text' value={this.state.address} onChange={e => this.setState({address: e.target.value})} />
                   </div>
                 </div>
-                <div onClick={this.delAddress}>X</div>
+                <div className='del-wrap' onClick={this.delAddress}>
+                  <img src={config.urls.media + 'plus2.svg'} />
+                </div>
               </div>
             </div>}
           {/* {!config.data.gender && <Sex {...this.props} />} */}
