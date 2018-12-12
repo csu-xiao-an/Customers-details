@@ -5,7 +5,7 @@ export default class Phone extends React.Component {
   state = {
     phoneEdit: false,
     phone: '',
-    error:''
+    error: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -25,16 +25,21 @@ export default class Phone extends React.Component {
       this.setState({error: 'Phone number is incorrect!'})
     }
   }
+  componentDidMount = () => {
+    this.setState({phone: config.data.phone})
+  }
+  delInfo = () => {
+    this.setState({phone: ''})
+  }
   render () {
     return this.props.rights.isPhone && (
       <div id='phone'>
-        <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'data-phone' : 'hidden'}>
+        <div className={!this.props.editProfile ? 'data-phone' : 'hidden'}>
           <div className='wrap'>
             <span className='label'>{config.translations.phone}:</span>
-            <div className={config.data.phone ? this.state.phoneEdit ? 'hidden' : 'phone-labels' : 'hidden'}>
-              <div className='phone-wrap' onClick={this.props.rights.phone.edit
-                ? () => this.setState({phoneEdit: !this.state.phoneEdit, phone: config.data.phone}) : () => {}}>
-                <span>{config.data.phone}</span>
+            <div className={!this.props.editProfile ? 'phone-labels' : 'hidden'}>
+              <div className='phone-wrap' >
+                <span>{this.state.phone}</span>
               </div>
             </div>
           </div>
@@ -58,13 +63,16 @@ export default class Phone extends React.Component {
             </div>
             <img src={config.urls.media + 'add.svg'} />
           </div>}
-        <div className={this.state.phoneEdit ? 'phone-edit' : 'hidden'}>
+        <div className={this.props.editProfile ? 'phone-edit' : 'hidden'}>
           <div className='edit'>
-            <span className='label'>{config.translations.phone}:</span>
-            <input className='edit-input' type='tel' value={this.state.phone} onChange={e => this.setState({phone: e.target.value, error: ''})} />
+            <div>
+              <span className='label'>{config.translations.phone}:</span>
+              <input className='edit-input' type='tel' value={this.state.phone} onChange={e => this.setState({phone: e.target.value, error: ''})} />
+            </div>
+            <div onClick={this.delInfo}>X</div>
             {this.state.error && <div className='error'>{this.state.error}</div>}
           </div>
-          <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
+          {/* <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div> */}
         </div>
       </div>
     )

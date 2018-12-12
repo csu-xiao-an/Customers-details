@@ -57,9 +57,10 @@
     justify-content space-between
     width 100%
     .edit
-      justify-content space-around
-      flex-direction column
-       width 70%
+      display flex
+      align-items center
+      justify-content space-between
+      width 100%
       .edit-input
         display flex
         border none
@@ -68,7 +69,6 @@
         // height 30px
         width 80%
         font-weight 500
-        color var(--headerColor)
         &:focus
           outline none
       .label
