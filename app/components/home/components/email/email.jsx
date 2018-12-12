@@ -25,16 +25,20 @@ export default class Email extends React.Component {
       this.setState({error: 'E-mail is incorrect!'})
     }
   }
+  componentDidMount = () => {
+    this.setState({email: config.data.email})
+  }
+  delInfo = () => {
+    this.setState({email: ''})
+  }
   render () {
     return this.props.rights.isEmail && (
       <div id='email'>
-        <div className={config.data.email ? this.state.emailEdit ? 'hidden' : 'gmailwrap' : 'hidden'}>
+        <div className={!this.props.editProfile ? 'gmailwrap' : 'hidden'}>
           <div className='data-wrap'>
             <span className='label'>{config.translations.email}:</span>
             <div className='gmailcom'>
-              <span onClick={this.props.rights.email.send_email
-                ? () => this.setState({emailEdit: !this.state.emailEdit, email: config.data.email})
-                : () => {}}>{config.data.email}
+              <span>{this.state.email}
               </span>
             </div>
           </div>
@@ -52,13 +56,16 @@ export default class Email extends React.Component {
             <img src={config.urls.media + 'add.svg'} />
           </div>
         }
-        <div className={this.state.emailEdit ? 'email-edit' : 'hidden'}>
+        <div className={this.props.editProfile ? 'email-edit' : 'hidden'}>
           <div className='edit'>
-            <span className='label'>{config.translations.email}:</span>
-            <input className='edit-input' type='email' value={this.state.email} onChange={e => this.setState({email: e.target.value, error: ''})} />
-            {this.state.error && <div className='error'>{this.state.error}</div>}
+            <div>
+              <span className='label'>{config.translations.email}:</span>
+              <input className='edit-input' type='email' value={this.state.email} onChange={e => this.setState({email: e.target.value, error: ''})} />
+              {this.state.error && <div className='error'>{this.state.error}</div>}
+            </div>
+            <div onClick={this.delInfo}>X</div>
           </div>
-          <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div>
+          {/* <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div> */}
         </div>
       </div>
     )

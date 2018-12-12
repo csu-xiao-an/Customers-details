@@ -27,7 +27,7 @@ export default class Sex extends React.Component {
   deleteGender = () => {
     clientReplaceService(`${config.urls.gender}=null`).then(r => {
       if (r.status === 204) {
-        config.data.gender = null
+        config.data.gender = 'Select gender'
         this.setState({label: config.translations.selectGender, femaleSelected: false, maleSelected: false})
       }
     })
@@ -42,6 +42,7 @@ export default class Sex extends React.Component {
         if (r.status === 204) {
           config.data.gender = 'male'
           this.setState({label: config.translations.male, maleSelected: true, femaleSelected: false, changeState: false})
+          this.props.delSex
         }
       })
     })
@@ -50,6 +51,7 @@ export default class Sex extends React.Component {
         if (r.status === 204) {
           config.data.gender = 'female'
           this.setState({label: config.translations.female, maleSelected: false, femaleSelected: true, changeState: false})
+          this.props.delSex
         }
       })
     })
@@ -76,17 +78,18 @@ export default class Sex extends React.Component {
     document.body.appendChild(divNode)
   }
   render () {
+    console.log(this.props);
     return (
       <div id='sex'>
         <div className='block'>
-          <div className='gender' onClick={this.handleGenderClick}>
+          <div className='gender' onClick={this.props.editProfile && this.handleGenderClick}>
             <span className='label'>{config.translations.gender}:</span>
             <span className='block-content'>
               <span className='sex-label'>{this.state.label}</span>
             </span>
           </div>
           <div className='delete-gender' onClick={this.deleteGender} >
-            {(config.data.gender === 'male' || config.data.gender === 'female') &&  <img className={config.translations.selectGender} src={config.urls.media + 'btn-not.svg'}></img> }
+            {this.props.editProfile && <div>X</div>}
           </div>
         </div>
         <div className={this.state.changeState ? 'block1' : 'block change-state-disable'} >
