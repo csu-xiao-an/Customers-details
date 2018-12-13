@@ -63,7 +63,6 @@
   width 100%
   .edit
     display flex
-    align-items center
     justify-content space-between
     width 100%
     .edit-input
@@ -75,18 +74,21 @@
       color var(--headerColor)
       &:focus
         outline none
-    .del-wrap
-      width 24px
-      height 24px
-      border 1px solid #deceff
-      border-radius 50%
+    .del-info
       display flex
       align-items center
-      justify-content center
-      img 
-        width 17px
-        height 17px
-        transform rotate(45deg)
+      .del-wrap
+        width 24px
+        height 24px
+        border 1px solid #deceff
+        border-radius 50%
+        display flex
+        align-items center
+        justify-content center
+        img 
+          width 17px
+          height 17px
+          transform rotate(45deg)
   .button
     display flex
     align-items center
