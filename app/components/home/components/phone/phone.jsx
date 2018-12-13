@@ -6,6 +6,7 @@ export default class Phone extends React.Component {
     phoneEdit: false,
     phone: config.data.phone,
     phoneTemp: '',
+    rofl: 2222,
     error: ''
   }
   static propTypes = {
@@ -32,6 +33,7 @@ export default class Phone extends React.Component {
   delInfo = () => {
     this.setState({phoneTemp: ''})
   }
+
   render () {
     return this.props.rights.isPhone && (
       <div id='phone'>
@@ -68,10 +70,12 @@ export default class Phone extends React.Component {
           <div className='edit'>
             <div>
               <span className='label'>{config.translations.phone}:</span>
-              <input className='edit-input' type='tel' value={this.state.phoneTemp} onChange={e => this.setState({phoneTemp: e.target.value, error: ''})} />
+              <input className='edit-input' type='tel' value={this.state.phoneTemp} onBlur={() => { this.props.updateData(this.state.rofl)} }onChange={e => this.setState({phoneTemp: e.target.value, error: ''})} />
             </div>
-            <div className='del-wrap' onClick={this.delInfo}>
-              <img src={config.urls.media + 'plus2.svg'} />
+            <div className='del-info'>
+              <div className='del-wrap' onClick={this.delInfo}>
+                <img src={config.urls.media + 'plus2.svg'} />
+              </div>
             </div>
             {this.state.error && <div className='error'>{this.state.error}</div>}
           </div>
