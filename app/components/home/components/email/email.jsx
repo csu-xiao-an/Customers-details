@@ -61,7 +61,10 @@ export default class Email extends React.Component {
           <div className='edit'>
             <div>
               <span className='label'>{config.translations.email}:</span>
-              <input className='edit-input' type='email' value={this.state.emailTemp} onChange={e => this.setState({emailTemp: e.target.value, error: ''})} />
+              <input className='edit-input'
+                type='email'
+                value={this.state.emailTemp}
+                onChange={e => this.setState({emailTemp: e.target.value, error: ''}, () => this.props.getEmail(this.state.emailTemp))} />
               {this.state.error && <div className='error'>{this.state.error}</div>}
             </div>
             <div className='del-info'>

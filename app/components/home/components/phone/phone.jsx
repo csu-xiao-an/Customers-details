@@ -70,7 +70,10 @@ export default class Phone extends React.Component {
           <div className='edit'>
             <div>
               <span className='label'>{config.translations.phone}:</span>
-              <input className='edit-input' type='tel' value={this.state.phoneTemp} onBlur={() => { this.props.updateData(this.state.rofl)} }onChange={e => this.setState({phoneTemp: e.target.value, error: ''})} />
+              <input className='edit-input'
+                type='tel'
+                value={this.state.phoneTemp}
+                onChange={e => this.setState({phoneTemp: e.target.value, error: ''}, () => this.props.getPhone(this.state.phoneTemp))} />
             </div>
             <div className='del-info'>
               <div className='del-wrap' onClick={this.delInfo}>
