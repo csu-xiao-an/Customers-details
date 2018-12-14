@@ -6,15 +6,16 @@ import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
+import {clientReplaceService} from 'project-services'
 const {Link} = ReactRouterDOM
 
 export default class Profile extends React.Component {
-    state = {
-      visibleMapPopup: false,
-      address: '',
-      name: '',
-      editProfile: false
-    }
+state = {
+  visibleMapPopup: false,
+  address: '',
+  name: '',
+  editProfile: false
+}
 componentDidMount = () => {
   this.setState({address: config.data.address, name: config.data.name})
 }
@@ -38,29 +39,38 @@ delEmail = () => {
 delSex = () => {
   this.setState({email: config.data.email})
 }
-updateData = (value) => {
-  this.setState({ phone: value })
-  console.log(this.state.phone);
+getPhone = value => {
+  this.setState({ phone: value }, () => this.state.phone)
+}
+getEmail = value => {
+  this.setState({ email: value }, () => this.state.email)
+}
+getGender = value => {
+  this.setState({ gender: value }, () => this.state.gender)
+}
+check = () => {
+  config.data[config.urls.fields.address] = this.state.inputValue
 }
 saveAll = () => {
-  const body = {
-    added: moment.utc().format('YYYY-MM-DD hh:mm:ss')
-  }
-  Promise.all(config.data).forEach(i => {
-    if (i === 'name') {
-      body[i] = JSON.stringify(config.data[i])
-    } else if (i === 'email') {
-      body[i] = JSON.stringify(config.data[i])
-    } else if (i === 'phone') {
-      body[i] = JSON.stringify(config.data[i])
-    } else if (i === 'address') {
-      body[i] = JSON.stringify(config.data[i])
-    } else if (i === 'gender') {
-      body[i] = JSON.stringify(config.data[i])
-    } else {
-      body[i] = config.data[i]
+  const fields = ['name', 'address', 'gender', 'email', 'phone']
+  const body = Object.keys(this.state).reduce((params, field) => {
+    if (fields.includes(field) && this.state[field]) {
+      const value = `"${this.state[field]}"`
+      const param = `${field}=${value}`
+      return params + (params.length ? `&${param}` : param)
+    }
+    return params
+  }, '')
+  clientReplaceService(body).then(r => {
+    if (r.status === 204) {
+      // config.data.phone = this.state.phone
+      // config.data.address = this.state.address
+      // config.data.gender = this.state.gender
+      // config.data.email = this.state.email
+      // config.data.name = this.state.name
     }
   })
+  this.setState({ editProfile: false })
 }
 render () {
   const { isVisibleFields } = this.props
@@ -94,11 +104,12 @@ render () {
       </div>
       {(this.props.isVisibleFields || config.data.phone) &&
         <Phone editProfile={this.state.editProfile} 
-          updateData={this.updateData}
+          getPhone={this.getPhone}
           {...this.props} />}
       {(this.props.isVisibleFields || config.data.email) &&
         <Email editProfile={this.state.editProfile}
           delEmail={this.delEmail}
+          getEmail={this.getEmail}
           {...this.props} />}
       {/* {(this.props.isVisibleFields || config.data.address) && */}
       {!this.state.editProfile ? <div id='address'>
@@ -141,7 +152,7 @@ render () {
           </div>
         </div>}
       {/* {!config.data.gender && <Sex {...this.props} />} */}
-      {(this.props.isVisibleFields || config.data.gender) && <Sex editProfile={this.state.editProfile}{...this.props} />}
+      {(this.props.isVisibleFields || config.data.gender) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
       {(this.props.isVisibleFields || (config.data.birthdate || config.data.birthyear)) && <Birthdate {...this.props} />}
       {config.data.phone && <Sendlink {...this.props} />}
       <Agreement {...this.props} />
