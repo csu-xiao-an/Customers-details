@@ -38,6 +38,17 @@ export default class Birthdate extends React.Component {
       })
     }
   }
+  save1 = () => {
+    // const { day, month, year } = this.state
+    // const birthdate = day && month && `birthdate=${month}-${day}`
+    // const birthyear = `birthyear=${year}`
+    // if (birthdate || birthyear) {
+    this.setState({
+      configValue1: ''
+    })
+    config.data.birthdate = ''
+    config.data.birthyear = ''
+  }
   validation = (value, max) => (value < 0 && 1) || (value >= max && max) || (+value && `${+value}`.padStart(2, '0')) || ''
   changeDay = ({target}) => {
     target.value = this.validation(target.value, 31)
@@ -52,24 +63,23 @@ export default class Birthdate extends React.Component {
     target.value = (target.value < 0 && 1) || (target.value >= currentYear && currentYear) || (+target.value && target.value) || ''
     this.setState({year: target.value})
   }
-  getBirthdate = value => this.setState({birthdate: value})
-  getBirthyear = value => this.setState({birthyear: value})
+  getBirthdate = value => this.setState({birthdate: value}, () => this.props.getBdate(this.state.birthdate))
+  getBirthyear = value => this.setState({birthyear: value}, () => this.props.getByear(this.state.birthyear))
   getHandleDay = value => this.setState({day: value})
   getHandleMonth = value => this.setState({month: value})
   getHandleYear = value => this.setState({year: value})
   render () {
+    // console.log('config.data.birthdate', config.data.birthdate);
     return (
       <div id='birthdate' className='block'>
-        <div className={this.state.configValue1 ? this.state.birthdateEdit ? 'hidden' : 'wrapBDay' : 'hidden'}>
+        <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.birthday}:</span>
-          <span onClick={this.props.rights.birthdate.edit
-            ? () => this.setState({birthdateEdit: !this.state.birthdateEdit})
-            : () => {}}>
-            {this.state.configValue}
+          <span>
+            {this.state.birthyear}-{this.state.birthdate}
           </span>
         </div>
         {
-          !this.state.birthdateEdit && !this.state.configValue1 &&
+          this.props.editProfile && !this.state.configValue1 &&
           <div onClick={() => this.setState({birthdateEdit: !this.state.birthdateEdit})}
             className={!this.state.configValue1 || this.state.birthdateEdit ? 'add-birth' : 'hidden'}>
             <div className='wrap-birth'>
@@ -79,7 +89,7 @@ export default class Birthdate extends React.Component {
             <img src={config.urls.media + 'add.svg'} />
           </div>
         }
-        <div className={this.state.birthdateEdit ? 'birthdate-edit' : 'hidden'}>
+        <div className={this.props.editProfile ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
             <Datepicker defaultValue={this.state.configValue} 
@@ -91,7 +101,7 @@ export default class Birthdate extends React.Component {
               getHandleYear={this.getHandleYear}
             />
           </div>
-          <div className='button'><button onClick={this.save}>{config.translations.save}</button></div>
+          {/* <div className='button'><button onClick={this.save1}>{config.translations.save}</button></div> */}
         </div>
       </div>
     )

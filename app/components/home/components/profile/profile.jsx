@@ -40,39 +40,56 @@ delSex = () => {
   this.setState({email: config.data.email})
 }
 getPhone = value => {
-  this.setState({ phone: value }, () => this.state.phone)
+  this.setState({ phone: value })
 }
 getEmail = value => {
-  this.setState({ email: value }, () => this.state.email)
+  this.setState({ email: value })
 }
 getGender = value => {
-  this.setState({ gender: value }, () => this.state.gender)
+  this.setState({ gender: value })
+}
+getBdate = value => {
+  this.setState({ birthdate: value })
+}
+getByear = value => {
+  this.setState({ birthyear: value })
+}
+getArgeement = value => {
+  this.setState({ agreement: value })
 }
 check = () => {
   config.data[config.urls.fields.address] = this.state.inputValue
 }
 saveAll = () => {
-  const fields = ['name', 'address', 'gender', 'email', 'phone']
+  const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'agreement']
   const body = Object.keys(this.state).reduce((params, field) => {
+    debugger
     if (fields.includes(field) && this.state[field]) {
-      const value = `"${this.state[field]}"`
-      const param = `${field}=${value}`
-      return params + (params.length ? `&${param}` : param)
+      const value = `${this.state[field]}`
+      const result = `${field}=${value}`
+      const arr1 = config.data[field]
+      if (arr1 !== value) {
+        return params + (params.length ? `&${result}` : result)
+      }
+      return params + (params.length ? `&${result}` : result)
     }
     return params
   }, '')
   clientReplaceService(body).then(r => {
     if (r.status === 204) {
-      // config.data.phone = this.state.phone
-      // config.data.address = this.state.address
-      // config.data.gender = this.state.gender
-      // config.data.email = this.state.email
-      // config.data.name = this.state.name
+      config.data.birthdate = this.state.birthdate
+      config.data.birthyear = this.state.birthyear
+      config.data.phone = this.state.phone
+      config.data.address = this.state.address
+      config.data.gender = this.state.gender
+      config.data.email = this.state.email
+      config.data.name = this.state.name
     }
   })
   this.setState({ editProfile: false })
 }
 render () {
+  console.log(this.state);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
@@ -116,7 +133,7 @@ render () {
         <div className='address-wrap'>
           <span className='label'>{config.translations.address}:</span>
           <div className='block-content'>
-            <div className='text'>{this.state.address}</div>
+            <div className='text'>{config.data.address}</div>
           </div>
         </div>
         <div className='images'>
@@ -153,9 +170,10 @@ render () {
         </div>}
       {/* {!config.data.gender && <Sex {...this.props} />} */}
       {(this.props.isVisibleFields || config.data.gender) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
-      {(this.props.isVisibleFields || (config.data.birthdate || config.data.birthyear)) && <Birthdate {...this.props} />}
+      {(this.props.isVisibleFields || (config.data.birthdate || config.data.birthyear)) &&
+        <Birthdate editProfile={this.state.editProfile}getBdate={this.getBdate}getByear={this.getByear}{...this.props} />}
       {config.data.phone && <Sendlink {...this.props} />}
-      <Agreement {...this.props} />
+      <Agreement editProfile={this.state.editProfile}getArgeement={this.getArgeement}{...this.props} />
     </div>
   )
 }
