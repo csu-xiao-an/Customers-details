@@ -13,7 +13,6 @@ export default class Agreement extends React.Component {
   }
 
   render () {
-    console.log(this.state.isChecked);
     return (
       <div id='agreement'>
         <div className='agreement-wrap'>

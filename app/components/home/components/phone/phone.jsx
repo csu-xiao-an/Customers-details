@@ -6,27 +6,26 @@ export default class Phone extends React.Component {
     phoneEdit: false,
     phone: config.data.phone,
     phoneTemp: '',
-    rofl: 2222,
     error: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
-  submit = () => {
-    const { phone } = this.state
-    const isPhone = ~phone.search(/^[0-9\+]{9,15}$/)
-    if (isPhone) {
-      const body = `${config.urls.phone}=${phone}`
-      clientReplaceService(body).then(r => {
-        if (r.status === 204) {
-          config.data.phone = this.state.phone
-          this.setState({phoneEdit: !this.state.phoneEdit, phone: ''})
-        }
-      })
-    } else {
-      this.setState({error: 'Phone number is incorrect!'})
-    }
-  }
+  // submit = () => {
+  //   const { phone } = this.state
+  //   const isPhone = ~phone.search(/^[0-9\+]{9,15}$/)
+  //   if (isPhone) {
+  //     const body = `${config.urls.phone}=${phone}`
+  //     clientReplaceService(body).then(r => {
+  //       if (r.status === 204) {
+  //         config.data.phone = this.state.phone
+  //         this.setState({phoneEdit: !this.state.phoneEdit, phone: ''})
+  //       }
+  //     })
+  //   } else {
+  //     this.setState({error: 'Phone number is incorrect!'})
+  //   }
+  // }
   componentDidMount = () => {
     this.setState({phoneTemp: config.data.phone})
   }
