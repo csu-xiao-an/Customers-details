@@ -63,19 +63,14 @@ check = () => {
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'agreement']
   const body = Object.keys(this.state).reduce((params, field) => {
-    debugger
-    if (fields.includes(field) && this.state[field]) {
+    if (fields.includes(field) && this.state[field] && this.state[field] !== config.data[field]) {
       const value = `${this.state[field]}`
       const result = `${field}=${value}`
-      const arr1 = config.data[field]
-      if (arr1 !== value) {
-        return params + (params.length ? `&${result}` : result)
-      }
       return params + (params.length ? `&${result}` : result)
     }
     return params
   }, '')
-  clientReplaceService(body).then(r => {
+  body && clientReplaceService(body).then(r => {
     if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
@@ -89,7 +84,6 @@ saveAll = () => {
   this.setState({ editProfile: false })
 }
 render () {
-  console.log(this.state);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
