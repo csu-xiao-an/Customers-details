@@ -38,32 +38,24 @@ export default class Sex extends React.Component {
   }
   selectedSex = () => {
     this.refs.radioMale.addEventListener('click', e => {
-      clientReplaceService(`${config.urls.gender}=male`).then(r => {
-        if (r.status === 204) {
-          config.data.gender = 'male'
-          this.setState({label: config.translations.male,
-            maleSelected: true,
-            femaleSelected: false,
-            changeState: false
-          },
-          () => this.props.getGender(config.data.gender))
-          this.props.delSex
-        }
-      })
+      config.data.gender = 'male'
+      this.setState({label: config.translations.male,
+        maleSelected: true,
+        femaleSelected: false,
+        changeState: false
+      },
+      () => this.props.getGender(config.data.gender))
+      this.props.delSex
     })
     this.refs.radioFemale.addEventListener('click', e => {
-      clientReplaceService(`${config.urls.gender}=female`).then(r => {
-        if (r.status === 204) {
-          config.data.gender = 'female'
-          this.setState({label: config.translations.female,
-            maleSelected: false,
-            femaleSelected: true,
-            changeState: false
-          },
-          () => this.props.getGender(config.data.gender))
-          this.props.delSex
-        }
-      })
+      config.data.gender = 'female'
+      this.setState({label: config.translations.female,
+        maleSelected: false,
+        femaleSelected: true,
+        changeState: false
+      },
+      () => this.props.getGender(config.data.gender))
+      this.props.delSex
     })
   }
 
