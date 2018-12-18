@@ -8,7 +8,6 @@ export default class Agreement extends React.Component {
 
   handleAds = () => {
     this.setState({isChecked: !this.state.isChecked}, () => this.props.getArgeement(this.state.isChecked))
-    // this.props.getArgeement(this.state.isChecked)
     this.forceUpdate()
   }
 
