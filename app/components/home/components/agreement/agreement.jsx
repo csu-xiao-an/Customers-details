@@ -3,12 +3,12 @@ import './agreement.styl'
 
 export default class Agreement extends React.Component {
   state = {
-    isChecked: config.data.permit_ads
+    isChecked: false
   }
 
   handleAds = () => {
-    this.setState({isChecked: !this.state.isChecked})
-    this.props.getArgeement(this.state.isChecked)
+    this.setState({isChecked: !this.state.isChecked}, () => this.props.getArgeement(this.state.isChecked))
+    // this.props.getArgeement(this.state.isChecked)
     this.forceUpdate()
   }
 

@@ -17,7 +17,13 @@ state = {
   editProfile: false
 }
 componentDidMount = () => {
-  this.setState({address: config.data.address, name: config.data.name})
+  this.setState({
+    address: config.data.address,
+    name: config.data.name,
+    phone: config.data.phone,
+    email: config.data.email,
+    gender: config.data.gender
+  })
 }
 delName = () => {
   this.setState({name: ''})
@@ -29,8 +35,13 @@ backAll = () => {
   this.setState({
     address: config.data.address,
     name: config.data.name,
-    editProfile: false,
-    email: config.data.email
+    phone: config.data.phone,
+    email: config.data.email,
+    gender: config.data.gender,
+    birthdate: config.data.birthdate,
+    birthyear: config.data.birthyear,
+    agreement: config.data.permit_ads,
+    editProfile: false
   })
 }
 delEmail = () => {
@@ -57,9 +68,9 @@ getByear = value => {
 getArgeement = value => {
   this.setState({ agreement: value })
 }
-check = () => {
-  config.data[config.urls.fields.address] = this.state.inputValue
-}
+// check = () => {
+//   config.data[config.urls.fields.address] = this.state.inputValue
+// }
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'agreement']
   const body = Object.keys(this.state).reduce((params, field) => {
@@ -74,16 +85,21 @@ saveAll = () => {
     if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
-      config.data.phone = this.state.phone
-      config.data.address = this.state.address
-      config.data.gender = this.state.gender
-      config.data.email = this.state.email
-      config.data.name = this.state.name
+      config.data.phone && (config.data.phone = this.state.phone)
+      config.data.address && (config.data.address = this.state.address)
+      config.data.email && (config.data.email = this.state.email)
+      config.data.name && (config.data.name = this.state.name)
+      config.data.gender && (config.data.gender = this.state.gender)
+      config.data.permit_ads && (config.data.permit_ads = this.state.agreement)
+      // console.log(config.data.email);
+      this.forceUpdate()
     }
   })
   this.setState({ editProfile: false })
 }
 render () {
+  // console.log(this.state.email);
+  // console.log('cfg', config.data.email);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
@@ -91,16 +107,25 @@ render () {
         <h2 className='block-title'>{config.translations.profile}</h2>
         {this.state.editProfile 
           ? <div className='back-save-btn'>
-            <div className='back-btn' onClick={this.backAll}>Back</div>
-            <div className='save-btn' onClick={this.saveAll}>Save</div>
+            <div className='back-wrap'>
+              <div className='img-back'><img src={config.urls.media + 'arrow-left.svg'} /></div>
+              <div className='back-btn' onClick={this.backAll}>{config.translations.back}</div>
+            </div>
+            <div className='save-wrap'>
+              <div><img src={config.urls.media + 'apply.svg'} /></div>
+              <div className='save-btn' onClick={this.saveAll}>{config.translations.done}</div>
+            </div>
           </div>
-          : <div onClick={() => this.setState({editProfile: true})}>Edit</div>}
+          : <div className='edit-profile' onClick={() => this.setState({editProfile: true})}>
+            <div className='edit-wrap'><img className='img-edit-profile' src={config.urls.media + 'edit-note.svg'} /></div>
+            <div>{config.translations.editProfile}</div>
+          </div>}
       </div>
       <div id='name'>
         {!this.state.editProfile ? <div className='fullname'>
           <div>
             <span className='label'>{config.translations.name}:</span>
-            <span className='block-content'>{this.state.name}</span>
+            <span className='block-content'>{config.data.name}</span>
           </div>
         </div>
           : <div className='fullname-edit'>
@@ -116,11 +141,13 @@ render () {
       {(this.props.isVisibleFields || config.data.phone) &&
         <Phone editProfile={this.state.editProfile} 
           getPhone={this.getPhone}
+          hatePhone={this.state.phone}
           {...this.props} />}
       {(this.props.isVisibleFields || config.data.email) &&
         <Email editProfile={this.state.editProfile}
           delEmail={this.delEmail}
           getEmail={this.getEmail}
+          hateEmail={this.state.email}
           {...this.props} />}
       {/* {(this.props.isVisibleFields || config.data.address) && */}
       {!this.state.editProfile ? <div id='address'>
@@ -165,7 +192,12 @@ render () {
       {/* {!config.data.gender && <Sex {...this.props} />} */}
       {(this.props.isVisibleFields || config.data.gender) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
       {(this.props.isVisibleFields || (config.data.birthdate || config.data.birthyear)) &&
-        <Birthdate editProfile={this.state.editProfile}getBdate={this.getBdate}getByear={this.getByear}{...this.props} />}
+        <Birthdate editProfile={this.state.editProfile}
+          getBdate={this.getBdate}
+          getByear={this.getByear}
+          hateBdate={this.state.birthdate}
+          hateByear={this.state.birthyear}
+          {...this.props} />}
       {config.data.phone && <Sendlink {...this.props} />}
       <Agreement editProfile={this.state.editProfile}getArgeement={this.getArgeement}{...this.props} />
     </div>

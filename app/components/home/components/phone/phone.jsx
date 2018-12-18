@@ -4,8 +4,7 @@ import './phone.styl'
 export default class Phone extends React.Component {
   state = {
     phoneEdit: false,
-    phone: config.data.phone,
-    phoneTemp: '',
+    phone: this.props.hatePhone,
     error: ''
   }
   static propTypes = {
@@ -27,10 +26,10 @@ export default class Phone extends React.Component {
   //   }
   // }
   componentDidMount = () => {
-    this.setState({phoneTemp: config.data.phone})
+    this.setState({phone: config.data.phone})
   }
   delInfo = () => {
-    this.setState({phoneTemp: ''})
+    this.setState({phone: ''})
   }
 
   render () {
@@ -41,7 +40,7 @@ export default class Phone extends React.Component {
             <span className='label'>{config.translations.phone}:</span>
             <div className={!this.props.editProfile ? 'phone-labels' : 'hidden'}>
               <div className='phone-wrap' >
-                <span>{this.state.phone}</span>
+                <span>{config.data.phone}</span>
               </div>
             </div>
           </div>
@@ -71,8 +70,10 @@ export default class Phone extends React.Component {
               <span className='label'>{config.translations.phone}:</span>
               <input className='edit-input'
                 type='tel'
-                value={this.state.phoneTemp}
-                onChange={e => this.setState({phoneTemp: e.target.value, error: ''}, () => this.props.getPhone(this.state.phoneTemp))} />
+                value={this.state.phone}
+                onChange={e => this.setState({phone: e.target.value, error: ''}, () => this.props.getPhone(this.state.phone))}
+                // onBlur={this.setState({phone: this.state.phoneTemp})}
+              />
             </div>
             <div className='del-info'>
               <div className='del-wrap' onClick={this.delInfo}>

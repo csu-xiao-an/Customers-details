@@ -4,8 +4,7 @@ import './email.styl'
 export default class Email extends React.Component {
   state = {
     emailEdit: false,
-    email: config.data.email,
-    emailTemp: '',
+    email: this.props.hateEmail,
     error: ''
   }
   static propTypes = {
@@ -27,10 +26,10 @@ export default class Email extends React.Component {
   //   }
   // }
   componentDidMount = () => {
-    this.setState({emailTemp: config.data.email})
+    this.setState({email: config.data.email})
   }
   delInfo = () => {
-    this.setState({emailTemp: ''})
+    this.setState({email: ''})
   }
   render () {
     return this.props.rights.isEmail && (
@@ -39,7 +38,7 @@ export default class Email extends React.Component {
           <div className='data-wrap'>
             <span className='label'>{config.translations.email}:</span>
             <div className='gmailcom'>
-              <span>{this.state.email}
+              <span>{config.data.email}
               </span>
             </div>
           </div>
@@ -63,8 +62,8 @@ export default class Email extends React.Component {
               <span className='label'>{config.translations.email}:</span>
               <input className='edit-input'
                 type='email'
-                value={this.state.emailTemp}
-                onChange={e => this.setState({emailTemp: e.target.value, error: ''}, () => this.props.getEmail(this.state.emailTemp))} />
+                value={this.state.email}
+                onChange={e => this.setState({email: e.target.value, error: ''}, () => this.props.getEmail(this.state.email))} />
               {this.state.error && <div className='error'>{this.state.error}</div>}
             </div>
             <div className='del-info'>

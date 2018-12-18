@@ -62,6 +62,7 @@ var config = {
     },
     language: 'en',
     edit: '',
+    editProfile: 'Edit',
     del: 'X',
     profile: 'Personal Info',
     sent: 'Sent',

@@ -22,33 +22,33 @@ export default class Birthdate extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
-  save = () => {
-    const { day, month, year } = this.state
-    const birthdate = day && month && `birthdate=${month}-${day}`
-    const birthyear = `birthyear=${year}`
-    if (birthdate || birthyear) {
-      clientReplaceService([birthyear, birthdate].filter(i => i).join('&')).then(r => {
-        if (r.status === 204) {
-          this.setState({
-            configValue: `${year}-${day && month && month}-${day && month && day}`,
-            configValue1: `${year}-${day && month && month}-${day && month && day}`,
-            birthdateEdit: false
-          })
-        }
-      })
-    }
-  }
-  save1 = () => {
-    // const { day, month, year } = this.state
-    // const birthdate = day && month && `birthdate=${month}-${day}`
-    // const birthyear = `birthyear=${year}`
-    // if (birthdate || birthyear) {
-    this.setState({
-      configValue1: ''
-    })
-    config.data.birthdate = ''
-    config.data.birthyear = ''
-  }
+  // save = () => {
+  //   const { day, month, year } = this.state
+  //   const birthdate = day && month && `birthdate=${month}-${day}`
+  //   const birthyear = `birthyear=${year}`
+  //   if (birthdate || birthyear) {
+  //     clientReplaceService([birthyear, birthdate].filter(i => i).join('&')).then(r => {
+  //       if (r.status === 204) {
+  //         this.setState({
+  //           configValue: `${year}-${day && month && month}-${day && month && day}`,
+  //           configValue1: `${year}-${day && month && month}-${day && month && day}`,
+  //           birthdateEdit: false
+  //         })
+  //       }
+  //     })
+  //   }
+  // }
+  // save1 = () => {
+  // const { day, month, year } = this.state
+  // const birthdate = day && month && `birthdate=${month}-${day}`
+  // const birthyear = `birthyear=${year}`
+  // if (birthdate || birthyear) {
+  //   this.setState({
+  //     configValue1: ''
+  //   })
+  //   config.data.birthdate = ''
+  //   config.data.birthyear = ''
+  // }
   validation = (value, max) => (value < 0 && 1) || (value >= max && max) || (+value && `${+value}`.padStart(2, '0')) || ''
   changeDay = ({target}) => {
     target.value = this.validation(target.value, 31)
@@ -69,13 +69,14 @@ export default class Birthdate extends React.Component {
   getHandleMonth = value => this.setState({month: value})
   getHandleYear = value => this.setState({year: value})
   render () {
-    // console.log('config.data.birthdate', config.data.birthdate);
+    // console.log('birthdate', config.data.birthdate);
+    // console.log('birthyear', config.data.birthyear);
     return (
       <div id='birthdate' className='block'>
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.birthday}:</span>
           <span>
-            {this.state.birthyear}-{this.state.birthdate}
+            {this.props.hateByear}-{this.props.hateBdate}
           </span>
         </div>
         {
