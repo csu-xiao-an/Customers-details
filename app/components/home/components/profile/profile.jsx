@@ -74,6 +74,7 @@ getArgeement = value => {
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'agreement']
   const body = Object.keys(this.state).reduce((params, field) => {
+    // debugger
     if (fields.includes(field) && this.state[field] && this.state[field] !== config.data[field]) {
       const value = `${this.state[field]}`
       const result = `${field}=${value}`
@@ -91,15 +92,12 @@ saveAll = () => {
       config.data.name && (config.data.name = this.state.name)
       config.data.gender && (config.data.gender = this.state.gender)
       config.data.permit_ads && (config.data.permit_ads = this.state.agreement)
-      // console.log(config.data.email);
       this.forceUpdate()
     }
   })
   this.setState({ editProfile: false })
 }
 render () {
-  // console.log(this.state.email);
-  // console.log('cfg', config.data.email);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
