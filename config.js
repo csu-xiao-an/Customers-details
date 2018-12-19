@@ -39,7 +39,7 @@ var config = {
     hot_links: {
       timeline: 'Timeline',
       notes: 'Notes',
-      hair_dyeing: 'Hair Dyeing',
+      colors_beautech: 'Hair Dyeing',
       debts: 'Debts',
       gallery: 'Gallery',
       punch_cards: 'Punch cards'
@@ -343,7 +343,7 @@ var config = {
     hot_links: [
       {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {name: 'notes', img: '/dist/media/edit.png', url: '#notes'},
-      {name: 'hair_dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
+      {name: 'colors_beautech', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
       {name: 'debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
       {name: 'gallery', img: '/dist/media/icon_delete_selected.svg', url: '#gallery', plugin_name: 'gallery'},
       {name: 'punch_cards', img: '/dist/media/notes.svg', url: '/punch_cards', plugin_name: 'punch_cards'}
