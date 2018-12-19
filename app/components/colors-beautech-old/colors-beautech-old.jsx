@@ -16,8 +16,8 @@ class ColorsBeautechOld extends React.Component {
   chengeDate = e => this.setState({ ind: e.activeIndex })
   render () {
     const { ind } = this.state
-    const translations = config.translations.colors_beautech_old
-    const beautech = config.data.colors_beautech_old.sort((a, b) => moment(a.date) - moment(b.date))
+    const translations = config.translations.colors_beautech
+    const beautech = config.data.colors_beautech.sort((a, b) => moment(a.date) - moment(b.date))
     return (
       <div id='punch_cards_old'>
         <div className='btn-wrap'>
@@ -92,10 +92,10 @@ class ColorsBeautechOld extends React.Component {
           </div>
         </div>
         <div className='buttons-bot'>
-          <div className='buttons-bot-wrap' onClick={this.goPrev}>{config.translations.colors_beautech_old.back}
+          <div className='buttons-bot-wrap' onClick={this.goPrev}>{config.translations.colors_beautech.back}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} /></div>
           </div>
-          <div className='buttons-bot-wrap' onClick={this.goNext}>{config.translations.colors_beautech_old.next}
+          <div className='buttons-bot-wrap' onClick={this.goNext}>{config.translations.colors_beautech.next}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} /></div>
           </div>
         </div>

@@ -17,7 +17,7 @@ ReactDOM.render(
     <Switch>
       {isPunchCards && <Route path={baseUrl + config.urls.punch_cards_adding} component={PunchCardsAdd} />}
       {/* {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautech} />} */}
-      {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech_old} component={ColorsBeautechOld} />}
+      {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautechOld} />}
       {isPunchCards && <Route path={baseUrl + config.urls.punch_cards} component={PunchCards} />}
       <Route path={baseUrl + config.urls.timeline} component={Timeline} />
       <Route exact path={baseUrl + config.urls.home} component={Home} />

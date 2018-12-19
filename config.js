@@ -44,7 +44,7 @@ var config = {
       gallery: 'Gallery',
       punch_cards: 'Punch cards'
     },
-    colors_beautech_old: {
+    colors_beautech: {
       hightlights: 'Hightlights',
       date: 'date',
       colors: 'Colors',
@@ -290,7 +290,7 @@ var config = {
     worker_img: '/worker/{worker_id}.jpg',
     punch_cards_get: '/catalog/services',
     // colors_beautech: '/colors_beautech',
-    colors_beautech_old: '/colors_beautech',
+    colors_beautech: '/colors_beautech',
     groups_img: './dist/media/groups/',
     groups_img_default: 'default.svg',
     soc_net: './dist/media/soc_net/',
@@ -442,10 +442,16 @@ var config = {
     gallery: [
       {
         id: 1,
-        name: '01.png',
+        name: '222.jpg',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
+      // {
+      //   id: 1,
+      //   name: '01.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
       {
         id: 2,
         name: '02.png',
@@ -707,7 +713,7 @@ var config = {
         ]
       }
     ],
-    colors_beautech_old: [
+    colors_beautech: [
       {
         id: 139,
         type: 'Highlights',
@@ -808,155 +814,6 @@ var config = {
           dosing: '2-1'
         }
         ]
-      }
-    ],
-    colors_beautech: [
-      {
-        name: 'שורש גוונים',
-        date: '2017-12-30T19:52:08.195Z',
-        services: [
-          {
-            name: 'שורש',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'Inoa Supreme',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר',
-                comments: 'להרבב עם אבקת הבהרה של 15%'
-              },
-              {
-                color_number: 6.60,
-                color_quantity: '15גר',
-                brand: 'Inoa Supreme',
-                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          },
-          {
-            name: 'קצוות',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'High Rischesse',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          }
-        ],
-        comments: 'sdfad',
-        waiting_time: 'adfasd'
-      },
-      {
-        name: 'asdfasdf',
-        date: '2018-02-10T19:52:08.195Z',
-        services: [
-          {
-            name: 'שורש',
-            colors: [
-              {
-                color_number: 7.21,
-                color_quantity: '2dd',
-                brand: 'Supdreme',
-                oxy_percent: '7%',
-                oxy_quantity: '10 גר',
-                comments: 'להרבב עם אבקת הבהרה של 15%'
-              },
-              {
-                color_number: 6.60,
-                color_quantity: '15גר',
-                brand: 'Inoa Supreme',
-                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          },
-          {
-            name: 'asdfasd',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'High Rischesse',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          }
-        ],
-        comments: 'dasdf',
-        waiting_time: 'adfasdfa'
-      },
-      {
-        name: 'test',
-        date: '2057-12-30T19:52:08.195Z',
-        services: [
-          {
-            name: 'lol',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'Inoa Supreme',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר',
-                comments: 'להרבב עם אבקת הבהרה של 15%'
-              },
-              {
-                color_number: 6.60,
-                color_quantity: '15גר',
-                brand: 'Inoa Supreme',
-                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          },
-          {
-            name: 'lal',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'High Rischesse',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          }
-        ],
-        comments: 'asdfasdf',
-        waiting_time: 'asdfasdfasdfasdf'
       }
     ],
     punch_cards: [
