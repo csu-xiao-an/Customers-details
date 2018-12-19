@@ -29,7 +29,7 @@ export default class Debts extends React.Component {
   }
   update = () => {
     const d = moment().format('YYYY-MM-DD HH:mm')
-    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}&added=${d}`
+    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description && this.state.description}&added=${d}`
     debtReplaceService(body, this.state.debt_id).then(r => {
       if (r.status === 204) {
         config.data.debts[this.state.key].sum = this.state.debt
