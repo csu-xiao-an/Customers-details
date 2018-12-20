@@ -58,12 +58,15 @@ export default class Media extends React.Component {
   }
   addFile = e => {
     let file = e.target.files[0]
-    if (file.type.indexOf('image') !== -1) { e.preventDefault(); this.resize(file) } else
-    if (file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
-    if (file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
-    if (file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
+    // if (file) { file = '' }
+    // this.setState({imageEvent: file}, () => console.log(this.state.imageEvent))
+    if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); this.resize(file) } else
+    if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
+    if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
+    if (e.target.files.length && file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
     this.setState({file: file})
     document.querySelector('body').classList.toggle('no-scroll')
+    this.forceUpdate()
   }
   typeItem = (i, k) => {
     let src
@@ -208,17 +211,19 @@ export default class Media extends React.Component {
     this.setState({gallery: config.data.gallery})
   }
   handleMenuOff = () => {
-    this.setState({isAddMedia: false, imagePreviewUrl: ''},
+    // debugger
+    this.setState({isAddMedia: false, imagePreviewUrl: '', file: {}},
       () => {
+        $imagePreview.type = null
         $imagePreview = null
+        this.forceUpdate()
       })
     document.querySelector('body').classList.remove('no-scroll')
   }
-  handleDescBack = (e) => {
+  handleDescBack = e => {
     this.setState({desc: e.target.value})
   }
   render () {
-    console.log(this.state.slideAmount);
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
     }
@@ -307,12 +312,15 @@ export default class Media extends React.Component {
             </div>
           )
             : (this.props.rights.gallery.add &&
-            <label onClick={() => this.setState({isAddMedia: true})}
+            <label onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})}
               className={this.state.isAddMedia
-                ? 'hidden'
+                ? 'gallery-footer'
                 : 'gallery-footer'}
             >
-              <input className='file-input' type='file' onChange={e => this.addFile(e)} style={{display: 'none'}} />
+              <input className='file-input' type='file' onChange={e => {
+                this.addFile(e)
+                // this.handleMenuOff(e)
+              }} style={{display: 'none'}} />
               <label>{config.translations.add_media}</label>
               <img src={config.urls.media + 'c_add_stroke.svg'} />
             </label>)}
