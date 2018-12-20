@@ -218,6 +218,7 @@ export default class Media extends React.Component {
     this.setState({desc: e.target.value})
   }
   render () {
+    console.log(this.state.slideAmount);
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
     }
@@ -228,7 +229,7 @@ export default class Media extends React.Component {
             {config.translations.gallery}
           </div>
           <div className='files-amount'>
-            {config.translations.files + ': ' + this.state.slideAmount}
+            {config.data.gallery.length ? (config.translations.files + ': ' + this.state.slideAmount) : (config.translations.files + ': ' + '0')}
             {this.state.slideAmount ? <div className='action'>
               {this.checkAccessLevel
                 ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
