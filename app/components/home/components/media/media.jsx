@@ -319,6 +319,7 @@ export default class Media extends React.Component {
             >
               <input className='file-input' type='file' onChange={e => {
                 this.addFile(e)
+                e.target.value = null
                 // this.handleMenuOff(e)
               }} style={{display: 'none'}} />
               <label>{config.translations.add_media}</label>
