@@ -1,4 +1,4 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #events
   a
     text-decoration: none;
@@ -6,7 +6,7 @@
   .event-header
     margin 0 7px 3px 7px
     display flex
-    background-color $blockBackground
+    background-color var(--blockBackground)
     border-top-left-radius 8px
     border-top-right-radius 8px
     height 4em
@@ -17,7 +17,7 @@
   .event-footer
     margin 3px 7px 0 7px
     display flex
-    background-color $blockBackground
+    background-color var(--blockBackground)
     border-bottom-left-radius 8px
     border-bottom-right-radius 8px
     height 4em
@@ -25,7 +25,7 @@
     label
       margin auto 10px
       font-size 0.8em
-      color $headerColor
+      color var(--headerColor)
       font-weight 800
   #swiper-wrap-notes
     .swiper-container
@@ -35,7 +35,7 @@
           padding 0 3px 0 0
           width auto
           .note
-            background-color $blockBackground
+            background-color var(--blockBackground)
             border-radius 4px
             width 17.6em
             min-height 9.1em
@@ -45,7 +45,7 @@
               display flex
               flex-direction row
               min-height 3.5em
-              border-bottom 1px solid $mainBackground
+              border-bottom 1px solid var(--mainBackground)
               span
                 font-size: 12px;
                 font-weight: bold;
@@ -70,7 +70,7 @@
               .dates
                 margin auto
                 margin-right 0
-                margin-left $marginDates
+                margin-left var(--marginDates)
                 span
                   font-size: 11px;
                   font-weight: 300;
@@ -88,7 +88,7 @@
               font-size 30px
               float right
               display flex
-              border-left 1px solid $mainBackground
+              border-left 1px solid var(--mainBackground)
               flex-direction column
               height 2.1em
               span

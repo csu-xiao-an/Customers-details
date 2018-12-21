@@ -1,9 +1,11 @@
 import {formatDate, dataURLtoFile, getOrientation, Swiper} from 'project-components'
 import GalleryModal from '../media-modal/media-modal.jsx'
+import GalleryPopup from '../gallery-popup/gallery-popup.jsx'
 import {mediaPostService, multiMediaDeleteService} from 'project-services'
 import Line from '../line/line.jsx'
 import './media.styl'
 import Share from '../share/share.jsx'
+let $imagePreview
 
 export default class Media extends React.Component {
   state = {
@@ -45,18 +47,26 @@ export default class Media extends React.Component {
         if (this.state.desc !== '') data.note = this.state.desc
         config.data.gallery.unshift(data)
         r.json().then(id => { config.data.gallery[0].id = id })
-        this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}})
-        this.refs.fileAddForm.reset()
+        this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}},
+          () => {
+            $imagePreview = null
+          })
+        document.querySelector('body').classList.remove('no-scroll')
+        // this.refs.fileAddForm.reset()
       }
     })
   }
   addFile = e => {
     let file = e.target.files[0]
-    if (file.type.indexOf('image') !== -1) { e.preventDefault(); this.resize(file) } else
-    if (file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
-    if (file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
-    if (file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
+    // if (file) { file = '' }
+    // this.setState({imageEvent: file}, () => console.log(this.state.imageEvent))
+    if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); this.resize(file) } else
+    if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
+    if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
+    if (e.target.files.length && file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
     this.setState({file: file})
+    document.querySelector('body').classList.toggle('no-scroll')
+    this.forceUpdate()
   }
   typeItem = (i, k) => {
     let src
@@ -190,20 +200,6 @@ export default class Media extends React.Component {
         this.setState({slides: [], shares: []})
       }
     }
-    renderCheck = () => {
-      return <svg width='16px' height='16px' viewBox='0 0 16 16' version='1.1'>
-        <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
-          <g id='Customer-Page' transform='translate(-553.000000, -961.000000)'>
-            <g id='1.personal-info' transform='translate(249.000000, 489.000000)'>
-              <g id='ic-check-box' transform='translate(302.000000, 470.000000)'>
-                <polygon id='Shape' points='0 0 20 0 20 20 0 20' />
-                <path d='M16.2222222,2 L3.77777778,2 C2.79555556,2 2,2.79555556 2,3.77777778 L2,16.2222222 C2,17.2044444 2.79555556,18 3.77777778,18 L16.2222222,18 C17.2044444,18 18,17.2044444 18,16.2222222 L18,3.77777778 C18,2.79555556 17.2044444,2 16.2222222,2 Z M8.22222222,14.4444444 L3.77777778,10 L5.03555556,8.74222222 L8.22222222,11.9288889 L14.9644444,5.18666667 L16.2222222,6.44444444 L8.22222222,14.4444444 Z' id='Shape' fill='#5E36B1' fillRule='nonzero' />
-              </g>
-            </g>
-          </g>
-        </g>
-      </svg>
-    }
     checkAccessLevel = () => {
       return ((config.user.permission_level === 'admin' ||
             config.user.permission_level === 'senior' ||
@@ -214,12 +210,22 @@ export default class Media extends React.Component {
     if (!Array.isArray(config.data.gallery)) config.data.gallery = []
     this.setState({gallery: config.data.gallery})
   }
+  handleMenuOff = () => {
+    // debugger
+    this.setState({isAddMedia: false, imagePreviewUrl: '', file: {}},
+      () => {
+        $imagePreview.type = null
+        $imagePreview = null
+        this.forceUpdate()
+      })
+    document.querySelector('body').classList.remove('no-scroll')
+  }
+  handleDescBack = e => {
+    this.setState({desc: e.target.value})
+  }
   render () {
-    let $imagePreview = null
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
-    } else {
-      $imagePreview = (<div className='previewText'>Please select file for Preview</div>)
     }
     return config.plugins_list.includes('gallery') && (
       <div id='gallery'>
@@ -228,12 +234,12 @@ export default class Media extends React.Component {
             {config.translations.gallery}
           </div>
           <div className='files-amount'>
-            {config.translations.files + ': ' + this.state.slideAmount}
+            {config.data.gallery.length ? (config.translations.files + ': ' + this.state.slideAmount) : (config.translations.files + ': ' + '0')}
             {this.state.slideAmount ? <div className='action'>
               {this.checkAccessLevel
                 ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
                 : ''}
-              <img className='delete' src={config.urls.media + 'ic_del.svg'}
+              {this.state.multiDel ? <img className='delete' src={config.urls.media + 'ic-delete.svg'}
                 onClick={() => {
                   if (this.state.multiDel) {
                     let arr = this.state.slides
@@ -245,6 +251,18 @@ export default class Media extends React.Component {
                   this.setState({multiDel: !this.state.multiDel})
                 }}
               />
+                : <img className='delete' src={config.urls.media + 'ic_del.svg'}
+                  onClick={() => {
+                    if (this.state.multiDel) {
+                      let arr = this.state.slides
+                      arr.map(val => {
+                        document.getElementById('slide' + val).classList.remove('selected')
+                      })
+                      this.setState({slides: []})
+                    }
+                    this.setState({multiDel: !this.state.multiDel})
+                  }}
+                />}
             </div> : ''}
           </div>
         </div>
@@ -258,17 +276,19 @@ export default class Media extends React.Component {
             {this.state.gallery.map((i, k) => (
               <div key={k} id={'slide' + i.id}
                 onClick={() => (this.state.multiDel || this.state.multiShare) && this.selectSlide(i.id, this.state.multiDel
-                  ? '' : (config.urls.gallery + i.name).substr(1))}
+                  ? '' : (config.urls.gallery + i.name).substr(1))
+                }
               >
                 <div className='img-selected'>
                   {this.typeItem(i, k)}
+                  {this.state.multiDel && <img className='empty-check' src={config.urls.media + 'checkbox-empty.svg'} />}
                 </div>
                 <div className='check-box'>
-                  {this.renderCheck()}
+                  <img src={config.urls.media + 'checkbox-select.svg'} />
                 </div>
                 <div className='file-name'>{i.name}</div>
                 <div className='file-date'>
-                  <img className='day-icon' src={config.urls.media + 'ic_day_min.svg'} />
+                  <div><img className='day-icon' src={config.urls.media + 'ic_day-2.jpg'} /></div>
                   <label className='date'>{formatDate(i.date)}</label>
                 </div>
               </div>
@@ -278,6 +298,9 @@ export default class Media extends React.Component {
         {this.state.multiDel
           ? (<div className='multi-del' onClick={this.multiDeleteFiles}>
             <span>{config.translations.delete}</span>
+            <div>
+              <img src={config.urls.media + 'trash-del.svg'} />
+            </div>
           </div>)
           : this.state.multiShare ? (
             <div className={this.state.multiShare ? 'isVisible' : 'hidden'}>
@@ -289,15 +312,28 @@ export default class Media extends React.Component {
             </div>
           )
             : (this.props.rights.gallery.add &&
-            <div onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})}
+            <label onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})}
               className={this.state.isAddMedia
-                ? 'hidden'
+                ? 'gallery-footer'
                 : 'gallery-footer'}
             >
+              <input className='file-input' type='file' onChange={e => {
+                this.addFile(e)
+                e.target.value = null
+                // this.handleMenuOff(e)
+              }} style={{display: 'none'}} />
               <label>{config.translations.add_media}</label>
               <img src={config.urls.media + 'c_add_stroke.svg'} />
-            </div>)}
-        <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
+            </label>)}
+        {this.state.imagePreviewUrl &&
+        <GalleryPopup
+          preview={$imagePreview}
+          handleMenuOff={this.handleMenuOff}
+          submit={this.submit}
+          handleDescBack={this.handleDescBack}
+        />
+        }
+        {/* <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
           <form className='add-input-wrap' ref='fileAddForm'>
             <div className='previw-wrap'>{$imagePreview}</div>
             <input className='file-input' type='file' onChange={e => this.addFile(e)} />
@@ -306,7 +342,7 @@ export default class Media extends React.Component {
           <div className='action'>
             <button className='btn-save' onClick={this.submit}>{config.translations.save}</button>
           </div>
-        </div>
+        </div> */}
         {/* <Line /> */}
       </div>
     )

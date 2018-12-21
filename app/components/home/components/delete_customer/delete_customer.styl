@@ -1,4 +1,4 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #delete-customer
   .del-btn
     margin 0 7px 7px
@@ -12,14 +12,14 @@
       color $delColor
       border-bottom-right-radius 8px
       border-bottom-left-radius 8px
-      background-color $blockBackground
+      background-color var(--blockBackground)
   #modal-content
     .modal-body
       display flex
       align-items center
       flex-direction column
       min-height 11.143em
-      background-color $headerColor
+      background-color var(--headerColor)
       .icon
         margin-top 10%
       label
@@ -34,6 +34,6 @@
         width 50%
         height 3em
       .no-btn
-        color $delNo
+        color var(--delNo)
       .yes-btn
-        color $delYes
+        color var(--delYes)

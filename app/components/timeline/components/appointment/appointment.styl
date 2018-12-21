@@ -1,4 +1,4 @@
-@import '../../../../variables.styl'
+@import '../../../../variables.css'
 #appoinments
   margin .2rem auto .2rem auto
   background-color white
@@ -9,7 +9,7 @@
     width 100%
     text-align end
     font-size .7rem
-    color $primaryPurpleColor
+    color var(--primaryPurpleColor)
     .date_month
       padding 0 .3rem
   .date-wrap
@@ -23,24 +23,24 @@
         span
           font-weight bold
           font-size .75rem
-          color $primaryColor
+          color var(--primaryColor)
       .date-time
         margin-top .5rem
         span
           font-weight 900
           font-size 1rem
-          color $primaryBlackColor
+          color var(--primaryBlackColor)
     .cancel
       text-transform uppercase
       font-weight bold
       font-size .75rem
-      color $canceledColor
+      color var(--canceledColor)
   .worker-info
     margin-top 1rem
     .worker-label
       font-weight bold
       font-size .75rem
-      color $primaryColor
+      color var(--primaryColor)
     .worker
       display flex
       padding .6rem 0 1.3rem
@@ -55,11 +55,11 @@
         font-size 1rem
         letter-spacing .1rem
         padding-left .4rem
-        color $primaryBlackColor
+        color var(--primaryBlackColor)
   .procedures
     font-weight bold
     font-size .75rem
-    color $primaryColor
+    color var(--primaryColor)
   .service-wrap
     display flex
     padding .4rem 0 1.3rem
@@ -68,7 +68,7 @@
     display flex
     flex-wrap wrap
     width 80%
-    color $primaryBlackColor
+    color var(--primaryBlackColor)
     .procedures-item
       padding-left .5rem
     .service
@@ -100,13 +100,13 @@
     .title
       font-weight bold
       font-size .75rem
-      color $primaryColor
+      color var(--primaryColor)
     .gallery-note
       display flex
       justify-content space-between
     .note-txt
       font-size 0.9rem
-      color $primaryBlackColor
+      color var(--primaryBlackColor)
       p
         max-width 19rem
       .ellipsis
@@ -135,7 +135,7 @@
       .meet
         font-weight bold
         font-size .75rem
-        color $primaryColor
+        color var(--primaryColor)
       .address
-        color $primaryBlackColor
+        color var(--primaryBlackColor)
         font-size .9rem

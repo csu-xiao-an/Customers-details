@@ -1,4 +1,4 @@
-@import "../../variables.styl"
+@import "../../variables.css"
 #punch_cards_old
   width 100%
   height 100%
@@ -7,7 +7,7 @@
     justify-content space-between
     align-items center
     padding .5rem .7rem
-    background-color $primaryColor
+    background-color var(--primaryColor)
     .ban
       opacity .5
     .btn
@@ -34,7 +34,7 @@
     position relative
     h2
       font-size 1.5rem
-      color $primaryColor
+      color var(--primaryColor)
       margin 0
       padding-right 1.5rem
     .barber
@@ -47,10 +47,10 @@
   .main-title
     font-size 1rem
     padding .25rem 0
-    color $primaryColor
+    color var(--primaryColor)
   .value
     padding-left .4rem
-    color $primaryBlackColor
+    color var(--primaryBlackColor)
   .main
     margin 0 .5rem .5rem
     border-radius .5rem
@@ -93,7 +93,7 @@
         margin 0
         padding-right 2rem
         font-weight bold
-        color $primaryColor
+        color var(--primaryColor)
     .oxy-body
       padding 0 0 2.2rem 1.2rem
     .oxy-item

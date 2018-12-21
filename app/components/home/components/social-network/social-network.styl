@@ -1,4 +1,4 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #social-network
   margin 7px 7px 7px
   .soc-header
@@ -6,24 +6,24 @@
     display flex
     margin auto 0
     border-radius 8px 8px 0 0
-    background-color $blockBackground
+    background-color var(--blockBackground)
     .soc-label
       margin auto 10px
       font-weight 600
       font-size 1.5em
   .soc-body
-    background-color $blockBackground
+    background-color var(--blockBackground)
     .soc-block
       display flex
       min-height 4em
       justify-content space-between
-      border-top 1px solid $mainBackground
+      border-top 1px solid var(--mainBackground)
       .left-side
         margin auto 10px
         .title
           font-size 0.8em
           font-weight 600
-          color $headerColor
+          color var(--headerColor)
         .detail
           display flex
           margin-top 5px
@@ -37,14 +37,14 @@
           margin auto 10px
     .add-select-wrap
       padding 10px
-      border-top 1px solid $mainBackground
+      border-top 1px solid var(--mainBackground)
       .item-wrap
         .select-wrap
           margin-bottom 10px
           #select-main
             .active
               border none
-              border-bottom 1px solid $mainBackground
+              border-bottom 1px solid var(--mainBackground)
               .icon
                 padding-left 5px
             .options
@@ -52,17 +52,17 @@
         .input-wrap
           input
             border none
-            border-bottom 1px solid $mainBackground
+            border-bottom 1px solid var(--mainBackground)
             margin-bottom 5px
             width 100%
-            color $headerColor
+            color var(--headerColor)
       .action
         display flex
         justify-content flex-end
         padding 10px 0
         .save
           border none
-          background-color $headerColor
+          background-color var(--headerColor)
           color white
           border-radius 100px
   .soc-footer
@@ -71,9 +71,9 @@
     margin-top 1px
     justify-content space-between
     border-radius 0 0 8px 8px
-    background-color $blockBackground
+    background-color var(--blockBackground)
     label
-      color $headerColor
+      color var(--headerColor)
       font-size 0.8em
       font-weight 900
       margin auto 10px

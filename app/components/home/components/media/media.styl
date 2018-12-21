@@ -1,4 +1,4 @@
-@import "../../../../variables.styl"
+@import "../../../../variables.css"
 #gallery
   margin 7px 7px 7px
   .isVisible
@@ -10,7 +10,7 @@
     flex-direction column
     border-top-right-radius 8px
     border-top-left-radius 8px
-    background-color $blockBackground
+    background-color var(--blockBackground)
     .title, .files-amount
       height 2.667em
       padding 0 10px
@@ -20,8 +20,8 @@
       font-weight 600
       font-size 1.5em
     .files-amount
-      border-top 1px solid $mainBackground
-      color $headerColor
+      border-top 1px solid var(--mainBackground)
+      color var(--headerColor)
       font-size 0.8em
       height 5em
       justify-content space-between
@@ -40,7 +40,7 @@
           height 12.5em !important
           margin 0 0 5px 0
           margin-top 0 !important
-          background-color $blockBackground
+          background-color var(--blockBackground)
           padding 8px 9px 0 9px
           .check-box
             display none
@@ -49,6 +49,12 @@
             object-fit cover
             height 8.143em
             width 100%
+          .empty-check
+            display block
+            position absolute
+            top 15px
+            right 15px
+            z-index 2
           .media-vid
             margin-left auto
             object-fit fill
@@ -63,13 +69,15 @@
             //margin-left 10px
           .file-date
             padding-bottom 10px
+            display flex
+            align-items center
             //margin-left 10px
             img
               padding 0
-              width 9%
-              height 9%
+              width 14px
+              height 14px
             .date
-              font-size 0.8em
+              font-size 10px
               margin-left 5px
           .video_play
             position absolute
@@ -82,7 +90,7 @@
             right 0
         .swiper-slide.selected
           .img-selected
-            background #bfafe0
+            opacity 0.5
             .media
               opacity 0.4
               display block
@@ -113,22 +121,23 @@
     display flex
     justify-content center
     color white
+    align-items center
     margin 0 7px
     border-bottom-left-radius 8px
     border-bottom-right-radius 8px
-    background-color $delColor
+    background-color var(--delColor)
     span
-      margin auto
+      margin-right 6.5px
       font-size 1.5em
   .gallery-footer
     height 4em
     display flex
     justify-content space-between
-    background-color $blockBackground
+    background-color var(--blockBackground)
     border-bottom-left-radius 8px
     border-bottom-right-radius 8px
     label
-      color $headerColor
+      color var(--headerColor)
       font-size 0.8em
       font-weight 800
       margin auto 10px
@@ -137,7 +146,7 @@
     padding 10px
     border-bottom-left-radius 8px
     border-bottom-right-radius 8px
-    background-color $blockBackground
+    background-color var(--blockBackground)
   .add-input-wrap
     .previw-wrap
       margin-bottom 10px
@@ -145,7 +154,7 @@
         width 100%
       .previewText
         font-weight 600
-        color $headerColor
+        color var(--headerColor)
     input.file-input
       font-size 1em
       margin-bottom 10px
@@ -158,7 +167,7 @@
     .btn-save
       border none
       right 0
-      background-color $headerColor
+      background-color var(--headerColor)
       color white
       border-radius 100px
   .hidden
