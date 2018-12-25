@@ -443,7 +443,7 @@ var config = {
       {
         id: 1,
         name: '222.jpg',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       // {
@@ -461,7 +461,7 @@ var config = {
       {
         id: 3,
         name: '03.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
