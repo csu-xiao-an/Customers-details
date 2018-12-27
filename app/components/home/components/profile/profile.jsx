@@ -121,19 +121,23 @@ render () {
       </div>
       <div id='name'>
         {!this.state.editProfile ? <div className='fullname'>
-          <div>
+          <div className='fullname-wrap'>
             <span className='label'>{config.translations.name}:</span>
             <span className='block-content'>{config.data.name}</span>
           </div>
         </div>
           : <div className='fullname-edit'>
-            <div>
+            {/* <div className='edit'> */}
+            <div className='edit-wrap'>
               <span className='label'>{config.translations.name}:</span>
               <input className='edit-input' type='text' value={this.state.name} onChange={e => this.setState({name: e.target.value})} />
             </div>
-            <div className='del-wrap' onClick={this.delName}>
-              <img src={config.urls.media + 'plus2.svg'} />
+            <div className='del-info'>
+              <div className='del-wrap' onClick={this.delName}>
+                <img src={config.urls.media + 'plus2.svg'} />
+              </div>
             </div>
+            {/* </div> */}
           </div>}
       </div>
       {(this.props.isVisibleFields || config.data.phone) &&
@@ -150,12 +154,32 @@ render () {
       {/* {(this.props.isVisibleFields || config.data.address) && */}
       {!this.state.editProfile ? <div id='address'>
         <div className='address-wrap'>
-          <span className='label'>{config.translations.address}:</span>
-          <div className='block-content'>
-            <div className='text'>{config.data.address}</div>
+          <div className='address-data'>
+            <span className='label'>{config.translations.address}:</span>
+            <div className='block-content'>
+              <div className='text'>{config.data.address}</div>
+            </div>
+          </div>
+          <div className='images'>
+            <div className='img-wrap'>
+              <a href={config.urls.waze.replace('{address}', config.data.address)}>
+                <img
+                  // onClick={() => this.setState({visibleMapPopup: true})}
+                  src={config.urls.media + 'waze.png'}
+                />
+              </a>
+            </div>
+            <div className='img-wrap'>
+              <a href={config.urls.google_maps.replace('{address}', config.data.address)}>
+                <img
+                  // onClick={() => this.setState({visibleMapPopup: true})}
+                  src={config.urls.media + 'icon-adress.png'}
+                />
+              </a>
+            </div>
           </div>
         </div>
-        <div className='images'>
+        {/* <div className='images'>
           <div className='img-wrap'>
             <a href={config.urls.waze.replace('{address}', config.data.address)}>
               <img
@@ -172,18 +196,22 @@ render () {
               />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
         : <div id='address'>
-          <div className='address-wrap-edit'>
-            <div>
-              <span className='label'>{config.translations.address}:</span>
-              <div className='block-content'>
-                <input className='edit-input' type='text' value={this.state.address} onChange={e => this.setState({address: e.target.value})} />
+          <div className='address-edit'>
+            <div className='address-data-edit'>
+              <div className='address-wrap-edit'>
+                <span className='label'>{config.translations.address}:</span>
+                <div className='block-content'>
+                  <input className='edit-input' type='text' value={this.state.address} onChange={e => this.setState({address: e.target.value})} />
+                </div>
               </div>
-            </div>
-            <div className='del-wrap' onClick={this.delAddress}>
-              <img src={config.urls.media + 'plus2.svg'} />
+              <div className='del-info'>
+                <div className='del-wrap' onClick={this.delAddress}>
+                  <img src={config.urls.media + 'plus2.svg'} />
+                </div>
+              </div>
             </div>
           </div>
         </div>}
