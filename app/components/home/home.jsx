@@ -10,9 +10,10 @@ import Notes from './components/notes/notes.jsx'
 import Debts from './components/debts/debts.jsx'
 import Hero from './components/hero/hero.jsx'
 import Topnav from '../topnav/topnav.jsx'
+import qs from 'qs'
 // import Signature from './components/signature/signature.jsx'
 import './home.styl'
-
+const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 class Home extends React.Component {
   state = {
     isVisibleFields: false
@@ -20,7 +21,14 @@ class Home extends React.Component {
 
   showFields = () => this.setState({ isVisibleFields: true })
 
-  componentWillMount = () => { if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl' }
+  componentWillMount = () => {
+    const queryParams = qs.parse(this.props.history.location.search.slice(1))
+    if (queryParams.page === 'colors_beautech') this.props.history.replace(baseUrl + config.urls.colors_beautech)
+    if (queryParams.page === 'timeline') this.props.history.replace(baseUrl + config.urls.timeline)
+    if (queryParams.page === 'punch_cards') this.props.history.replace(baseUrl + config.urls.punch_cards)
+    if (queryParams.page === 'punch_cards/add') this.props.history.replace(baseUrl + config.urls.punch_cards_adding)
+    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+  }
 
   render () {
     const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!config.data.debts.length)
