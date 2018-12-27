@@ -38,11 +38,9 @@ export default class Phone extends React.Component {
         <div className={!this.props.editProfile ? 'data-phone' : 'hidden'}>
           <div className='wrap'>
             <span className='label'>{config.translations.phone}:</span>
-            <div className={!this.props.editProfile ? 'phone-labels' : 'hidden'}>
-              <div className='phone-wrap' >
-                <span>{config.data.phone}</span>
-              </div>
-            </div>
+            {/* <div className={!this.props.editProfile ? 'phone-labels' : 'hidden'}> */}
+            <span className={!this.props.editProfile ? 'phone-labels' : 'hidden'}>{config.data.phone}</span>
+            {/* </div> */}
           </div>
           <div className='phone-img'>
             {this.props.rights.phone.send_sms &&
@@ -66,7 +64,7 @@ export default class Phone extends React.Component {
           </div>}
         <div className={this.props.editProfile ? 'phone-edit' : 'hidden'}>
           <div className='edit'>
-            <div>
+            <div className='edit-wrap'>
               <span className='label'>{config.translations.phone}:</span>
               <input className='edit-input'
                 type='tel'

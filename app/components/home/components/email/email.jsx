@@ -58,7 +58,7 @@ export default class Email extends React.Component {
         }
         <div className={this.props.editProfile ? 'email-edit' : 'hidden'}>
           <div className='edit'>
-            <div>
+            <div className='edit-wrap'>
               <span className='label'>{config.translations.email}:</span>
               <input className='edit-input'
                 type='email'
