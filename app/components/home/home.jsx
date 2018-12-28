@@ -13,6 +13,8 @@ import Topnav from '../topnav/topnav.jsx'
 import qs from 'qs'
 // import Signature from './components/signature/signature.jsx'
 import './home.styl'
+const isPunchCards = config.plugins_list.includes('punch_cards')
+const isColorsBeautech = config.plugins_list.includes('colors_beautech')
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 class Home extends React.Component {
   state = {
@@ -23,10 +25,10 @@ class Home extends React.Component {
 
   componentWillMount = () => {
     const queryParams = qs.parse(this.props.history.location.search.slice(1))
-    if (queryParams.page === 'colors_beautech') this.props.history.replace(baseUrl + config.urls.colors_beautech)
+    if (isColorsBeautech && queryParams.page === 'colors_beautech') this.props.history.replace(baseUrl + config.urls.colors_beautech)
     if (queryParams.page === 'timeline') this.props.history.replace(baseUrl + config.urls.timeline)
-    if (queryParams.page === 'punch_cards') this.props.history.replace(baseUrl + config.urls.punch_cards)
-    if (queryParams.page === 'punch_cards/add') this.props.history.replace(baseUrl + config.urls.punch_cards_adding)
+    if (isPunchCards && queryParams.page === 'punch_cards') this.props.history.replace(baseUrl + config.urls.punch_cards)
+    if (isPunchCards && queryParams.page === 'punch_cards/add') this.props.history.replace(baseUrl + config.urls.punch_cards_adding)
     if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
 
