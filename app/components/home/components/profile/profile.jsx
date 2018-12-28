@@ -48,7 +48,7 @@ delEmail = () => {
   this.setState({email: config.data.email})
 }
 delSex = () => {
-  this.setState({email: config.data.email})
+  this.setState({gender: config.data.gender})
 }
 getPhone = value => {
   this.setState({ phone: value })
@@ -58,6 +58,7 @@ getEmail = value => {
 }
 getGender = value => {
   this.setState({ gender: value })
+  console.log(this.state.gender)
 }
 getBdate = value => {
   this.setState({ birthdate: value })
@@ -75,6 +76,7 @@ saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'agreement']
   const body = Object.keys(this.state).reduce((params, field) => {
     // debugger
+    console.log(this.state);
     if (fields.includes(field) && this.state[field] && this.state[field] !== config.data[field]) {
       const value = `${this.state[field]}`
       const result = `${field}=${value}`

@@ -1,5 +1,6 @@
 import {clientReplaceService} from 'project-services'
 import './sex.styl'
+import { timingSafeEqual } from 'crypto';
 
 export default class Sex extends React.Component {
   state = {
@@ -7,6 +8,7 @@ export default class Sex extends React.Component {
     changeState: false,
     maleSelected: false,
     femaleSelected: false,
+    genderSelect: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -38,24 +40,24 @@ export default class Sex extends React.Component {
   }
   selectedSex = () => {
     this.refs.radioMale.addEventListener('click', e => {
-      config.data.gender = 'male'
+      this.state.genderSelect = 'male'
       this.setState({label: config.translations.male,
         maleSelected: true,
         femaleSelected: false,
         changeState: false
-      },
-      () => this.props.getGender(config.data.gender))
-      this.props.delSex
+      })
+      this.props.getGender(this.state.genderSelect)
+      // this.props.delSex
     })
     this.refs.radioFemale.addEventListener('click', e => {
-      config.data.gender = 'female'
+      this.state.genderSelect = 'female'
       this.setState({label: config.translations.female,
         maleSelected: false,
         femaleSelected: true,
         changeState: false
-      },
-      () => this.props.getGender(config.data.gender))
-      this.props.delSex
+      })
+      this.props.getGender(this.state.genderSelect)
+      // this.props.delSex
     })
   }
 
