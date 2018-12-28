@@ -37,14 +37,14 @@ var config = {
       logout: 'Log out'
     },
     hot_links: {
-      timeline: 'Timeline',
+      // timeline: 'Timeline',
       notes: 'Notes',
-      hair_dyeing: 'Hair Dyeing',
+      colors_beautech: 'Hair Dyeing',
       debts: 'Debts',
       gallery: 'Gallery',
       punch_cards: 'Punch cards'
     },
-    colors_beautech_old: {
+    colors_beautech: {
       hightlights: 'Hightlights',
       date: 'date',
       colors: 'Colors',
@@ -56,10 +56,13 @@ var config = {
       oxygen: 'Oxygen',
       concentration: 'Concentration:',
       percentage: '%',
-      waiting_time: 'Waiting time:'
+      waiting_time: 'Waiting time:',
+      back: 'Back',
+      next: 'Next'
     },
     language: 'en',
     edit: '',
+    editProfile: 'Edit',
     del: 'X',
     profile: 'Personal Info',
     sent: 'Sent',
@@ -86,14 +89,19 @@ var config = {
     mobile: 'Mobile',
     add_email: 'Add an email',
     email: 'Email',
+    back: 'Back',
+    add_caption: 'Add a caption...',
     add_adress: 'Add an address',
     address: 'Address',
     add_debt: 'Add New Debt',
     debts: 'Debts',
     save: 'Save',
+    submit: 'Submit',
     only_now: 'Only now',
     amount: 'Amount',
     description_debt: 'Description of debt',
+    done: 'Done',
+    description_debts: 'Description:',
     description_notes: 'Description',
     reminder: 'Set a reminder',
     add_note: 'Add Note',
@@ -102,6 +110,7 @@ var config = {
     gallery: 'Gallery',
     files: 'Files',
     add_media: 'Add New File',
+    debt_add_new: 'Debt:',
     // add_traffic_source: 'Add traffic source',
     // traffic_source: 'Traffic source',
     recommended_by: 'Recommended by:',
@@ -166,6 +175,7 @@ var config = {
     left: 'Left',
     permit_ads: 'permit_ads',
     days: 'days',
+    currency_debt: '$',
     use: 'Use',
     delete_punch: 'Delete punch',
     delete_use: 'Delete use',
@@ -280,7 +290,7 @@ var config = {
     worker_img: '/worker/{worker_id}.jpg',
     punch_cards_get: '/catalog/services',
     // colors_beautech: '/colors_beautech',
-    colors_beautech_old: '/colors_beautech',
+    colors_beautech: '/colors_beautech',
     groups_img: './dist/media/groups/',
     groups_img_default: 'default.svg',
     soc_net: './dist/media/soc_net/',
@@ -331,32 +341,32 @@ var config = {
     reminders_default_date_period: 'Days',
     timeout: 500,
     hot_links: [
-      {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
-      {name: 'notes', img: '/dist/media/notes.svg', url: '#notes'},
-      {name: 'hair_dyeing', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
+      // {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
+      {name: 'notes', img: '/dist/media/edit.png', url: '#notes'},
+      {name: 'colors_beautech', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
       {name: 'debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
-      {name: 'gallery', url: '#gallery', plugin_name: 'gallery'},
-      {name: 'punch_cards', url: '/punch_cards', plugin_name: 'punch_cards'}
+      {name: 'gallery', img: '/dist/media/icon_delete_selected.svg', url: '#gallery', plugin_name: 'gallery'},
+      {name: 'punch_cards', img: '/dist/media/notes.svg', url: '/punch_cards', plugin_name: 'punch_cards'}
     ],
     debts: [
-      // {
-      //   id: 123123,
-      //   sum: 20,
-      //   desc: 'did not pay for a month',
-      //   date: '2015-07-07 13:01'
-      // },
-      // {
-      //   id: 123123,
-      //   sum: 22,
-      //   desc: 'did not pay for a month',
-      //   date: '2016-07-07 13:01'
-      // },
-      // {
-      //   id: 123123,
-      //   sum: 20,
-      //   desc: 'did not pay for a month',
-      //   date: '2017-07-07 13:01'
-      // }
+      {
+        id: 1,
+        sum: 20,
+        desc: 'did not pay for a month',
+        date: '2015-07-07 13:20'
+      },
+      {
+        id: 2,
+        sum: 22,
+        desc: 'did not pay for a month',
+        date: '2016-07-07 13:01'
+      },
+      {
+        id: 3,
+        sum: 20,
+        desc: 'did not pay for a month',
+        date: '2017-07-07 13:01'
+      }
     ],
     notes: [
       {
@@ -432,10 +442,16 @@ var config = {
     gallery: [
       {
         id: 1,
-        name: '01.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        name: '222.jpg',
+        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
+      // {
+      //   id: 1,
+      //   name: '01.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
       {
         id: 2,
         name: '02.png',
@@ -445,7 +461,7 @@ var config = {
       {
         id: 3,
         name: '03.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
@@ -697,7 +713,7 @@ var config = {
         ]
       }
     ],
-    colors_beautech_old: [
+    colors_beautech: [
       {
         id: 139,
         type: 'Highlights',
@@ -798,155 +814,6 @@ var config = {
           dosing: '2-1'
         }
         ]
-      }
-    ],
-    colors_beautech: [
-      {
-        name: 'שורש גוונים',
-        date: '2017-12-30T19:52:08.195Z',
-        services: [
-          {
-            name: 'שורש',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'Inoa Supreme',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר',
-                comments: 'להרבב עם אבקת הבהרה של 15%'
-              },
-              {
-                color_number: 6.60,
-                color_quantity: '15גר',
-                brand: 'Inoa Supreme',
-                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          },
-          {
-            name: 'קצוות',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'High Rischesse',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          }
-        ],
-        comments: 'sdfad',
-        waiting_time: 'adfasd'
-      },
-      {
-        name: 'asdfasdf',
-        date: '2018-02-10T19:52:08.195Z',
-        services: [
-          {
-            name: 'שורש',
-            colors: [
-              {
-                color_number: 7.21,
-                color_quantity: '2dd',
-                brand: 'Supdreme',
-                oxy_percent: '7%',
-                oxy_quantity: '10 גר',
-                comments: 'להרבב עם אבקת הבהרה של 15%'
-              },
-              {
-                color_number: 6.60,
-                color_quantity: '15גר',
-                brand: 'Inoa Supreme',
-                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          },
-          {
-            name: 'asdfasd',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'High Rischesse',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          }
-        ],
-        comments: 'dasdf',
-        waiting_time: 'adfasdfa'
-      },
-      {
-        name: 'test',
-        date: '2057-12-30T19:52:08.195Z',
-        services: [
-          {
-            name: 'lol',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'Inoa Supreme',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר',
-                comments: 'להרבב עם אבקת הבהרה של 15%'
-              },
-              {
-                color_number: 6.60,
-                color_quantity: '15גר',
-                brand: 'Inoa Supreme',
-                comments: 'הרעה יחסית ערוכה שלא נכנסת בשתי'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          },
-          {
-            name: 'lal',
-            colors: [
-              {
-                color_number: 7.61,
-                color_quantity: '20גר',
-                brand: 'High Rischesse',
-                oxy_percent: '9%',
-                oxy_quantity: '10 גר'
-              },
-              {
-                color_number: 5.1,
-                color_quantity: '10גר',
-                brand: 'Rischesse'
-              }
-            ]
-          }
-        ],
-        comments: 'asdfasdf',
-        waiting_time: 'asdfasdfasdfasdf'
       }
     ],
     punch_cards: [
