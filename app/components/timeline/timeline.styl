@@ -2,14 +2,12 @@
 #timeline
   overflow hidden
   width 100%
-  background-color var(--secondaryColor)
+  background-color var(--sec-color)
   position relative
   .list
-    // min-height 736px
     width 100%
     overflow-y auto
     max-height 75vh
-    // margin-bottom 8.4rem
     .separator-wrap
       margin 1rem 0
       box-shadow -1px 0px 14px 16px rgba(255,255,255,1)
@@ -17,8 +15,8 @@
       -moz-box-shadow -1px 0px 14px 16px rgba(255,255,255,1)
       background-color #fff
       .separator
-        border-top 1px dashed var(--primaryColor)
-        border-bottom 1px dashed var(--primaryColor)
+        border-top 1px dashed var(--dark-color)
+        border-bottom 1px dashed var(--dark-color)
         font-size 18px
         height 1.9rem
         line-height 1.9rem
@@ -26,12 +24,12 @@
         margin 0 auto
         text-align center
         .date_weekday
-          color var(--primaryColor)
+          color var(--dark-color)
         .date_month
           margin 0 5px
-          color var(--primaryBlackColor)
+          color var(--main-color)
         .date_day
-          color var(--primaryBlackColor)
+          color var(--main-color)
     .spiner-wrap
       width 100%
       height 50px
@@ -62,6 +60,6 @@
           font-weight bold
           font-size 0.7rem
           padding 8px 0 6px
-          color var(--primaryBlackColor)
+          color var(--main-color)
 .nVisible
   visibility hidden
