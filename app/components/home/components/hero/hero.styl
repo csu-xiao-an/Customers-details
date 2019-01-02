@@ -22,14 +22,14 @@
       width 100%
   .star-wrap
     width 42px
-    color #6d6d6d
+    color var(--main-color)
     position absolute
     top 20px
     margin-left 10px
     z-index 2
     span
       letter-spacing 0.2
-      color var(--blockBackground)
+      color #fff
   .camera
     position absolute
     right 5%
@@ -40,7 +40,7 @@
   .star-wrap-right
     right 10px
   .star
-    fill #6d6d6d
+    fill var(--main-color)
   .star-active
     fill #fec20f
     stroke #fff
@@ -69,11 +69,11 @@
     width 50%
     display flex
     justify-content start
-    align-items: center;
+    align-items center
     border-collapse separate
     z-index 2
     .input-group-addon
-      background: rgba(0,0,0,0.0)
+      background rgba(0,0,0,0.0)
       border none
       cursor pointer
       visibility visible
@@ -81,7 +81,7 @@
       font-size 14px
       font-weight 400
       line-height 1
-      color #555
+      color var(--main-color)
       // text-align center
       // border-radius 4px
       // display table-cell
@@ -90,14 +90,14 @@
       img
         width 10px
     .input-group-addon-2
-      background: rgba(0,0,0,0.0)
+      background rgba(0,0,0,0.0)
       border none
       cursor pointer
       visibility visible
       font-size 14px
       font-weight 400
       line-height 1
-      color #555
+      color var(--main-color)
       // text-align center
       // border-radius 4px
       // display table-cell
@@ -114,13 +114,13 @@
         font-size 0.7em
       .form-control
         background rgba(0,0,0,0)
-        color $black
+        color var(--black)
         &:focus
-          background: rgba(0,0,0,0.0)
+          background rgba(0,0,0,0.0)
           border none
           box-shadow none
           outline none
-          color var(--headerColor)
+          color var(--dark-color)
       .form-control-disabled
         pointer-events none
   .status-label
