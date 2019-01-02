@@ -304,6 +304,7 @@ var config = {
     isFavorite: 'isFavorite',
     media: './dist/media/',
     timeline: '/timeline',
+    single_punch: '/punch_cards/{punch_card_id}',
     groups: '/groups/',
     login: '/en/login',
     address: 'address',

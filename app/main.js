@@ -6,6 +6,7 @@ const PunchCardsAdd = lazy(() => import('./components/punch-cards-add/punch-card
 const PunchCards = lazy(() => import('./components/punch-cards/punch-cards.jsx').then(r => r.default))
 const Timeline = lazy(() => import('./components/timeline/timeline.jsx').then(r => r.default))
 const Home = lazy(() => import('./components/home/home.jsx').then(r => r.default))
+const SinglePunch = lazy(() => import('./components/punch-cards/components/single-punch-page/single-punch-page.jsx').then(r => r.default))
 const {BrowserRouter, Switch, Route, Redirect} = ReactRouterDOM
 
 const isPunchCards = config.plugins_list.includes('punch_cards')
@@ -18,7 +19,8 @@ ReactDOM.render(
       {isPunchCards && <Route path={baseUrl + config.urls.punch_cards_adding} component={PunchCardsAdd} />}
       {/* {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautech} />} */}
       {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautechOld} />}
-      {isPunchCards && <Route path={baseUrl + config.urls.punch_cards} component={PunchCards} />}
+      {isPunchCards && <Route exact path={baseUrl + config.urls.punch_cards} component={PunchCards} />}
+      {isPunchCards && <Route path={baseUrl + config.urls.punch_cards + '/:punch_card_id'} component={SinglePunch} />}
       <Route path={baseUrl + config.urls.timeline} component={Timeline} />
       <Route exact path={baseUrl + config.urls.home} component={Home} />
       <Redirect from='/' to={baseUrl} />
