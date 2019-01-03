@@ -23,11 +23,11 @@ class Timeline extends React.Component {
   init = () => {
     const list = this.refs.list
     const exp = () => {
-      if (window.pageYOffset > document.body.clientHeight - (window.innerHeight * 2)) {
+      if (window.pageYOffset > list.scrollHeight - (document.body.clientHeight + document.body.clientHeight / 2)) {
         !this.state.flag && this.setState({flag: true}, () => this.getData())
       }
     }
-     list.addEventListener('touchmove', exp, false)
+    list.addEventListener('touchmove', exp, false)
   }
   getData = () => {
     let data = array(isEnd, {
@@ -55,7 +55,6 @@ class Timeline extends React.Component {
     const fields = {
       appointments: i => <Appointment i={i} {...this.props} />
     }
-    // console.log('state.data', this.state.data)
     return (
       <div id='timeline'>
         <Topnav {...this.props} timeline />
