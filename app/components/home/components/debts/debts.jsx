@@ -115,7 +115,7 @@ export default class Debts extends React.Component {
         <div className={this.state.debtEdit ? 'debt-active' : 'hidden'}>
           <div className='edit'>
             <div className='edit-debt-head'>
-              <label>{config.translations.debt_add_new}</label>
+              <label>{config.translations.add_new_debt}</label>
               <div className='count'>
                 <div className='ink' onClick={() => {
                   let debt = +this.state.debt - config.data.debt_step
@@ -150,7 +150,7 @@ export default class Debts extends React.Component {
               </div>
               <div className='button-apply' onClick={this.state.debtReplace ? this.update : this.submit}>
                 <img src={config.urls.media + 'apply.svg'} />
-                <p>{config.translations.done}</p>
+                <p>{config.translations.success}</p>
               </div>
               {/* {this.props.rights.debts.delete &&
               <img className='debt-list-delete' src={config.urls.media + 'add.svg'} onClick={() => this.delete(i.id, k)} />} */}

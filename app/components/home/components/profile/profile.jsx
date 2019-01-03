@@ -113,7 +113,7 @@ render () {
             </div>
             <div className='save-wrap'>
               <div><img src={config.urls.media + 'apply.svg'} /></div>
-              <div className='save-btn' onClick={this.saveAll}>{config.translations.done}</div>
+              <div className='save-btn' onClick={this.saveAll}>{config.translations.success}</div>
             </div>
           </div>
           : <div className='edit-profile' onClick={() => this.setState({editProfile: true})}>
