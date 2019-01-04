@@ -29,10 +29,25 @@ class Timeline extends React.Component {
     }
     list.addEventListener('touchmove', exp, false)
   }
+  componentDidUpdate = () => {
+    const list = this.refs.list
+    if (list.offsetHeight <= document.body.clientHeight + document.body.clientHeight / 2) {
+      !this.state.flag && this.setState({flag: true}, () => this.getData())
+    }
+  }
   getData = () => {
+    // let end = moment().subtract(count * 2, 'days').format('YYYY-MM-DD')
+    // let start = moment().subtract((count + 1) * 2, 'days').format('YYYY-MM-DD')
+    let end = moment().subtract(count * config.interval_days, 'days').format('YYYY-MM-DD')
+    let start = moment().subtract((count + 1) * config.interval_days, 'days').format('YYYY-MM-DD')
+    if (moment(start).isBefore(config.data.registration_date) || moment(end).isBefore(config.data.registration_date)) {
+      let a = () => { this.setState({flag: false}) }
+      a()
+      return
+    }
     let data = array(isEnd, {
-      e: moment().subtract(count * config.interval_days, 'days').format('YYYY-MM-DD'),
-      s: moment().subtract((count + 1) * config.interval_days, 'days').format('YYYY-MM-DD')})
+      e: end,
+      s: start})
     if (data.length) {
       Promise.all(data).then(r => {
         data = r.reduce((arr, item) => arr.concat(item.data.map(i => {
@@ -40,12 +55,13 @@ class Timeline extends React.Component {
           return i
         })), [])
         data.sort((a, b) => moment(b.start) - moment(a.start))
-        data[0].separator = true
-        data.reduce((pI, cI) => {
-          if (moment(pI.start).format('YYYY-MM-DD') !== moment(cI.start).format('YYYY-MM-DD')) cI.separator = true
-          return cI
-        })
-
+        if (data.length) {
+          data[0].separator = true
+          data.reduce((pI, cI) => {
+            if (moment(pI.start).format('YYYY-MM-DD') !== moment(cI.start).format('YYYY-MM-DD')) cI.separator = true
+            return cI
+          })
+        }
         count++
         this.setState({flag: false, data: this.state.data.concat(data)})
       })
@@ -68,7 +84,9 @@ class Timeline extends React.Component {
             </div>}
             { fields[i.field_name] && fields[i.field_name](i) }
           </div>)}
-          <div className={this.state.flag ? 'spiner-wrap' : 'hidden'}><img src={config.urls.media + 'spiner.webp'} /></div>
+          <div className={this.state.flag ? 'preloader' : 'hidden'}>
+            <div className='loader' />
+          </div>
         </div>
       </div>
     )

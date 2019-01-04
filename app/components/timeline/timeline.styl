@@ -61,5 +61,26 @@
           font-size 0.7rem
           padding 8px 0 6px
           color var(--main-color)
+  .preloader
+    position fixed
+    bottom 30px
+    left 30px
+    display flex
+    justify-content center
+    align-items center
+    z-index 20
+    .loader
+      width 56px
+      height 56px
+      border 10px solid var(--dark-color)
+      border-radius 50%
+      border-top-color white
+      animation 1s spin infinite linear
+      opacity .8
+    @keyframes spin
+      from
+        transform rotate(0deg)
+      to
+        transform rotate(360deg)
 .nVisible
   visibility hidden
