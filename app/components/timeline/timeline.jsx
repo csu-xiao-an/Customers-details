@@ -1,71 +1,100 @@
 import Appointment from './components/appointment/appointment.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import Topnav from '../topnav/topnav.jsx'
-import {array} from 'project-services'
+import {getTimeline} from 'project-services'
 import './timeline.styl'
 
-let isEnd = ['appointments']
-let count = 0
+const urlParams = ['appointments', 'sms', 'notes']
 
 class Timeline extends React.Component {
   state = {
     flag: false,
     data: []
   }
-  static propTypes = {
-    rights: PropTypes.object.isRequired
-  }
-  componentWillMount = () => {
+  // count = 0
+
+  componentDidMount = () => {
     if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
-    this.getData()
+    config.plugins_list.forEach(i => urlParams.push(i))
+    this.getData(true, true)
+    this.init()
   }
-  componentDidMount = () => this.init()
+
   init = () => {
     const list = this.refs.list
     const exp = () => {
       if (window.pageYOffset > list.scrollHeight - (document.body.clientHeight + document.body.clientHeight / 2)) {
-        !this.state.flag && this.setState({flag: true}, () => this.getData())
+        !this.state.flag && this.getData()
       }
     }
     list.addEventListener('touchmove', exp, false)
   }
-  componentDidUpdate = () => {
-    const list = this.refs.list
-    if (list.offsetHeight <= document.body.clientHeight + document.body.clientHeight / 2) {
-      !this.state.flag && this.setState({flag: true}, () => this.getData())
+
+  autoUploadUntilFullPage = () => {
+    const { offsetHeight } = this.refs.list
+    const { clientHeight: ch } = document.body
+    if (offsetHeight <= ch) { // 1.5 page size. Universal value
+      this.getData(false, Math.pow(config.interval_days, 2))
     }
   }
-  getData = () => {
-    // let end = moment().subtract(count * 2, 'days').format('YYYY-MM-DD')
-    // let start = moment().subtract((count + 1) * 2, 'days').format('YYYY-MM-DD')
-    let end = moment().subtract(count * config.interval_days, 'days').format('YYYY-MM-DD')
-    let start = moment().subtract((count + 1) * config.interval_days, 'days').format('YYYY-MM-DD')
-    if (moment(start).isBefore(config.data.registration_date) || moment(end).isBefore(config.data.registration_date)) {
-      let a = () => { this.setState({flag: false}) }
-      a()
-      return
+
+  getData = (firstLoad, fullPageCoef) => {
+    this.setState({flag: true})
+    const getDate = (value, date) => moment(date).subtract(value, 'days').format('YYYY-MM-DD')
+    let start
+    let end
+    if (firstLoad) {
+      // config.interval_days
+      start = getDate(config.interval_days)
+      end = getDate(0)
+    } else if (fullPageCoef) {
+      end = getDate(1, this.lastStartDate)
+      start = getDate(fullPageCoef, end)
+      if (moment(start).isBefore(config.data.registration_date)) {
+        start = getDate(0, config.data.registration_date)
+        fullPageCoef = 0 // Exit from auto fill page
+      }
+    } else {
+      start = getDate(config.interval_days, this.lastStartDate)
+      end = getDate(1, this.lastStartDate)
+      if (moment(start).isBefore(config.data.registration_date)) {
+        start = getDate(0, config.data.registration_date)
+        fullPageCoef = 0 // Exit from auto fill page
+      }
     }
-    let data = array(isEnd, {
-      e: end,
-      s: start})
-    if (data.length) {
-      Promise.all(data).then(r => {
-        data = r.reduce((arr, item) => arr.concat(item.data.map(i => {
-          i.field_name = item.name
-          return i
-        })), [])
+    this.lastStartDate = start
+    this.lastEndDate = end
+    getTimeline(urlParams, { end, start }).then(res => {
+      let data = res.appointments
+      // let keys = Object.keys(res)
+      // let testData = keys.map(i => {
+      //   let a = [...res[i]]
+      //   return a
+      // })
+      // let data = testData.reduce((arr, item) => arr.concat(item.map(i => {
+      //   console.log('i', i)
+      //   if (!i.date) {
+      //     i.date = moment(i.start).format('YYYY-MM-DD')
+      //   }
+      // if (!this.state.filter.sms && i.field_name === 'sms') { i.isHide = true } else
+      // if (!this.state.filter.notes && i.field_name === 'notes') { i.isHide = true } else
+      // if (!this.state.filter.appointments && i.field_name === 'appointments') { i.isHide = true }
+      //   return i
+      // })), [])
+      if (data.length) {
         data.sort((a, b) => moment(b.start) - moment(a.start))
-        if (data.length) {
-          data[0].separator = true
-          data.reduce((pI, cI) => {
-            if (moment(pI.start).format('YYYY-MM-DD') !== moment(cI.start).format('YYYY-MM-DD')) cI.separator = true
-            return cI
-          })
-        }
-        count++
-        this.setState({flag: false, data: this.state.data.concat(data)})
-      })
-    } else this.setState({flag: false})
+        data[0].separator = true
+        const format = date => moment(date).format('YYYY-MM-DD')
+        data.reduce((pI, cI) => {
+          if (format(pI.start) !== format(cI.start)) cI.separator = true
+          return cI
+        })
+      }
+      this.setState(
+        {flag: false, data: [...this.state.data, ...data]},
+        () => fullPageCoef && this.autoUploadUntilFullPage()
+      )
+    })
   }
   render () {
     const fields = {
