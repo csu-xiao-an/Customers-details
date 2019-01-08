@@ -1,6 +1,5 @@
 import {clientReplaceService, clientPostServiceImg} from 'project-services'
 import {dataURLtoFile, getOrientation, Resize} from 'project-components'
-// import {dataURLtoFile, getOrientation} from 'project-components'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
 
@@ -56,85 +55,33 @@ export default class Hero extends React.Component {
     let photo = img.target.files[0]
     if (config.plugins_list.includes('high_res_photo')) {
       this.uploadPhoto(photo)
-    } else {
+    } else if (img.target.files.length && photo.type.indexOf('image') !== -1) {
       img.preventDefault()
-      this.setState({file: photo}, () => {
-        Resize(photo)
-        setTimeout(() => {
-        }, 300)
-        this.uploadPhoto(photo)
-      })
+      Resize(photo, this.bar)
     }
+    this.setState({file: photo}, () => {
+    })
   }
-  uploadPhoto = photo => {
-    let d = moment(photo.lastModified).format('YYYY-MM-DD hh:mm:ss')
+  uploadPhoto = newFile => {
+    let d = moment(newFile.lastModified).format('YYYY-MM-DD hh:mm:ss')
     let body = new FormData()
     body.append('date', d)
-    body.append('file', photo)
+    body.append('file', newFile)
     clientPostServiceImg(body).then(r => {
       if (r.status === 201) {
-        this.setState({clientImg: `${config.urls.client_data}${photo.name}`})
+        this.setState({clientImg: `${config.urls.client_data}${newFile.name}`})
       }
     })
   }
-  // resize = photo => {
-  //   let img = new Image()
-  //   getOrientation(photo, or => {
-  //     let reader = new FileReader()
-  //     reader.readAsDataURL(photo)
-  //     reader.onload = () => { img.src = reader.result }
-  //     img.onload = () => {
-  //       let canvas = document.createElement('canvas')
-  //       let ctx = canvas.getContext('2d')
-  //       let w = img.width
-  //       let h = img.height
-  //       if (w > config.data.max_side || h > config.data.max_side) {
-  //         if (w > h) {
-  //           if (w > config.data.max_side) {
-  //             h = (h * config.data.max_side) / w
-  //             w = config.data.max_side
-  //           }
-  //         } else {
-  //           if (h > config.data.max_side) {
-  //             w = (w * config.data.max_side) / h
-  //             h = config.data.max_side
-  //           }
-  //         }
-  //       }
-  //       if (or > 4 && or < 9) {
-  //         canvas.width = h
-  //         canvas.height = w
-  //       } else {
-  //         canvas.width = w
-  //         canvas.height = h
-  //       }
-  //       switch (or) {
-  //       case 2: ctx.transform(-1, 0, 0, 1, w, 0); break
-  //       case 3: ctx.transform(-1, 0, 0, -1, w, h); break
-  //       case 4: ctx.transform(1, 0, 0, -1, 0, h); break
-  //       case 5: ctx.transform(0, 1, 1, 0, 0, 0); break
-  //       case 6: ctx.transform(0, 1, -1, 0, h, 0); break
-  //       case 7: ctx.transform(0, -1, -1, 0, h, w); break
-  //       case 8: ctx.transform(0, -1, 1, 0, 0, w); break
-  //       default: break
-  //       }
-  //       ctx.drawImage(img, 0, 0, w, h)
-  //       let dataURL = canvas.toDataURL()
-  //       this.setState({
-  //         file: dataURLtoFile(dataURL)}, () => {
-  //         let d = moment(photo.lastModified).format('YYYY-MM-DD hh:mm:ss')
-  //         let body = new FormData()
-  //         body.append('date', d)
-  //         body.append('file', this.state.file)
-  //         clientPostServiceImg(body).then(r => {
-  //           if (r.status === 201) {
-  //             this.setState({clientImg: `${config.urls.client_data}${photo.name}`})
-  //           }
-  //         })
-  //       })
-  //     }
-  //   })
-  // }
+  bar = url => {
+    this.setState({
+      imagePreviewUrl: url,
+      file: dataURLtoFile(url, `${this.state.file.name}`)
+    }, () => {
+      let newFile = this.state.file
+      this.uploadPhoto(newFile)
+    })
+  }
   componentDidMount = () => {
     this.setState({isStar: config.data.isFavorite})
   }
