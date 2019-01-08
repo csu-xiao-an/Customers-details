@@ -15,6 +15,7 @@
       margin 1px 0 0
       border-radius 0 0 8px 8px
       background-color #fff
+      display flex
    .group-footer
      display flex
      justify-content space-between
@@ -35,7 +36,6 @@
         width 114px
         padding-top 20px
         padding-bottom 10px
-        display inline-block
         a
           text-decoration none
           .img
@@ -74,6 +74,13 @@
             display flex
             justify-content center
             margin 10px
+            white-space nowrap
+            overflow hidden
+            text-overflow ellipsis
+            .name-wrap
+              white-space nowrap
+              overflow hidden
+              text-overflow ellipsis
         h1
           text-align center
           color #304f63
