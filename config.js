@@ -1,6 +1,8 @@
 var config = {
   isRtL: false,
   baseUrl: '/en/clients/{client_id}',
+  interval_days: 28,
+  min_data_lenght: 30,
   max_services_shown_without_cat: 15,
   notes_height_limit: 5,
   user: {
@@ -320,6 +322,7 @@ var config = {
     // birthdate: '1990-03-30',
     birthdate: '11-12',
     birthyear: '1994',
+    registration_date: '2018-01-01',
     email: 'ahuva.ben.shushan@gmail.com',
     address: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
