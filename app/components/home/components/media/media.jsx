@@ -58,8 +58,6 @@ export default class Media extends React.Component {
   }
   addFile = e => {
     let file = e.target.files[0]
-    // if (file) { file = '' }
-    // this.setState({imageEvent: file}, () => console.log(this.state.imageEvent))
     if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); this.resize(file) } else
     if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
     if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
