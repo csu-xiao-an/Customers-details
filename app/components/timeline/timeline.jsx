@@ -14,6 +14,7 @@ let urlParams = ['appointments', 'sms', 'notes']
 
 class Timeline extends React.Component {
   state = {
+    data_lenght: config.min_data_lenght,
     filter: {
       appointments: true,
       punch_cards: true,
@@ -47,9 +48,8 @@ class Timeline extends React.Component {
   }
 
   autoUploadUntilFullPage = () => {
-    const { offsetHeight } = this.refs.list
-    const { clientHeight: ch } = document.body
-    if (offsetHeight <= ch) { // 1.5 page size. Universal value
+    const { dataLenght, data } = this.state
+    if (data.length <= dataLenght) { // 1.5 page size. Universal value
       this.getData(false, config.interval_days * 2)
     }
   }

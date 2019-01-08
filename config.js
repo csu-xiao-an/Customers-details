@@ -2,6 +2,7 @@ var config = {
   isRtL: false,
   baseUrl: '/en/clients/{client_id}',
   interval_days: 28,
+  min_data_lenght: 30,
   max_services_shown_without_cat: 15,
   notes_height_limit: 5,
   user: {
