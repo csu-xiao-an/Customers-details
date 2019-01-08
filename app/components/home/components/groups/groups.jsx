@@ -25,7 +25,9 @@ export default class Groups extends React.Component {
                   <img className='icon' src={config.urls.groups_img + (i.image_path || config.urls.groups_img_default)} />
                   <label className='amount'>{i.amount}</label>
                 </div>
-                <label className='name'>{i.name}</label>
+                <label className='name'>
+                  <p className='name-wrap'>{i.name}</p>
+                </label>
               </a>
             </div>)
           )}
