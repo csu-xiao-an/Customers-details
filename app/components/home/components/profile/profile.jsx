@@ -121,7 +121,7 @@ render () {
             <div>{config.translations.editProfile}</div>
           </div>}
       </div>
-      <div id='name'>
+      {(this.props.isVisibleFields || config.data.name) && <div id='name'>
         {!this.state.editProfile ? <div className='fullname'>
           <div className='fullname-wrap'>
             <span className='label'>{config.translations.name}:</span>
@@ -129,7 +129,6 @@ render () {
           </div>
         </div>
           : <div className='fullname-edit'>
-            {/* <div className='edit'> */}
             <div className='edit-wrap'>
               <span className='label'>{config.translations.name}:</span>
               <input className='edit-input' type='text' value={this.state.name} onChange={e => this.setState({name: e.target.value})} />
@@ -139,9 +138,8 @@ render () {
                 <img src={config.urls.media + 'plus2.svg'} />
               </div>
             </div>
-            {/* </div> */}
           </div>}
-      </div>
+      </div>}
       {(this.props.isVisibleFields || config.data.phone) &&
         <Phone editProfile={this.state.editProfile} 
           getPhone={this.getPhone}
@@ -154,7 +152,7 @@ render () {
           hateEmail={this.state.email}
           {...this.props} />}
       {/* {(this.props.isVisibleFields || config.data.address) && */}
-      {!this.state.editProfile ? <div id='address'>
+      {!this.state.editProfile ? (this.props.isVisibleFields || config.data.address) && <div id='address'>
         <div className='address-wrap'>
           <div className='address-data'>
             <span className='label'>{config.translations.address}:</span>
@@ -181,24 +179,6 @@ render () {
             </div>
           </div>
         </div>
-        {/* <div className='images'>
-          <div className='img-wrap'>
-            <a href={config.urls.waze.replace('{address}', config.data.address)}>
-              <img
-                // onClick={() => this.setState({visibleMapPopup: true})}
-                src={config.urls.media + 'waze.png'}
-              />
-            </a>
-          </div>
-          <div className='img-wrap'>
-            <a href={config.urls.google_maps.replace('{address}', config.data.address)}>
-              <img
-                // onClick={() => this.setState({visibleMapPopup: true})}
-                src={config.urls.media + 'icon-adress.png'}
-              />
-            </a>
-          </div>
-        </div> */}
       </div>
         : <div id='address'>
           <div className='address-edit'>
