@@ -11,10 +11,10 @@ import {getTimeline} from 'project-services'
 import './timeline.styl'
 
 let urlParams = ['appointments', 'sms', 'notes']
+// let urlParams = ['appointments']
 
 class Timeline extends React.Component {
   state = {
-    data_lenght: config.min_data_lenght,
     filter: {
       appointments: true,
       punch_cards: true,
@@ -48,8 +48,9 @@ class Timeline extends React.Component {
   }
 
   autoUploadUntilFullPage = () => {
-    const { dataLenght, data } = this.state
-    if (data.length <= dataLenght) { // 1.5 page size. Universal value
+    const { data } = this.state
+    const { min_data_length } = config
+    if (data.length <= min_data_length) {
       this.getData(false, config.interval_days * 2)
     }
   }
