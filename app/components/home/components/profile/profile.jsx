@@ -40,7 +40,7 @@ backAll = () => {
     gender: config.data.gender,
     birthdate: config.data.birthdate,
     birthyear: config.data.birthyear,
-    agreement: config.data.permit_ads,
+    permit_ads: config.data.permit_ads,
     editProfile: false
   })
 }
@@ -67,13 +67,13 @@ getByear = value => {
   this.setState({ birthyear: value })
 }
 getArgeement = value => {
-  this.setState({ agreement: value })
+  this.setState({ permit_ads: value })
 }
 // check = () => {
 //   config.data[config.urls.fields.address] = this.state.inputValue
 // }
 saveAll = () => {
-  const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'agreement']
+  const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   const body = Object.keys(this.state).reduce((params, field) => {
     if (fields.includes(field) && this.state[field] && this.state[field] !== config.data[field]) {
       const value = `${this.state[field]}`
@@ -91,7 +91,7 @@ saveAll = () => {
       config.data.email && (config.data.email = this.state.email)
       config.data.name && (config.data.name = this.state.name)
       config.data.gender && (config.data.gender = this.state.gender)
-      config.data.permit_ads && (config.data.permit_ads = this.state.agreement)
+      config.data.permit_ads && (config.data.permit_ads = this.state.permit_ads)
       this.forceUpdate()
       this.setState({ editProfile: false })
     } else {
