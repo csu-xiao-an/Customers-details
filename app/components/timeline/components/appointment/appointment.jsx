@@ -64,7 +64,7 @@ export default class Appoinment extends React.Component {
             </div>
             )}
           </div>
-          <p className='total-price'><span className='price'>{this.total().p}</span>{config.data.currency}</p>
+          {this.props.i.total_price && <p className='total-price'><span className='price'>{this.props.i.total_price}</span>{config.data.currency}</p>}
         </div>
         <div className={this.props.i.note ? 'note' : 'hidden'}>
           <div className='title'>
