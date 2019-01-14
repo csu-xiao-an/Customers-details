@@ -176,7 +176,7 @@ export default class Media extends React.Component {
           slides.map(val => {
             document.getElementById('slide' + val).classList.remove('selected')
           })
-          this.setState({gallery: gallery, slides: [], shares: []})
+          this.setState({gallery: gallery, slides: [], shares: [], multiDel: !this.state.multiDel})
         }
       })
     }
@@ -229,6 +229,7 @@ export default class Media extends React.Component {
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
     }
+    console.log(this.state);
     return config.plugins_list.includes('gallery') && (
       <div id='gallery'>
         <div className='gallery-header'>
