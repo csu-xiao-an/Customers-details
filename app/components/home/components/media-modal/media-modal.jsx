@@ -15,7 +15,32 @@ export default class MediaModal extends React.Component {
   }
   typeItem = (i, k) => {
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
-      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { return <img src={config.urls.gallery + i.name} /> } else
+      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { return (
+        <div>
+          <img src={config.urls.gallery + i.name} />
+          <div className='modal-footer'>
+            <div className='main'>
+              <div className='row1'>
+                <span className='name'>{i.name}</span>
+                <div className='icons'>
+                  <img src={config.urls.media + 'pencil-edit.svg'} onClick={() => {
+                    if (!this.state.isEditNote) this.setState({ isEditNote: !this.state.isEditNote, textareaValue: config.data.gallery[this.state.activeIndex].note })
+                  }} />
+                  <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
+                </div>
+              </div>
+              <div className='row2'>
+                <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} /></div>
+                <span className='date'>{formatDate(i.date)}</span>
+              </div>
+            </div>
+            {i.note && <div className='data'>
+              <span className={this.state.isEditNote ? 'hidden' : 'note'}>{i.note}</span>
+            </div>}
+          </div>
+        </div>
+      )}
+      else
       if (i.name.indexOf('mp4') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
       if (i.name.indexOf('mp3') !== -1) {
         return (<div>
@@ -71,21 +96,29 @@ export default class MediaModal extends React.Component {
     document.body.appendChild(divNode2)
   }
   render () {
+    // console.log('this.props.initialSlide', this.props.initialSlide);
+    // let rofl = e => this.setState({activeIndex: e.activeIndex}, () => console.log('1', this.state.activeIndex))
+    // this.setState({activeIndex: rofl}, () => console.log('1', this.state.activeIndex) )
+    // console.log(config.data.gallery.map((i, k) => i[k]))
+    // console.log('config.data.gallery[this.state.activeIndex]', config.data.gallery[this.state.activeIndex]);
+    // console.log('this.state.activeIndex', this.state.activeIndex);
+    // console.log('!config.data.gallery[this.state.activeIndex].note', config.data.gallery[this.state.activeIndex].note);
     return (
       <Modal show={this.props.isOpenGallery} onHide={this.props.handleGallery}>
         <div className='modal-body'>
           <img className={'close-button'} src={config.urls.media + 'back-del.svg'}
             onClick={() => { this.props.handleGallery() }} />
-          <div className={this.state.isEditNote ? 'noSwiping' : ''}>
-            <Swiper observer onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
-              nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
-              prevButton={config.isRtL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}
-              onSetTranslate={e => this.setState({activeIndex: e.activeIndex})}
-              slidesPerView='auto' initialSlide={this.props.initialSlide}>
-              {config.data.gallery.map((i, k) => (<div key={k} className='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
-            </Swiper>
-          </div>
-          <div className='modal-footer'>
+          {/* <div className={this.state.isEditNote ? 'noSwiping' : ''}> */}
+          <Swiper observer onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
+            nextButton={config.isRtL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
+            prevButton={config.isRtL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}
+            onSetTranslate={e => this.setState({activeIndex: e.activeIndex})}
+            slidesPerView='auto'
+            initialSlide={this.props.initialSlide}>
+            {config.data.gallery.map((i, k) => (<div key={k} className='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
+          </Swiper>
+          {/* </div> */}
+          {/* <div className='modal-footer'>
             <div className='main'>
               <div className='row1'>
                 <span className='name'>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].name}</span>
@@ -101,7 +134,7 @@ export default class MediaModal extends React.Component {
                 <span className='date'>{config.data.gallery[this.state.activeIndex] && formatDate(config.data.gallery[this.state.activeIndex].date)}</span>
               </div>
             </div>
-            <div className={config.data.gallery.note && !config.data.gallery[this.state.activeIndex].note ? 'hidden' : 'data'}>
+            {(!!config.data.gallery[this.state.activeIndex].note) && <div className='data'>
               <span className={this.state.isEditNote ? 'hidden' : 'note'}>
                 {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
               <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
@@ -114,10 +147,11 @@ export default class MediaModal extends React.Component {
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
+            </div>}
+          </div> */}
         </div>
       </Modal>
     )
   }
 }
+

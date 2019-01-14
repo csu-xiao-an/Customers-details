@@ -174,7 +174,7 @@ export default class Media extends React.Component {
           slides.map(val => {
             document.getElementById('slide' + val).classList.remove('selected')
           })
-          this.setState({gallery: gallery, slides: [], shares: []})
+          this.setState({gallery: gallery, slides: [], shares: [], multiDel: !this.state.multiDel})
         }
       })
     }
