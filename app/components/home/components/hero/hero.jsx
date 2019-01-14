@@ -88,7 +88,7 @@ export default class Hero extends React.Component {
   render () {
     return (
       <div id='hero'>
-        <div onClick={this.handleStar} className={'star-wrap'}>
+        <div onClick={this.handleStar} className={'star-wrap ' + (config.isRtL && 'star-wrap-rtl')}>
           <svg width='14px' height='14px' viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'>
             <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd' opacity='0.800000012'>
               <g id='Customer-Page-(original-size)' transform='translate(-13.000000, -81.000000)' fill='#FFFFFF' fillRule='nonzero'>
@@ -106,7 +106,7 @@ export default class Hero extends React.Component {
           </svg>&nbsp;
           <span>VIP</span>
         </div>
-        <label className='camera'>
+        <label className={'camera ' + (config.isRtL ? 'rtl' : 'ltr')}>
           <img src={config.urls.media + 'ic_photo.svg'} />
           <input type='file' style={{display: 'none'}} onChange={this.addPhoto} />
         </label>
