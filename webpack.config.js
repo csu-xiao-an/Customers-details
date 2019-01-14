@@ -1,6 +1,6 @@
 const path = require('path')
-
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const alias = {
   'project-components': path.resolve('./components-lib'),
   'project-services': path.resolve('./services')
@@ -35,6 +35,21 @@ module.exports = env => {
       filename: outputJS
     },
     devtool: devtool,
+    optimization: {
+      minimizer: [new TerserPlugin({
+        test: /\.(js|jsx?)$/,
+      })],
+      // splitChunks: {
+      //   cacheGroups: {
+      //     styles: {
+      //       name: outputCSS,
+      //       test: /\.(styl|css)$/,
+      //       chunks: 'all',
+      //       enforce: true
+      //     }
+      //   }
+      // }
+    },
     module: {
       rules: [
         {
@@ -50,18 +65,13 @@ module.exports = env => {
           ]
         },
         {
-          test: /\.styl$/,
-          use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'stylus-loader']
-          }))
-        },
-        {
-          test: /\.css/,
-          use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader']
-          }))
+          test: /\.(styl|css)$/,
+          use: [
+            'css-hot-loader',
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'stylus-loader'
+          ]
         },
         {
           test: /\.(img|png|svg)$/,
@@ -80,7 +90,9 @@ module.exports = env => {
       port: '3000'
     },
     plugins: [
-      new ExtractTextPlugin(outputCSS)
+      new MiniCssExtractPlugin({
+        filename: outputCSS
+      })
     ],
     resolve: {
       alias: alias
