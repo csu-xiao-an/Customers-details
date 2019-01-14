@@ -51,7 +51,7 @@ class Home extends React.Component {
         {/* hidden strip debpt */}
         {/* {isDebtsVisible && <Debts {...this.props} /> } */}
         {isNotesVisible && <Notes {...this.props} />}
-        {isGalleryVisible && <Media {...this.props} />}
+        {<Media {...this.props} />}
         {isGroupsVisible && <Groups {...this.props} />}
         {/* <Signature {...this.props} /> */}
         {/* hidden SocialNetwork */}
