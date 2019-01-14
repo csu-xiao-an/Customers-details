@@ -142,7 +142,7 @@ class Timeline extends React.Component {
       <div id='timeline'>
         <Topnav {...this.props} timeline />
         <div className='list' ref='list'>
-          {this.state.data.length > 0 && this.state.data.map(i => !i.isHide && i.field_name === 'appointments' && <div>
+          {this.state.data.length > 0 && this.state.data.map(i => !i.isHide && <div>
             {i.separator && <div className='separator-wrap'><div className='separator'>
               <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(i.date).get('day')]},`}</span>
               <span className='date_month'>{config.translations.dates.months[moment(i.date).get('month')]}</span>
