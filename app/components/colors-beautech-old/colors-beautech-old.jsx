@@ -21,7 +21,7 @@ class ColorsBeautechOld extends React.Component {
     return (
       <div id='punch_cards_old'>
         <div className='btn-wrap'>
-          <div className='btn' onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} /></div>
+          <div className={'btn ' + (config.isRtL ? 'rtl' : 'ltr')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           <div className='middle-section'>
             <p className='middle-type'>{beautech[ind].type}</p>
             <p className='middle-date'>{`${translations.date} ${moment(beautech[ind].date).format('DD/MM/YY')}`}</p>
@@ -30,22 +30,31 @@ class ColorsBeautechOld extends React.Component {
         </div>
         <div className='highlights'>
           <img className='fill-color' src={`${config.urls.media}icons-8-fill-color.png`} />
-          <h2>{translations.colors}</h2>
-          <img className='barber' src={`${config.urls.media}parikmakheri-stilisti.png`} />
+          <div className='hh'>
+            <h2>{translations.colors}</h2>
+          </div>
+          <div>
+            <img className='barber' src={`${config.urls.media}parikmakheri-stilisti.png`} />
+          </div>
         </div>
         <div className='swiper'>
           <div id='swiper-wrap-punch'>
             <Swiper onSlideChangeEnd={this.chengeDate} ref={node => { if (node) this.swiper = node.swiper }} slidesPerView='auto' centeredSlides observer initialSlide={beautech.length - 1}>
               {beautech.map(i => <div>
                 <div className='main'>
-                  <p className='main-title'><span>{translations.brand}</span><span className='value'>{i.company}</span></p>
-                  <p className='main-title'><span>{translations.series}</span><span className='value'>{i.series}</span></p>
+                  <div className='main-title'><p>{translations.brand}</p>
+                    <span className='value'>{i.company}</span>
+                  </div>
+                  <p className='main-title'><span>{translations.series}</span>
+                    <span className='value'>{i.series}</span></p>
                   {i.colors.map(element => <div className='colors'>
                     <div className='colors-item'>
                       <img src={`${config.urls.media}icons-8-fill-color.png`} />
                       <div className='colors-info'>
-                        <p className='main-title'><span>{translations.color}</span><span className='value'>{element.color}</span></p>
-                        <p className='main-title'><span>{translations.quantity}</span><span className='value'>{element.dosing}</span></p>
+                        <span className='main-title'><span>{translations.color}</span>
+                          <span className='value'>{element.color}</span></span>
+                        <span className='main-title'><span>{translations.quantity}</span>
+                          <span className='value'>{element.dosing}</span></span>
                       </div>
                     </div>
                     {element.comments && <p className='main-title color-comments'><span>{translations.comments}</span><span className='value'>{element.comments}</span></p>}
@@ -54,8 +63,12 @@ class ColorsBeautechOld extends React.Component {
                 </div>
                 <div className='oxy'>
                   <div className='oxy-header'>
-                    <img src={`${config.urls.media}icons-8-fill-color.png`} />
-                    <h2>{translations.oxygen}</h2>
+                    <div className='hh'>
+                      <img src={`${config.urls.media}icons-8-fill-color.png`} />
+                    </div>
+                    <div className='hh'>
+                      <h2>{translations.oxygen}</h2>
+                    </div>
                   </div>
                   <div className='oxy-body'>
                     {i.oxy.map(element => <div className='oxy-info'>
@@ -93,10 +106,10 @@ class ColorsBeautechOld extends React.Component {
         </div>
         <div className='buttons-bot'>
           <div className='buttons-bot-wrap' onClick={this.goPrev}>{config.translations.colors_beautech.back}
-            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} /></div>
+            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
           <div className='buttons-bot-wrap' onClick={this.goNext}>{config.translations.colors_beautech.next}
-            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} /></div>
+            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
         </div>
       </div>

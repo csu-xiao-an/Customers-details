@@ -106,7 +106,7 @@ export default class Hero extends React.Component {
           </svg>&nbsp;
           <span>VIP</span>
         </div>
-        <label className={'camera ' + (config.isRtL ? 'rtl' : 'ltr')}>
+        <label className={'camera ' + (config.isRtL ? 'rtll' : 'ltrr')}>
           <img src={config.urls.media + 'ic_photo.svg'} />
           <input type='file' style={{display: 'none'}} onChange={this.addPhoto} />
         </label>

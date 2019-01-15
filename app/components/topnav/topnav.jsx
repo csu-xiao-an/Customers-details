@@ -48,7 +48,7 @@ export default class Topnav extends React.Component {
     return (
       <div id='topnav'>
         <div className='header' >
-          <div className={'arrow-wrap ' + (config.isRtL ? 'right' : 'left')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
+          <div className={'arrow-wrap ' + (config.isRtL ? 'rtl' : 'ltr')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
             <img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           {(this.props.home || this.props.timeline) && <div className='client-name'>
             <div className='icon-online' />
@@ -59,7 +59,7 @@ export default class Topnav extends React.Component {
             <h1>{config.translations.punch_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           {this.props.color && <div className='client-name'>
             <h1>{config.translations.color_card_topnav.replace('{client_name}', config.data.name)}</h1></div>}
-          <div className={'edit-wrap ' + (config.isRtL ? 'left' : 'right')}>
+          <div className={'edit-wrap ' + (config.isRtL ? 'ltr' : 'rtl')}>
             {this.props.home && <img className='edit' onClick={this.menuOnOff} src={config.urls.media + 'ic_menu.svg'} />}
             {this.props.punch && <img className='add' src={config.urls.media + 'add_bt.svg'}
               onClick={() => this.props.history.push(config.urls.punch_cards_adding)} />}

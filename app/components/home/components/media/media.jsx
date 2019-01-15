@@ -229,7 +229,6 @@ export default class Media extends React.Component {
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
     }
-    console.log(this.state);
     return config.plugins_list.includes('gallery') && (
       <div id='gallery'>
         <div className='gallery-header'>
