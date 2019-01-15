@@ -1,6 +1,6 @@
 const path = require('path')
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const alias = {
   'project-components': path.resolve('./components-lib'),
   'project-services': path.resolve('./services')
@@ -19,12 +19,12 @@ module.exports = env => {
     devtool = false
   }
   if (env === 'build-public') {
-    outputJSCK = '[id].bundle.min.js'
-    outputCSS = 'main.bundle.min.css'
-    outputJS = 'main.bundle.min.js'
+    outputJSCK = 'js/[id].bundle.min.js'
+    outputCSS = 'css/main.bundle.min.css'
+    outputJS = 'js/main.bundle.min.js'
     devtool = false
-    baseChunksPath = '/public/clients-details/js/'
-    baseBuildPath = './public/clients-details/js'
+    baseChunksPath = '/public/clients-details/'
+    baseBuildPath = './public/clients-details'
   }
   return ({
     entry: './app/main.js',
@@ -37,18 +37,8 @@ module.exports = env => {
     devtool: devtool,
     optimization: {
       minimizer: [new TerserPlugin({
-        test: /\.(js|jsx?)$/,
-      })],
-      // splitChunks: {
-      //   cacheGroups: {
-      //     styles: {
-      //       name: outputCSS,
-      //       test: /\.(styl|css)$/,
-      //       chunks: 'all',
-      //       enforce: true
-      //     }
-      //   }
-      // }
+        test: /\.(js|jsx?)$/
+      })]
     },
     module: {
       rules: [
