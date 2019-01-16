@@ -1,6 +1,6 @@
 const path = require('path')
-const TerserPlugin = require('terser-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const alias = {
   'project-components': path.resolve('./components-lib'),
   'project-services': path.resolve('./services')
@@ -19,12 +19,12 @@ module.exports = env => {
     devtool = false
   }
   if (env === 'build-public') {
-    outputJSCK = 'js/[id].bundle.min.js'
-    outputCSS = 'css/main.bundle.min.css'
-    outputJS = 'js/main.bundle.min.js'
+    outputJSCK = '[id].bundle.min.js'
+    outputCSS = 'main.bundle.min.css'
+    outputJS = 'main.bundle.min.js'
     devtool = false
-    baseChunksPath = '/public/clients-details/'
-    baseBuildPath = './public/clients-details'
+    baseChunksPath = '/public/clients-details/js/'
+    baseBuildPath = './public/clients-details/js'
   }
   return ({
     entry: './app/main.js',
@@ -35,11 +35,6 @@ module.exports = env => {
       filename: outputJS
     },
     devtool: devtool,
-    optimization: {
-      minimizer: [new TerserPlugin({
-        test: /\.(js|jsx?)$/
-      })]
-    },
     module: {
       rules: [
         {
@@ -55,12 +50,18 @@ module.exports = env => {
           ]
         },
         {
-          test: /\.(styl|css)$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'stylus-loader'
-          ]
+          test: /\.styl$/,
+          use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'stylus-loader']
+          }))
+        },
+        {
+          test: /\.css/,
+          use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader']
+          }))
         },
         {
           test: /\.(img|png|svg)$/,
@@ -79,9 +80,7 @@ module.exports = env => {
       port: '3000'
     },
     plugins: [
-      new MiniCssExtractPlugin({
-        filename: outputCSS
-      })
+      new ExtractTextPlugin(outputCSS)
     ],
     resolve: {
       alias: alias
