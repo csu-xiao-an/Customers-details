@@ -57,7 +57,6 @@ module.exports = env => {
         {
           test: /\.(styl|css)$/,
           use: [
-            'css-hot-loader',
             MiniCssExtractPlugin.loader,
             'css-loader',
             'stylus-loader'
