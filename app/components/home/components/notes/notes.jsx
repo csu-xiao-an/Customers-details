@@ -150,7 +150,7 @@ export default class Notes extends React.Component {
                 options={config.translations.notes_list}
                 onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} />
             </div>
-            <div className={'input-wrap ' + (config.isRtL ? 'left' : 'right')}>
+            <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
               <div className='ink'
                 onClick={() => this.setState({time: +this.state.time + 1})}>
                 <span>+</span>
@@ -210,7 +210,7 @@ export default class Notes extends React.Component {
                 options={config.translations.notes_list}
                 onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} />
             </div>
-            <div className={'input-wrap ' + (config.isRtL ? 'left' : 'right')}>
+            <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
               <div className='ink'
                 onClick={() => this.setState({time: +this.state.time + 1})}>
                 <span>+</span>

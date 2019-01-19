@@ -44,9 +44,9 @@ export default class Source extends React.Component {
       <div id='source'>
         {/*{this.props.rights.source.add &&*/}
           {/*<div className={this.state.isOpenSource ? 'hidden' : config.data.source ? 'hidden' : 'add-source-wrap'}>*/}
-            {/*<img className={config.isRtL ? 'left' : 'right'} src={config.urls.media + 'add.svg'}*/}
+            {/*<img className={config.isRTL ? 'left' : 'right'} src={config.urls.media + 'add.svg'}*/}
               {/*onClick={() => this.setState({ isOpenSource: !this.state.isOpenSource })} />*/}
-            {/*<h1 className={config.isRtL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>*/}
+            {/*<h1 className={config.isRTL ? 'left' : 'right'}>{config.translations.add_traffic_source}</h1>*/}
           {/*</div>}*/}
         <div className={this.state.isOpenSource ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85')
           : config.data.source ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : 'hidden'}>

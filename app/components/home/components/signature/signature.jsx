@@ -43,10 +43,10 @@ export default class Signature extends React.Component {
         <div className='checkbox-wrap' onClick={this.handleAds}>
           <div className='text'><h1 className='text-h1'>{config.data.permit_ads ? config.translations.permitted : config.translations.not_permitted}</h1></div>
           {this.props.rights.signature.ads &&
-            <div className='switch'><Switch on={config.data.permit_ads} className={config.isRtL ? 'switchleft' : 'switchright'} /></div>}
+            <div className='switch'><Switch on={config.data.permit_ads} className={config.isRTL ? 'switchleft' : 'switchright'} /></div>}
         </div>
         <div className={config.data.signature}>
-          {/* <div className={'autograph ' + (config.isRtL ? 'right' : 'left')}><img src={config.data.signature} /></div>
+          {/* <div className={'autograph ' + (config.isRTL ? 'right' : 'left')}><img src={config.data.signature} /></div>
           <div className='label'>
             <h1>{config.translations.signature_added}</h1>
             {this.props.rights.signature.remove &&

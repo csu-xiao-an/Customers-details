@@ -30,7 +30,7 @@ class Home extends React.Component {
     if (queryParams.page === 'timeline') this.props.history.replace(baseUrl + config.urls.timeline)
     if (isPunchCards && queryParams.page === 'punch_cards') this.props.history.replace(baseUrl + config.urls.punch_cards)
     if (isPunchCards && queryParams.page === 'punch_cards/add') this.props.history.replace(baseUrl + config.urls.punch_cards_adding)
-    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
 
   render () {
