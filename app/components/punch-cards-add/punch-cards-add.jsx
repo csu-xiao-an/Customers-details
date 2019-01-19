@@ -14,7 +14,7 @@ const Control = ({c, l, m, p, v}) => {
   return (
     <div className={c}>
       <h1 className='label'>{l}</h1>
-      <div className={'input-wrap ' + (config.isRtL ? 'left' : 'right')}>
+      <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
         <div className='ink' onClick={p}><span>+</span></div><input className='count-input' type='text' value={v} disabled />
         <div className='ink' style={{backgroundColor: 'orangered'}} onClick={m}><span className='minus'>-</span></div>
       </div>
@@ -40,7 +40,7 @@ class PunchCardsAdd extends React.Component {
     rights: PropTypes.object.isRequired
   }
   componentWillMount = () => {
-    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     punchGetService().then(r => r.status === 200 &&
     r.json().then(data => {
       let isCat = data.length < config.max_services_shown_without_cat + 1 || !data.some(i => data[0].category.id !== i.category.id)
@@ -63,15 +63,15 @@ class PunchCardsAdd extends React.Component {
       <div id='punch_cards_adding'>
         <div className='topnav_punch'>
           <div className='header'>
-            <div className='arrow-wrap' style={config.isRtL ? {float: 'right'} : {float: 'left'}} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
+            <div className='arrow-wrap' style={config.isRTL ? {float: 'right'} : {float: 'left'}} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
               ? this.state.isOpenServices ? () => this.toogleOpenServices() : () => window.history.go(-1)
               : () => window.history.go(-1) : () => this.setState({isService: true}) : () => {}}>
-              <img style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div>
+              <img style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div>
             <span className='before' />
             {this.state.isService && <div className='client-name'><h1>{config.translations.new_punch}</h1></div>}
             {!this.state.isService && <div className='client-name'>
               <h1>{config.translations.punch_service.replace('{service_name}', this.state.i.name)}</h1></div>}
-            <div className='edit-wrap' style={config.isRtL ? {float: 'left'} : {float: 'right'}} />
+            <div className='edit-wrap' style={config.isRTL ? {float: 'left'} : {float: 'right'}} />
           </div>
         </div>
         <div style={this.state.isService ? {display: 'block'} : {display: 'none'}}>
@@ -93,7 +93,7 @@ class PunchCardsAdd extends React.Component {
               ((this.state.i.price * this.state.discount) / 100)) + config.data.currency}</h1>
           </div>
           <div className='expiration_wrap'>
-            <Switch on={this.state.switch} onClick={this.handleValidity} className={config.isRtL ? 'switchleft' : 'switchright'} />
+            <Switch on={this.state.switch} onClick={this.handleValidity} className={config.isRTL ? 'switchleft' : 'switchright'} />
             <h1 className='subscription_period'>{config.translations.subscription_period}</h1>
             {this.state.switch && <div className='valid_date'>
               <div className='date_wrap'><h1>{config.translations.valid_until}</h1>

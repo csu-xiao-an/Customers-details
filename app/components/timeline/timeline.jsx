@@ -31,7 +31,7 @@ class Timeline extends React.Component {
   // count = 0
 
   componentDidMount = () => {
-    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     config.plugins_list.forEach(i => i !== 'colors_beautech' && urlParams.push(i))
     this.getData(true, true)
     this.init()

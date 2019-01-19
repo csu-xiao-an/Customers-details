@@ -6,7 +6,7 @@ export default class Birthday extends React.Component {
     const birthday = config.data.birthdate && birthdaysStatus(`0000-${config.data.birthdate}`)
     return (
       <div id={birthday ? 'birthday-wrap' : 'birthday-wrap-disabled'}
-        className={config.isRtL ? 'birthday-wrap-right' : 'birthday-wrap-left'}>
+        className={config.isRTL ? 'birthday-wrap-right' : 'birthday-wrap-left'}>
         <img src={config.urls.media + 'ic_birthday.svg'} />&nbsp;
         <h1>{birthday}</h1>
       </div>

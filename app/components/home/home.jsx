@@ -32,7 +32,7 @@ class Home extends React.Component {
       'punch_cards/add': isPunchCards && baseUrl + config.urls.punch_cards_adding
     }
 
-    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
 
     if (!queryParams.page) return
     if (isPunchCards && queryParams.page.substring(0, 12) === 'punch_cards/' && !routes[queryParams.page]) {

@@ -21,7 +21,7 @@ class ColorsBeautechOld extends React.Component {
     return (
       <div id='punch_cards_old'>
         <div className='btn-wrap'>
-          <div className={'btn ' + (config.isRtL ? 'rtl' : 'ltr')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+          <div className={'btn ' + (config.isRTL ? 'rtl' : 'ltr')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           <div className='middle-section'>
             <p className='middle-type'>{beautech[ind].type}</p>
             <p className='middle-date'>{`${translations.date} ${moment(beautech[ind].date).format('DD/MM/YY')}`}</p>
@@ -106,10 +106,10 @@ class ColorsBeautechOld extends React.Component {
         </div>
         <div className='buttons-bot'>
           <div className='buttons-bot-wrap' onClick={this.goPrev}>{config.translations.colors_beautech.back}
-            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
           <div className='buttons-bot-wrap' onClick={this.goNext}>{config.translations.colors_beautech.next}
-            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} style={config.isRtL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
         </div>
       </div>

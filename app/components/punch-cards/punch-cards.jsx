@@ -15,7 +15,7 @@ class PunchCards extends React.Component {
       punchsList.sort((a, b) => a.id - b.id).sort((a, b) => !!a.isActive - !!b.isActive)
       this.setState({punch: punchsList.find(i => i.isActive) || punchsList[0] || {}, punchsList})
     })
-    if (config.isRtL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
+    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
   componentDidUpdate (prevProps, prevState) {
     const { punchsList } = this.state
@@ -41,7 +41,7 @@ class PunchCards extends React.Component {
               <div className='punch' style={i.uses && i.uses.length === i.service_count ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}} onClick={() => this.setState({punch: i})}>
                 <h1 className='name'>{i.service_name}</h1>
                 <h1 className='count'><span>{i.uses && i.uses.length}</span>/{i.service_count}</h1>
-                <h1 className={'sum ' + (config.isRtL ? 'left' : 'right')}>{i.sum}{config.data.currency}</h1>
+                <h1 className={'sum ' + (config.isRTL ? 'left' : 'right')}>{i.sum}{config.data.currency}</h1>
               </div>
             </div>
           ))}
@@ -55,7 +55,7 @@ class PunchCards extends React.Component {
         <Topnav {...this.props} punch />
         <div className='swiper'>
           <div className='punch-label-wrap'>
-            <div className={'punch-label ' + (config.isRtL ? 'right' : 'left')}>
+            <div className={'punch-label ' + (config.isRTL ? 'right' : 'left')}>
               {config.translations.punch}<span> ({this.state.punchsList.length})</span>
             </div>
           </div>

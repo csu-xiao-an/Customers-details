@@ -64,7 +64,7 @@ export default class Events extends React.Component {
       <div id='events'>
         {/* <a href={this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}> */}
         {/* <img className='clock' src={config.urls.media + 'clock.png'} /></a> */}
-        {/* <h1 className={'label ' + (config.isRtL ? 'left' : 'right')}>{config.translations.close_visits}</h1> */}
+        {/* <h1 className={'label ' + (config.isRTL ? 'left' : 'right')}>{config.translations.close_visits}</h1> */}
         <div className='event-header'>
           <label>{config.translations.close_queue}</label>
         </div>
