@@ -39,7 +39,7 @@ export default class HotLinks extends React.Component {
       if (i.url[0] === '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
       else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
       else if (i.name === 'timeline') return i
-      else if (i.name === 'hair_dyeing' && (config.data.colors_beautech_old && config.data.colors_beautech_old.length !== 0)) return i
+      else if (i.name === 'hair_dyeing' && (config.data.colors_beautech && config.data.colors_beautech.length !== 0)) return i
     })
     return (
       <div id='hot-links'>

@@ -16,8 +16,8 @@ class ColorsBeautechOld extends React.Component {
   chengeDate = e => this.setState({ ind: e.activeIndex })
   render () {
     const { ind } = this.state
-    const translations = config.translations.colors_beautech_old
-    const beautech = config.data.colors_beautech_old.sort((a, b) => moment(a.date) - moment(b.date))
+    const translations = config.translations.colors_beautech
+    const beautech = config.data.colors_beautech.sort((a, b) => moment(a.date) - moment(b.date))
     return (
       <div id='punch_cards_old'>
         <div className='btn-wrap'>
