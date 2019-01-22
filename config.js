@@ -64,6 +64,8 @@ var config = {
     },
     language: 'en',
     editProfile: 'Edit',
+    expiry_date: 'Expiry date',
+    within: 'within',
     of: 'of',
     del: 'X',
     profile: 'Personal Info',

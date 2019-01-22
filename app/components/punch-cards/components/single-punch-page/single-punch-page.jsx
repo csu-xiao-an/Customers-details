@@ -2,7 +2,15 @@ import PunchHeader from '../panch-header/panch-header.jsx'
 import './single-punch-page.styl'
 
 export default class SinglePunchPage extends React.Component {
+  daysLeft = () => {
+    const now = moment()
+    const end = moment(this.props.location.state.singlePunch.expiration)
+    const duration = now.diff(end, 'day')
+    console.log(duration)
+    return duration
+  }
   render () {
+    this.daysLeft()
     console.log(this.props.location.state)
     const { singlePunch, length } = this.props.location.state
     return (
@@ -19,6 +27,25 @@ export default class SinglePunchPage extends React.Component {
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
             <button className='use-btn'>{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>
+            <div className='expiry-date'>
+              <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
+              <div className='expiry-text'>
+                <p>{config.translations.expiry_date}</p>
+                <p className='formated-date'>{moment(singlePunch.expiration).format('DD/MM/YYYY')}</p>
+                <p>{config.translations.within}</p>
+                <p className='days-left'>{this.daysLeft() * (-1)}</p>
+                <p>{config.translations.days}</p>
+              </div>
+            </div>
+            {singlePunch.uses && <div className='uses-wrap'>
+              {singlePunch.uses.map((el, index) => (<div className='uses'>
+                <div className='uses-date'><p>{moment(el.date).format('DD/MM/YYYY')}</p></div>
+                <div className='number-select'>
+                  <p>{index + 1}</p>
+                  <img src={config.urls.media + 'checkbox-unmarked.svg'} />
+                </div>
+              </div>))}
+            </div>}
           </div>
         </div>
       </div>
