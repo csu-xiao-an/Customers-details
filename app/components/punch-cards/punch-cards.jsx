@@ -1,9 +1,9 @@
 import SinglePunch from './components/single-punch/single-punch.jsx'
+import PunchHeader from './components/panch-header/panch-header.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import { getPunchCardsList } from 'project-services'
-import { Swiper } from 'project-components'
-import Topnav from '../topnav/topnav.jsx'
 import './punch-cards.styl'
+const { Link } = ReactRouterDOM
 
 class PunchCards extends React.Component {
   state = {
@@ -17,52 +17,60 @@ class PunchCards extends React.Component {
     })
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
-  componentDidUpdate (prevProps, prevState) {
-    const { punchsList } = this.state
-    if (prevState.punchsList.length && punchsList.length !== prevState.punchsList.length) {
-      punchsList.length && this.setState({ punch: punchsList[punchsList.length - 1] })
-    }
-  }
+  // componentDidUpdate (prevProps, prevState) {
+  //   const { punchsList } = this.state
+  //   if (prevState.punchsList.length && punchsList.length !== prevState.punchsList.length) {
+  //     punchsList.length && this.setState({ punch: punchsList[punchsList.length - 1] })
+  //   }
+  // }
   updatePunchList = punchsList => this.setState({ punchsList })
   updateSingle = () => {
     const punch = this.state.punchsList.reduce((active, item) => item.isActive ? item : active, null) || this.state.punchsList[0] || {}
     this.setState({ punch })
   }
   update = () => this.forceUpdate()
-  renderSlider = () => {
+  transferPunchData = (serviceId, punch) => {
+    this.props.history.push({
+      pathname: config.baseUrl && config.baseUrl.replace('{client_id}', config.data.id) + config.urls.single_punch.replace('{punch_card_id}', serviceId),
+      state: { singlePunch: punch, length: this.state.punchsList.length }
+    })
+  }
+  renderPunchPreview = () => {
+    console.log(this.state.punchsList)
     return (
-      <div id='swiper-wrap-punch'>
-        <Swiper
-          initialSlide={this.state.punchsList.findIndex(i => i.isActive)}
-          ref='swiper' pagination='.swiper-pagination'
-          slidesPerView='auto' centeredSlides observer>
-          {this.state.punchsList.map(i => (
-            <div>
-              <div className='punch' style={i.uses && i.uses.length === i.service_count ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}} onClick={() => this.setState({punch: i})}>
-                <h1 className='name'>{i.service_name}</h1>
-                <h1 className='count'><span>{i.uses && i.uses.length}</span>/{i.service_count}</h1>
-                <h1 className={'sum ' + (config.isRTL ? 'left' : 'right')}>{i.sum}{config.data.currency}</h1>
-              </div>
+      <div id='wrap-punch'>
+        {this.state.punchsList.map(i => (
+          <div className='punch-preview' style={i.uses && i.uses.length === i.service_count ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}} onClick={() => this.setState({punch: i}, () => this.transferPunchData(i.service_id, i))}>
+            <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{i.service_name}</p>
+            <div className='punch'>
+              <p className='count'><span>{config.translations.used}</span><span className='uses'>{i.uses ? i.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className='total' >{i.service_count}</span></p>
             </div>
-          ))}
-        </Swiper>
+            <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{i.sum}</p><p className='currency'>{config.data.currency}</p></div>
+          </div>
+        ))}
       </div>
     )
   }
   render () {
+    const bgrImg = {
+      backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
+    }
     return (
-      <div id='punch_cards'>
-        <Topnav {...this.props} punch />
-        <div className='swiper'>
-          <div className='punch-label-wrap'>
+      <div id='punch_cards' style={bgrImg}>
+        <PunchHeader length={this.state.punchsList.length} />
+        <div className='preview-img'>
+          {/* <div className='punch-label-wrap'>
             <div className={'punch-label ' + (config.isRTL ? 'right' : 'left')}>
               {config.translations.punch}<span> ({this.state.punchsList.length})</span>
             </div>
+          </div> */}
+          <div className='preview-wrap'>
+            <h2>{config.translations.select_punch_card}</h2>
+            {this.state.punchsList.length > 0 && this.renderPunchPreview()}
           </div>
-          {this.state.punchsList.length > 0 && this.renderSlider()}
         </div>
-        <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} updatePunchList={this.updatePunchList} punch_cards={this.state.punchsList} />
-        <div className='test' />
+        {/* <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} updatePunchList={this.updatePunchList} punch_cards={this.state.punchsList} /> */}
+        {/* <div className='test' /> */}
       </div>
     )
   }

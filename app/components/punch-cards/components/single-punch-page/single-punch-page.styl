@@ -1,4 +1,105 @@
 #single-punch-page
+  display flex
+  flex-direction column
   height 100%
   width 100%
-  background-color aqua
+  // background-color aqua
+  .single-punch-wrap
+    flex-grow 1
+    display flex
+    padding 0.5rem
+    background-image linear-gradient(to bottom, rgba(239, 239, 255, 0.04), #efefff)
+    .single-punch
+      width 100%
+      display flex
+      flex-direction column
+      align-items center
+      position relative
+      border-radius 8px
+      padding-top 4.5rem
+      flex-grow 1
+      background-color white
+      .delete-btn
+        position absolute
+        // top 1.3rem
+        // left 1.3rem
+        display flex
+        align-items flex-end
+        font-size 14px
+        font-weight 500
+        color var(--dark-color)
+        background-color transparent
+        border none
+        outline none
+        img
+          width 20px
+          height 20px
+          margin-top .3rem
+          margin-inline-end .3rem
+      .delete-btn-rtl
+        top 1.3rem
+        right 1.3rem
+      .delete-btn-ltr
+        top 1.3rem
+        left 1.3rem
+      .punch-preview
+        position relative
+        width 100%
+        padding-bottom 2rem
+      .punch-name
+        display flex
+        justify-content center
+        opacity 0.87
+        font-size 16px
+        font-weight 500
+        line-height 0.75
+        text-transform uppercase
+      .service-color
+        margin-inline-end 0.4rem
+        display block
+        height 8px
+        width 8px
+        border-radius 50%
+      .punch
+        border-radius 8px 8px 0 0
+        padding-top 1rem
+        font-size 16px
+        line-height 1.25
+        .count
+          width 100%
+          font-weight 300
+          text-align center
+          padding-bottom 12px
+          .uses
+            color var(--active-color)
+            font-weight normal
+          .of
+            margin 0 .2rem
+          .total
+            font-weight normal
+      .sum
+        display flex
+        position absolute
+        top 0
+        right 2rem
+        color var(--main-color)
+      .sum-rtl
+        left 1rem
+      .currency
+        padding-inline-start 0.2rem
+        color var(--dark-color)
+  .use-btn
+    width 15rem
+    height 2.4rem
+    text-transform uppercase
+    border-radius 30px
+    display flex
+    align-items center
+    justify-content center
+    border none
+    background-color var(--active-color)
+    font-size 14px
+    font-weight 500
+    color #ffffff
+    img
+      margin-inline-start 0.7rem
