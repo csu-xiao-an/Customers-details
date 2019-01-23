@@ -28,8 +28,8 @@ export default class SinglePunch extends React.Component {
     const days = this.props.i.expiration ? Math.floor(isNaN(nan) ? 0 : nan) : undefined
     return (
       <div id='single-punch'>
-        <Delete handleConfirmedModal={this.handleConfirmedModal} isVisibleModalConfirmed={this.state.isVisibleModalConfirmed}
-          updatePunchList={this.props.updatePunchList} id={this.props.i.id} use={this.state.isUse} {...this.props} />
+        {/* <Delete handleConfirmedModal={this.handleConfirmedModal} isVisibleModalConfirmed={this.state.isVisibleModalConfirmed}
+          updatePunchList={this.props.updatePunchList} id={this.props.i.id} use={this.state.isUse} {...this.props} /> */}
         <div className='triangle-down-wrap'><div className='triangle-down' /></div>
         <div className='punch-data'>
           <div className='head'><div className='delete-wrap'><img onClick={this.handleConfirmedModal} src={config.urls.media + 'trash-black.png'} /></div>

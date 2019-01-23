@@ -18,7 +18,7 @@ export default class SinglePunchPage extends React.Component {
         <PunchHeader length={length} />
         <div className='single-punch-wrap'>
           <div className='single-punch'>
-            <button className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
+            {/* <button className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button> */}
             <div className='punch-preview'>
               <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{singlePunch.service_name}</p>
               <div className='punch'>
@@ -26,7 +26,7 @@ export default class SinglePunchPage extends React.Component {
               </div>
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
-            <button className='use-btn'>{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>
+            {/* <button className='use-btn'>{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button> */}
             <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
               <div className='expiry-text'>

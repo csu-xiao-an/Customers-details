@@ -57,16 +57,16 @@ class Home extends React.Component {
         <HotLinks {...this.props} />
         <Profile {...this.props} isVisibleFields={this.state.isVisibleFields} />
         {isEventVisible && <Events {...this.props} />}
-        {isDebtsVisible && <Debts {...this.props} /> }
+        {/* {isDebtsVisible && <Debts {...this.props} /> } */}
         {isNotesVisible && <Notes {...this.props} />}
-        {isGalleryVisible && <Media {...this.props} />}
+        <Media {...this.props} />
         {isGroupsVisible && <Groups {...this.props} />}
         {/* <Signature {...this.props} /> */}
-        {isSocialNetworkVisible && <SocialNetwork {...this.props} />}
-        {!this.state.isVisibleFields && <div className='main-button'>
+        {/* {isSocialNetworkVisible && <SocialNetwork {...this.props} />} */}
+        {/* {!this.state.isVisibleFields && <div className='main-button'>
           <button onClick={this.showFields}>{config.translations.show_more_fields.toUpperCase()}</button>
         </div>}
-        <DeleteCustomer {...this.props} />
+        <DeleteCustomer {...this.props} /> */}
       </div>
     )
   }

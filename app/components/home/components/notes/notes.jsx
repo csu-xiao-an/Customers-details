@@ -265,19 +265,19 @@ export default class Notes extends React.Component {
                   </p>
                 </div>
                 <div className='right-side'>
-                  <img src={config.urls.media + 'ic_edit_stroke.svg'}
+                  {/* <img src={config.urls.media + 'ic_edit_stroke.svg'}
                     onClick={this.props.rights.notes.edit ? () => this.replace(i, i.id) : () => {}}
-                  />
+                  /> */}
                 </div>
               </div>
           ))}
         </div>
         {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteAdd()}
-        {this.props.rights.notes.add &&
+        {/* {this.props.rights.notes.add &&
           <div className='note-footer' onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})}>
             <label>{config.translations.add_note}</label>
             <img src={config.urls.media + 'c_add_stroke.svg'} />
-          </div>}
+          </div>} */}
       </div>
     )
   }

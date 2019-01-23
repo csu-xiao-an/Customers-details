@@ -71,41 +71,41 @@ export default class Events extends React.Component {
         <div className='wrap-events'>
           {config.data.recent_appoinments.map((i, k) => (
             <div key={k} className='events-list'>
-              <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${config.data.recent_appoinments[k].id}`}>
-                <div className='note' style={i.services && this.getColorLine(i)} >
-                  <div className='note-head'>
-                    <img className='icon' src={config.urls.media + 'ic_servise.svg'} />
-                    {i.services && <span>{this.getHeaderTitle(i)}</span>}
-                  </div>
-                  <div className='block1' >
-                    <div className='dates'>
-                      <div className='duration'>
-                        <img className='icon' src={config.urls.media + 'ic_time.svg'} />
-                        <span>{`${moment(i.start).format('HH:mm')} - ${moment(i.end).format('HH:mm')}`}</span>
-                      </div>
-                      <div className='date'>
-                        <img className='icon' src={config.urls.media + 'ic_day.svg'} />
-                        <span>{moment(i.start).format('ddd, DD MMMM, Y')}</span>
-                      </div>
+              {/* <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${config.data.recent_appoinments[k].id}`}> */}
+              <div className='note' style={i.services && this.getColorLine(i)} >
+                <div className='note-head'>
+                  <img className='icon' src={config.urls.media + 'ic_servise.svg'} />
+                  {i.services && <span>{this.getHeaderTitle(i)}</span>}
+                </div>
+                <div className='block1' >
+                  <div className='dates'>
+                    <div className='duration'>
+                      <img className='icon' src={config.urls.media + 'ic_time.svg'} />
+                      <span>{`${moment(i.start).format('HH:mm')} - ${moment(i.end).format('HH:mm')}`}</span>
+                    </div>
+                    <div className='date'>
+                      <img className='icon' src={config.urls.media + 'ic_day.svg'} />
+                      <span>{moment(i.start).format('ddd, DD MMMM, Y')}</span>
                     </div>
                   </div>
-                  <div className='block2' >
-                    <span>{i.total_price}{config.data.currency}</span>
-                    <span className='min'>/&nbsp;{config.translations.summary}</span>
-                  </div>
                 </div>
-              </a>
+                <div className='block2' >
+                  <span>{i.total_price}{config.data.currency}</span>
+                  <span className='min'>/&nbsp;{config.translations.summary}</span>
+                </div>
+              </div>
+              {/* </a> */}
             </div>)
           )}
         </div>
-        <a href={this.props.rights.events.cr_app
+        {/* <a href={this.props.rights.events.cr_app
           ? `${config.urls.main}${config.urls.appointment}?client_id=${config.data.id}&worker_id=${config.user.worker_id}`
           : false}>
           <div className='event-footer'>
             <label>{config.translations.add_new_queue}</label>
             <img className='add' src={config.urls.media + 'c_add_stroke.svg'} />
           </div>
-        </a>
+        </a> */}
       </div>
     )
   }

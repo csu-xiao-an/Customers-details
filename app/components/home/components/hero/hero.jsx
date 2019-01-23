@@ -15,20 +15,20 @@ export default class Hero extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
-  handleStar = () => {
-    const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`
-    clientReplaceService(body).then(r => {
-      if (r.status === 204) {
-        config.data.isFavorite = !config.data.isFavorite
-        if (config.data.isFavorite) {
-          this.setState({succes: true, isStar: true}, () => { setTimeout(() => { this.setState({succes: false}) }, 1200) })
-        } else {
-          this.setState({isStar: false})
-        }
-        this.forceUpdate()
-      }
-    })
-  }
+  // handleStar = () => {
+  //   const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`
+  //   clientReplaceService(body).then(r => {
+  //     if (r.status === 204) {
+  //       config.data.isFavorite = !config.data.isFavorite
+  //       if (config.data.isFavorite) {
+  //         this.setState({succes: true, isStar: true}, () => { setTimeout(() => { this.setState({succes: false}) }, 1200) })
+  //       } else {
+  //         this.setState({isStar: false})
+  //       }
+  //       this.forceUpdate()
+  //     }
+  //   })
+  // }
   onError= e => {
     if (!e.target.src.endsWith(config.urls.defaultClientImg)) {
       e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
@@ -88,7 +88,7 @@ export default class Hero extends React.Component {
   render () {
     return (
       <div id='hero'>
-        <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
+        {/* <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
           <svg width='14px' height='14px' viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'>
             <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd' opacity='0.800000012'>
               <g id='Customer-Page-(original-size)' transform='translate(-13.000000, -81.000000)' fill='#FFFFFF' fillRule='nonzero'>
@@ -104,8 +104,8 @@ export default class Hero extends React.Component {
               </g>
             </g>
           </svg>&nbsp;
-          <span>VIP</span>
-        </div>
+          <span>{config.translations.vip}</span>
+        </div> */}
         <label className={'camera ' + (config.isRTL ? 'rtll' : 'ltrr')}>
           <img src={config.urls.media + 'ic_photo.svg'} />
           <input type='file' style={{display: 'none'}} onChange={this.addPhoto} />
@@ -114,7 +114,7 @@ export default class Hero extends React.Component {
         <Birthday />
         <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
           <div className='input-group'>
-            <span className='status-label'>Status:</span>
+            <span className='status-label'>{config.translations.status}</span>
             <div className='input-wrap'>
               <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
                 type='text'
@@ -122,12 +122,13 @@ export default class Hero extends React.Component {
                 value={this.state.status}
                 placeholder={config.translations.placeholder}
                 onBlur={() => this.setState({isInputDisabled: false, status: config.data.status})}
-                onChange={e => this.setState({status: e.target.value, statusRem: e.target.value})} />
+                onChange={e => this.setState({status: e.target.value, statusRem: e.target.value})}
+              />
             </div>
-            {this.props.rights.hero.status &&
+            {/* {this.props.rights.hero.status &&
               <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
                 <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
-              </span>}
+              </span>} */}
           </div>
         </form>
         <div className='img'>
