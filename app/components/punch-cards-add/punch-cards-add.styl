@@ -1,4 +1,55 @@
 #punch_cards_adding
+  height 100%
+  display flex
+  flex-direction column
+  background-repeat no-repeat
+  background-position top
+  .punch-header
+    display flex
+    position relative
+    justify-content center
+    align-items center
+    width 100%
+    height 3.75rem
+    background-color var(--main-bgcolor)
+    .prev-button
+      position absolute
+      left 0
+      width 2.5rem
+      height 2.5rem
+      border none
+      display flex
+      align-items center
+      justify-content center
+      background-color transparent
+      outline none
+    .prev-button-rtl
+      right 0
+      transform scale(-1, -1)
+    .header-wrap
+      display flex
+      align-items center
+      line-height 1.22
+      font-size 18px
+      padding 0.5rem 0
+      .title
+        padding-inline-start 0.8rem
+        color white
+        h2
+          margin 0
+          font-size 18px
+          text-align center
+          font-weight 500
+  .preview-img
+    background-image linear-gradient(198deg, rgba(79, 45, 167, 0.3), #4f2da7)
+    flex-grow 1
+    display flex
+  .preview-wrap
+    display flex
+    flex-direction column
+    align-items center
+    flex-grow 1
+    background-image linear-gradient(to bottom, rgba(239, 239, 255, 0.04), #efefff)
   .topnav_punch
     .header
       background-color darkslateblue
