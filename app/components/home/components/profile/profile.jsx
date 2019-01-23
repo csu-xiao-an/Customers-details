@@ -105,7 +105,7 @@ render () {
     <div id='profile'>
       <div id='profile-header'>
         <h2 className='block-title'>{config.translations.profile}</h2>
-        {this.state.editProfile 
+        {/* {this.state.editProfile 
           ? <div className='back-save-btn'>
             <div className='back-wrap'>
               <div className='img-back'><img src={config.urls.media + 'arrow-left.svg'} /></div>
@@ -119,7 +119,7 @@ render () {
           : <div className='edit-profile' onClick={() => this.setState({editProfile: true})}>
             <div className='edit-wrap'><img className='img-edit-profile' src={config.urls.media + 'edit-note.svg'} /></div>
             <div>{config.translations.editProfile}</div>
-          </div>}
+          </div>} */}
       </div>
       {(this.props.isVisibleFields || config.data.name) && <div id='name'>
         {!this.state.editProfile ? <div className='fullname'>
