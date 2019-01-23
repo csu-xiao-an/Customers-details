@@ -446,15 +446,15 @@ var config = {
       {
         id: 1,
         name: '222.jpg',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 1,
+        name: '01.png',
         // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
-      // {
-      //   id: 1,
-      //   name: '01.png',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
       {
         id: 2,
         name: '02.png',
