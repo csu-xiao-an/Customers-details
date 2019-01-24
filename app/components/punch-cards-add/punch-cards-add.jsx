@@ -77,7 +77,7 @@ class PunchCardsAdd extends React.Component {
         </header>
         <div className='preview-img'>
           <div className='preview-wrap'>
-            <div style={this.state.isService ? {display: 'block'} : {display: 'none'}}>
+            <div style={this.state.isService ? {display: 'block', width: '100%'} : {display: 'none'}}>
               {this.state.data.length > 0 && <ProceduresList data={this.state.data} getService={this.getService}
                 isOpenServices={this.state.isOpenServices} toogleOpenServices={this.toogleOpenServices} />}
             </div>
