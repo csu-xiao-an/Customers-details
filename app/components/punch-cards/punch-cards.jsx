@@ -4,7 +4,7 @@ import AccessRights from '../access-rights/access-rights.jsx'
 import { getPunchCardsList } from 'project-services'
 import './punch-cards.styl'
 const { Link } = ReactRouterDOM
-
+const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 class PunchCards extends React.Component {
   state = {
     punchsList: [],
@@ -29,14 +29,21 @@ class PunchCards extends React.Component {
     this.setState({ punch })
   }
   update = () => this.forceUpdate()
+  addPunch = () => {
+    this.props.history.push(baseUrl + config.urls.punch_cards_adding)
+  }
   transferPunchData = (serviceId, punch) => {
     this.props.history.push({
       pathname: config.baseUrl && config.baseUrl.replace('{client_id}', config.data.id) + config.urls.single_punch.replace('{punch_card_id}', serviceId),
-      state: { singlePunch: punch, length: this.state.punchsList.length }
+      state: {
+        singlePunch: punch,
+        length: this.state.punchsList.length,
+        punchsList: this.state.punchsList
+      }
     })
   }
   renderPunchPreview = () => {
-    console.log(this.state.punchsList)
+    // console.log(this.state.punchsList)
     return (
       <div id='wrap-punch'>
         {this.state.punchsList.map(i => (
@@ -59,18 +66,13 @@ class PunchCards extends React.Component {
       <div id='punch_cards' style={bgrImg}>
         <PunchHeader length={this.state.punchsList.length} />
         <div className='preview-img'>
-          {/* <div className='punch-label-wrap'>
-            <div className={'punch-label ' + (config.isRTL ? 'right' : 'left')}>
-              {config.translations.punch}<span> ({this.state.punchsList.length})</span>
-            </div>
-          </div> */}
           <div className='preview-wrap'>
             <h2>{config.translations.select_punch_card}</h2>
             {this.state.punchsList.length > 0 && this.renderPunchPreview()}
           </div>
         </div>
+        <div className={'punch-add ' + (config.isRTL ? 'punch-add-rtl' : 'punch-add-ltr')} onClick={this.addPunch}><span className='cross'>&times;</span></div>
         {/* <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} updatePunchList={this.updatePunchList} punch_cards={this.state.punchsList} /> */}
-        {/* <div className='test' /> */}
       </div>
     )
   }

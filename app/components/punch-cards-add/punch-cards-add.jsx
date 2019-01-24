@@ -59,9 +59,60 @@ class PunchCardsAdd extends React.Component {
   getService = i => this.setState({i: i, isService: false}, () => this.getTotal())
   handleValidity = () => this.setState({switch: !this.state.switch})
   render () {
+    const bgrImg = {
+      backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
+    }
     return (
-      <div id='punch_cards_adding'>
-        <div className='topnav_punch'>
+      <div id='punch_cards_adding' style={bgrImg}>
+        <header className='punch-header'>
+          <button className={'prev-button ' + (config.isRTL && 'prev-button-rtl')} onClick={() => window.history.go(-1)} >
+            <img src={config.urls.media + 'arrow-back.svg'} />
+          </button>
+          <div className='header-wrap'>
+            <img src={config.urls.media + 'credit-card.svg'} />
+            <div className='title'>
+              <h2>{config.translations.new_punch_card}</h2>
+            </div>
+          </div>
+        </header>
+        <div className='preview-img'>
+          <div className='preview-wrap'>
+            <div style={this.state.isService ? {display: 'block', width: '100%'} : {display: 'none'}}>
+              {this.state.data.length > 0 && <ProceduresList data={this.state.data} getService={this.getService}
+                isOpenServices={this.state.isOpenServices} toogleOpenServices={this.toogleOpenServices} />}
+            </div>
+            {!this.state.isService && <div className='service_edit'>
+              <Control m={() => { if (+this.state.uses > 0) this.setState({uses: +this.state.uses - 1}, () => this.getTotal()) }}
+                p={() => this.setState({uses: +this.state.uses + 1}, () => this.getTotal())}
+                l={config.translations.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
+              <div className='price'>
+                <Control m={() => { if (+this.state.discount > 0) this.setState({discount: +this.state.discount - 1}, () => this.getTotal()) }}
+                  p={() => this.setState({discount: +this.state.discount + 1}, () => this.getTotal())}
+                  l={config.translations.discount} v={this.state.discount + '%'} c={'discount_wrap'} />
+                <Control m={() => { if (+this.state.total > 0) this.setState({total: Math.round(this.state.total) - 10}) }}
+                  l={config.translations.total} v={this.state.total + config.data.currency} c={'total_wrap'}
+                  p={() => this.setState({total: Math.round(this.state.total) + 10})} />
+                <h1 className='total_num'>{config.translations.price_single + ' ' + (this.state.i.price -
+                  ((this.state.i.price * this.state.discount) / 100)) + config.data.currency}</h1>
+              </div>
+              <div className='expiration_wrap'>
+                <Switch on={this.state.switch} onClick={this.handleValidity} className={config.isRTL ? 'switchleft' : 'switchright'} />
+                <h1 className='subscription_period'>{config.translations.subscription_period}</h1>
+                {this.state.switch && <div className='valid_date'>
+                  <div className='date_wrap'><h1>{config.translations.valid_until}</h1>
+                    <input type='date' value={this.state.date} onChange={e => this.setState({date: e.target.value})} />
+                  </div>
+                  <h1 className='is_valid'>{config.translations.valid_until_adding + ' ' + this.state.date}</h1>
+                </div>}
+              </div>
+              <div className='buttons'>
+                <button style={{backgroundColor: 'darkseagreen'}} onClick={() => this.props.history.push(config.urls.punch_cards)}>
+                  {config.translations.cancel}</button><button onClick={this.save}>{config.translations.next}</button>
+              </div>
+            </div>}
+          </div>
+        </div>
+        {/* <div className='topnav_punch'>
           <div className='header'>
             <div className='arrow-wrap' style={config.isRTL ? {float: 'right'} : {float: 'left'}} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
               ? this.state.isOpenServices ? () => this.toogleOpenServices() : () => window.history.go(-1)
@@ -73,40 +124,7 @@ class PunchCardsAdd extends React.Component {
               <h1>{config.translations.punch_service.replace('{service_name}', this.state.i.name)}</h1></div>}
             <div className='edit-wrap' style={config.isRTL ? {float: 'left'} : {float: 'right'}} />
           </div>
-        </div>
-        <div style={this.state.isService ? {display: 'block'} : {display: 'none'}}>
-          {this.state.data.length > 0 && <ProceduresList data={this.state.data} getService={this.getService}
-            isOpenServices={this.state.isOpenServices} toogleOpenServices={this.toogleOpenServices} />}
-        </div>
-        {!this.state.isService && <div className='service_edit'>
-          <Control m={() => { if (+this.state.uses > 0) this.setState({uses: +this.state.uses - 1}, () => this.getTotal()) }}
-            p={() => this.setState({uses: +this.state.uses + 1}, () => this.getTotal())}
-            l={config.translations.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
-          <div className='price'>
-            <Control m={() => { if (+this.state.discount > 0) this.setState({discount: +this.state.discount - 1}, () => this.getTotal()) }}
-              p={() => this.setState({discount: +this.state.discount + 1}, () => this.getTotal())}
-              l={config.translations.discount} v={this.state.discount + '%'} c={'discount_wrap'} />
-            <Control m={() => { if (+this.state.total > 0) this.setState({total: Math.round(this.state.total) - 10}) }}
-              l={config.translations.total} v={this.state.total + config.data.currency} c={'total_wrap'}
-              p={() => this.setState({total: Math.round(this.state.total) + 10})} />
-            <h1 className='total_num'>{config.translations.price_single + ' ' + (this.state.i.price -
-              ((this.state.i.price * this.state.discount) / 100)) + config.data.currency}</h1>
-          </div>
-          <div className='expiration_wrap'>
-            <Switch on={this.state.switch} onClick={this.handleValidity} className={config.isRTL ? 'switchleft' : 'switchright'} />
-            <h1 className='subscription_period'>{config.translations.subscription_period}</h1>
-            {this.state.switch && <div className='valid_date'>
-              <div className='date_wrap'><h1>{config.translations.valid_until}</h1>
-                <input type='date' value={this.state.date} onChange={e => this.setState({date: e.target.value})} />
-              </div>
-              <h1 className='is_valid'>{config.translations.valid_until_adding + ' ' + this.state.date}</h1>
-            </div>}
-          </div>
-          <div className='buttons'>
-            <button style={{backgroundColor: 'darkseagreen'}} onClick={() => this.props.history.push(config.urls.punch_cards)}>
-              {config.translations.cancel}</button><button onClick={this.save}>{config.translations.next}</button>
-          </div>
-        </div>}
+        </div> */}
       </div>
     )
   }
