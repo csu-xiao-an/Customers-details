@@ -290,7 +290,7 @@ export default class Media extends React.Component {
                 </div>
                 <div className='file-name'>{i.name}</div>
                 <div className='file-date'>
-                  <div><img className='day-icon' src={config.urls.media + 'ic_day-2.jpg'} /></div>
+                  <div><img className='day-icon' style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} src={config.urls.media + 'ic_day-2.jpg'} /></div>
                   <label className='date'>{formatDate(i.date)}</label>
                 </div>
               </div>
