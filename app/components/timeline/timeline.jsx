@@ -11,6 +11,7 @@ import {getTimeline} from 'project-services'
 import './timeline.styl'
 
 let urlParams = ['appointments', 'sms', 'notes']
+let filterParams = []
 // let urlParams = ['appointments']
 
 class Timeline extends React.Component {
@@ -33,6 +34,9 @@ class Timeline extends React.Component {
   componentDidMount = () => {
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     config.plugins_list.forEach(i => i !== 'colors_beautech' && urlParams.push(i))
+    filterParams = urlParams.filter(i => {
+      if (this.state.filter[i]) return i
+    })
     this.getData(true, true)
     this.init()
   }
@@ -57,6 +61,9 @@ class Timeline extends React.Component {
 
   getData = (firstLoad, fullPageCoef) => {
     this.setState({flag: true})
+    filterParams = urlParams.filter(i => {
+      if (this.state.filter[i]) return i
+    })
     const getDate = (value, date) => moment(date).subtract(value, 'days').format('YYYY-MM-DD')
     let start
     let end
@@ -81,7 +88,7 @@ class Timeline extends React.Component {
     }
     this.lastStartDate = start
     this.lastEndDate = end
-    getTimeline(urlParams, { end, start }).then(res => {
+    getTimeline(filterParams, { end, start }).then(res => {
       // let data = res.appointments
       let keys = Object.keys(res)
       let overallData = keys.map(i => {
