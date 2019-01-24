@@ -20,7 +20,7 @@ export default class Sendlink extends React.Component {
           <div className='block-content'>
               <div className='data-wrap'>
                 {this.props.rights.details.send &&
-                !config.data.details_link_active ? <input type='image' src={config.urls.media + 'ic_send.svg'} className={'details-button ' + (config.isRTL ? 'left' : 'right')}
+                !config.data.details_link_active ? <input type='image' src={config.urls.media + 'ic_send.svg'} className={'details-button ' + (config.isRTL ? 'left' : 'right')} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}}
                     disabled={config.data.details_link_active}
                     onClick={this.submit} /> : <div className='data-wrap-after'>{config.translations.profile_sent_link}</div>}
                 <img className={config.data.details_link_active ? 'ok' : 'ok hidden'} src={config.urls.media + 'ok.png'} />
