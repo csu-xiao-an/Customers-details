@@ -56,6 +56,7 @@ export default class Media extends React.Component {
     })
   }
   addFile = e => {
+    // debugger
     let file = e.target.files[0]
     if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); Resize(file, this.bar) } else
     if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
@@ -98,55 +99,6 @@ export default class Media extends React.Component {
       />
     }
   }
-  // resize = f => {
-  //   let img = new Image()
-  //   getOrientation(f, or => {
-  //     let reader = new FileReader()
-  //     reader.readAsDataURL(f)
-  //     reader.onload = () => { img.src = reader.result }
-  //     img.onload = () => {
-  //       let canvas = document.createElement('canvas')
-  //       let ctx = canvas.getContext('2d')
-  //       let w = img.width
-  //       let h = img.height
-  //       if (w > config.data.max_side || h > config.data.max_side) {
-  //         if (w > h) {
-  //           if (w > config.data.max_side) {
-  //             h = (h * config.data.max_side) / w
-  //             w = config.data.max_side
-  //           }
-  //         } else {
-  //           if (h > config.data.max_side) {
-  //             w = (w * config.data.max_side) / h
-  //             h = config.data.max_side
-  //           }
-  //         }
-  //       }
-  //       if (or > 4 && or < 9) {
-  //         canvas.width = h
-  //         canvas.height = w
-  //       } else {
-  //         canvas.width = w
-  //         canvas.height = h
-  //       }
-  //       switch (or) {
-  //       case 2: ctx.transform(-1, 0, 0, 1, w, 0); break
-  //       case 3: ctx.transform(-1, 0, 0, -1, w, h); break
-  //       case 4: ctx.transform(1, 0, 0, -1, 0, h); break
-  //       case 5: ctx.transform(0, 1, 1, 0, 0, 0); break
-  //       case 6: ctx.transform(0, 1, -1, 0, h, 0); break
-  //       case 7: ctx.transform(0, -1, -1, 0, h, w); break
-  //       case 8: ctx.transform(0, -1, 1, 0, 0, w); break
-  //       default: break
-  //       }
-  //       ctx.drawImage(img, 0, 0, w, h)
-  //       let dataURL = canvas.toDataURL()
-  //       this.setState({
-  //         imagePreviewUrl: dataURL,
-  //         file: dataURLtoFile(dataURL, `${this.state.file.name}`)})
-  //     }
-  //   })
-  // }
   selectSlide = (id, path) => {
     let arr = this.state.slides
     const index = arr.indexOf(id)
@@ -226,6 +178,9 @@ export default class Media extends React.Component {
   handleDescBack = e => {
     this.setState({desc: e.target.value})
   }
+  // formatDate1 = d => {
+  //   return moment(d).format('ddd, DD MMM, Y')
+  // }
   render () {
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
