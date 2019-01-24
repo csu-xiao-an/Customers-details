@@ -24,7 +24,7 @@ export default class MediaModal extends React.Component {
                 <span className='name'>{i.name}</span>
                 <div className='icons'>
                   <img src={config.urls.media + 'pencil-edit.svg'} onClick={() => {
-                    if (this.state.isEditNote || !this.state.isEditNote) this.setState({ isEditNote: !this.state.isEditNote, textareaValue: config.data.gallery[this.state.activeIndex].note })
+                    if (i.note) this.setState({ isEditNote: !this.state.isEditNote, textareaValue: config.data.gallery[this.state.activeIndex].note })
                   }} />
                   <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
                 </div>
@@ -110,14 +110,6 @@ export default class MediaModal extends React.Component {
     document.body.appendChild(divNode2)
   }
   render () {
-    console.log(this.state);
-    // console.log('this.props.initialSlide', this.props.initialSlide);
-    // let rofl = e => this.setState({activeIndex: e.activeIndex}, () => console.log('1', this.state.activeIndex))
-    // this.setState({activeIndex: rofl}, () => console.log('1', this.state.activeIndex) )
-    // console.log(config.data.gallery.map((i, k) => i[k]))
-    // console.log('config.data.gallery[this.state.activeIndex]', config.data.gallery[this.state.activeIndex]);
-    // console.log('this.state.activeIndex', this.state.activeIndex);
-    // console.log('!config.data.gallery[this.state.activeIndex].note', config.data.gallery[this.state.activeIndex].note);
     return (
       <Modal show={this.props.isOpenGallery} onHide={this.props.handleGallery}>
         <div className='modal-body'>
