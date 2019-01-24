@@ -38,6 +38,7 @@ export default class Media extends React.Component {
     body.append('date', d)
     if (this.state.desc !== '') body.append('note', this.state.desc)
     mediaPostService(body).then(r => {
+      let newId = r.data.id
       if (r.status === 201) {
         let data = {
           date: d,
@@ -45,7 +46,7 @@ export default class Media extends React.Component {
         }
         if (this.state.desc !== '') data.note = this.state.desc
         config.data.gallery.unshift(data)
-        r.json().then(id => { config.data.gallery[0].id = id })
+        config.data.gallery[0].id = newId
         this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}},
           () => {
             $imagePreview = null

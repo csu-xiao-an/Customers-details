@@ -7,7 +7,10 @@ export const postService = body => {
     method: 'POST',
     body
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(r => r.json().then(data => ({
+    status: r.status,
+    data
+  })))
 }
 // Not actual link
 export const replaceService = (body, id) => {
