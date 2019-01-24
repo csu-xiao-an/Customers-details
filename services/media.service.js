@@ -11,10 +11,15 @@ export const postService = body => {
 }
 // Not actual link
 export const replaceService = (body, id) => {
-  const url = config.urls.main + config.urls.media_url.replace('{client_id}', config.data.id)
+  const url = config.urls.main + config.urls.media_del
+    .replace('{client_id}', config.data.id)
+    .replace('{media_id}', id)
   const options = {
     mode: 'cors',
-    method: 'POST',
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
     body
   }
   return mainRequestService(url, options)
