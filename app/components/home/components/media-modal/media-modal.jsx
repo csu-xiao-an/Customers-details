@@ -23,14 +23,14 @@ export default class MediaModal extends React.Component {
               <div className='row1'>
                 <span className='name'>{i.name}</span>
                 <div className='icons'>
-                  <img src={config.urls.media + 'pencil-edit.svg'} onClick={() => {
+                  <img src={config.urls.media + 'pencil-edit.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} onClick={() => {
                     if (i.note) this.setState({ isEditNote: !this.state.isEditNote, textareaValue: config.data.gallery[this.state.activeIndex].note })
                   }} />
                   <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
                 </div>
               </div>
               <div className='row2'>
-                <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} /></div>
+                <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
                 <span className='date'>{formatDate(i.date)}</span>
               </div>
             </div>

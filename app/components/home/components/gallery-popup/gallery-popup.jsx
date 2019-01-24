@@ -13,7 +13,7 @@ export default class GalleryPopup extends React.Component {
       <div id='gallery-new-modal'>
         <div className='gallery-modal-body'>
           <div className='gallery-modal-header'>
-            <div className='img-back'><img onClick={this.props.handleMenuOff} src={config.urls.media + 'chevron-left.svg'} /></div>
+            <div className='img-back'><img onClick={this.props.handleMenuOff} src={config.urls.media + 'chevron-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
             <p>{config.translations.hot_links.gallery}</p>
           </div>
           <div className='img'>
