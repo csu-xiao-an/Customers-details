@@ -8,7 +8,7 @@ const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.da
 class PunchCards extends React.Component {
   state = {
     punchsList: [],
-    punch: {}
+    punch: {},
   }
   componentWillMount = () => {
     getPunchCardsList().then(punchsList => {
@@ -62,13 +62,21 @@ class PunchCards extends React.Component {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
     }
+    this.state.from && this.updatePunchList1(this.props.location.state.punchsList)
     return (
       <div id='punch_cards' style={bgrImg}>
         <PunchHeader length={this.state.punchsList.length} />
         <div className='preview-img'>
           <div className='preview-wrap'>
-            <h2>{config.translations.select_punch_card}</h2>
-            {this.state.punchsList.length > 0 && this.renderPunchPreview()}
+            {this.state.punchsList.length > 0
+              ? <div className='full-page'>
+                <h2>{config.translations.select_punch_card}</h2>
+                {this.state.punchsList.length > 0 && this.renderPunchPreview()}
+              </div>
+              :
+              <div className='empty-punch-card'>
+                <p>{config.translations.empty_punch_cards}</p>
+              </div>}
           </div>
         </div>
         <div className={'punch-add ' + (config.isRTL ? 'punch-add-rtl' : 'punch-add-ltr')} onClick={this.addPunch}><span className='cross'>&times;</span></div>
