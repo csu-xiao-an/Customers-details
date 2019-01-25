@@ -1,3 +1,4 @@
+import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
 import './events.styl'
 
 export default class Events extends React.Component {
@@ -85,7 +86,7 @@ export default class Events extends React.Component {
                       </div>
                       <div className='date'>
                         <img className='icon' src={config.urls.media + 'ic_day.svg'} />
-                        <span>{moment(i.start).format('ddd, DD MMMM, Y')}</span>
+                        <span>{formatDate(i.start)}</span>
                       </div>
                     </div>
                   </div>

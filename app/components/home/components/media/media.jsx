@@ -178,9 +178,6 @@ export default class Media extends React.Component {
   handleDescBack = e => {
     this.setState({desc: e.target.value})
   }
-  // formatDate1 = d => {
-  //   return moment(d).format('ddd, DD MMM, Y')
-  // }
   render () {
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
