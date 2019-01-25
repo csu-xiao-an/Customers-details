@@ -5,6 +5,7 @@ var config = {
   min_data_length: 300,
   max_services_shown_without_cat: 15,
   notes_height_limit: 5,
+  locale: 'en-US',
   user: {
     // admin, senior, junior, readonly, untrusted
     business_logo: 'public/business_data/1/logo.jpg',

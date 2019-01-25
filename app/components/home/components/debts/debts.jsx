@@ -1,4 +1,5 @@
 import {debtPostService, debtReplaceService, debtDeleteService} from 'project-services'
+import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
 import './debts.styl'
 
 export default class Debts extends React.Component {
@@ -92,10 +93,6 @@ export default class Debts extends React.Component {
     })
     this.forceUpdate()
   }
-  newDateFormat = i => {
-    let a = moment(i).format('ddd, DD MMM, Y, HH:mm')
-    return a
-  }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
     let total = this.price()
@@ -161,7 +158,7 @@ export default class Debts extends React.Component {
           {sortDebts.map((i, k) => (
             <div key={k} className={this.state.debtReplace ? 'debt-list' : 'debt-list'}>
               <div className='left-side'>
-                <span className='debt-list-date'>{this.newDateFormat(i.date)}</span>
+                <span className='debt-list-date'>{formatDate(i.date)}</span>
                 <div className='debt-list-name'>
                   <label className='currency'>{i.sum} {config.translations.currency_debt}</label>
                   {i.desc && <span className='debt-list-desc'>{this.checkLength(i.desc)}</span>}
