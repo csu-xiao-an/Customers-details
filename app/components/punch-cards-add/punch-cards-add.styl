@@ -103,136 +103,189 @@
         border-radius 50%
         margin-inline-end 0.6rem
   .service_edit
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+    .single-service
+      width 96%
+      background-color white
+      padding-inline-end 0.8rem
+      border-radius 8px
     .uses_wrap
-      border-bottom 2px solid lightslategray
+      display flex
+      align-items center
+      // padding 1rem
+      padding 1rem 0.3rem 1rem 1rem
+      border-bottom 1px solid #dedeff
       .label
         width 35%
-        display inline-block
-        padding 20px 10px
-    .price
-      .discount_wrap
-        .label
-          width 35%
-          display inline-block
-          padding 16px 10px
-        .input-wrap
-          padding 5px 13px
-          display inline-block
-          width 65%
-          .ink
-            width 30px
-            height 30px
-            transform translateY(8px)
-            span
-              font-size 30px
-              padding 0 6px
-            .minus
-              padding 0 10px
-          .count-input
-            height 30px
-      .total_wrap
-        .label
-          width 35%
-          display inline-block
-          padding 20px 10px
-      .total_num
-        width 100%
-        text-align end
-        padding 0 10px
-        color gray
-    .expiration_wrap
-      margin-top 10px
-      border-top 1px solid darkgray
-      border-bottom 1px solid darkgray
-      height 50px
-      padding 10px
-      .subscription_period
-        display inline-block
-        padding 0 10px
-        position relative
-        top -5px
-      .on
-        background deepskyblue!important
-        .switch-toggle
-          background-color white!important
-          border-color white!important
-      .switch
-        border-color dimgray
-        .switch-toggle
-          background-color dimgray
-          border-color dimgray
-      .valid_date
-        margin-top 15px
-        .date_wrap
-          h1, input
-            display inline-block
-          h1
-            padding 0 5px
-          input
-            width 50%
-            color deepskyblue
-        .is_valid
-          color deepskyblue
-          padding 5px
-    .buttons
-      position fixed
+        font-size 16px
+        line-height 1
+        color rgba(34, 34, 34, 0.87)
+        // display inline-block
+        // padding 20px 10px
+    .upd-discont-wrap
       display flex
-      width 100%
-      padding 0 0.5rem 0.5rem 
-      // height 80px
-      bottom 0px
-      button
-        border none
-        width 50%
+      align-items center
+      padding 1rem 0.3rem 1rem 1rem
+      border-bottom 1px solid #dedeff
+      .discont-btn
         display flex
         align-items center
         justify-content center
-        height 3.75rem
+        width 9.4rem
+        height 2.4rem
+        border-radius 30px
+        border none
+        font-size 16px
         outline none
-        font-size 14px
-        font-weight 500
-        text-transform uppercase
-        img
-          margin-inline-start 0.4rem  
-        .cancel-img
-          transform rotate(45deg)
-      .btn-cancel
-        background-color white
+        border 1px solid var(--sec-bgcolor)
+        color var(--sec-bgcolor)
+        background-color #ffffff
+      .discont-img
+        margin-inline-end 0.3rem
+      .active-discont
+        border 1px solid var(--dark-color)
         color var(--dark-color)
-      .btn-save
-        background-color var(--active-color)
-        color white
-  .input-wrap
-    display inline-block
-    width 65%
-    .ink
-      display inline-block
-      position relative
+      .input-wrap
+        display flex
+        align-items center
+        .discont-input
+          width 62%
+          text-align center
+          border none
+          font-size 16px
+          color rgba(34, 34, 34, 0.87)
+          outline none
+        img
+          width 20px
+          height 20px
+    .total_wrap
+      display flex
+      align-items center
+      padding 1rem 0.3rem 1rem 1rem
+      border-bottom 1px solid #dedeff
+      .cost-wrap
+        display flex
+        width 45%
+        flex-direction column
+        .label-cost
+          font-size 16px
+          color rgba(34, 34, 34, 0.87)
+          // width 35%
+        // display inline-block
+        // padding 20px 10px
+    .total_num
+      display flex
+      font-size 14px
+      font-weight 300
+      color rgba(34, 34, 34, 0.54)
+      .num
+        padding-inline-start 0.3rem
+        font-size 14px
+        color rgba(34, 34, 34, 0.87)
+      // width 100%
+      // text-align end
+      // padding 0 10px
+      // color gray
+  .expiration_wrap
+    display flex
+    min-height 4.25rem
+    align-items center
+    justify-content space-between
+    padding 1rem 0.3rem 1rem 1rem
+    border-bottom 1px solid #dedeff
+    .subscription_period
+      font-size 16px
+      color rgba(34, 34, 34, 0.87)
+    .switch
+      display flex
+      align-items center
+      border none
+      height 1rem
       width 40px
-      height 40px
-      border-radius 50%
-      background-color deepskyblue
-      margin 0 10px 0 10px
-      transform translateY(14px)
-      cursor pointer
-      span
-        position absolute
-        color white
-        font-size 34px
-        padding 0 10px
-        transform translateY(-5px)
-      .minus
-        padding 0 15px
-        transform translateY(-7px)
-    .count-input
-      display inline-block
-      height 40px
-      width 40%
-      border 1px solid #6b6b6b
-      border-top 2px solid #6b6b6b
-      border-left 2px solid #6b6b6b
-      color deepskyblue
+      background-color #EFEFFF
+      .switch-toggle
+        width 20px
+        height 20px
+        box-shadow 0 1px 1px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.12)
+        background-image linear-gradient(to bottom, #e1d8f2, #bfafe0)
+    .on
+      background-color rgba(82, 47, 169, 0.32)
+      .switch-toggle
+        width 20px
+        height 20px
+        box-shadow 0 1px 1px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.12)
+        background-image linear-gradient(to bottom, #8a5cd4, #522fa9)
+  .valid_date
+    display flex
+    min-height 4.25rem
+    padding 1rem 0.3rem 1rem 1rem
+    justify-content space-between
+    align-items center
+    .date_wrap
+      p
+        font-size 16px
+        color rgba(34, 34, 34, 0.87)
+    .daysLeft
+      font-size 14px
+      font-weight 300
+      color rgba(34, 34, 34, 0.54)
+    .is_valid
+      font-size 16px
+      color rgba(34, 34, 34, 0.87)
+  .buttons
+    position fixed
+    display flex
+    width 100%
+    padding 0 0.5rem 0.5rem 
+    bottom 0px
+    button
+      border none
+      width 50%
+      display flex
+      align-items center
+      justify-content center
+      height 3.75rem
+      outline none
+      font-size 14px
       font-weight 500
-      text-align center
-      &:focus
-        outline none
+      text-transform uppercase
+      img
+        margin-inline-start 0.4rem  
+      .cancel-img
+        transform rotate(45deg)
+    .btn-cancel
+      background-color white
+      color var(--dark-color)
+    .btn-save
+      background-color var(--active-color)
+      color white
+.input-wrap
+  display flex
+  align-items center
+  justify-content flex-end
+  flex-grow 1
+  .ink
+    width 28px
+    height 28px
+    display flex
+    border 1px solid var(--sec-bgcolor)
+    border-radius 100%
+    justify-content center
+    align-items center
+  .count-input
+    height 40px
+    width 30%
+    border none
+    font-size 16px
+    background-color transparent
+    color rgba(34, 34, 34, 0.87)
+    text-align center
+    &:focus
+      outline none
+  .total-input
+    width 35%
+  input:disabled
+    background-color transparent

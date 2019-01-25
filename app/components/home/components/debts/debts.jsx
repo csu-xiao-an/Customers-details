@@ -93,6 +93,10 @@ export default class Debts extends React.Component {
     })
     this.forceUpdate()
   }
+  // newDateFormat = i => {
+  //   let a = formatDate(i)
+  //   return a
+  // }
   componentWillMount = () => { if (!Array.isArray(config.data.debts)) config.data.debts = [] }
   render () {
     let total = this.price()

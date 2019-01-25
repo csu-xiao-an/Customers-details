@@ -1,9 +1,11 @@
 import PunchHeader from '../panch-header/panch-header.jsx'
-import {punchPostServiceUse} from 'project-services'
+// import {punchDeleteService, punchDeleteServiceUse} from 'project-services'
+import {punchPostServiceUse, punchDeleteService} from 'project-services'
 import './single-punch-page.styl'
-
+const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 export default class SinglePunchPage extends React.Component {
   state = {
+    punchsList: this.props.location.state.punchsList,
     uses: this.props.location.state.singlePunch.uses ? this.props.location.state.singlePunch.uses : ''
   }
 
@@ -13,6 +15,13 @@ export default class SinglePunchPage extends React.Component {
     const duration = now.diff(end, 'day')
     return duration
   }
+  updatePunchList = punchsList => this.setState({ punchsList })
+  del = () => punchDeleteService(this.props.location.state.singlePunch.id)
+    .then(r => {
+      if (r.status === 204) {
+        this.props.history.push(baseUrl + config.urls.punch_cards)
+      }
+    })
   update = () => this.forceUpdate()
   use = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
@@ -26,7 +35,7 @@ export default class SinglePunchPage extends React.Component {
         <PunchHeader length={length} />
         <div className='single-punch-wrap'>
           <div className='single-punch'>
-            {/* <button className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button> */}
+            <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
             <div className='punch-preview'>
               <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{singlePunch.service_name}</p>
               <div className='punch'>
@@ -49,7 +58,7 @@ export default class SinglePunchPage extends React.Component {
               {this.state.uses.map((el, index) => (<div className='uses'>
                 <div className='uses-date'><p>{moment(el.date).format('DD/MM/YYYY')}</p></div>
                 <div className='number-select'>
-                  <p>{index + 1}</p>
+                  <p>{this.state.uses.length - [index]}</p>
                   <img src={config.urls.media + 'checkbox-empty.svg'} />
                 </div>
               </div>))}
