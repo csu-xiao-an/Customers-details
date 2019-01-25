@@ -22,6 +22,8 @@ const Control = ({c, l, m, p, v}) => {
   )
 }
 
+const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
+
 class PunchCardsAdd extends React.Component {
   state = {
     date: moment().year() + '-12-31',
@@ -65,7 +67,10 @@ class PunchCardsAdd extends React.Component {
     return (
       <div id='punch_cards_adding' style={bgrImg}>
         <header className='punch-header'>
-          <button className={'prev-button ' + (config.isRTL && 'prev-button-rtl')} onClick={() => window.history.go(-1)} >
+          <button className={'prev-button ' + (config.isRTL && 'prev-button-rtl')} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
+            ? this.state.isOpenServices ? () => this.toogleOpenServices() : () => window.history.go(-1)
+            : () => window.history.go(-1) : () => this.setState({isService: true}) : () => {}}
+          >
             <img src={config.urls.media + 'arrow-back.svg'} />
           </button>
           <div className='header-wrap'>
@@ -82,6 +87,9 @@ class PunchCardsAdd extends React.Component {
                 isOpenServices={this.state.isOpenServices} toogleOpenServices={this.toogleOpenServices} />}
             </div>
             {!this.state.isService && <div className='service_edit'>
+              <div className='name-wrap'>
+                <p className='service-name'><span className='service-color' style={{backgroundColor: this.state.i.color}} />{this.state.i.name}</p>
+              </div>
               <Control m={() => { if (+this.state.uses > 0) this.setState({uses: +this.state.uses - 1}, () => this.getTotal()) }}
                 p={() => this.setState({uses: +this.state.uses + 1}, () => this.getTotal())}
                 l={config.translations.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
@@ -106,8 +114,12 @@ class PunchCardsAdd extends React.Component {
                 </div>}
               </div>
               <div className='buttons'>
-                <button style={{backgroundColor: 'darkseagreen'}} onClick={() => this.props.history.push(config.urls.punch_cards)}>
-                  {config.translations.cancel}</button><button onClick={this.save}>{config.translations.next}</button>
+                <button className='btn-cancel' onClick={() => this.props.history.push(baseUrl + config.urls.punch_cards)}>
+                  {config.translations.cancel}<img className='cancel-img' src={`${config.urls.media}plus.svg`} />
+                </button>
+                <button className='btn-save' onClick={this.save}>
+                  {config.translations.next}<img src={`${config.urls.media}plus-square.svg`} />
+                </button>
               </div>
             </div>}
           </div>
