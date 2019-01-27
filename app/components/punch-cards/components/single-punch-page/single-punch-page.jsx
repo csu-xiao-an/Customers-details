@@ -34,32 +34,37 @@ export default class SinglePunchPage extends React.Component {
       <div id='single-punch-page'>
         <PunchHeader length={length} />
         <div className='single-punch-wrap'>
-          <div className='single-punch'>
+          <div className={'single-punch ' + (this.daysLeft() > 0 && 'expired')}>
             <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
             <div className='punch-preview'>
               <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{singlePunch.service_name}</p>
               <div className='punch'>
-                <p className='count'><span>{config.translations.used}</span><span className='uses'>{this.state.uses ? this.state.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className='total' >{singlePunch.service_count}</span></p>
+                <p className='count'><span>{config.translations.used}</span><span className='uses'>{this.state.uses ? this.state.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span></p>
               </div>
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
-            <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>
+            {this.daysLeft() > 0
+              ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>
+              : <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>}
             <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
-              <div className='expiry-text'>
+              {this.daysLeft() > 0 ? <div className='expiry-text'>
+                <p>{config.translations.expiry_date}</p>
+                <p className='expiry-formated-date'>{moment(singlePunch.expiration).format('DD/MM/YYYY')}</p>
+              </div> : <div className='expiry-text'>
                 <p>{config.translations.expiry_date}</p>
                 <p className='formated-date'>{moment(singlePunch.expiration).format('DD/MM/YYYY')}</p>
                 <p>{config.translations.within}</p>
                 <p className='days-left'>{this.daysLeft() * (-1)}</p>
                 <p>{config.translations.days}</p>
-              </div>
+              </div>}
             </div>
             {this.state.uses && <div className='uses-wrap'>
               {this.state.uses.map((el, index) => (<div className='uses'>
                 <div className='uses-date'><p>{moment(el.date).format('DD/MM/YYYY')}</p></div>
                 <div className='number-select'>
                   <p>{this.state.uses.length - [index]}</p>
-                  <img src={config.urls.media + 'checkbox-empty.svg'} />
+                  <img className={this.daysLeft() > 0 ? 'expiry-checkbox' : 'checkbox'} src={config.urls.media + 'checkbox-select.svg'} />
                 </div>
               </div>))}
             </div>}
