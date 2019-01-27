@@ -66,6 +66,7 @@ var config = {
     language: 'en',
     editProfile: 'Edit',
     expiry_date: 'Expiry date',
+    expiry_dates: 'Expiry dates',
     new_punch_card: 'New Punch Card',
     choose_service: 'Choose service ',
     search_service: 'Please enter a service',
