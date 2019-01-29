@@ -35,7 +35,7 @@ export default class SinglePunchPage extends React.Component {
         <PunchHeader length={length} />
         <div className='single-punch-wrap'>
           <div className={'single-punch ' + (this.daysLeft() > 0 && 'expired')}>
-            <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
+            {/* <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button> */}
             <div className='punch-preview'>
               <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{singlePunch.service_name}</p>
               <div className='punch'>
@@ -44,8 +44,11 @@ export default class SinglePunchPage extends React.Component {
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
             {this.daysLeft() > 0
-              ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>
-              : <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>}
+              && <button className='expiry-btn'>{config.translations.expiry_dates}</button>}
+              {/* : <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) ||
+               this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}
+                 <img src={config.urls.media + 'check-circle.svg'} />
+               </button> */}
             <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
               {this.daysLeft() > 0 ? <div className='expiry-text'>

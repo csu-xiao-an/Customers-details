@@ -79,7 +79,7 @@ class PunchCards extends React.Component {
               </div>}
           </div>
         </div>
-        <div className={'punch-add ' + (config.isRTL ? 'punch-add-rtl' : 'punch-add-ltr')} onClick={this.addPunch}><span className='cross'>&times;</span></div>
+        {/* <div className={'punch-add ' + (config.isRTL ? 'punch-add-rtl' : 'punch-add-ltr')} onClick={this.addPunch}><span className='cross'>&times;</span></div> */}
         {/* <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} updatePunchList={this.updatePunchList} punch_cards={this.state.punchsList} /> */}
       </div>
     )
