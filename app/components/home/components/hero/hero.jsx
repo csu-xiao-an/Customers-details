@@ -113,7 +113,7 @@ export default class Hero extends React.Component {
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
         <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
-          <div className='input-group'>
+          {config.data.status && <div className='input-group'>
             <span className='status-label'>{config.translations.status}</span>
             <div className='input-wrap'>
               <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
@@ -129,7 +129,7 @@ export default class Hero extends React.Component {
               <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
                 <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
               </span>} */}
-          </div>
+          </div>}
         </form>
         <div className='img'>
           <img className='client-img' src={this.state.clientImg} alt='user-img' onError={e => { this.onError(e) }} />
