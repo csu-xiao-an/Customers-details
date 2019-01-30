@@ -9,6 +9,7 @@ export default class Groups extends React.Component {
     let circle = document.querySelectorAll('.amount')
     circle.forEach(item => {
       item.style.height = item.offsetWidth + 'px'
+      item.style.width = item.offsetHeight + 'px'
     })
   }
   render () {
