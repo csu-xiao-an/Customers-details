@@ -104,7 +104,7 @@ export default class Hero extends React.Component {
               </g>
             </g>
           </svg>&nbsp;
-          <span>VIP</span>
+          <span>{config.translations.vip}</span>
         </div>
         <label className={'camera ' + (config.isRTL ? 'rtll' : 'ltrr')}>
           <img src={config.urls.media + 'ic_photo.svg'} />
@@ -114,7 +114,7 @@ export default class Hero extends React.Component {
         <Birthday />
         <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
           <div className='input-group'>
-            <span className='status-label'>Status:</span>
+            <span className='status-label'>{config.translations.status}</span>
             <div className='input-wrap'>
               <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
                 type='text'

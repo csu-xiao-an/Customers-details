@@ -8,7 +8,7 @@ export default class Birthday extends React.Component {
       <div id={birthday ? 'birthday-wrap' : 'birthday-wrap-disabled'}
         className={config.isRTL ? 'birthday-wrap-right' : 'birthday-wrap-left'}>
         <img src={config.urls.media + 'ic_birthday.svg'} />&nbsp;
-        <h1>{birthday}</h1>
+        <h1>{config.translations.birthday}</h1>
       </div>
     )
   }
