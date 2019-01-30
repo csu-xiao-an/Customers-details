@@ -1,4 +1,5 @@
 import Share from '../share/share.jsx'
+import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
 import './gallery.styl'
 
 export default class Gallery extends React.Component {
@@ -33,7 +34,7 @@ export default class Gallery extends React.Component {
           </div>
           <div className='create-date'>
             <img src={`${config.urls.media}ic-day.svg`} />
-            <span>{moment(this.props.i.date).format('ddd, MMMM DD')}</span>
+            <span>{formatDate(this.props.i.date)}</span>
           </div>
         </div>
         <div className='photo-wrap'><img src={config.urls.gallery + this.props.i.name} /></div>
