@@ -22,7 +22,7 @@ export default class PunchCard extends React.Component {
     return (
       <div id='punch-card'>
         <div className='icon-wrap'><img src={`${config.urls.media}ic-discount.svg`} /></div>
-        <div className='order-in'>{moment(this.props.i.date).format('HH:hh')}</div>
+        <div className='order-in'>{moment(this.props.i.date).format('HH:mm')}</div>
         <p className={`text ${this.state.isVisible ? '' : 'ellipsis'}`} onClick={() => this.setState({isVisible: !this.state.isVisible})}>{this.get()}</p>
       </div>
     )

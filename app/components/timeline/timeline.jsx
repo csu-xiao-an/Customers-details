@@ -13,7 +13,8 @@ import './timeline.styl'
 let urlParams = ['appointments', 'sms', 'notes']
 let filterParams = []
 // let urlParams = ['appointments']
-
+let exp
+let cont = 1
 class Timeline extends React.Component {
   state = {
     filter: {
@@ -26,6 +27,7 @@ class Timeline extends React.Component {
       notes: true
 
     },
+    showMessage: false,
     flag: false,
     data: []
   }
@@ -43,7 +45,7 @@ class Timeline extends React.Component {
 
   init = () => {
     const list = this.refs.list
-    const exp = () => {
+    exp = () => {
       if (window.pageYOffset > list.scrollHeight - (document.body.clientHeight + document.body.clientHeight / 2)) {
         !this.state.flag && this.getData()
       }
@@ -55,12 +57,13 @@ class Timeline extends React.Component {
     const { data } = this.state
     const { min_data_length } = config
     if (data.length <= min_data_length) {
-      this.getData(false, config.interval_days * 2)
+      this.getData(false, config.interval_days * cont)
     }
   }
 
   getData = (firstLoad, fullPageCoef) => {
     this.setState({flag: true})
+    cont = cont + cont
     filterParams = urlParams.filter(i => {
       if (this.state.filter[i]) return i
     })
@@ -77,6 +80,9 @@ class Timeline extends React.Component {
       if (moment(start).isBefore(config.data.registration_date)) {
         start = getDate(0, config.data.registration_date)
         fullPageCoef = 0 // Exit from auto fill page
+        const list = this.refs.list
+        list.removeEventListener('touchmove', exp, false)
+        this.setState({showMessage: true})
       }
     } else {
       start = getDate(config.interval_days, this.lastStartDate)
@@ -84,6 +90,9 @@ class Timeline extends React.Component {
       if (moment(start).isBefore(config.data.registration_date)) {
         start = getDate(0, config.data.registration_date)
         fullPageCoef = 0 // Exit from auto fill page
+        const list = this.refs.list
+        list.removeEventListener('touchmove', exp, false)
+        this.setState({showMessage: true})
       }
     }
     this.lastStartDate = start
@@ -159,6 +168,11 @@ class Timeline extends React.Component {
             </div>}
             { fields[i.field_name] && fields[i.field_name](i) }
           </div>)}
+          {this.state.showMessage && <div className='separator-wrap'><div className='separator'>
+            <span className='date_weekday'>{`${moment(config.data.registration_date).format('YYYY-MM-DD')},`}</span>
+            <span className='date_month'>{config.translations.was_registered}</span>
+          </div>
+          </div>}
           <div className={this.state.flag ? 'preloader' : 'hidden'}>
             <div className='loader' />
           </div>
