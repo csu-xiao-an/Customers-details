@@ -86,7 +86,7 @@ var config = {
     birthday: 'Birthday',
     summary: 'summary',
     delete: 'Delete',
-    was_registered: '{date} user was registered',
+    was_registered: 'user was registered',
     del_question: 'Are you sure you want to delete selected customers?',
     del_no: 'No',
     del_yes: 'Yes',

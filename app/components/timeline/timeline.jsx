@@ -14,6 +14,7 @@ let urlParams = ['appointments', 'sms', 'notes']
 let filterParams = []
 // let urlParams = ['appointments']
 let exp
+let cont = 1
 class Timeline extends React.Component {
   state = {
     filter: {
@@ -56,12 +57,13 @@ class Timeline extends React.Component {
     const { data } = this.state
     const { min_data_length } = config
     if (data.length <= min_data_length) {
-      this.getData(false, config.interval_days * 2)
+      this.getData(false, config.interval_days * cont)
     }
   }
 
   getData = (firstLoad, fullPageCoef) => {
     this.setState({flag: true})
+    cont = cont + cont
     filterParams = urlParams.filter(i => {
       if (this.state.filter[i]) return i
     })
@@ -167,7 +169,8 @@ class Timeline extends React.Component {
             { fields[i.field_name] && fields[i.field_name](i) }
           </div>)}
           {this.state.showMessage && <div className='separator-wrap'><div className='separator'>
-            <span className='date_month'>{config.translations.was_registered.replace('{date}', moment(config.data.registration_date).format('YYYY/MM/DD'))}</span>
+            <span className='date_weekday'>{`${moment(config.data.registration_date).format('YYYY-MM-DD')},`}</span>
+            <span className='date_month'>{config.translations.was_registered}</span>
           </div>
           </div>}
           <div className={this.state.flag ? 'preloader' : 'hidden'}>
