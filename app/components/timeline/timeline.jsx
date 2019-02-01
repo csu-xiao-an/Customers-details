@@ -13,7 +13,7 @@ import './timeline.styl'
 let urlParams = ['appointments', 'sms', 'notes']
 let filterParams = []
 // let urlParams = ['appointments']
-
+let exp
 class Timeline extends React.Component {
   state = {
     filter: {
@@ -26,6 +26,7 @@ class Timeline extends React.Component {
       notes: true
 
     },
+    showMessage: false,
     flag: false,
     data: []
   }
@@ -43,7 +44,7 @@ class Timeline extends React.Component {
 
   init = () => {
     const list = this.refs.list
-    const exp = () => {
+    exp = () => {
       if (window.pageYOffset > list.scrollHeight - (document.body.clientHeight + document.body.clientHeight / 2)) {
         !this.state.flag && this.getData()
       }
@@ -77,6 +78,9 @@ class Timeline extends React.Component {
       if (moment(start).isBefore(config.data.registration_date)) {
         start = getDate(0, config.data.registration_date)
         fullPageCoef = 0 // Exit from auto fill page
+        const list = this.refs.list
+        list.removeEventListener('touchmove', exp, false)
+        this.setState({showMessage: true})
       }
     } else {
       start = getDate(config.interval_days, this.lastStartDate)
@@ -84,6 +88,9 @@ class Timeline extends React.Component {
       if (moment(start).isBefore(config.data.registration_date)) {
         start = getDate(0, config.data.registration_date)
         fullPageCoef = 0 // Exit from auto fill page
+        const list = this.refs.list
+        list.removeEventListener('touchmove', exp, false)
+        this.setState({showMessage: true})
       }
     }
     this.lastStartDate = start
@@ -159,6 +166,10 @@ class Timeline extends React.Component {
             </div>}
             { fields[i.field_name] && fields[i.field_name](i) }
           </div>)}
+          {this.state.showMessage && <div className='separator-wrap'><div className='separator'>
+            <span className='date_month'>{config.translations.was_registered.replace('{date}', moment(config.data.registration_date).format('YYYY/MM/DD'))}</span>
+          </div>
+          </div>}
           <div className={this.state.flag ? 'preloader' : 'hidden'}>
             <div className='loader' />
           </div>
