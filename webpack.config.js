@@ -77,7 +77,7 @@ module.exports = env => {
         assets: false,
         hash: false
       },
-      port: '3000'
+      port: '3001'
     },
     plugins: [
       new ExtractTextPlugin(outputCSS)
