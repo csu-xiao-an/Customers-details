@@ -10,7 +10,7 @@ import Topnav from '../topnav/topnav.jsx'
 import {getTimeline} from 'project-services'
 import './timeline.styl'
 
-let urlParams = ['appointments', 'sms', 'notes']
+let urlParams = ['appointments', 'sms']
 let filterParams = []
 // let urlParams = ['appointments']
 let exp
@@ -169,8 +169,8 @@ class Timeline extends React.Component {
             { fields[i.field_name] && fields[i.field_name](i) }
           </div>)}
           {this.state.showMessage && <div className='separator-wrap'><div className='separator'>
-            <span className='date_weekday'>{`${moment(config.data.registration_date).format('YYYY-MM-DD')},`}</span>
-            <span className='date_month'>{config.translations.was_registered}</span>
+            {/* <span className='date_weekday'>{`${moment(config.data.registration_date).format('YYYY-MM-DD')},`}</span> */}
+            <span className='date_month'>{config.translations.registration_date.replace('{registration_date}', `${moment(config.data.registration_date).format('YYYY-MM-DD')}`)}</span>
           </div>
           </div>}
           <div className={this.state.flag ? 'preloader' : 'hidden'}>
