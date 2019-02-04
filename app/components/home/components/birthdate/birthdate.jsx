@@ -69,10 +69,6 @@ export default class Birthdate extends React.Component {
   getHandleMonth = value => this.setState({month: value})
   getHandleYear = value => this.setState({year: value})
   render () {
-    // console.log('birthdate', config.data.birthdate);
-    // console.log('birthyear', config.data.birthyear);
-    console.log('1', this.state.configValue);
-    console.log('2', this.state.configValue1);
     return (
       <div id='birthdate' className='block'>
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
