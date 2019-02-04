@@ -12,12 +12,12 @@ export default class Birthdate extends React.Component {
     year: '',
     configValue: config.data.birthdate && config.data.birthyear
       ? `${config.data.birthyear}-${config.data.birthdate}`
-      : ((!!config.data.birthyear) ? (`${config.data.birthyear}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)
-        : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`),
+      : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
+        : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : ''}`),
     configValue1: config.data.birthdate && config.data.birthyear
       ? `${config.data.birthyear}${config.data.birthdate}`
       : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
-        : `${''}${!!config.data.birthdate ? config.data.birthdate : ''}`)
+        : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : ''}`)
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -71,12 +71,14 @@ export default class Birthdate extends React.Component {
   render () {
     // console.log('birthdate', config.data.birthdate);
     // console.log('birthyear', config.data.birthyear);
+    console.log('1', this.state.configValue);
+    console.log('2', this.state.configValue1);
     return (
       <div id='birthdate' className='block'>
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.birthday}:</span>
           <span>
-            {this.props.hateByear}-{this.props.hateBdate}
+            {this.props.hateByear ? this.props.hateByear + '-' + this.props.hateBdate : this.props.hateBdate}
           </span>
         </div>
         {
@@ -93,7 +95,8 @@ export default class Birthdate extends React.Component {
         <div className={this.props.editProfile ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
-            <Datepicker defaultValue={this.state.configValue} 
+            <Datepicker 
+              defaultValue={this.state.configValue} 
               defaultValue1={this.state.configValue1} 
               getBirthdate={this.getBirthdate} 
               getBirthyear={this.getBirthyear}
