@@ -146,6 +146,10 @@ class Timeline extends React.Component {
     }
     this.state.filter[p] ? f(true) : f(false)
   }
+  dateFormat = date => {
+    moment.locale(config.locale)
+    return moment(date).format('dddd, MMMM DD')
+  }
   render () {
     const fields = {
       appointments: i => <Appointment i={i} {...this.props} />,
@@ -161,9 +165,9 @@ class Timeline extends React.Component {
         <div className='list' ref='list'>
           {this.state.data.length > 0 && this.state.data.map(i => !i.isHide && <div>
             {i.separator && <div className='separator-wrap'><div className='separator'>
-              <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(i.date).get('day')]},`}</span>
-              <span className='date_month'>{config.translations.dates.months[moment(i.date).get('month')]}</span>
-              <span className='date_day'>{moment(i.date).format('DD')}</span>
+              {/* <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(i.date).get('day')]},`}</span>
+              <span className='date_month'>{config.translations.dates.months[moment(i.date).get('month')]}</span> */}
+              <span className='date_day'>{this.dateFormat(i.date)}</span>
             </div>
             </div>}
             { fields[i.field_name] && fields[i.field_name](i) }
