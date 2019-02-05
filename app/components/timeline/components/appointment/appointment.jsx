@@ -22,20 +22,24 @@ export default class Appoinment extends React.Component {
       e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
     }
   }
+  dateFormat = date => {
+    moment.locale(config.locale)
+    return moment(date).format('ddd, MMMM DD')
+  }
   render () {
     return (
       <div id='appoinments'>
         <p className='order-in'>
           {config.translations.appointment_creted}
-          <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(this.props.i.added_date).get('day')]},`}</span>
-          <span className='date_month'>{config.translations.dates.months[moment(this.props.i.added_date).get('month')]}</span>
-          <span className='date_day'>{moment(this.props.i.added_date).format('DD')}</span>
+          {/* <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(this.props.i.added_date).get('day')]},`}</span>
+          <span className='date_month'>{config.translations.dates.months[moment(this.props.i.added_date).get('month')]}</span> */}
+          <span className='date_day'>{this.dateFormat(this.props.i.added_date)}</span>
         </p>
         <div className='date-wrap'>
           <div className='date'>
             <div className='date-day'>
               <img src={`${config.urls.media}ic-day.svg`} />
-              <span>{moment(this.props.i.start).format('ddd, MMMM DD')}</span>
+              <span>{this.dateFormat(this.props.i.start)}</span>
             </div>
             <div className='date-time'>
               <img src={`${config.urls.media}ic_time.svg`} />
