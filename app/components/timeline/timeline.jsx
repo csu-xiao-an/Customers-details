@@ -146,8 +146,11 @@ class Timeline extends React.Component {
     }
     this.state.filter[p] ? f(true) : f(false)
   }
-  dateFormat = date => {
+  dateFormatOverall = date => {
     moment.locale(config.locale)
+    if (moment(date).format('YYYY') < moment().format('YYYY')) {
+      return moment(date).format('dddd, MMMM DD, YYYY')
+    }
     return moment(date).format('dddd, MMMM DD')
   }
   render () {
@@ -167,7 +170,7 @@ class Timeline extends React.Component {
             {i.separator && <div className='separator-wrap'><div className='separator'>
               {/* <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(i.date).get('day')]},`}</span>
               <span className='date_month'>{config.translations.dates.months[moment(i.date).get('month')]}</span> */}
-              <span className='date_day'>{this.dateFormat(i.date)}</span>
+              <span className='date_day'>{this.dateFormatOverall(i.date)}</span>
             </div>
             </div>}
             { fields[i.field_name] && fields[i.field_name](i) }
