@@ -135,7 +135,7 @@ class PunchCardsAdd extends React.Component {
                   ((this.state.i.price * this.state.discount) / 100)) + config.data.currency}</h1> */}
                 <div className='expiration_wrap'>
                   <p className='subscription_period'>{config.translations.add_expiry_date}</p>
-                  <Switch on={this.state.switch} onClick={this.handleValidity} className={config.isRTL ? 'switchleft' : 'switchright'} />
+                  <Switch on={this.state.switch} onClick={this.handleValidity}/>
                 </div>
                 {this.state.switch && <div className='valid_date'>
                   <div className='date_wrap'>
