@@ -13,17 +13,19 @@ const isPunchCards = config.plugins_list.includes('punch_cards')
 const isColorsBeautech = config.plugins_list.includes('colors_beautech')
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      {isPunchCards && <Route path={baseUrl + config.urls.punch_cards_adding} component={PunchCardsAdd} />}
-      {/* {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautech} />} */}
-      {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautechOld} />}
-      {isPunchCards && <Route exact path={baseUrl + config.urls.punch_cards} component={PunchCards} />}
-      {isPunchCards && <Route path={baseUrl + config.urls.punch_cards + '/:punch_card_id'} component={SinglePunch} />}
-      <Route path={baseUrl + config.urls.timeline} component={Timeline} />
-      <Route exact path={baseUrl + config.urls.home} component={Home} />
-      <Redirect from='/' to={baseUrl} />
-    </Switch>
-  </BrowserRouter>,
-  document.getElementById('root'))
+document.body.onload = function () {
+  ReactDOM.render(
+    <BrowserRouter>
+      <Switch>
+        {isPunchCards && <Route path={baseUrl + config.urls.punch_cards_adding} component={PunchCardsAdd} />}
+        {/* {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautech} />} */}
+        {isColorsBeautech && <Route path={baseUrl + config.urls.colors_beautech} component={ColorsBeautechOld} />}
+        {isPunchCards && <Route exact path={baseUrl + config.urls.punch_cards} component={PunchCards} />}
+        {isPunchCards && <Route path={baseUrl + config.urls.punch_cards + '/:punch_card_id'} component={SinglePunch} />}
+        <Route path={baseUrl + config.urls.timeline} component={Timeline} />
+        <Route exact path={baseUrl + config.urls.home} component={Home} />
+        <Redirect from='/' to={baseUrl} />
+      </Switch>
+    </BrowserRouter>,
+    document.getElementById('root'))
+}
