@@ -38,8 +38,8 @@ backAll = () => {
     phone: config.data.phone,
     email: config.data.email,
     gender: config.data.gender,
-    birthdate: config.data.birthdate,
-    birthyear: config.data.birthyear,
+    // birthdate: config.data.birthdate,
+    // birthyear: config.data.birthyear,
     permit_ads: config.data.permit_ads,
     editProfile: false
   })
@@ -58,7 +58,6 @@ getEmail = value => {
 }
 getGender = value => {
   this.setState({ gender: value })
-  console.log(this.state.gender)
 }
 getBdate = value => {
   this.setState({ birthdate: value })
