@@ -82,24 +82,24 @@ class ColorsBeautechOld extends React.Component {
                     </div>)}
                   </div>
                 </div>
-                <div className='common'>
-                  <div className='common-item'>
+                {(i.comments || i.waiting_time) && <div className='common'>
+                  {i.comments && <div className='common-item'>
                     <div className='common-img'>
                       <img src={`${config.urls.media}feather.svg`} />
                     </div>
                     <div>
                       <p className='main-title'><span>{translations.comments}</span><span className='value'>{i.comments}</span></p>
                     </div>
-                  </div>
-                  <div className='common-item'>
+                  </div>}
+                  {i.waiting_time && <div className='common-item'>
                     <div className='common-img'>
                       <img src={`${config.urls.media}time-left.png`} />
                     </div>
                     <div>
                       <p className='main-title'><span>{translations.waiting_time}</span><span className='value'>{i.waiting_time}</span></p>
                     </div>
-                  </div>
-                </div>
+                  </div>}
+                </div>}
               </div>)}
             </Swiper>
           </div>
