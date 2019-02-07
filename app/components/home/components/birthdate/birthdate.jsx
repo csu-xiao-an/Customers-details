@@ -74,7 +74,7 @@ export default class Birthdate extends React.Component {
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.birthday}:</span>
           <span>
-            {this.props.hateByear ? this.props.hateByear + '-' + this.props.hateBdate : this.props.hateBdate}
+            {(config.data.birthyear ? config.data.birthyear : '') + ((config.data.birthyear && config.data.birthdate) ? '-' : '') + (config.data.birthdate ? config.data.birthdate : '')}
           </span>
         </div>
         {
