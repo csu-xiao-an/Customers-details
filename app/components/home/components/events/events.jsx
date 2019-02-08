@@ -39,13 +39,19 @@ export default class Events extends React.Component {
       borderStyle: 'solid',
       borderRight: 'navajowhite'
     }
+    let rightBorder = {
+      borderImage: 'linear-gradient(to bottom' + colorStr + ') 1 100%',
+      borderWidth: '2px',
+      borderStyle: 'solid',
+      borderLeft: 'navajowhite'
+    }
     let BorderNone = {
       borderImage: '',
       borderWidth: '',
       borderStyle: '',
       borderRight: ''
     }
-    return (colorStr ? leftBorder : BorderNone)
+    return (colorStr ? (config.isRTL ? rightBorder : leftBorder) : BorderNone)
   }
   getHeaderTitle = i => i.services.map(i => i.name).join(', ')
 
