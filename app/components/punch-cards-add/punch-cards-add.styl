@@ -157,13 +157,28 @@
       .input-wrap
         display flex
         align-items center
+        .persent-wrap
+          position relative
+          display flex
+          justify-content flex-end
+          width 50%
         .discont-input
-          width 62%
+          // position absolute
+          width 100%
           text-align center
           border none
           font-size 16px
           color rgba(34, 34, 34, 0.87)
           outline none
+        .persent
+          position absolute
+        .persent-rtl
+          left 25%
+        .persent-ltr
+          right 25%
+        // .discont-input:focus
+        //   width 30%
+        //   background-color grey
         img
           width 20px
           height 20px
@@ -231,6 +246,8 @@
     padding 1rem 1rem 1rem
     justify-content space-between
     align-items center
+    .change-expiry-date
+      font-size 16px
     .date_wrap
       p
         font-size 16px

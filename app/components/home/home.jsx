@@ -23,25 +23,28 @@ class Home extends React.Component {
 
   showFields = () => this.setState({ isVisibleFields: true })
 
-  componentWillMount = () => {
-    const queryParams = qs.parse(this.props.history.location.search.slice(1))
+  componentWillMount () {
+    const { history } = this.props
+    const queryParams = qs.parse(history.location.search.slice(1))
+    const [ mainRoute, tailRoute = '' ] = queryParams.page ? queryParams.page.split('/') : []
     const routes = {
-      'colors_beautech': isColorsBeautech && baseUrl + config.urls.colors_beautech,
       'timeline': baseUrl + config.urls.timeline,
-      'punch_cards': isPunchCards && baseUrl + config.urls.punch_cards,
-      'punch_cards/add': isPunchCards && baseUrl + config.urls.punch_cards_adding
+      'colors_beautech': isColorsBeautech && baseUrl + config.urls.colors_beautech,
+      'punch_cards': isPunchCards && {
+        [tailRoute]: baseUrl + config.urls.single_punch.replace('{punch_card_id}', tailRoute),
+        'add': baseUrl + config.urls.punch_cards_adding,
+        '': baseUrl + config.urls.punch_cards
+      }
     }
-
-    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
-
-    if (!queryParams.page) return
-    if (isPunchCards && queryParams.page.substring(0, 12) === 'punch_cards/' && !routes[queryParams.page]) {
-      this.props.history.replace(baseUrl + config.urls.single_punch.replace('{punch_card_id}', queryParams.page.split('/')[1]))
-    } else if (routes[queryParams.page]) {
-      this.props.history.replace(routes[queryParams.page])
+    const url = routes[mainRoute]
+    if (config.isRtL) document.body.style.direction = 'rtl'
+    if (!url) return
+    if (typeof url === 'object' && url[tailRoute]) {
+      history.replace(url[tailRoute])
     }
+    history.replace(url)
   }
-
+// TODO func for check tailRoute
   render () {
     const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!config.data.debts.length)
     const isEventVisible = this.state.isVisibleFields || (config.data.recent_appoinments && !!config.data.recent_appoinments.length)

@@ -30,9 +30,11 @@ class PunchCardsAdd extends React.Component {
     isCategoryList: false,
     isOpenServices: false,
     discontActive: false,
+    editDiscount: false,
     isService: true,
+    editDate: false,
     switch: false,
-    discount: 0,
+    discount: '',
     total: 0,
     uses: 10,
     data: [],
@@ -62,6 +64,10 @@ class PunchCardsAdd extends React.Component {
     punchPostService(b).then(r => r.status === 201 && r.json().then(id => {
       this.props.history.push(baseUrl + config.urls.punch_cards)
     }))
+  }
+  activeDiscont = () => {
+    this.setState({discontActive: !this.state.discontActive},
+    () => this.state.discontActive && this.refs.discont.focus())
   }
   getTotal = () => this.setState({total: this.state.i.price * this.state.uses - ((this.state.i.price * this.state.uses * this.state.discount) / 100)})
   toogleOpenServices = () => this.setState({isOpenServices: !this.state.isOpenServices})
@@ -102,13 +108,24 @@ class PunchCardsAdd extends React.Component {
                   p={() => this.setState({uses: +this.state.uses + 1}, () => this.getTotal())}
                   l={config.translations.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
                 <div className='upd-discont-wrap'>
-                  <button className={'discont-btn ' + (this.state.discontActive && 'active-discont')} onClick={() => this.setState({discontActive: !this.state.discontActive})} >
+                  <button className={'discont-btn ' + (this.state.discontActive && 'active-discont')} onClick={() => this.activeDiscont()} >
                     {this.state.discontActive ? <img className='discont-img' src={`${config.urls.media}discont-act.svg`} /> : <img className='discont-img' src={`${config.urls.media}discont-dis.svg`} />}
                     {config.translations.add_discount}
                   </button>
-                  <div className={'input-wrap'}>
-                    <input className='discont-input' type='text' onChange={e => this.setState({discount: e.target.value}, () => this.getTotal())} placeholder={this.state.discontActive ? config.translations.type_discount : ''} disabled={!this.state.discontActive} />
-                    {/* {this.state.discontActive && <img className='discont-img' src={`${config.urls.media}edit-note.svg`} />} */}
+                  <div className='input-wrap'>
+                    <div className='persent-wrap'>
+                      <input
+                        onChange={e => this.setState({discount: e.target.value}, () => this.getTotal())}
+                        onBlur={() => this.setState({editDiscount: true, discontActive: false})}
+                        ref='discont'
+                        className='discont-input'
+                        type='number'
+                        placeholder={this.state.discontActive ? config.translations.type_discount : ''}
+                        disabled={!this.state.discontActive}
+                      />
+                      {this.state.discount && <span className={'persent ' + (config.isRTL ? 'persent-rtl' : 'persent-ltr')}>%</span>}
+                    </div>
+                    {this.state.editDiscount && this.state.discount && <img onClick={() => this.activeDiscont()} className='discont-img' src={`${config.urls.media}edit-note.svg`} />}
                   </div>
                 </div>
                 <div className='total_wrap'>
@@ -116,12 +133,12 @@ class PunchCardsAdd extends React.Component {
                     <p className='label-cost'>{config.translations.total}</p>
                     <p className='total_num'>{config.translations.price_single}
                       <span className='num'>
-                        {(this.state.i.price - ((this.state.i.price * this.state.discount) / 100)) + config.data.currency}
+                        {(this.state.i.price - ((this.state.i.price * this.state.discount) / 100)) + ' ' + config.data.currency}
                       </span>
                     </p>
                   </div>
                   <div className='input-wrap'>
-                    <div className='ink' onClick={() => this.setState({total: Math.round(this.state.total) + 10})}><img src={`${config.urls.media}plus.svg`} /></div><input className='count-input total-input' type='text' value={this.state.total + config.data.currency} disabled />
+                    <div className='ink' onClick={() => this.setState({total: Math.round(this.state.total) + 10})}><img src={`${config.urls.media}plus.svg`} /></div><input className='count-input total-input' type='text' value={this.state.total + ' ' + config.data.currency} disabled />
                     <div className='ink' onClick={() => { if (+this.state.total > 0) this.setState({total: Math.round(this.state.total) - 10}) }}><img src={`${config.urls.media}minus.svg`} /></div>
                   </div>
                 </div>
@@ -141,8 +158,10 @@ class PunchCardsAdd extends React.Component {
                   <div className='date_wrap'>
                     <p>{config.translations.ends}</p>
                   </div>
-                  <p className='daysLeft'>{config.translations.days_left.replace('{days}', this.daysLeft() * (-1))}</p>
-                  <p className='is_valid'>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment().format('YYYY')}`}</p>
+                  <p className='daysLeft'>{config.translations.days_left.replace('{days}', this.daysLeft() * (-1))}</p> 
+                  {this.state.editDate
+                    ? <input className='change-expiry-date' onBlur={() => this.setState({editDate: false})} onChange={e => this.setState({date: e.target.value})} ref='changeDate' type='date' value={this.state.date} />
+                    : <p className='is_valid' onClick={() => this.setState({editDate: true}, () => this.refs.changeDate.focus())}>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment().format('YYYY')}`}</p>}
                 </div>}
               </div>
               <div className='buttons'>
