@@ -164,6 +164,7 @@ var config = {
     appointment_at: 'Appointment at',
     canceled: 'canceled',
     employer: 'Employer:',
+    duration_minutes: 'mm',
     procedures: 'Procedures:',
     debts_t: 'Debts',
     other_t: 'Other',
