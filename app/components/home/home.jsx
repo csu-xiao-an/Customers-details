@@ -36,6 +36,7 @@ class Home extends React.Component {
         '': baseUrl + config.urls.punch_cards
       }
     }
+    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     const url = routes[mainRoute]
     if (config.isRtL) document.body.style.direction = 'rtl'
     if (!url) return
