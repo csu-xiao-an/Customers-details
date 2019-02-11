@@ -83,14 +83,14 @@ export default class Appoinment extends React.Component {
             </div>
           </div>
         </div>
-        <div className={this.props.i.location ? 'adress' : 'hidden'}>
+        <div className={this.props.i.location ? 'address' : 'hidden'}>
           <div className='data'>
             <p className='meet'>{config.translations.meeting}</p>
             <p className='address'>{this.props.i.location}</p>
           </div>
           <div className='icon'>
             <a className='map-link' href={config.urls.google_maps.replace('{address}', this.props.i.location)}>
-              <img src={config.urls.media + 'icon-adress.png'} />
+              <img src={config.urls.media + 'icon-address.png'} />
             </a>
           </div>
         </div>

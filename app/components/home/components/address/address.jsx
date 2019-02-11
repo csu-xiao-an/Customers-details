@@ -1,8 +1,8 @@
-import {clientReplaceService, adressGetService} from 'project-services'
+import {clientReplaceService, addressGetService} from 'project-services'
 import {Modal} from 'project-components'
-import './adress.styl'
+import './address.styl'
 
-export default class Adress extends React.Component {
+export default class Address extends React.Component {
   state = {
     addressEdit: false,
     sendNewAddress: false,
@@ -15,10 +15,10 @@ export default class Adress extends React.Component {
     parent: {}
   }
   submit = () => {
-    const body = `${config.urls.address}=${this.changeAddress.value}`
+    const body = `${config.urls.address_srt}=${this.changeAddress.value}`
     clientReplaceService(body).then(r => {
       if (r.status === 204) {
-        config.data.adress = this.changeAddress.value
+        config.data.address = this.changeAddress.value
         this.setState({
           addressName: this.changeAddress.value,
           addressEdit: false
@@ -44,12 +44,12 @@ export default class Adress extends React.Component {
   componentDidMount = () => {
     this.setState({
       parent: this.props.parent,
-      addressName: config.data.adress
+      addressName: config.data.address
     })
   }
   render () {
     return (
-      <div id='adress'>
+      <div id='address'>
         <Modal show={this.props.show}>
           <div className='address-header'>
             <label className='address-name'>{this.state.addressName}</label>
@@ -69,7 +69,7 @@ export default class Adress extends React.Component {
             <img className='map' src={config.urls.main + '/customers-details/clients/' + config.data.id + '/map'} />
             <div className='block-text'>
               {!this.state.addressEdit
-                ? <label className='address-name'>{config.data.adress ? config.data.adress : ''}</label>
+                ? <label className='address-name'>{config.data.address ? config.data.address : ''}</label>
                 : <input className='input-change-address'
                   ref={node => {
                     this.changeAddress = node
