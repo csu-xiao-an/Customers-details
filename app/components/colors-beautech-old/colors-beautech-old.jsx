@@ -41,13 +41,13 @@ class ColorsBeautechOld extends React.Component {
           <div id='swiper-wrap-punch'>
             <Swiper onSlideChangeEnd={this.chengeDate} ref={node => { if (node) this.swiper = node.swiper }} slidesPerView='auto' centeredSlides observer initialSlide={beautech.length - 1}>
               {beautech.map(i => <div>
-                {i.colors && <div className='main'>
-                  <div className='main-title'><p>{translations.brand}</p>
+                <div className='main'>
+                  {i.company && <div className='main-title'><p>{translations.brand}</p>
                     <span className='value'>{i.company}</span>
-                  </div>
-                  <p className='main-title'><span>{translations.series}</span>
-                    <span className='value'>{i.series}</span></p>
-                  {i.colors.map(element => <div className='colors'>
+                  </div>}
+                  {i.series && <p className='main-title'><span>{translations.series}</span>
+                    <span className='value'>{i.series}</span></p>}
+                  {i.colors && i.colors.map(element => <div className='colors'>
                     <div className='colors-item'>
                       <img src={`${config.urls.media}icons-8-fill-color.png`} />
                       <div className='colors-info'>
@@ -60,7 +60,7 @@ class ColorsBeautechOld extends React.Component {
                     {element.comments && <p className='main-title color-comments'><span>{translations.comments}</span><span className='value'>{element.comments}</span></p>}
                   </div>
                   )}
-                </div>}
+                </div>
                 {i.oxy && <div className='oxy'>
                   <div className='oxy-header'>
                     <div className='hh'>
