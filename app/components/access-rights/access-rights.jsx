@@ -27,7 +27,7 @@ export default Component => {
       edit: false,
       add: false
     },
-    adress: {
+    address: {
       edit: false,
       waze: true,
       add: false
@@ -96,7 +96,7 @@ export default Component => {
         edit: true,
         add: true
       },
-      adress: {
+      address: {
         edit: true,
         add: true
       },

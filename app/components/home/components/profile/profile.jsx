@@ -1,6 +1,6 @@
 import './profile.styl'
 import Phone from '../phone/phone.jsx'
-// import Adress from '../adress/adress.jsx'
+// import Address from '../address/address.jsx'
 import Sex from '../sex/sex.jsx'
 import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
@@ -172,7 +172,7 @@ render () {
               <a href={config.urls.google_maps.replace('{address}', config.data.address)}>
                 <img
                   // onClick={() => this.setState({visibleMapPopup: true})}
-                  src={config.urls.media + 'icon-adress.png'}
+                  src={config.urls.media + 'icon-address.png'}
                 />
               </a>
             </div>

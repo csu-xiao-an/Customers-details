@@ -105,7 +105,7 @@ var config = {
     email: 'Email',
     back: 'Back',
     add_caption: 'Add a caption...',
-    add_adress: 'Add an address',
+    add_address: 'Add an address',
     address: 'Address',
     add_debt: 'Add New Debt',
     debts: 'Debts',
@@ -279,7 +279,7 @@ var config = {
     ]
   },
   urls: {
-    adress: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
+    address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
     timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
     get_punch_cards_list: '/customers-details/clients/{client_id}/punch_cards',
     multi_del_url: '/customers-details/clients/{client_id}/media/{media_ids}',
@@ -321,7 +321,7 @@ var config = {
     timeline: '/timeline',
     groups: '/groups/',
     login: '/en/login',
-    address: 'address',
+    address_srt: 'address',
     status: 'status',
     source: 'source',
     gender: 'gender',
