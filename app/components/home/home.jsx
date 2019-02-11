@@ -38,7 +38,6 @@ class Home extends React.Component {
     }
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     const url = routes[mainRoute]
-    if (config.isRtL) document.body.style.direction = 'rtl'
     if (!url) return
     if (typeof url === 'object' && url[tailRoute]) {
       history.replace(url[tailRoute])

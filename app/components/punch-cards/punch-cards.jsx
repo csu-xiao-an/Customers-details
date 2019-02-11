@@ -8,7 +8,10 @@ const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.da
 class PunchCards extends React.Component {
   state = {
     punchsList: [],
-    punch: {},
+    punch: {}
+  }
+  static propTypes = {
+    history: PropTypes.object.isRequired
   }
   componentWillMount = () => {
     getPunchCardsList().then(punchsList => {
@@ -17,12 +20,6 @@ class PunchCards extends React.Component {
     })
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
-  // componentDidUpdate (prevProps, prevState) {
-  //   const { punchsList } = this.state
-  //   if (prevState.punchsList.length && punchsList.length !== prevState.punchsList.length) {
-  //     punchsList.length && this.setState({ punch: punchsList[punchsList.length - 1] })
-  //   }
-  // }
   updatePunchList = punchsList => this.setState({ punchsList })
   updateSingle = () => {
     const punch = this.state.punchsList.reduce((active, item) => item.isActive ? item : active, null) || this.state.punchsList[0] || {}
@@ -32,22 +29,14 @@ class PunchCards extends React.Component {
   addPunch = () => {
     this.props.history.push(baseUrl + config.urls.punch_cards_adding)
   }
-  transferPunchData = (serviceId, punch) => {
-    this.props.history.push({
-      pathname: config.baseUrl && config.baseUrl.replace('{client_id}', config.data.id) + config.urls.single_punch.replace('{punch_card_id}', serviceId),
-      state: {
-        singlePunch: punch,
-        length: this.state.punchsList.length,
-        punchsList: this.state.punchsList
-      }
-    })
-  }
   renderPunchPreview = () => {
-    // console.log(this.state.punchsList)
     return (
       <div id='wrap-punch'>
         {this.state.punchsList.map(i => (
-          <div className='punch-preview' style={i.uses && i.uses.length === i.service_count ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}} onClick={() => this.setState({punch: i}, () => this.transferPunchData(i.service_id, i))}>
+          <div className='punch-preview' style={i.uses && i.uses.length === i.service_count ? {backgroundColor: 'lightgray'} : {backgroundColor: 'white'}}
+            onClick={() => this.setState({punch: i}, () => {
+              this.props.history.push(baseUrl + config.urls.single_punch.replace('{punch_card_id}', i.id))
+            })}>
             <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{i.service_name}</p>
             <div className='punch'>
               <p className='count'><span>{config.translations.used}</span><span className='uses'>{i.uses ? i.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className='total' >{i.service_count}</span></p>
@@ -62,7 +51,7 @@ class PunchCards extends React.Component {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
     }
-    this.state.from && this.updatePunchList1(this.props.location.state.punchsList)
+    // this.state.from && this.updatePunchList1(this.props.location.state.punchsList)
     return (
       <div id='punch_cards' style={bgrImg}>
         <PunchHeader length={this.state.punchsList.length} />
@@ -73,8 +62,7 @@ class PunchCards extends React.Component {
                 <h2>{config.translations.select_punch_card}</h2>
                 {this.state.punchsList.length > 0 && this.renderPunchPreview()}
               </div>
-              :
-              <div className='empty-punch-card'>
+              : <div className='empty-punch-card'>
                 <p>{config.translations.empty_punch_cards}</p>
               </div>}
           </div>
