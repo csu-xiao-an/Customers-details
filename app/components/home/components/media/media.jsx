@@ -189,7 +189,7 @@ export default class Media extends React.Component {
             {config.translations.gallery}
           </div>
           <div className='files-amount'>
-            {config.data.gallery.length ? (config.translations.files + ': ' + this.state.slideAmount) : (config.translations.files + ': ' + '0')}
+            {config.data.gallery.length ? (config.translations.files + ': ' + config.data.gallery.length) : (config.translations.files + ': ' + '0')}
             {this.state.slideAmount ? <div className='action'>
               {this.checkAccessLevel
                 ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
