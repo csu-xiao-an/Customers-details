@@ -53,7 +53,7 @@ export default class Topnav extends React.Component {
           {(this.props.home || this.props.timeline) && <div className='client-name'>
             <div className='icon-online' />
             <h1>{config.data.name}</h1>
-            {birthdate && <span>{config.translations.years_old.replace('{count}', birthdate)}</span>}
+            {birthdate && <span>{config.translations.topnav_years_old.replace('{count}', birthdate)}</span>}
           </div>}
           {this.props.punch && <div className='client-name'>
             <h1>{config.translations.punch_topnav.replace('{client_name}', config.data.name)}</h1></div>}
