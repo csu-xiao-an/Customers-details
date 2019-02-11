@@ -344,7 +344,6 @@ var config = {
     intent_y: 30.2525126,
     phone: '0545421321',
     isFavorite: false,
-    sent: 'Sent',
     details_link_active: false,
     permit_ads: false,
     signature: './dist/media/autograph.png',

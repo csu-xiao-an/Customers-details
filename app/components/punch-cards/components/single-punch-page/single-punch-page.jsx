@@ -1,22 +1,36 @@
 import PunchHeader from '../panch-header/panch-header.jsx'
-// import {punchDeleteService, punchDeleteServiceUse} from 'project-services'
-import {punchPostServiceUse, punchDeleteService} from 'project-services'
+import {punchPostServiceUse, punchDeleteService, getPunchCardsList} from 'project-services'
 import './single-punch-page.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 export default class SinglePunchPage extends React.Component {
   state = {
-    punchsList: this.props.location.state.punchsList,
-    uses: this.props.location.state.singlePunch.uses ? this.props.location.state.singlePunch.uses : ''
+    punchsList: [],
+    singlePunch: {}
+  }
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
+  }
+
+  componentWillMount = () => {
+    getPunchCardsList().then(punchsList => {
+      this.setState({punchsList}, () => {
+        this.setState({
+          singlePunch: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {},
+          uses: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses
+        })
+      })
+    })
+    if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
 
   daysLeft = () => {
     const now = moment()
-    const end = moment(this.props.location.state.singlePunch.expiration)
+    const end = moment(this.state.singlePunch && this.state.singlePunch.expiration)
     const duration = now.diff(end, 'day')
     return duration
   }
-  updatePunchList = punchsList => this.setState({ punchsList })
-  del = () => punchDeleteService(this.props.location.state.singlePunch.id)
+  del = () => punchDeleteService(this.state.singlePunch.id)
     .then(r => {
       if (r.status === 204) {
         this.props.history.push(baseUrl + config.urls.punch_cards)
@@ -25,21 +39,21 @@ export default class SinglePunchPage extends React.Component {
   update = () => this.forceUpdate()
   use = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
-    punchPostServiceUse(this.props.location.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r =>
-      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] })) && this.update()))
+    punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r =>
+      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))))
   }
   render () {
-    const { singlePunch, length } = this.props.location.state
+    const { singlePunch = {}, uses } = this.state
     return (
       <div id='single-punch-page'>
-        <PunchHeader length={length} />
+        <PunchHeader length={this.state.punchsList.length} />
         <div className='single-punch-wrap'>
           <div className={'single-punch ' + (this.daysLeft() > 0 && 'expired')}>
             {/* <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button> */}
             <div className='punch-preview'>
               <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{singlePunch.service_name}</p>
               <div className='punch'>
-                <p className='count'><span>{config.translations.used}</span><span className='uses'>{this.state.uses ? this.state.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span></p>
+                <p className='count'><span>{config.translations.used}</span><span className='uses'>{uses ? uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span></p>
               </div>
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
@@ -62,11 +76,11 @@ export default class SinglePunchPage extends React.Component {
                 <p>{config.translations.days}</p>
               </div>}
             </div>
-            {this.state.uses && <div className='uses-wrap'>
-              {this.state.uses.map((el, index) => (<div className='uses'>
+            {uses && <div className='uses-wrap'>
+              {uses.map((el, index) => (<div className='uses'>
                 <div className='uses-date'><p>{moment(el.date).format('DD/MM/YYYY')}</p></div>
                 <div className='number-select'>
-                  <p>{this.state.uses.length - [index]}</p>
+                  <p>{uses.length - [index]}</p>
                   <img className={this.daysLeft() > 0 ? 'expiry-checkbox' : 'checkbox'} src={config.urls.media + 'checkbox-select.svg'} />
                 </div>
               </div>))}
