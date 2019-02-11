@@ -134,7 +134,6 @@ var config = {
     // completion: 'Filling up customer`s details',
     request_to_detail: 'Send a link to the customer',
     send: 'Send',
-    days_ago: ' days ago',
     permitted: 'The client have permitted sending ads',
     not_permitted: 'The client haven`t permitted sending ads',
     signature_added: 'Signature added successfully',
