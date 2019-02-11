@@ -5,7 +5,7 @@ var config = {
   min_data_length: 300,
   max_services_shown_without_cat: 15,
   notes_height_limit: 5,
-  locale: 'ru',
+  locale: 'he',
   user: {
     // admin, senior, junior, readonly, untrusted
     business_logo: 'public/business_data/1/logo.jpg',
@@ -67,7 +67,9 @@ var config = {
     editProfile: 'Edit',
     status: 'Status:',
     vip: 'VIP',
-    years_old: 'years old',
+    was_ago: 'was {count} days ago',
+    in_days: 'in {count} days',
+    years_old: '{count} years old',
     expiry_date: 'Expiry date',
     expiry_dates: 'Expiry dates',
     new_punch_card: 'New Punch Card',
@@ -334,7 +336,7 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     // birthdate: '1990-03-30',
-    birthdate: '02-02',
+    birthdate: '02-14',
     birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',
