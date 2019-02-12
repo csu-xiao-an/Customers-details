@@ -23,7 +23,7 @@ class ColorsBeautechOld extends React.Component {
         <div className='btn-wrap'>
           <div className={'btn ' + (config.isRTL ? 'rtl' : 'ltr')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           <div className='middle-section'>
-            <p className='middle-type'>{beautech[ind].type}</p>
+            {beautech[ind].type && <p className='middle-type'>{beautech[ind].type}</p>}
             <p className='middle-date'>{`${translations.date} ${moment(beautech[ind].date).format('DD/MM/YY')}`}</p>
           </div>
           {/* <div className={`btn ${this.state.ind === beautech.length - 1 ? 'ban' : ''}`}><img src={`${config.urls.media}chevron-right.svg`} /></div> */}
