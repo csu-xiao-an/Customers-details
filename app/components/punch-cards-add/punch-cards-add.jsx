@@ -2,7 +2,25 @@ import {punchGetService, punchPostService} from 'project-services'
 import AccessRights from '../access-rights/access-rights.jsx'
 import {ProceduresList, Switch} from 'project-components'
 import './punch-cards-add.styl'
-
+const INITIAL_STATE = {
+  date: moment().year() + '-12-31',
+  isCategoryList: false,
+  isOpenServices: false,
+  discontActive: false,
+  editDiscount: false,
+  isService: true,
+  editDate: false,
+  switch: false,
+  renderDiscount: true,
+  discount: (config.default_value_of_discount && config.default_value_of_discount > 0) ? config.default_value_of_discount : '',
+  price: 0,
+  total: 0,
+  decrementBy: config.decrement_by,
+  incrementBy: config.increment_by,
+  uses: config.def_count_of_uses,
+  data: [],
+  i: {}
+}
 const Control = ({c, l, m, p, v}) => {
   Control.propTypes = {
     l: PropTypes.string.isRequired,
@@ -25,21 +43,7 @@ const {months} = config.translations.dates
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 
 class PunchCardsAdd extends React.Component {
-  state = {
-    date: moment().year() + '-12-31',
-    isCategoryList: false,
-    isOpenServices: false,
-    discontActive: false,
-    editDiscount: false,
-    isService: true,
-    editDate: false,
-    switch: false,
-    discount: '',
-    total: 0,
-    uses: 10,
-    data: [],
-    i: {}
-  }
+  state = { ...INITIAL_STATE }
   static propTypes = {
     history: PropTypes.object.isRequired,
     rights: PropTypes.object.isRequired
@@ -66,12 +70,70 @@ class PunchCardsAdd extends React.Component {
     }))
   }
   activeDiscont = () => {
-    this.setState({discontActive: !this.state.discontActive},
-    () => this.state.discontActive && this.refs.discont.focus())
+    this.setState({
+      discontActive: !this.state.discontActive,
+      renderDiscount: false,
+      total: this.state.total - ((this.state.total * this.state.discount) / 100),
+      price: this.state.price - ((this.state.price * this.state.discount) / 100)
+    }, () => {
+      this.state.discontActive && this.refs.discont.focus()
+    })
   }
-  getTotal = () => this.setState({total: this.state.i.price * this.state.uses - ((this.state.i.price * this.state.uses * this.state.discount) / 100)})
+  handleIncrementUses = () => {
+    this.setState(prevState => ({
+      editDiscount: false,
+      renderDiscount: true,
+      uses: prevState.uses + 1
+    }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+  }
+  handleDecrementUses = () => {
+    if (+this.state.total > 0) {
+      this.setState(prevState => ({
+        editDiscount: false,
+        renderDiscount: true,
+        uses: +prevState.uses - 1
+      }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+    }
+  }
+  handleIncrementTotal = () => {
+    this.setState(prevState => ({
+      editDiscount: false,
+      renderDiscount: true,
+      total: Math.round(prevState.total) + this.state.incrementBy
+    }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+  }
+  handleDecrementTotal = () => {
+    if (+this.state.total > 0) {
+      this.setState(prevState => ({
+        editDiscount: false,
+        renderDiscount: true,
+        total: Math.round(prevState.total) - this.state.decrementBy
+      }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+    }
+  }
+  getTotal = () => this.setState({total: this.state.price * this.state.uses})
+  focusForDiscont = () => {
+    this.setState({
+      discontActive: true
+    }, () => this.state.discontActive && this.refs.discont.focus())
+  }
+  handleChangeDiscount = () => {
+    this.setState({
+      total: this.state.i.price * this.state.uses - ((this.state.i.price * this.state.uses * this.state.discount) / 100),
+      price: this.state.i.price - ((this.state.i.price * this.state.discount) / 100)
+    })
+  }
+  resetState = () => this.setState({
+    isService: true,
+    discount: (config.default_value_of_discount && config.default_value_of_discount > 0) ? config.default_value_of_discount : '',
+    date: moment().year() + '-12-31',
+    renderDiscount: true,
+    uses: config.def_count_of_uses,
+    editDiscount: false,
+    switch: false
+  })
   toogleOpenServices = () => this.setState({isOpenServices: !this.state.isOpenServices})
-  getService = i => this.setState({i: i, isService: false}, () => this.getTotal())
+  getService = i => this.setState({i: i, price: i.price, isService: false}, () => this.getTotal())
   handleValidity = () => this.setState({switch: !this.state.switch})
   render () {
     const bgrImg = {
@@ -82,7 +144,7 @@ class PunchCardsAdd extends React.Component {
         <header className='punch-header'>
           <button className={'prev-button ' + (config.isRTL && 'prev-button-rtl')} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
             ? this.state.isOpenServices ? () => this.toogleOpenServices() : () => window.history.go(-1)
-            : () => window.history.go(-1) : () => this.setState({isService: true}) : () => {}}
+            : () => window.history.go(-1) : this.resetState : () => {}}
           >
             <img src={config.urls.media + 'arrow-back.svg'} />
           </button>
@@ -104,28 +166,30 @@ class PunchCardsAdd extends React.Component {
                 <p className='service-name'><span className='service-color' style={{backgroundColor: this.state.i.color}} />{this.state.i.name}</p>
               </div>
               <div className='single-service'>
-                <Control m={() => { if (+this.state.uses > 0) this.setState({uses: +this.state.uses - 1}, () => this.getTotal()) }}
-                  p={() => this.setState({uses: +this.state.uses + 1}, () => this.getTotal())}
+                <Control m={this.handleDecrementUses}
+                  p={this.handleIncrementUses}
                   l={config.translations.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
                 <div className='upd-discont-wrap'>
-                  <button className={'discont-btn ' + (this.state.discontActive && 'active-discont')} onClick={() => this.activeDiscont()} >
+                  <button className={'discont-btn ' + (this.state.discontActive && 'active-discont')} onClick={this.state.renderDiscount && this.activeDiscont} >
                     {this.state.discontActive ? <img className='discont-img' src={`${config.urls.media}discont-act.svg`} /> : <img className='discont-img' src={`${config.urls.media}discont-dis.svg`} />}
                     {config.translations.add_discount}
                   </button>
                   <div className='input-wrap'>
                     <div className='persent-wrap'>
                       <input
-                        onChange={e => this.setState({discount: e.target.value}, () => this.getTotal())}
+                        onChange={e => this.setState({discount: e.target.value}, this.handleChangeDiscount)}
                         onBlur={() => this.setState({editDiscount: true, discontActive: false})}
                         ref='discont'
                         className='discont-input'
                         type='number'
+                        value={(this.state.discontActive || this.state.editDiscount) ? this.state.discount : ''}
                         placeholder={this.state.discontActive ? config.translations.type_discount : ''}
+                        autoFocus={!this.state.discontActive}
                         disabled={!this.state.discontActive}
                       />
-                      {this.state.discount && <span className={'persent ' + (config.isRTL ? 'persent-rtl' : 'persent-ltr')}>%</span>}
+                      {(this.state.discontActive || this.state.editDiscount) && this.state.discount && <span className={'persent ' + (config.isRTL ? 'persent-rtl' : 'persent-ltr')}>%</span>}
                     </div>
-                    {this.state.editDiscount && this.state.discount && <img onClick={() => this.activeDiscont()} className='discont-img' src={`${config.urls.media}edit-note.svg`} />}
+                    {this.state.editDiscount && <img onClick={this.focusForDiscont} className='discont-img' src={`${config.urls.media}edit-note.svg`} />}
                   </div>
                 </div>
                 <div className='total_wrap'>
@@ -133,13 +197,15 @@ class PunchCardsAdd extends React.Component {
                     <p className='label-cost'>{config.translations.total}</p>
                     <p className='total_num'>{config.translations.price_single}
                       <span className='num'>
-                        {(this.state.i.price - ((this.state.i.price * this.state.discount) / 100)) + ' ' + config.data.currency}
+                        {this.state.price + ' ' + config.data.currency}
+                        {/* {(this.state.price - ((this.state.price * this.state.discount) / 100)) + ' ' + config.data.currency} */}
                       </span>
                     </p>
                   </div>
                   <div className='input-wrap'>
-                    <div className='ink' onClick={() => this.setState({total: Math.round(this.state.total) + 10})}><img src={`${config.urls.media}plus.svg`} /></div><input className='count-input total-input' type='text' value={this.state.total + ' ' + config.data.currency} disabled />
-                    <div className='ink' onClick={() => { if (+this.state.total > 0) this.setState({total: Math.round(this.state.total) - 10}) }}><img src={`${config.urls.media}minus.svg`} /></div>
+                    <div className='ink' onClick={this.handleIncrementTotal}><img src={`${config.urls.media}plus.svg`} /></div>
+                    <input className='count-input total-input' type='text' value={this.state.total + ' ' + config.data.currency} disabled />
+                    <div className='ink' onClick={this.handleDecrementTotal}><img src={`${config.urls.media}minus.svg`} /></div>
                   </div>
                 </div>
                 {/* <Control m={() => { if (+this.state.discount > 0) this.setState({discount: +this.state.discount - 1}, () => this.getTotal()) }}
@@ -148,11 +214,11 @@ class PunchCardsAdd extends React.Component {
                 <Control m={() => { if (+this.state.total > 0) this.setState({total: Math.round(this.state.total) - 10}) }}
                   l={config.translations.total} v={this.state.total + config.data.currency} c={'total_wrap'}
                   p={() => this.setState({total: Math.round(this.state.total) + 10})} />
-                <h1 className='total_num'>{config.translations.price_single + ' ' + (this.state.i.price -
-                  ((this.state.i.price * this.state.discount) / 100)) + config.data.currency}</h1> */}
+                <h1 className='total_num'>{config.translations.price_single + ' ' + (this.state.price -
+                  ((this.state.price * this.state.discount) / 100)) + config.data.currency}</h1> */}
                 <div className='expiration_wrap'>
                   <p className='subscription_period'>{config.translations.add_expiry_date}</p>
-                  <Switch on={this.state.switch} onClick={this.handleValidity}/>
+                  <Switch on={this.state.switch} onClick={this.handleValidity} />
                 </div>
                 {this.state.switch && <div className='valid_date'>
                   <div className='date_wrap'>
