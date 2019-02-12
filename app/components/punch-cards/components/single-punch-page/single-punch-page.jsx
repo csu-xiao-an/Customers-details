@@ -17,7 +17,7 @@ export default class SinglePunchPage extends React.Component {
       this.setState({punchsList}, () => {
         this.setState({
           singlePunch: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {},
-          uses: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses
+          uses: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses || []
         })
       })
     })
@@ -43,7 +43,7 @@ export default class SinglePunchPage extends React.Component {
       this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))))
   }
   render () {
-    const { singlePunch = {}, uses } = this.state
+    const { singlePunch = {}, uses = [] } = this.state
     return (
       <div id='single-punch-page'>
         <PunchHeader length={this.state.punchsList.length} />

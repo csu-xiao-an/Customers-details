@@ -5,6 +5,10 @@ var config = {
   min_data_length: 300,
   max_services_shown_without_cat: 15,
   notes_height_limit: 5,
+  def_count_of_uses: 10,
+  default_value_of_discount: 10,
+  increment_by: 10,
+  decrement_by: 10,
   locale: 'en',
   user: {
     // admin, senior, junior, readonly, untrusted

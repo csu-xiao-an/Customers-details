@@ -51,40 +51,6 @@
     align-items center
     flex-grow 1
     background-image linear-gradient(to bottom, rgba(239, 239, 255, 0.04), #efefff)
-  // .topnav_punch
-  //   .header
-  //     background-color darkslateblue
-  //     height 50px
-  //     position relative
-  //     text-align center
-  //     .arrow-wrap
-  //       display inline-block
-  //       padding-top 8px
-  //       float left
-  //       width 15%
-  //       .arrow-back
-  //         color white
-  //         cursor pointer
-  //         width 16px
-  //     .before
-  //       display inline-block
-  //       height 100%
-  //       vertical-align middle
-  //     .client-name
-  //       display inline-block
-  //       vertical-align middle
-  //       width 70%
-  //       h1
-  //         color white
-  //         display inline-block
-  //         margin 0 auto
-  //         padding-left 5px
-  //         padding-right 5px
-  //     .edit-wrap
-  //       float right
-  //       width 15%
-  //       display inline-block
-  //       margin-top 5px
   .name-wrap
     height 9rem
     display flex
@@ -95,7 +61,6 @@
       font-weight 500
       display flex
       align-items center
-      // line-height 0.67
       color #ffffff
       .service-color
         display inline-block
@@ -120,16 +85,14 @@
     .uses_wrap
       display flex
       align-items center
-      // padding 1rem
       padding 1rem 1rem 1rem
       border-bottom 1px solid #dedeff
       .label
-        width 35%
+        // width 35%
+        white-space nowrap
         font-size 16px
         line-height 1
         color rgba(34, 34, 34, 0.87)
-        // display inline-block
-        // padding 20px 10px
     .upd-discont-wrap
       display flex
       align-items center
@@ -139,8 +102,8 @@
         display flex
         align-items center
         justify-content center
-        width 9.4rem
-        height 2.4rem
+        padding 0.5rem
+        min-width 6rem
         border-radius 30px
         border none
         font-size 16px
@@ -163,7 +126,6 @@
           justify-content flex-end
           width 50%
         .discont-input
-          // position absolute
           width 100%
           text-align center
           border none
@@ -176,9 +138,6 @@
           left 25%
         .persent-ltr
           right 25%
-        // .discont-input:focus
-        //   width 30%
-        //   background-color grey
         img
           width 20px
           height 20px
@@ -189,16 +148,13 @@
       border-bottom 1px solid #dedeff
       .cost-wrap
         display flex
-        width 45%
         flex-direction column
         .label-cost
           font-size 16px
           color rgba(34, 34, 34, 0.87)
-          // width 35%
-        // display inline-block
-        // padding 20px 10px
     .total_num
       display flex
+      white-space nowrap
       font-size 14px
       font-weight 300
       color rgba(34, 34, 34, 0.54)
@@ -207,16 +163,11 @@
         -moz-padding-start 0.3rem
         font-size 14px
         color rgba(34, 34, 34, 0.87)
-      // width 100%
-      // text-align end
-      // padding 0 10px
-      // color gray
   .expiration_wrap
     display flex
-    min-height 4.25rem
     align-items center
     justify-content space-between
-    padding 1rem 1rem 1rem
+    padding 1.3rem 1rem
     border-bottom 1px solid #dedeff
     .subscription_period
       font-size 16px
