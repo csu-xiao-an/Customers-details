@@ -3,6 +3,7 @@ import {formatDate, Modal, Swiper} from 'project-components'
 import './media-modal.styl'
 
 export default class MediaModal extends React.Component {
+
   static propTypes = {
     initialSlide: PropTypes.number.isRequired,
     isOpenGallery: PropTypes.bool.isRequired,
@@ -13,6 +14,22 @@ export default class MediaModal extends React.Component {
     textareaValue: '',
     activeIndex: 0
   }
+
+  onEdit (i) {
+    if (i.note) 
+      this.setState({
+        isEditNote: !this.state.isEditNote, 
+        textareaValue: config.data.gallery[this.state.activeIndex].note
+      })
+  }
+
+  componentDidUpdate () {
+    if (this.state.isEditNote) {
+      const {id} = config.data.gallery[this.state.activeIndex]
+      document.getElementById('textarea_id_' + id).focus()
+    }
+  }
+
   typeItem = (i, k) => {
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
       if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { return (
@@ -23,9 +40,7 @@ export default class MediaModal extends React.Component {
               <div className='row1'>
                 <span className='name'>{i.name}</span>
                 <div className='icons'>
-                  <img src={config.urls.media + 'pencil-edit.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} onClick={() => {
-                    if (i.note) this.setState({ isEditNote: !this.state.isEditNote, textareaValue: config.data.gallery[this.state.activeIndex].note })
-                  }} />
+                  <img src={config.urls.media + 'pencil-edit.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} onClick={() => this.onEdit(i)} />
                   <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
                 </div>
               </div>
@@ -38,8 +53,8 @@ export default class MediaModal extends React.Component {
               <span className={this.state.isEditNote ? 'hidden' : 'note'}>
                 {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
               <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
-                <textarea className={this.state.isEditNote ? 'textarea' : 'hidden'}
-                  onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue} />
+                <textarea id={'textarea_id_' + i.id} className={this.state.isEditNote ? 'textarea' : 'hidden'}
+                  onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}/>
                 <div className='action'>
                   <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
                     onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
@@ -85,6 +100,9 @@ export default class MediaModal extends React.Component {
       }
     })
   }
+  // componentDidMount = () => {
+  //   this.nameInput.focus()
+  // }
   componentDidMount = () => {
     var divNode = document.createElement('div')
     var divNode2 = document.createElement('div')
