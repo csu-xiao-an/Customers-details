@@ -64,7 +64,7 @@ class ColorsBeautechOld extends React.Component {
                 {i.oxy && <div className='oxy'>
                   <div className='oxy-header'>
                     <div className='hh'>
-                      <img src={`${config.urls.media}icons-8-fill-color.png`} />
+                      <img src={`${config.urls.media}oxygen.png`} />
                     </div>
                     <div className='hh'>
                       <h2>{translations.oxygen}</h2>
@@ -105,10 +105,10 @@ class ColorsBeautechOld extends React.Component {
           </div>
         </div>
         <div className='buttons-bot'>
-          <div className='buttons-bot-wrap' onClick={this.goPrev}>{config.translations.colors_beautech.back}
+          <div className='buttons-bot-wrap-left' onClick={this.goPrev}>{config.translations.colors_beautech.back}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
-          <div className='buttons-bot-wrap' onClick={this.goNext}>{config.translations.colors_beautech.next}
+          <div className='buttons-bot-wrap-right' onClick={this.goNext}>{config.translations.colors_beautech.next}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
         </div>
