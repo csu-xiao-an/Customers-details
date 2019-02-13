@@ -84,7 +84,7 @@ class PunchCardsAdd extends React.Component {
       editDiscount: false,
       renderDiscount: true,
       uses: prevState.uses + 1
-    }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+    }), () => this.setState({total: this.state.i.price * this.state.uses, price: this.state.i.price}))
   }
   handleDecrementUses = () => {
     if (+this.state.total > 0) {
@@ -92,7 +92,7 @@ class PunchCardsAdd extends React.Component {
         editDiscount: false,
         renderDiscount: true,
         uses: +prevState.uses - 1
-      }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+      }), () => this.setState({total: this.state.i.price * this.state.uses, price: this.state.i.price}))
     }
   }
   handleIncrementTotal = () => {
@@ -208,14 +208,6 @@ class PunchCardsAdd extends React.Component {
                     <div className='ink' onClick={this.handleDecrementTotal}><img src={`${config.urls.media}minus.svg`} /></div>
                   </div>
                 </div>
-                {/* <Control m={() => { if (+this.state.discount > 0) this.setState({discount: +this.state.discount - 1}, () => this.getTotal()) }}
-                  p={() => this.setState({discount: +this.state.discount + 1}, () => this.getTotal())}
-                  l={config.translations.discount} v={this.state.discount + '%'} c={'discount_wrap'} />
-                <Control m={() => { if (+this.state.total > 0) this.setState({total: Math.round(this.state.total) - 10}) }}
-                  l={config.translations.total} v={this.state.total + config.data.currency} c={'total_wrap'}
-                  p={() => this.setState({total: Math.round(this.state.total) + 10})} />
-                <h1 className='total_num'>{config.translations.price_single + ' ' + (this.state.price -
-                  ((this.state.price * this.state.discount) / 100)) + config.data.currency}</h1> */}
                 <div className='expiration_wrap'>
                   <p className='subscription_period'>{config.translations.add_expiry_date}</p>
                   <Switch on={this.state.switch} onClick={this.handleValidity} />
@@ -241,19 +233,6 @@ class PunchCardsAdd extends React.Component {
             </div>}
           </div>
         </div>
-        {/* <div className='topnav_punch'>
-          <div className='header'>
-            <div className='arrow-wrap' style={config.isRTL ? {float: 'right'} : {float: 'left'}} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
-              ? this.state.isOpenServices ? () => this.toogleOpenServices() : () => window.history.go(-1)
-              : () => window.history.go(-1) : () => this.setState({isService: true}) : () => {}}>
-              <img style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} className='arrow-back' src={config.urls.media + 'arrow-back.svg'} /></div>
-            <span className='before' />
-            {this.state.isService && <div className='client-name'><h1>{config.translations.new_punch}</h1></div>}
-            {!this.state.isService && <div className='client-name'>
-              <h1>{config.translations.punch_service.replace('{service_name}', this.state.i.name)}</h1></div>}
-            <div className='edit-wrap' style={config.isRTL ? {float: 'left'} : {float: 'right'}} />
-          </div>
-        </div> */}
       </div>
     )
   }
