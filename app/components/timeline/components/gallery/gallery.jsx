@@ -11,13 +11,25 @@ export default class Gallery extends React.Component {
   state = {
     expand: false
   }
+  fileIcon = name => {
+    let splitedName = name.split('.')
+    let typeFile = splitedName[splitedName.length - 1]
+    const image = ['png', 'jpg', 'jpeg', 'svg', 'gif']
+    const video = ['mpeg4', 'mp4']
+    const music = ['mp3']
+    if (image.find(i => i === typeFile)) return `${config.urls.media}image.svg`
+    else if (video.find(i => i === typeFile)) return `${config.urls.media}video.svg`
+    else if (music.find(i => i === typeFile)) return `${config.urls.media}audio.svg`
+    else return `${config.urls.media}other.svg`
+  }
 
   render () {
     return (
       <div id='gallery-timeline'>
         <div className='header'>
           <div className='labels'>
-            <img className='img-gallery' src={`${config.urls.media}ic-gallery.svg`} />
+            <img className='img-gallery' src={this.fileIcon(this.props.i.name)} />
+            <span className='file-name'>{this.props.i.name}</span>
           </div>
           <div className='share-wrap'>
             <Share {...this.props} opt={{

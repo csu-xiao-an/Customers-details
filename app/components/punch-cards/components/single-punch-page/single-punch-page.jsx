@@ -44,6 +44,7 @@ export default class SinglePunchPage extends React.Component {
   }
   render () {
     const { singlePunch = {}, uses = [] } = this.state
+    const sortUses = uses.sort((a, b) => moment(b.date) - moment(a.date))
     return (
       <div id='single-punch-page'>
         <PunchHeader length={this.state.punchsList.length} />
@@ -77,7 +78,7 @@ export default class SinglePunchPage extends React.Component {
               </div>}
             </div>
             {uses && <div className='uses-wrap'>
-              {uses.map((el, index) => (<div className='uses'>
+              {sortUses.map((el, index) => (<div className='uses'>
                 <div className='uses-date'><p>{moment(el.date).format('DD/MM/YYYY')}</p></div>
                 <div className='number-select'>
                   <p>{uses.length - [index]}</p>
