@@ -105,10 +105,10 @@ class ColorsBeautechOld extends React.Component {
           </div>
         </div>
         <div className='buttons-bot'>
-          <div className='buttons-bot-wrap-left' onClick={this.goPrev}>{config.translations.colors_beautech.back}
+          <div className={'buttons-bot-wrap-left ' + (config.isRTL ? 'rtl-dir-left' : 'ltr-dir-left')} onClick={this.goPrev}>{config.translations.colors_beautech.back}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
-          <div className='buttons-bot-wrap-right' onClick={this.goNext}>{config.translations.colors_beautech.next}
+          <div className={'buttons-bot-wrap-right ' + (config.isRTL ? 'rtl-dir-right' : 'ltr-dir-right')} onClick={this.goNext}>{config.translations.colors_beautech.next}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
         </div>
