@@ -327,7 +327,6 @@ var config = {
     timeline: '/timeline',
     groups: '/groups/',
     login: '/en/login',
-    address_srt: 'address',
     status: 'status',
     source: 'source',
     gender: 'gender',
