@@ -53,7 +53,7 @@ export default class Appoinment extends React.Component {
         <div className='worker-info'>
           <p className='worker-label'>{config.translations.employer}</p>
           <div className='worker'>
-            <img src={config.urls.main + config.urls.worker_img.replace('{worker_id}', this.props.i.worker_id)} onError={e => { this.onError(e) }} />
+            <img src={config.urls.main + config.urls.worker_img.replace('{worker_id}', this.props.i.worker_profile_image)} onError={e => { this.onError(e) }} />
             <span className='worker-name'>{this.props.i.worker_name}</span>
           </div>
         </div>
