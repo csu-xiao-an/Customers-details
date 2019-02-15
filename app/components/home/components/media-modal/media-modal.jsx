@@ -16,13 +16,16 @@ export default class MediaModal extends React.Component {
   }
 
   onEdit (i) {
-    if (i.note) 
-      this.setState({
-        isEditNote: !this.state.isEditNote, 
-        textareaValue: config.data.gallery[this.state.activeIndex].note
-      })
+    if (i.note)
+    {this.setState({
+      isEditNote: !this.state.isEditNote, 
+      textareaValue: config.data.gallery[this.state.activeIndex].note
+    })} else
+    { this.setState({
+      isEditNote: !this.state.isEditNote
+    })
+    }
   }
-
   componentDidUpdate () {
     if (this.state.isEditNote) {
       const {id} = config.data.gallery[this.state.activeIndex]
@@ -40,7 +43,9 @@ export default class MediaModal extends React.Component {
               <div className='row1'>
                 <span className='name'>{i.name}</span>
                 <div className='icons'>
-                  <img src={config.urls.media + 'pencil-edit.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} onClick={() => this.onEdit(i)} />
+                  <img src={config.urls.media + 'pencil-edit.svg'}
+                    style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}}
+                    onClick={() => this.onEdit(i)} />
                   <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
                 </div>
               </div>
@@ -49,12 +54,14 @@ export default class MediaModal extends React.Component {
                 <span className='date'>{formatDate(i.date)}</span>
               </div>
             </div>
-            {i.note && <div className='data'>
+            {(i.note || this.state.isEditNote) && <div className='data'>
               <span className={this.state.isEditNote ? 'hidden' : 'note'}>
                 {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
               <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
                 <textarea id={'textarea_id_' + i.id} className={this.state.isEditNote ? 'textarea' : 'hidden'}
-                  onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}/>
+                  onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}
+                  placeholder={this.state.textareaValue ? this.state.textareaValue : config.translations.add_note}
+                />
                 <div className='action'>
                   <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
                     onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
@@ -82,11 +89,13 @@ export default class MediaModal extends React.Component {
     }
   }
   replace = id => {
+    // debugger
     const body = `note=${this.state.textareaValue}`
     mediaReplaceService(body, id).then(r => {
       if (r.status === 204) {
         config.data.gallery[this.state.activeIndex].date = moment().format('YYYY-MM-DD HH:mm')
         config.data.gallery[this.state.activeIndex].note = this.state.textareaValue
+        // this.state.textareaValue = config.data.gallery[this.state.activeIndex].note
         this.setState({isEditNote: false, textareaValue: ''})
       }
     })
@@ -127,14 +136,20 @@ export default class MediaModal extends React.Component {
     </style>`
     document.body.appendChild(divNode2)
   }
+  changeSlide = e => {
+    e.container[0].childNodes[0].style.transitionDuration = '300ms'
+    this.setState({
+      isEditNote: false,
+      textareaValue: ''
+    })
+  }
   render () {
     return (
       <Modal show={this.props.isOpenGallery} onHide={this.props.handleGallery}>
         <div className='modal-body'>
           <img className={'close-button'} src={config.urls.media + 'back-del.svg'}
             onClick={() => { this.props.handleGallery() }} />
-          {/* <div className={this.state.isEditNote ? 'noSwiping' : ''}> */}
-          <Swiper observer onSlideChangeStart={e => { e.container[0].childNodes[0].style.transitionDuration = '300ms' }}
+          <Swiper observer onSlideChangeStart={e => this.changeSlide(e)}
             nextButton={config.isRTL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
             prevButton={config.isRTL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}
             onSetTranslate={e => this.setState({activeIndex: e.activeIndex})}
@@ -142,38 +157,6 @@ export default class MediaModal extends React.Component {
             initialSlide={this.props.initialSlide}>
             {config.data.gallery.map((i, k) => (<div key={k} className='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
           </Swiper>
-          {/* </div> */}
-          {/* <div className='modal-footer'>
-            <div className='main'>
-              <div className='row1'>
-                <span className='name'>{config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].name}</span>
-                <div className='icons'>
-                  <img src={config.urls.media + 'pencil-edit.svg'} onClick={() => {
-                    if (!this.state.isEditNote) this.setState({ isEditNote: !this.state.isEditNote, textareaValue: config.data.gallery[this.state.activeIndex].note })
-                  }} />
-                  <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
-                </div>
-              </div>
-              <div className='row2'>
-                <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} /></div>
-                <span className='date'>{config.data.gallery[this.state.activeIndex] && formatDate(config.data.gallery[this.state.activeIndex].date)}</span>
-              </div>
-            </div>
-            {(!!config.data.gallery[this.state.activeIndex].note) && <div className='data'>
-              <span className={this.state.isEditNote ? 'hidden' : 'note'}>
-                {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
-              <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
-                <textarea className={this.state.isEditNote ? 'textarea' : 'hidden'}
-                  onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue} />
-                <div className='action'>
-                  <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
-                    onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
-                    {config.translations.save}
-                  </button>
-                </div>
-              </div>
-            </div>}
-          </div> */}
         </div>
       </Modal>
     )
