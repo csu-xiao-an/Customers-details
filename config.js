@@ -307,7 +307,7 @@ var config = {
     calendar_link: '/calendar/',
     appointment: '/creating-appointment/',
     main: 'https://api.bewebmaster.co.il',
-    worker_img: '/worker/{worker_id}',
+    worker_img: '/worker/{worker_profile_img}',
     punch_cards_get: '/catalog/services',
     single_punch: '/punch_cards/{punch_card_id}',
     // colors_beautech: '/colors_beautech',
