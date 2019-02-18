@@ -61,7 +61,7 @@ export default class SinglePunchPage extends React.Component {
             {this.daysLeft() > 0
               ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>
               : <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>}
-            <div className='expiry-date'>
+            {singlePunch.expiration && <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
               {this.daysLeft() > 0 ? <div className='expiry-text'>
                 <p>{config.translations.expiry_date}</p>
@@ -73,7 +73,7 @@ export default class SinglePunchPage extends React.Component {
                 <p className='days-left'>{this.daysLeft() * (-1)}</p>
                 <p>{config.translations.days}</p>
               </div>}
-            </div>
+            </div>}
             {uses && <div className='uses-wrap'>
               {sortUses.map((el, index) => (<div className='uses'>
                 <div className='uses-date'><p>{moment(el.date).format('DD/MM/YYYY')}</p></div>
