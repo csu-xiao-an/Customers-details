@@ -87,9 +87,9 @@ export default class Media extends React.Component {
         />
       </div>)
     } else {
-      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name } else
       if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
-      if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' }
+      if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' } else
+      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name }
       return <img className='media-img'
         src={src}
         onClick={(this.state.multiDel || this.state.multiShare)
