@@ -16,9 +16,15 @@ export default class GalleryPopup extends React.Component {
             <div className='img-back'><img onClick={this.props.handleMenuOff} src={config.urls.media + 'chevron-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
             <p>{config.translations.hot_links.gallery}</p>
           </div>
-          <div className='img'>
-            <div className='img-wrap'>{this.props.preview}</div>
-          </div>
+          {!this.props.previewVideo ?
+            <div className='img'>
+              <div className='img-wrap'>{this.props.preview}</div>
+            </div>
+            : <div className='img'>
+              <div className='img-wrap-video'>
+                {this.props.preview}
+              </div>
+            </div>}
           <div className='gallery-modal-footer'>
             <div className='input-wrapper'>
               <img src={config.urls.media + 'edit-note.svg'} />
