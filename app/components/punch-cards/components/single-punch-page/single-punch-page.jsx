@@ -58,9 +58,9 @@ export default class SinglePunchPage extends React.Component {
               </div>
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
-            {this.daysLeft() > 0
+            {/* {this.daysLeft() > 0
               ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>
-              : <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>}
+              : <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>} */}
             {singlePunch.expiration && <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
               {this.daysLeft() > 0 ? <div className='expiry-text'>
