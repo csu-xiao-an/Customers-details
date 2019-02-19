@@ -73,7 +73,7 @@ class Timeline extends React.Component {
     if (firstLoad) {
       // config.interval_days
       start = getDate(config.interval_days, moment().format('YYYY-MM-DD'))
-      end = moment().add(50, 'years').format('YYYY-MM-DD')
+      end = moment().add(config.in_future, 'days').format('YYYY-MM-DD')
     } else if (fullPageCoef) {
       end = getDate(1, this.lastStartDate)
       start = getDate(fullPageCoef, end)
