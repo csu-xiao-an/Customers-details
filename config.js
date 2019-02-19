@@ -321,7 +321,7 @@ var config = {
     defaultClientImg: 'default.jpg',
     defaultPathToClientImg: './dist/media/',
     gallery: './dist/media/galery/',
-    url_pdf: '/dist/media/galery/',
+    url_pdf: '/public/',
     client_data: './dist/clients/',
     punch_cards: '/punch_cards',
     menu_icons: 'dist/menu/',
