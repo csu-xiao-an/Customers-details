@@ -3,6 +3,7 @@ var config = {
   baseUrl: '/en/clients/{client_id}',
   interval_days: 28,
   min_data_length: 300,
+  in_future: 60,
   max_services_shown_without_cat: 15,
   notes_height_limit: 5,
   def_count_of_uses: 10,
