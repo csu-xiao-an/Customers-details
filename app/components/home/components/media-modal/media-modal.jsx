@@ -35,6 +35,16 @@ export default class MediaModal extends React.Component {
 
   typeItem = (i, k) => {
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
+      if (i.name.indexOf('mp4') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
+      if (i.name.indexOf('pdf') !== -1) {
+        return <iframe src={config.urls.preview_pdf.replace('{url}', config.urls.url_pdf + i.name)} />
+      } else
+      if (i.name.indexOf('mp3') !== -1) {
+        return (<div>
+          <img className='audio-img' src={config.urls.media + 'audio_file.png'} />
+          <audio src={config.urls.gallery + i.name} controls />
+        </div>)
+      } else
       if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { return (
         <div>
           <img src={config.urls.gallery + i.name} />
@@ -70,22 +80,9 @@ export default class MediaModal extends React.Component {
                 </div>
               </div>
             </div>}
-            {/* {i.note && <div className='data'>
-              <span className={this.state.isEditNote ? 'hidden' : 'note'}>{i.note}</span>
-            </div>} */}
           </div>
         </div>
       )}
-      else
-      if (i.name.indexOf('mp4') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
-      if (i.name.indexOf('mp3') !== -1) {
-        return (<div>
-          <img className='audio-img' src={config.urls.media + 'audio_file.png'} />
-          <audio src={config.urls.gallery + i.name} controls />
-        </div>)
-      } else if (i.name.indexOf('pdf') !== -1) {
-        return <iframe src='http://docs.google.com/gview?url=http://api.bewebmaster.co.il/public/creating_appointment.pdf&embedded=true' />
-      }
     }
   }
   replace = id => {

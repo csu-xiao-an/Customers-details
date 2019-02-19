@@ -286,6 +286,7 @@ var config = {
   },
   urls: {
     address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
+    preview_pdf: 'https://docs.google.com/viewer?url={url}&embedded=true',
     timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
     get_punch_cards_list: '/customers-details/clients/{client_id}/punch_cards',
     multi_del_url: '/customers-details/clients/{client_id}/media/{media_ids}',
@@ -319,6 +320,7 @@ var config = {
     defaultClientImg: 'default.jpg',
     defaultPathToClientImg: './dist/media/',
     gallery: './dist/media/galery/',
+    url_pdf: '/dist/media/galery/',
     client_data: './dist/clients/',
     punch_cards: '/punch_cards',
     menu_icons: 'dist/menu/',
