@@ -20,7 +20,8 @@ export default class Media extends React.Component {
     isAddMedia: false,
     imagePreviewUrl: '',
     isOpenGallery: false,
-    isOpenGalleryContex: false
+    isOpenGalleryContex: false,
+    previewVideo: false
   }
   static propTypes = {
     rights: PropTypes.object.isRequired,
@@ -59,9 +60,9 @@ export default class Media extends React.Component {
     // debugger
     let file = e.target.files[0]
     if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); Resize(file, this.bar) } else
-    if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_file.png'}) } else
-    if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_file.png'}) } else
-    if (e.target.files.length && file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'pdf_file.png'}) }
+    if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_gallery.svg'}) } else
+    if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_gallery.svg', previewVideo: true}) } else
+    if (e.target.files.length && file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'other_gallery.svg'}) }
     this.setState({file: file})
     document.querySelector('body').classList.toggle('no-scroll')
     this.forceUpdate()
@@ -75,6 +76,7 @@ export default class Media extends React.Component {
   typeItem = (i, k) => {
     let src
     if (i.name.indexOf('mp4') !== -1) {
+      // this.setState({previewVideo: true})
       return (<div className='video-block'>
         <img src={config.urls.media + 'video_play.png'} className='video_play media' />
         <video className='media-vid'
@@ -87,8 +89,8 @@ export default class Media extends React.Component {
         />
       </div>)
     } else {
-      if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_file.png' } else
-      if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'pdf_file.png' } else
+      if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_gallery.svg' } else
+      if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
       if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name }
       return <img className='media-img'
         src={src}
@@ -167,7 +169,7 @@ export default class Media extends React.Component {
   }
   handleMenuOff = () => {
     // debugger
-    this.setState({isAddMedia: false, imagePreviewUrl: '', file: {}},
+    this.setState({isAddMedia: false, previewVideo: false, imagePreviewUrl: '', file: {}},
       () => {
         $imagePreview.type = null
         $imagePreview = null
@@ -283,6 +285,7 @@ export default class Media extends React.Component {
         {this.state.imagePreviewUrl &&
         <GalleryPopup
           preview={$imagePreview}
+          previewVideo={this.state.previewVideo}
           handleMenuOff={this.handleMenuOff}
           submit={this.submit}
           handleDescBack={this.handleDescBack}
