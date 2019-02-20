@@ -85,6 +85,10 @@ export default class Hero extends React.Component {
   componentDidMount = () => {
     this.setState({isStar: config.data.isFavorite})
   }
+  changeInput = e => {
+    this.setState({status: e.target.value, statusRem: e.target.value})
+    this.inputStyle(e.target.value)
+  }
   render () {
     return (
       <div id='hero'>
@@ -115,17 +119,14 @@ export default class Hero extends React.Component {
         <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
           {config.data.status && <div className='input-group'>
             <span className='status-label'>{config.translations.status}</span>
-            <div className='input-wrap'>
-              <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
-                type='text'
-                ref='autofocus'
-                value={this.state.status}
-                placeholder={config.translations.placeholder}
-                onBlur={() => this.setState({isInputDisabled: false, status: config.data.status})}
-                onChange={e => this.setState({status: e.target.value, statusRem: e.target.value})}
-              />
-            </div>
-            {/* {this.props.rights.hero.status &&
+            <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
+              type='text'
+              ref='autofocus'
+              value={this.state.status}
+              placeholder={config.translations.placeholder}
+              onBlur={() => this.setState({isInputDisabled: false, status: config.data.status})}
+              onChange={e => this.changeInput(e)} />
+            {this.props.rights.hero.status &&
               <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
                 <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
               </span>} */}
