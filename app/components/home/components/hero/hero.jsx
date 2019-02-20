@@ -7,7 +7,7 @@ export default class Hero extends React.Component {
   state = {
     status: config.data.status,
     file: {},
-    clientImg: config.urls.client_data + config.data.profile_image,
+    clientImg: config.data.profile_image ? (config.urls.client_data + config.data.profile_image) : (config.urls.defaultPathToClientImg + config.urls.defaultClientImg),
     isInputDisabled: false,
     succes: false,
     isStar: false
@@ -29,7 +29,7 @@ export default class Hero extends React.Component {
       }
     })
   }
-  onError= e => {
+  onError = e => {
     if (!e.target.src.endsWith(config.urls.defaultClientImg)) {
       e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
     }
@@ -133,7 +133,9 @@ export default class Hero extends React.Component {
           </div>
         </form>
         <div className='img'>
-          <img className='client-img' src={this.state.clientImg} alt='user-img' onError={e => { this.onError(e) }} />
+          <img className='client-img'
+            src={this.state.clientImg}
+            alt='user-img' onError={e => { this.onError(e) }} />
         </div>
       </div>
     )
