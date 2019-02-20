@@ -287,7 +287,7 @@ var config = {
   },
   urls: {
     address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
-    preview_pdf: 'https://docs.google.com/viewer?url={url}&embedded=true',
+    preview_pdf: 'https://docs.google.com/viewer?url={url}&hl=en&pid=explorer&efh=false&a=v&chrome=false&embedded=true',
     timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
     get_punch_cards_list: '/customers-details/clients/{client_id}/punch_cards',
     multi_del_url: '/customers-details/clients/{client_id}/media/{media_ids}',
@@ -308,7 +308,7 @@ var config = {
     punch_cards_adding: '/punch_cards/adding',
     calendar_link: '/calendar/',
     appointment: '/creating-appointment/',
-    main: 'https://api.bewebmaster.co.il',
+    main: 'http://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_profile_img}',
     punch_cards_get: '/catalog/services',
     single_punch: '/punch_cards/{punch_card_id}',
