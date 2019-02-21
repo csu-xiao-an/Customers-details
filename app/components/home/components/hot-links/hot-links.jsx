@@ -103,7 +103,7 @@ export default class HotLinks extends React.Component {
           }
         })}
         {this.props.showAddButton && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
-        {this.props.showAddDebt && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)}
+        {/* {this.props.showAddDebt && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)} */}
         {/* <div>
           <div className='link add-btn'>
             <img className='add' src={config.urls.media + 'ic_add.png'} />
