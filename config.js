@@ -173,6 +173,8 @@ var config = {
     employer: 'Employer:',
     duration_minutes: 'mm',
     add_first_punch: 'Add a first punch card',
+    add_first_note: 'Add a first note',
+    add_first_debt: 'Add a first debt',
     procedures: 'Procedures:',
     debts_t: 'Debts',
     other_t: 'Other',
@@ -373,37 +375,37 @@ var config = {
       {name: 'punch_cards', img: '/dist/media/notes.svg', url: '/punch_cards', plugin_name: 'punch_cards'}
     ],
     debts: [
-      {
-        id: 1,
-        sum: 20,
-        desc: 'did not pay for a month',
-        date: '2015-07-07 13:20'
-      },
-      {
-        id: 2,
-        sum: 22,
-        desc: 'did not pay for a month',
-        date: '2016-07-07 13:01'
-      },
-      {
-        id: 3,
-        sum: 20,
-        desc: 'did not pay for a month',
-        date: '2017-07-07 13:01'
-      }
+      // {
+      //   id: 1,
+      //   sum: 20,
+      //   desc: 'did not pay for a month',
+      //   date: '2015-07-07 13:20'
+      // },
+      // {
+      //   id: 2,
+      //   sum: 22,
+      //   desc: 'did not pay for a month',
+      //   date: '2016-07-07 13:01'
+      // },
+      // {
+      //   id: 3,
+      //   sum: 20,
+      //   desc: 'did not pay for a month',
+      //   date: '2017-07-07 13:01'
+      // }
     ],
     notes: [
-      {
-        id: 123123,
-        text: 'New Note',
-        date: '2017-11-29T03:58:49.129Z'
-      },
-      {
-        id: 123124,
-        text: 'New Reminder',
-        date: '2017-10-29T03:58:49.129Z',
-        reminder_date: '2017-12-29T03:58:49.129Z'
-      }
+      // {
+      //   id: 123123,
+      //   text: 'New Note',
+      //   date: '2017-11-29T03:58:49.129Z'
+      // },
+      // {
+      //   id: 123124,
+      //   text: 'New Reminder',
+      //   date: '2017-10-29T03:58:49.129Z',
+      //   reminder_date: '2017-12-29T03:58:49.129Z'
+      // }
     ],
     groups: [
       {

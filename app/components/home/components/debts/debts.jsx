@@ -6,12 +6,13 @@ export default class Debts extends React.Component {
   state = {
     debtReplace: false,
     description: '',
-    debtEdit: false,
+    debtEdit: this.props.activateDebt,
     total_debt: 0,
     debt: '0'
   }
   static propTypes = {
-    rights: PropTypes.object.isRequired
+    rights: PropTypes.object.isRequired,
+    activateDebt: PropTypes.bool.isRequired
   }
   submit = () => {
     const d = moment().format('YYYY-MM-DD HH:mm')
@@ -138,7 +139,7 @@ export default class Debts extends React.Component {
             <label>{config.translations.description_debts}</label>
             <div className='description'>
               <input className='description-input' type='text' value={this.state.description}
-                onChange={e => this.setState({ description: e.target.value })} placeholder={config.translations.description_debt} />
+                onChange={e => this.setState({ description: e.target.value })} placeholder={config.translations.description_debt} autoFocus />
               <div className='btn-desc-del' onClick={this.delDesc}>
                 <img src={config.urls.media + 'butn-not.svg'} />
               </div>
