@@ -8,10 +8,10 @@ export default class Notes extends React.Component {
     selectedValue: config.translations.notes_list[0].value,
     selectedLabel: config.data.reminders_default_date_period,
     isReminderEdit: false,
-    newEditNotes: false,
+    newEditNotes: this.props.activateNone,
     isReminderDate: null,
-    noteReplace: false,
-    isEditNotes: false,
+    noteReplace: this.props.activateNone,
+    isEditNotes: this.props.activateNone,
     description: '',
     note_id: 0,
     timeStart: config.data.reminders_default_period_amount,
@@ -19,7 +19,8 @@ export default class Notes extends React.Component {
     key: 0
   }
   static propTypes = {
-    rights: PropTypes.object.isRequired
+    rights: PropTypes.object.isRequired,
+    activateNone: PropTypes.bool.isRequired
   }
   submit = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
@@ -134,6 +135,7 @@ export default class Notes extends React.Component {
             value={this.state.description}
             onChange={e => this.setState({description: e.target.value})}
             placeholder={config.translations.description_notes}
+            autoFocus
           />
         </div>
         <div className='reminder'>
@@ -194,6 +196,7 @@ export default class Notes extends React.Component {
             value={this.state.description}
             onChange={e => this.setState({description: e.target.value})}
             placeholder={config.translations.description_notes}
+            autoFocus
           />
         </div>
         <div className='reminder'>

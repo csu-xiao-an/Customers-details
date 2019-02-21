@@ -17,12 +17,24 @@ const isPunchCards = config.plugins_list.includes('punch_cards')
 const isColorsBeautech = config.plugins_list.includes('colors_beautech')
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 class Home extends React.Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  }
   state = {
-    isVisibleFields: false
+    isVisibleFields: false,
+    isFirstNote: false,
+    isFirstDebt: false,
+    moveToAnchor: false,
+    moveToDebt: false,
+    activateNone: false,
+    activateDebt: false,
+    showAddButton: config.data.notes.length === 0 && true,
+    showAddDebt: config.data.debts.length === 0 && true
   }
 
   showFields = () => this.setState({ isVisibleFields: true })
-
+  createFirstNote = () => this.setState({ isFirstNote: true, activateNone: true, showAddButton: false })
+  createFirstDebt = () => this.setState({ isFirstDebt: true, activateDebt: true, showAddDebt: false })
   componentWillMount () {
     const { history } = this.props
     const queryParams = qs.parse(history.location.search.slice(1))
@@ -44,11 +56,10 @@ class Home extends React.Component {
     }
     history.replace(url)
   }
-// TODO func for check tailRoute
   render () {
-    const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!config.data.debts.length)
+    const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!config.data.debts.length) || this.state.isFirstDebt
     const isEventVisible = this.state.isVisibleFields || (config.data.recent_appoinments && !!config.data.recent_appoinments.length)
-    const isNotesVisible = this.state.isVisibleFields || (config.data.notes && !!config.data.notes.length)
+    const isNotesVisible = this.state.isVisibleFields || (config.data.notes && !!config.data.notes.length) || this.state.isFirstNote
     const isGalleryVisible = this.state.isVisibleFields || (config.data.gallery && !!config.data.gallery.length)
     const isGroupsVisible = this.state.isVisibleFields || (config.data.groups && !!config.data.groups.length)
     // const isSignatureVisible = this.state.isVisibleFields
@@ -57,11 +68,11 @@ class Home extends React.Component {
       <div id='home'>
         <Topnav {...this.props} home />
         <Hero {...this.props} />
-        <HotLinks {...this.props} />
+        <HotLinks {...this.props} showAddDebt={this.state.showAddDebt} showAddButton={this.state.showAddButton} createFirstDebt={this.createFirstDebt} createFirstNote={this.createFirstNote} />
         <Profile {...this.props} isVisibleFields={this.state.isVisibleFields} />
         {isEventVisible && <Events {...this.props} />}
-        {isDebtsVisible && <Debts {...this.props} /> }
-        {isNotesVisible && <Notes {...this.props} />}
+        {isDebtsVisible && <Debts activateDebt={this.state.activateDebt} {...this.props} /> }
+        {isNotesVisible && <Notes activateNone={this.state.activateNone} {...this.props} />}
         {isGalleryVisible && <Media {...this.props} />}
         {isGroupsVisible && <Groups {...this.props} />}
         {/* <Signature {...this.props} /> */}

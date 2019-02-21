@@ -7,7 +7,13 @@ export default class HotLinks extends React.Component {
     isActivePunchCard: false
   }
   static propTypes = {
-    rights: PropTypes.object.isRequired
+    rights: PropTypes.object.isRequired,
+    showAddButton: PropTypes.bool.isRequired,
+    showAddDebt: PropTypes.bool.isRequired,
+    moveToAnchor: PropTypes.bool.isRequired,
+    moveToDebt: PropTypes.bool.isRequired,
+    createFirstNote: PropTypes.func.isRequired,
+    createFirstDebt: PropTypes.func.isRequired
   }
   componentWillMount = () => {
     config.data.punch_cards && config.data.punch_cards.forEach(i => {
@@ -29,6 +35,19 @@ export default class HotLinks extends React.Component {
     let e = document.getElementById(i.url.replace('#', ''))
     let scroll = e.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+  showAndMovetoNotes = () => {
+    this.props.createFirstNote()
+    setTimeout(() => {
+      this.link({url: '#notes'})
+    }, 10)
+  }
+  showAndMovetoDebt = () => {
+    this.props.createFirstDebt()
+    setTimeout(() => {
+      this.link({url: '#debts'})
+    }, 10)
+  }
+
   renderExternalLink = (url, name, img) => (
     <div className='link-wrap'>
       <Link className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')} to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + url : url}><img src={img} /></Link>
@@ -38,9 +57,18 @@ export default class HotLinks extends React.Component {
   renderAddLink = () => (
     <div className='link-add'>
       <Link className='circle-wrap' to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + config.urls.punch_cards_adding : config.urls.punch_cards_adding}><img src={`${config.urls.media}plus-white.svg`} /></Link>
-      <span>{config.translations.add_first_punch}</span>
+      <span className='link-name'>{config.translations.add_first_punch}</span>
     </div>
   )
+  firstAddLink = (click, titles) => (
+    <div className='link-add' onClick={click}>
+      <div className='circle-wrap'>
+        <img src={`${config.urls.media}plus-white.svg`} />
+      </div>
+      <span className='link-name'>{titles}</span>
+    </div>
+  )
+
   render () {
     const hotLinks = config.data.hot_links.filter(i => {
       if (i.url[0] === '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
@@ -74,6 +102,8 @@ export default class HotLinks extends React.Component {
             }
           }
         })}
+        {this.props.showAddButton && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
+        {this.props.showAddDebt && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)}
         {/* <div>
           <div className='link add-btn'>
             <img className='add' src={config.urls.media + 'ic_add.png'} />
