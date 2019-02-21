@@ -172,6 +172,7 @@ var config = {
     canceled: 'canceled',
     employer: 'Employer:',
     duration_minutes: 'mm',
+    add_first_punch: 'Add a first punch card',
     procedures: 'Procedures:',
     debts_t: 'Debts',
     other_t: 'Other',
@@ -840,142 +841,142 @@ var config = {
       }
     ],
     punch_cards: [
-      {
-        id: 10,
-        service_name: 'aSpa',
-        service_id: 15,
-        service_count: 10,
-        sum: 480,
-        date: '2017-01-01',
-        uses: [
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          }
-        ]
-      },
-      {
-        id: 2,
-        service_name: 'пд в Spa',
-        service_id: 15,
-        service_count: 6,
-        sum: 750,
-        date: '2017-01-01',
-        uses: [
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          }
-        ]
-      },
-      {
-        id: 300,
-        service_name: 'по3од в Spa',
-        service_id: 15,
-        service_count: 3,
-        sum: 150,
-        date: '2017-01-01',
-        uses: [
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          }
-        ],
-        expiration: '2017-12-31'
-      },
-      {
-        id: 4,
-        service_name: 'под в Spa',
-        service_id: 15,
-        service_count: 15,
-        sum: 50,
-        date: '2017-01-01',
-        uses: [
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          }
-        ]
-      },
-      {
-        id: 5,
-        service_name: 'поход в Spa',
-        service_id: 15,
-        service_count: 5,
-        sum: 250,
-        date: '2017-01-01',
-        uses: [
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          },
-          {
-            id: 1,
-            date: '2017-01-01T12:00:00Z'
-          }
-        ],
-        expiration: '2017-11-31'
-      }
+      // {
+      //   id: 10,
+      //   service_name: 'aSpa',
+      //   service_id: 15,
+      //   service_count: 10,
+      //   sum: 480,
+      //   date: '2017-01-01',
+      //   uses: [
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 2,
+      //   service_name: 'пд в Spa',
+      //   service_id: 15,
+      //   service_count: 6,
+      //   sum: 750,
+      //   date: '2017-01-01',
+      //   uses: [
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 300,
+      //   service_name: 'по3од в Spa',
+      //   service_id: 15,
+      //   service_count: 3,
+      //   sum: 150,
+      //   date: '2017-01-01',
+      //   uses: [
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     }
+      //   ],
+      //   expiration: '2017-12-31'
+      // },
+      // {
+      //   id: 4,
+      //   service_name: 'под в Spa',
+      //   service_id: 15,
+      //   service_count: 15,
+      //   sum: 50,
+      //   date: '2017-01-01',
+      //   uses: [
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 5,
+      //   service_name: 'поход в Spa',
+      //   service_id: 15,
+      //   service_count: 5,
+      //   sum: 250,
+      //   date: '2017-01-01',
+      //   uses: [
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     },
+      //     {
+      //       id: 1,
+      //       date: '2017-01-01T12:00:00Z'
+      //     }
+      //   ],
+      //   expiration: '2017-11-31'
+      // }
     ]
   }
 }

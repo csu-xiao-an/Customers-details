@@ -35,10 +35,17 @@ export default class HotLinks extends React.Component {
       <span>{name}</span>
     </div>
   )
+  renderAddLink = () => (
+    <div className='link-add'>
+      <Link className='circle-wrap' to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + config.urls.punch_cards_adding : config.urls.punch_cards_adding}><img src={`${config.urls.media}plus-white.svg`} /></Link>
+      <span>{config.translations.add_first_punch}</span>
+    </div>
+  )
   render () {
     const hotLinks = config.data.hot_links.filter(i => {
       if (i.url[0] === '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
       else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      else if (i.name === 'punch_cards' && (config.urls.punch_cards && config.data.punch_cards.length === 0)) return i
       else if (i.name === 'timeline') return i
       else if (i.name === 'hair_dyeing' && (config.data.colors_beautech && config.data.colors_beautech.length !== 0)) return i
     })
@@ -57,9 +64,11 @@ export default class HotLinks extends React.Component {
             )
           } else {
             if (i.url === config.urls.punch_cards) {
-              return this.state.isActivePunchCard
+              return config.data.punch_cards.length > 0
+              // return this.state.isActivePunchCard
                 ? this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
-                : this.renderExternalLink(config.urls.punch_cards_adding, config.translations.punch_cards_adding, '')
+                : this.renderAddLink()
+                // : this.renderExternalLink(config.urls.punch_cards_adding, config.translations.punch_cards_adding, `${config.urls.media}plus.svg`)
             } else {
               return this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
             }
