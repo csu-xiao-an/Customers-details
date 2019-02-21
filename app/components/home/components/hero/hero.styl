@@ -52,6 +52,18 @@
     -moz-margin-end 10px
     top 7%
     z-index 2
+    .camera-spin
+      width 20px
+      height 20px
+      animation 1s spin infinite linear
+      @keyframes spin
+        from
+          transform rotate(0deg)
+        to
+          transform rotate(360deg)
+      img
+        height 20px
+        width 20px
   .rtll
     left 0
   .ltrr
