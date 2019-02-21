@@ -36,7 +36,7 @@ export default class GalleryPopup extends React.Component {
             </div>
             <button onClick={this.props.submit}>
               <div className='text-submit'>{config.translations.submit}</div>
-              <img src={config.urls.media + 'upload.svg'} />
+              <div className='submit-spin'><img src={config.urls.media + 'refresh-cw.svg'} /></div>
             </button>
           </div>
         </div>
