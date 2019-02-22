@@ -28,13 +28,16 @@ class Home extends React.Component {
     moveToDebt: false,
     activateNone: false,
     activateDebt: false,
-    showAddButton: config.data.notes.length === 0 && true,
+    isFirstItemInGallery: false,
+    showAddGallery: config.data.gallery.length === 0 && true,
+    showAddNote: config.data.notes.length === 0 && true,
     showAddDebt: config.data.debts.length === 0 && true
   }
 
   showFields = () => this.setState({ isVisibleFields: true })
-  createFirstNote = () => this.setState({ isFirstNote: true, activateNone: true, showAddButton: false })
+  createFirstNote = () => this.setState({ isFirstNote: true, activateNone: true, showAddNote: false })
   createFirstDebt = () => this.setState({ isFirstDebt: true, activateDebt: true, showAddDebt: false })
+  addingFirstItem = () => this.setState({ isFirstItemInGallery: true })
   componentWillMount () {
     const { history } = this.props
     const queryParams = qs.parse(history.location.search.slice(1))
@@ -60,7 +63,7 @@ class Home extends React.Component {
     const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!config.data.debts.length) || this.state.isFirstDebt
     const isEventVisible = this.state.isVisibleFields || (config.data.recent_appoinments && !!config.data.recent_appoinments.length)
     const isNotesVisible = this.state.isVisibleFields || (config.data.notes && !!config.data.notes.length) || this.state.isFirstNote
-    const isGalleryVisible = this.state.isVisibleFields || (config.data.gallery && !!config.data.gallery.length)
+    const isGalleryVisible = this.state.isVisibleFields || (config.data.gallery && !!config.data.gallery.length) || this.state.isFirstItemInGallery
     const isGroupsVisible = this.state.isVisibleFields || (config.data.groups && !!config.data.groups.length)
     // const isSignatureVisible = this.state.isVisibleFields
     const isSocialNetworkVisible = this.state.isVisibleFields || (config.data.soc_media && !!config.data.soc_media.length)
@@ -68,7 +71,15 @@ class Home extends React.Component {
       <div id='home'>
         <Topnav {...this.props} home />
         <Hero {...this.props} />
-        <HotLinks {...this.props} showAddDebt={this.state.showAddDebt} showAddButton={this.state.showAddButton} createFirstDebt={this.createFirstDebt} createFirstNote={this.createFirstNote} />
+        <HotLinks
+          showAddDebt={this.state.showAddDebt}
+          showAddNote={this.state.showAddNote}
+          showAddGallery={this.state.showAddGallery}
+          createFirstDebt={this.createFirstDebt}
+          createFirstNote={this.createFirstNote}
+          addingFirstItem={this.addingFirstItem}
+          {...this.props}
+        />
         <Profile {...this.props} isVisibleFields={this.state.isVisibleFields} />
         {isEventVisible && <Events {...this.props} />}
         {/* {isDebtsVisible && <Debts activateDebt={this.state.activateDebt} {...this.props} /> } */}
