@@ -6,7 +6,7 @@ import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {clientReplaceService} from 'project-services'
+import {clientPutService} from 'project-services'
 const {Link} = ReactRouterDOM
 
 export default class Profile extends React.Component {
@@ -14,7 +14,8 @@ state = {
   visibleMapPopup: false,
   address: '',
   name: '',
-  editProfile: false
+  editProfile: false,
+  permit_ads: ''
 }
 componentDidMount = () => {
   this.setState({
@@ -74,14 +75,14 @@ getArgeement = value => {
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   const body = Object.keys(this.state).reduce((params, field) => {
-    if (fields.includes(field) && this.state[field] && this.state[field] !== config.data[field]) {
+    if (fields.includes(field) && this.state[field]) {
       const value = `${this.state[field]}`
       const result = `${field}=${value}`
       return params + (params.length ? `&${result}` : result)
     }
     return params
   }, '')
-  body && clientReplaceService(body).then(r => {
+  body && clientPutService(body).then(r => {
     if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear

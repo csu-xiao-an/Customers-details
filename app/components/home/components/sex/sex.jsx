@@ -24,15 +24,10 @@ export default class Sex extends React.Component {
         this.setState({label: config.translations.selectGender, femaleSelected: false, maleSelected: false})
       }
     }
-    // let initState = config.data.gender
   }
   deleteGender = () => {
-    clientReplaceService(`${config.urls.gender}=null`).then(r => {
-      if (r.status === 204) {
-        config.data.gender = 'Select gender'
-        this.setState({label: config.translations.selectGender, femaleSelected: false, maleSelected: false})
-      }
-    })
+    config.data.gender = 'Select gender'
+    this.setState({label: config.translations.selectGender, femaleSelected: false, maleSelected: false}, () => this.props.getGender(this.state.genderSelect))
   }
   handleGenderClick = () => {
     let changeState = !this.state.changeState
@@ -47,7 +42,6 @@ export default class Sex extends React.Component {
         changeState: false
       })
       this.props.getGender(this.state.genderSelect)
-      // this.props.delSex
     })
     this.refs.radioFemale.addEventListener('click', e => {
       this.state.genderSelect = 'female'
@@ -57,7 +51,6 @@ export default class Sex extends React.Component {
         changeState: false
       })
       this.props.getGender(this.state.genderSelect)
-      // this.props.delSex
     })
   }
 

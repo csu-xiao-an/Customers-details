@@ -360,7 +360,7 @@ var config = {
     // status: 'Status',
     profile_image: '24.jpg',
     // source: 'ads',
-    gender: 'Select gender',
+    gender: 'male',
     currency: '₪',
     debt_step: 10,
     max_side: 1000,
