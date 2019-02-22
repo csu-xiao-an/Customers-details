@@ -1,5 +1,5 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
-import {formatDate, Select, reminder} from 'project-components'
+import {formatDate, Select, reminder, Switch} from 'project-components'
 import Line from '../line/line.jsx'
 import './notes.styl'
 
@@ -13,6 +13,7 @@ export default class Notes extends React.Component {
     noteReplace: this.props.activateNone,
     isEditNotes: this.props.activateNone,
     description: '',
+    switch: false,
     note_id: 0,
     timeStart: config.data.reminders_default_period_amount,
     time: '0',
@@ -22,6 +23,20 @@ export default class Notes extends React.Component {
     rights: PropTypes.object.isRequired,
     activateNone: PropTypes.bool.isRequired
   }
+  handleIncrementTime = () => {
+    this.setState(prevState => ({
+      time: prevState.time + 1
+    }))
+  }
+  handleDecrementTime = () => {
+    if (+this.state.time > 0) {
+      this.setState(prevState => ({
+        time: +prevState.time - 1
+      }))
+    }
+  }
+  // this.setState({isReminderEdit: !this.state.isReminderEdit, time: this.state.timeStart})
+  handleValidity = () => this.setState({switch: !this.state.switch, isReminderEdit: !this.state.isReminderEdit, time: this.state.timeStart})
   submit = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
     let rem = reminder(this.state.time, this.state.selectedValue)
@@ -123,7 +138,7 @@ export default class Notes extends React.Component {
       description: ''
     })
   }
-
+  cancelSearch = () => this.setState({description: ''})
   componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
 
   renderNoteEdit = () => {
@@ -190,30 +205,39 @@ export default class Notes extends React.Component {
   renderNoteAdd = () => {
     return (
       <div className={this.state.isEditNotes ? 'edit-note' : 'hidden'}>
+        <span className='one-note'>{config.translations.note}</span>
         <div className='description'>
-          <input className='description-input'
+          <textarea autoFocus className='description-area'
             type='text'
             value={this.state.description}
             onChange={e => this.setState({description: e.target.value})}
-            placeholder={config.translations.description_notes}
-            autoFocus
-          />
+            placeholder={config.translations.description_notes} />
+          <div className='cancel-search'>
+            {this.state.description && <img onClick={() => this.cancelSearch()} className='search-img' src={`${config.urls.media}x-circle.svg`} />}
+          </div>
         </div>
         <div className='reminder'>
-          <div className='reminder-text'
-            onClick={() => this.setState({isReminderEdit: !this.state.isReminderEdit, time: this.state.timeStart})}>
-            <span>{config.translations.reminder}</span>
-            <div className={'img-wrap'}>
-              <img src={config.urls.media + 'ic_notifications_active.svg'} />
+          <div className='reminder-wrap'>
+            <div className='set-reminder'>
+              <div className={'img-wrap'}>
+                <img src={config.urls.media + 'bell.svg'} />
+              </div>
+              <span>{config.translations.reminder}</span>
             </div>
+            <Switch on={this.state.switch} onClick={this.handleValidity} />
           </div>
           <div className={this.state.isReminderEdit ? 'reminder-time ' : 'hidden'}>
-            <div className='select-wrap'>
-              <Select value={this.state.selectedLabel}
-                options={config.translations.notes_list}
-                onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} />
+            <div className='input-wrap'>
+              <div className='ink' onClick={this.handleIncrementTime}><img src={`${config.urls.media}plus.svg`} /></div>
+              <input className='count-input total-input' type='text' value={this.state.time} disabled />
+              <div className='ink' onClick={this.handleDecrementTime}><img src={`${config.urls.media}minus.svg`} /></div>
             </div>
-            <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
+            <div className='select-wrap'>
+              {/* <Select value={this.state.selectedLabel}
+                options={config.translations.notes_list}
+                onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} /> */}
+            </div>
+            {/* <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
               <div className='ink'
                 onClick={() => this.setState({time: +this.state.time + 1})}>
                 <span>+</span>
@@ -227,7 +251,7 @@ export default class Notes extends React.Component {
               <div className='ink' onClick={() => { if (+this.state.time > 0) this.setState({time: +this.state.time - 1}) }}>
                 <span className='minus'>-</span>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className='actions-note'>
             <button
@@ -249,7 +273,8 @@ export default class Notes extends React.Component {
     return (
       <div id='notes'>
         <div className='note-header'>
-          <label>{config.translations.notes}</label>
+          <span>{config.translations.notes}</span>
+          <button className='back'><img src={config.urls.media + 'arrow-left.svg'} />{config.translations.back}</button>
         </div>
         <div className='note-body' style={{'max-height': (config.notes_height_limit * 56)}}>
           {config.data.notes.map(i => (

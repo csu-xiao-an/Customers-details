@@ -175,7 +175,7 @@ var config = {
     add_first_punch: 'Add a first punch card',
     add_first_note: 'Add a first note',
     add_first_debt: 'Add a first debt',
-    add_first_item: 'Add a first item',
+    add_first_item: 'Add a first item in gallery',
     procedures: 'Procedures:',
     debts_t: 'Debts',
     other_t: 'Other',
