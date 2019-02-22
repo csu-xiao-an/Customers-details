@@ -8,10 +8,9 @@ export default class HotLinks extends React.Component {
   }
   static propTypes = {
     rights: PropTypes.object.isRequired,
-    showAddButton: PropTypes.bool.isRequired,
+    showAddNote: PropTypes.bool.isRequired,
     showAddDebt: PropTypes.bool.isRequired,
-    moveToAnchor: PropTypes.bool.isRequired,
-    moveToDebt: PropTypes.bool.isRequired,
+    addingFirstItem: PropTypes.func.isRequired,
     createFirstNote: PropTypes.func.isRequired,
     createFirstDebt: PropTypes.func.isRequired
   }
@@ -45,6 +44,14 @@ export default class HotLinks extends React.Component {
     this.props.createFirstDebt()
     setTimeout(() => {
       this.link({url: '#debts'})
+    }, 10)
+  }
+  showAndMovetoGallery = () => {
+    this.props.addingFirstItem()
+    setTimeout(() => {
+      this.link({url: '#gallery'})
+      let input = document.getElementById('file-input')
+      input.click()
     }, 10)
   }
 
@@ -102,8 +109,9 @@ export default class HotLinks extends React.Component {
             }
           }
         })}
-        {this.props.showAddButton && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
+        {this.props.showAddNote && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
         {this.props.showAddDebt && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)}
+        {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item)}
         {/* <div>
           <div className='link add-btn'>
             <img className='add' src={config.urls.media + 'ic_add.png'} />

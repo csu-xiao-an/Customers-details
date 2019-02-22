@@ -14,6 +14,7 @@ export default class Media extends React.Component {
     shares: [],
     gallery: {},
     slideAmount: 0,
+    firstItem: false,
     initialSlide: 0,
     multiDel: false,
     multiShare: false,
@@ -274,7 +275,7 @@ export default class Media extends React.Component {
                 ? 'gallery-footer'
                 : 'gallery-footer'}
             >
-              <input className='file-input' type='file' onChange={e => {
+              <input id='file-input' className='file-input' type='file' onChange={e => {
                 this.addFile(e)
                 e.target.value = null
                 // this.handleMenuOff(e)
