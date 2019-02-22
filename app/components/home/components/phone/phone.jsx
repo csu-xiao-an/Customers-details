@@ -10,26 +10,11 @@ export default class Phone extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
-  // submit = () => {
-  //   const { phone } = this.state
-  //   const isPhone = ~phone.search(/^[0-9\+]{9,15}$/)
-  //   if (isPhone) {
-  //     const body = `${config.urls.phone}=${phone}`
-  //     clientReplaceService(body).then(r => {
-  //       if (r.status === 204) {
-  //         config.data.phone = this.state.phone
-  //         this.setState({phoneEdit: !this.state.phoneEdit, phone: ''})
-  //       }
-  //     })
-  //   } else {
-  //     this.setState({error: 'Phone number is incorrect!'})
-  //   }
-  // }
   componentDidMount = () => {
     this.setState({phone: config.data.phone})
   }
   delInfo = () => {
-    this.setState({phone: ''})
+    this.setState({phone: ''}, () => this.props.getPhone(this.state.phone))
   }
 
   render () {
