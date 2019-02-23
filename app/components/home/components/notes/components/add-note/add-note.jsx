@@ -1,4 +1,4 @@
-import {formatDate, Select, reminder, Switch} from 'project-components'
+import {Select, Switch} from 'project-components'
 import './add-note.styl'
 
 export default class AddNote extends React.Component {
@@ -7,6 +7,7 @@ export default class AddNote extends React.Component {
     setDescription: PropTypes.func.isRequired,
     handleIncrementTime: PropTypes.func.isRequired,
     handleDecrementTime: PropTypes.func.isRequired,
+    deleteNote: PropTypes.func.isRequired,
     activateSwitch: PropTypes.func.isRequired,
     cancelSearch: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired,
@@ -15,6 +16,7 @@ export default class AddNote extends React.Component {
     time: PropTypes.string.isRequired,
     selectedValue: PropTypes.string.isRequired,
     isReminderEdit: PropTypes.bool.isRequired,
+    delete: PropTypes.bool.isRequired,
     noteReplace: PropTypes.bool.isRequired,
     switch: PropTypes.bool.isRequired
   }
@@ -63,7 +65,7 @@ export default class AddNote extends React.Component {
         <div className='actions-note'>
           {this.props.delete && <button
             className='delete'
-            onClick={this.closeEditNoteFooter}>
+            onClick={this.props.deleteNote}>
             <img src={`${config.urls.media}delete.svg`} />
             <span>{config.translations.delete}</span>
           </button>}
