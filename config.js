@@ -84,6 +84,7 @@ var config = {
     type_discount: 'Type discount',
     within: 'within',
     of: 'of',
+    in: 'In',
     del: 'X',
     profile: 'Personal Info',
     profile_sent_link: 'Sent',

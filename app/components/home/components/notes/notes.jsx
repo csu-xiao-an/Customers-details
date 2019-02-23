@@ -1,11 +1,13 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
 import {formatDate, Select, reminder, Switch} from 'project-components'
+import AddNote from './components/add-note/add-note.jsx'
 import Line from '../line/line.jsx'
 import './notes.styl'
 
 export default class Notes extends React.Component {
   state = {
     selectedValue: config.translations.notes_list[0].value,
+    selectedValueLable: config.translations.notes_list[0].label,
     selectedLabel: config.data.reminders_default_date_period,
     isReminderEdit: false,
     newEditNotes: this.props.activateNone,
@@ -23,6 +25,13 @@ export default class Notes extends React.Component {
     rights: PropTypes.object.isRequired,
     activateNone: PropTypes.bool.isRequired
   }
+  backButton = () => {
+    this.setState({
+      isEditNotes: !this.state.isEditNotes,
+      newEditNotes: !this.state.newEditNotes,
+      noteReplace: !this.state.noteReplace
+    })
+  }
   handleIncrementTime = () => {
     this.setState(prevState => ({
       time: prevState.time + 1
@@ -35,10 +44,8 @@ export default class Notes extends React.Component {
       }))
     }
   }
-  // this.setState({isReminderEdit: !this.state.isReminderEdit, time: this.state.timeStart})
-  handleValidity = () => this.setState({switch: !this.state.switch, isReminderEdit: !this.state.isReminderEdit, time: this.state.timeStart})
   submit = () => {
-    const d = moment().format('YYYY-MM-DD hh:mm:ss')
+    const d = moment().format('YYYY-MM-DD HH:mm:ss')
     let rem = reminder(this.state.time, this.state.selectedValue)
     let body = `text=${this.state.description}&added=${d}`
     if (rem) body = body + `&reminder_date=${rem}`
@@ -138,9 +145,8 @@ export default class Notes extends React.Component {
       description: ''
     })
   }
-  cancelSearch = () => this.setState({description: ''})
   componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
-
+  
   renderNoteEdit = () => {
     return (
       <div className={this.state.isEditNotes ? 'edit-note' : 'hidden'}>
@@ -199,82 +205,80 @@ export default class Notes extends React.Component {
       </div>
     )
   }
-
-// ////////////////////// nOTE FOOTER //////////////////////
-
-  renderNoteAdd = () => {
-    return (
-      <div className={this.state.isEditNotes ? 'edit-note' : 'hidden'}>
-        <span className='one-note'>{config.translations.note}</span>
-        <div className='description'>
-          <textarea autoFocus className='description-area'
-            type='text'
-            value={this.state.description}
-            onChange={e => this.setState({description: e.target.value})}
-            placeholder={config.translations.description_notes} />
-          <div className='cancel-search'>
-            {this.state.description && <img onClick={() => this.cancelSearch()} className='search-img' src={`${config.urls.media}x-circle.svg`} />}
-          </div>
-        </div>
-        <div className='reminder'>
-          <div className='reminder-wrap'>
-            <div className='set-reminder'>
-              <div className={'img-wrap'}>
-                <img src={config.urls.media + 'bell.svg'} />
-              </div>
-              <span>{config.translations.reminder}</span>
-            </div>
-            <Switch on={this.state.switch} onClick={this.handleValidity} />
-          </div>
-          <div className={this.state.isReminderEdit ? 'reminder-time ' : 'hidden'}>
-            <div className='input-wrap'>
-              <div className='ink' onClick={this.handleIncrementTime}><img src={`${config.urls.media}plus.svg`} /></div>
-              <input className='count-input total-input' type='text' value={this.state.time} disabled />
-              <div className='ink' onClick={this.handleDecrementTime}><img src={`${config.urls.media}minus.svg`} /></div>
-            </div>
-            <div className='select-wrap'>
-              {/* <Select value={this.state.selectedLabel}
-                options={config.translations.notes_list}
-                onChange={e => this.setState({selectedValue: e.value, selectedLabel: e.label})} /> */}
-            </div>
-            {/* <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
-              <div className='ink'
-                onClick={() => this.setState({time: +this.state.time + 1})}>
-                <span>+</span>
-              </div>
-              <input className='count-input'
-                type='number'
-                value={this.state.time}
-                onFocus={e => { if (toString(e.target.value) === '0') e.target.value = '' }}
-                onBlur={e => { if (toString(e.target.value) === '') e.target.value = '0' }}
-                onChange={e => this.setState({time: +e.target.value})} />
-              <div className='ink' onClick={() => { if (+this.state.time > 0) this.setState({time: +this.state.time - 1}) }}>
-                <span className='minus'>-</span>
-              </div>
-            </div> */}
-          </div>
-          <div className='actions-note'>
-            <button
-              className='save'
-              onClick={this.state.noteReplace && this.submit}>
-              {config.translations.save}
-            </button>
-            <button
-              className='delete'
-              onClick={this.closeEditNoteFooter}>
-              <span>{config.translations.del}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  
+  // ////////////////////// nOTE FOOTER //////////////////////
+  
+  // renderNoteAdd = () => {
+    //   return (
+      //     <div className={this.state.isEditNotes ? 'edit-note' : 'hidden'}>
+      //       <div className='edit-note-dody'>
+      //         <span className='one-note'>{config.translations.note}</span>
+      //         <div className='description'>
+      //           <textarea autoFocus className='description-area'
+      //             type='text'
+      //             value={this.state.description}
+      //             onChange={e => this.setState({description: e.target.value})}
+      //             placeholder={config.translations.description_notes} />
+      //           <div className='cancel-search'>
+      //             {this.state.description && <img onClick={() => this.cancelSearch()} className='search-img' src={`${config.urls.media}x-circle.svg`} />}
+      //           </div>
+      //         </div>
+      //         <div className='reminder'>
+      //           <div className='reminder-wrap'>
+      //             <div className='on-set-reminder'>
+      //               <div className='set-reminder'>
+      //                 <div className={'img-wrap'}>
+      //                   <img src={config.urls.media + 'bell.svg'} />
+      //                 </div>
+      //                 <span>{config.translations.reminder}</span>
+      //               </div>
+      //               <Switch on={this.state.switch} onClick={this.handleValidity} />
+      //             </div>
+      //             {this.state.isReminderEdit && <div className='reminder-time'>
+      //               <div className='input-wrap'>
+      //                 <span className='reminder-in'>{config.translations.in}</span>
+      //                 <div className='ink' onClick={this.handleIncrementTime}><img src={`${config.urls.media}plus.svg`} /></div>
+      //                 <input className='count-input total-input' type='text' value={this.state.time} disabled />
+      //                 <div className='ink' onClick={this.handleDecrementTime}><img src={`${config.urls.media}minus.svg`} /></div>
+      //               </div>
+      //               <div className='select-wrap'>
+      //                 <Select value={this.state.selectedValue} name={this.state.selectedValueLable} onChange={e => this.setState({selectedValue: e.value, selectedValueLable: e.label})}
+  //                   options={config.translations.notes_list} />
+  //               </div>
+  //             </div>}
+  //           </div>
+  //         </div>
+  
+  //       </div>
+  //       <div className='actions-note'>
+  //         <button
+  //           className='delete'
+  //           onClick={this.closeEditNoteFooter}>
+  //           <img src={`${config.urls.media}delete.svg`} />
+  //           <span>{config.translations.delete}</span>
+  //         </button>
+  //         <button
+  //           className='save'
+  //           onClick={this.state.noteReplace && this.submit}>
+  //           <img src={`${config.urls.media}apply.svg`} />
+  //           <span>{config.translations.success}</span>
+  //         </button>
+  //       </div>
+  //     </div>
+  //   )
+  // }
+  setSelectValues = (value, label) => this.setState({selectedValue: value, selectedValueLable: label})
+  setDescription = value => this.setState({description: value})
+  cancelSearch = () => this.setState({description: ''})
+  activateSwitch = () => this.setState({switch: !this.state.switch, isReminderEdit: !this.state.isReminderEdit, time: this.state.timeStart})
   render () {
     return (
       <div id='notes'>
         <div className='note-header'>
           <span>{config.translations.notes}</span>
-          <button className='back'><img src={config.urls.media + 'arrow-left.svg'} />{config.translations.back}</button>
+          {this.state.newEditNotes && this.state.noteReplace && this.state.isEditNotes &&
+            <button className='back' onClick={this.backButton}><img src={config.urls.media + 'arrow-left.svg'} />{config.translations.back}</button>
+          }
         </div>
         <div className='note-body' style={{'max-height': (config.notes_height_limit * 56)}}>
           {config.data.notes.map(i => (
@@ -300,7 +304,23 @@ export default class Notes extends React.Component {
               </div>
           ))}
         </div>
-        {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteAdd()}
+        {this.state.newEditNotes && this.state.isEditNotes && <AddNote
+          setDescription={this.setDescription}
+          description={this.state.description}
+          handleIncrementTime={this.handleIncrementTime}
+          handleDecrementTime={this.handleDecrementTime}
+          cancelSearch={this.cancelSearch}
+          selectedValue={this.state.selectedValue}
+          selectedValueLable={this.state.selectedValueLable}
+          switch={this.state.switch}
+          time={this.state.time}
+          setSelectValues={this.setSelectValues}
+          isReminderEdit={this.state.isReminderEdit}
+          activateSwitch={this.activateSwitch}
+          noteReplace={this.state.noteReplace}
+          submit={this.submit}
+        />}
+        {/* {this.state.newEditNotes && this.state.isEditNotes && this.renderNoteAdd()} */}
         {this.props.rights.notes.add &&
           <div className='note-footer' onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})}>
             <label>{config.translations.add_note}</label>
