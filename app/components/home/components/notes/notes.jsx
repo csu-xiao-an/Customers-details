@@ -205,68 +205,7 @@ export default class Notes extends React.Component {
       </div>
     )
   }
-  
-  // ////////////////////// nOTE FOOTER //////////////////////
-  
-  // renderNoteAdd = () => {
-    //   return (
-      //     <div className={this.state.isEditNotes ? 'edit-note' : 'hidden'}>
-      //       <div className='edit-note-dody'>
-      //         <span className='one-note'>{config.translations.note}</span>
-      //         <div className='description'>
-      //           <textarea autoFocus className='description-area'
-      //             type='text'
-      //             value={this.state.description}
-      //             onChange={e => this.setState({description: e.target.value})}
-      //             placeholder={config.translations.description_notes} />
-      //           <div className='cancel-search'>
-      //             {this.state.description && <img onClick={() => this.cancelSearch()} className='search-img' src={`${config.urls.media}x-circle.svg`} />}
-      //           </div>
-      //         </div>
-      //         <div className='reminder'>
-      //           <div className='reminder-wrap'>
-      //             <div className='on-set-reminder'>
-      //               <div className='set-reminder'>
-      //                 <div className={'img-wrap'}>
-      //                   <img src={config.urls.media + 'bell.svg'} />
-      //                 </div>
-      //                 <span>{config.translations.reminder}</span>
-      //               </div>
-      //               <Switch on={this.state.switch} onClick={this.handleValidity} />
-      //             </div>
-      //             {this.state.isReminderEdit && <div className='reminder-time'>
-      //               <div className='input-wrap'>
-      //                 <span className='reminder-in'>{config.translations.in}</span>
-      //                 <div className='ink' onClick={this.handleIncrementTime}><img src={`${config.urls.media}plus.svg`} /></div>
-      //                 <input className='count-input total-input' type='text' value={this.state.time} disabled />
-      //                 <div className='ink' onClick={this.handleDecrementTime}><img src={`${config.urls.media}minus.svg`} /></div>
-      //               </div>
-      //               <div className='select-wrap'>
-      //                 <Select value={this.state.selectedValue} name={this.state.selectedValueLable} onChange={e => this.setState({selectedValue: e.value, selectedValueLable: e.label})}
-  //                   options={config.translations.notes_list} />
-  //               </div>
-  //             </div>}
-  //           </div>
-  //         </div>
-  
-  //       </div>
-  //       <div className='actions-note'>
-  //         <button
-  //           className='delete'
-  //           onClick={this.closeEditNoteFooter}>
-  //           <img src={`${config.urls.media}delete.svg`} />
-  //           <span>{config.translations.delete}</span>
-  //         </button>
-  //         <button
-  //           className='save'
-  //           onClick={this.state.noteReplace && this.submit}>
-  //           <img src={`${config.urls.media}apply.svg`} />
-  //           <span>{config.translations.success}</span>
-  //         </button>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+
   setSelectValues = (value, label) => this.setState({selectedValue: value, selectedValueLable: label})
   setDescription = value => this.setState({description: value})
   cancelSearch = () => this.setState({description: ''})
@@ -320,11 +259,11 @@ export default class Notes extends React.Component {
           noteReplace={this.state.noteReplace}
           submit={this.submit}
         />} */}
-        {this.props.rights.notes.add &&
+        {/* {this.props.rights.notes.add &&
           <div className='note-footer' onClick={() => this.setState({isEditNotes: !this.state.isEditNotes, newEditNotes: !this.state.newEditNotes, noteReplace: !this.state.noteReplace})}>
             <label>{config.translations.add_note}</label>
             <img src={config.urls.media + 'c_add_stroke.svg'} />
-          </div>}
+          </div>} */}
       </div>
     )
   }
