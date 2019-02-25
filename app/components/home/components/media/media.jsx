@@ -22,7 +22,8 @@ export default class Media extends React.Component {
     imagePreviewUrl: '',
     isOpenGallery: false,
     isOpenGalleryContex: false,
-    previewVideo: false
+    previewVideo: false,
+    flag: false
   }
   static propTypes = {
     rights: PropTypes.object.isRequired,
@@ -38,9 +39,13 @@ export default class Media extends React.Component {
     let body = new FormData()
     body.append('file', this.state.file)
     body.append('date', d)
+    this.setState({flag: true})
     if (this.state.desc !== '') body.append('note', this.state.desc)
     mediaPostService(body).then(r => {
       let newId = r.data.id
+      if (r.status) {
+        this.setState({flag: false})
+      }
       if (r.status === 201) {
         let data = {
           date: d,
@@ -290,6 +295,7 @@ export default class Media extends React.Component {
           handleMenuOff={this.handleMenuOff}
           submit={this.submit}
           handleDescBack={this.handleDescBack}
+          flag={this.state.flag}
         />
         }
         {/* <div className={this.state.isAddMedia ? 'add-media-edit' : 'hidden'}>
