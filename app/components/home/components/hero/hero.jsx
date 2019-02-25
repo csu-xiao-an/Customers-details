@@ -10,7 +10,8 @@ export default class Hero extends React.Component {
     clientImg: config.data.profile_image ? (config.urls.client_data + config.data.profile_image) : (config.urls.defaultPathToClientImg + config.urls.defaultClientImg),
     isInputDisabled: false,
     succes: false,
-    isStar: false
+    isStar: false,
+    flag: false
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -67,9 +68,13 @@ export default class Hero extends React.Component {
     let body = new FormData()
     body.append('date', d)
     body.append('file', newFile)
+    this.setState({flag: true})
     clientPostServiceImg(body).then(r => {
       if (r.status === 201) {
         this.setState({clientImg: `${config.urls.client_data}${newFile.name}`})
+        if (r.status) {
+          this.setState({flag: false})
+        }
       }
     })
   }
@@ -111,7 +116,9 @@ export default class Hero extends React.Component {
           <span>{config.translations.vip}</span>
         </div>
         <label className={'camera ' + (config.isRTL ? 'rtll' : 'ltrr')}>
-          <div className='camera-spin'><img src={config.urls.media + 'refresh-cw.svg'} /></div>
+          {this.state.flag
+            ? <div className='camera-spin'><img src={config.urls.media + 'refresh-cw.svg'} /></div>
+            : <img src={config.urls.media + 'ic_photo.svg'} />}
           <input type='file' style={{display: 'none'}} onChange={this.addPhoto} />
         </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
