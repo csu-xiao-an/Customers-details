@@ -220,6 +220,20 @@ var config = {
     valid_until_adding: 'Punch is valid until',
     cancel: 'Cancel',
     next: 'Next',
+    months: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ],
     dates: {
       months: {
         0: 'January',
