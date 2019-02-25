@@ -23,22 +23,31 @@ export default class Gallery extends React.Component {
     else return `${config.urls.media}other.svg`
   }
   onError = (e, image) => {
+    let target = e.target
     if (!e.target.src.endsWith(config.urls.media)) {
-      e.target.src = config.urls.media + image
+      target.classList.add('previewImg')
+      target.src = config.urls.media + image
     }
   }
   typeItem = i => {
     let src, image
     if (i.name.indexOf('mp4') !== -1) {
       return (<div className='photo-wrap video-block'>
-        <img src={config.urls.media + 'video_play.png'} className='video_play media' />
-        <video className='media-vid'
-          src={config.urls.gallery + i.name}
-        />
+        <video className='media-vid' src={config.urls.gallery + i.name} controls />
       </div>)
     } else {
-      if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_gallery.svg'; image = 'audio_gallery.svg' } else
-      if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'other_gallery.svg'; image = 'other_gallery.svg' } else
+      if (i.name.indexOf('mp3') !== -1) {
+        return (<div className='photo-wrap music-block'>
+          <img className='audio-img' src={config.urls.media + 'audio_gallery.svg'} />
+          <audio src={config.urls.gallery + i.name} controls />
+        </div>)
+      } else
+      if (i.name.indexOf('pdf') !== -1) {
+        src = config.urls.media + 'other_gallery.svg'; image = 'other_gallery.svg'
+        return (<div className='photo-wrap other-file'>
+          <img className='audio-img' src={`${config.urls.media}other_gallery.svg`} />
+        </div>)
+      } else
       if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name; image = 'image_gallery.svg' }
       return <div className='photo-wrap'>
         <img className='media-img'
@@ -73,10 +82,7 @@ export default class Gallery extends React.Component {
             <span>{formatDate(this.props.i.date)}</span>
           </div>
         </div>
-        {/* <div className='photo-wrap'> */}
-          {this.typeItem(this.props.i)}
-          {/* <img src={config.urls.gallery + this.props.i.name} /> */}
-        {/* </div> */}
+        {this.typeItem(this.props.i)}
         <div className={this.props.i.note ? 'note' : 'hidden'}>
           <div className='title'>
             <span>{`${config.translations.notes}`}</span>
