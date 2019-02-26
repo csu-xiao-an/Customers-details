@@ -39,7 +39,7 @@ class Timeline extends React.Component {
     filterParams = urlParams.filter(i => {
       if (this.state.filter[i]) return i
     })
-    this.getData(true, true)
+    this.getData(true, true, false)
     this.init()
   }
 
@@ -47,7 +47,7 @@ class Timeline extends React.Component {
     const list = this.refs.list
     exp = () => {
       if (window.pageYOffset > list.scrollHeight - (document.body.clientHeight + document.body.clientHeight / 2)) {
-        !this.state.flag && this.getData()
+        !this.state.flag && this.getData(false, false, true)
       }
     }
     list.addEventListener('touchmove', exp, false)
@@ -57,11 +57,15 @@ class Timeline extends React.Component {
     const { data } = this.state
     const { min_data_length } = config
     if (data.length <= min_data_length) {
-      this.getData(false, config.interval_days * cont)
+      this.getData(false, config.interval_days * cont, false)
     }
   }
 
-  getData = (firstLoad, fullPageCoef) => {
+  emptyData = () => {
+    this.getData(false, false, true)
+  }
+
+  getData = (firstLoad, fullPageCoef, emptyData) => {
     this.setState({flag: true})
     cont = cont + cont
     filterParams = urlParams.filter(i => {
@@ -98,7 +102,6 @@ class Timeline extends React.Component {
     this.lastStartDate = start
     this.lastEndDate = end
     getTimeline(filterParams, { end, start }).then(res => {
-      // let data = res.appointments
       let keys = Object.keys(res)
       let overallData = keys.map(i => {
         let a = [...res[i]]
@@ -116,6 +119,9 @@ class Timeline extends React.Component {
         if (!this.state.filter.debts && i.field_name === 'debts') i.isHide = true
         return i
       })), [])
+      if (data.length === 0) {
+        emptyData && this.emptyData()
+      }
       if (data.length) {
         data.sort((a, b) => moment(b.date) - moment(a.date))
         data[0].separator = true
