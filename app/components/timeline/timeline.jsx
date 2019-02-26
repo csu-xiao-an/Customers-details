@@ -119,7 +119,7 @@ class Timeline extends React.Component {
         if (!this.state.filter.debts && i.field_name === 'debts') i.isHide = true
         return i
       })), [])
-      if (data.length === 0) {
+      if (data.length < 10) {
         emptyData && this.emptyData()
       }
       if (data.length) {
