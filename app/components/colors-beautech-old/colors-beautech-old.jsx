@@ -42,10 +42,10 @@ class ColorsBeautechOld extends React.Component {
             <Swiper onSlideChangeEnd={this.chengeDate} ref={node => { if (node) this.swiper = node.swiper }} slidesPerView='auto' centeredSlides observer initialSlide={beautech.length - 1}>
               {beautech.map(i => <div>
                 <div className='main'>
-                  {i.company && <div className='main-title'><p>{translations.brand}</p>
+                  {i.company && <div className='main-top-title'><p>{translations.brand}</p>
                     <span className='value'>{i.company}</span>
                   </div>}
-                  {i.series && <p className='main-title'><span>{translations.series}</span>
+                  {i.series && <p className='second-top-title'><span>{translations.series}</span>
                     <span className='value'>{i.series}</span></p>}
                   {i.colors && i.colors.map(element => <div className='colors'>
                     <div className='colors-item'>
@@ -104,14 +104,14 @@ class ColorsBeautechOld extends React.Component {
             </Swiper>
           </div>
         </div>
-        <div className='buttons-bot'>
+        {beautech.length > 1 && <div className='buttons-bot'>
           <div className={'buttons-bot-wrap-left ' + (config.isRTL ? 'rtl-dir-left' : 'ltr-dir-left')} onClick={this.goPrev}>{config.translations.colors_beautech.back}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
           <div className={'buttons-bot-wrap-right ' + (config.isRTL ? 'rtl-dir-right' : 'ltr-dir-right')} onClick={this.goNext}>{config.translations.colors_beautech.next}
             <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </div>
-        </div>
+        </div>}
       </div>
     )
   }
