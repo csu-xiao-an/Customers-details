@@ -9,15 +9,7 @@ export default class Birthdate extends React.Component {
     birthyear: '',
     day: '',
     month: '',
-    year: '',
-    configValue: config.data.birthdate && config.data.birthyear
-      ? `${config.data.birthyear}-${config.data.birthdate}`
-      : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
-        : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : ''}`),
-    configValue1: config.data.birthdate && config.data.birthyear
-      ? `${config.data.birthyear}${config.data.birthdate}`
-      : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
-        : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : ''}`)
+    year: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -68,8 +60,9 @@ export default class Birthdate extends React.Component {
   getHandleDay = value => this.setState({day: value})
   getHandleMonth = value => this.setState({month: value})
   getHandleYear = value => this.setState({year: value})
+
   render () {
-    // console.log(this.state);
+    let newDays = this.props.changeDays
     return (
       <div id='birthdate' className='block'>
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
@@ -79,31 +72,36 @@ export default class Birthdate extends React.Component {
           </span>
         </div>
         {
-          this.props.editProfile && !this.state.configValue1 &&
-          <div onClick={() => this.setState({birthdateEdit: !this.state.birthdateEdit})}
-            className={!this.state.configValue1 || this.state.birthdateEdit ? 'add-birth' : 'hidden'}>
-            <div className='wrap-birth'>
-              <span className='label'>{config.translations.birthday}:</span>
-              <h1>{config.translations.add_birth}</h1>
-            </div>
-            <img src={config.urls.media + 'add.svg'} />
-          </div>
-        }
-        <div className={this.props.editProfile ? 'birthdate-edit' : 'hidden'}>
+          (this.props.editProfile && (!config.data.birthdate && !config.data.birthyear)) 
+            ? <div onClick={() => this.props.changeBirth()}
+              className={!this.props.birthEdit ? 'add-birth' : 'hidden'}>
+              <div className='wrap-birth'>
+                <span className='label'>{config.translations.birthday}:</span>
+                <h1>{config.translations.add_birth}</h1>
+              </div>
+              <div className='add-info'>
+                <div className='add-wrap' onClick={this.delName}>
+                  <img src={config.urls.media + 'profile_plus.svg'} />
+                </div>
+              </div>
+              {/* <img src={config.urls.media + 'profile_add_field.svg'} /> */}
+            </div> : ''}
+        {this.props.editProfile &&
+        <div className={(this.props.birthEdit || config.data.birthdate || config.data.birthyear) ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
-            <Datepicker 
+            <Datepicker
               defaultValue={this.state.configValue} 
               defaultValue1={this.state.configValue1} 
               getBirthdate={this.getBirthdate} 
               getBirthyear={this.getBirthyear}
+              newDays={newDays}
               getHandleDay={this.getHandleDay}
               getHandleMonth={this.getHandleMonth}
               getHandleYear={this.getHandleYear}
             />
           </div>
-          {/* <div className='button'><button onClick={this.save1}>{config.translations.save}</button></div> */}
-        </div>
+        </div>}
       </div>
     )
   }

@@ -15,7 +15,8 @@ state = {
   address: '',
   name: '',
   editProfile: false,
-  permit_ads: ''
+  permit_ads: '',
+  birthEdit: false
 }
 componentDidMount = () => {
   this.setState({
@@ -92,13 +93,19 @@ saveAll = () => {
       config.data.name && (config.data.name = this.state.name)
       config.data.gender && (config.data.gender = this.state.gender)
       config.data.permit_ads && (config.data.permit_ads = this.state.permit_ads)
+      this.setState({ editProfile: false }, () => this.changeBirth())
+      this.changeDays()
       this.forceUpdate()
-      this.setState({ editProfile: false })
     } else {
       this.setState({ editProfile: true })
     }
   })
 }
+changeDays = () => this.setState({newDays: config.data.birthdate && config.data.birthyear
+  ? `${config.data.birthyear}-${config.data.birthdate}`
+  : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
+    : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)})
+changeBirth = () => this.setState({birthEdit: !this.state.birthEdit})
 render () {
   const { isVisibleFields } = this.props
   return (
@@ -199,10 +206,13 @@ render () {
         </div>}
       {/* {!config.data.gender && <Sex {...this.props} />} */}
       {(this.props.isVisibleFields || config.data.gender) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
-      {(this.props.isVisibleFields || (config.data.birthdate || config.data.birthyear)) &&
+      {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}
           getBdate={this.getBdate}
           getByear={this.getByear}
+          changeDays={this.state.newDays}
+          birthEdit={this.state.birthEdit}
+          changeBirth={this.changeBirth}
           hateBdate={this.state.birthdate}
           hateByear={this.state.birthyear}
           {...this.props} />}
