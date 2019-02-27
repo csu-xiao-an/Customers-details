@@ -94,6 +94,7 @@ class Timeline extends React.Component {
       if (moment(start).isBefore(config.data.registration_date)) {
         start = getDate(0, config.data.registration_date)
         fullPageCoef = 0 // Exit from auto fill page
+        emptyData = false
         const list = this.refs.list
         list.removeEventListener('touchmove', exp, false)
         this.setState({showMessage: true})
@@ -119,9 +120,6 @@ class Timeline extends React.Component {
         if (!this.state.filter.debts && i.field_name === 'debts') i.isHide = true
         return i
       })), [])
-      if (data.length < 10) {
-        emptyData && this.emptyData()
-      }
       if (data.length) {
         data.sort((a, b) => moment(b.date) - moment(a.date))
         data[0].separator = true
@@ -133,7 +131,11 @@ class Timeline extends React.Component {
       }
       this.setState(
         {flag: false, data: [...this.state.data, ...data]},
-        () => fullPageCoef && this.autoUploadUntilFullPage()
+        () => fullPageCoef
+          ? this.autoUploadUntilFullPage()
+          : emptyData && data.length < 10
+            ? this.emptyData()
+            : ''
       )
     })
   }
