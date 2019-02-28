@@ -78,11 +78,13 @@ export default class HotLinks extends React.Component {
 
   render () {
     const hotLinks = config.data.hot_links.filter(i => {
-      if (i.url[0] === '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
-      else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      // console.log('object', i.name)
+      // if (i.url[0] === '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      if (i.name === 'notes' && this.props.notesData.length !== 0) return i
+      // else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
       else if (i.name === 'punch_cards' && (config.urls.punch_cards && config.data.punch_cards.length === 0)) return i
       else if (i.name === 'timeline') return i
-      else if (i.name === 'hair_dyeing' && (config.data.colors_beautech && config.data.colors_beautech.length !== 0)) return i
+      // else if (i.name === 'hair_dyeing' && (config.data.colors_beautech && config.data.colors_beautech.length !== 0)) return i
     })
     return (
       <div id='hot-links'>
@@ -109,7 +111,7 @@ export default class HotLinks extends React.Component {
             }
           }
         })}
-        {/* {this.props.showAddNote && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)} */}
+        {/* {this.props.notesData.length === 0 && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)} */}
         {/* {this.props.showAddDebt && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)} */}
         {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item)}
         {/* <div>
