@@ -4,14 +4,14 @@ import AddNote from './components/add-note/add-note.jsx'
 import './notes.styl'
 
 const INITIAL_STATE = {
-  selectedValue: config.translations.notes_list[0].value,
   selectedValueLable: config.translations.notes_list[0].label,
   selectedLabel: config.data.reminders_default_date_period,
+  selectedValue: config.translations.notes_list[0].value,
+  timeStart: config.data.reminders_default_period_amount,
   isReminderEdit: false,
   description: '',
   switch: false,
   note_id: 0,
-  timeStart: config.data.reminders_default_period_amount,
   time: '0',
   key: 0
 }
@@ -21,12 +21,16 @@ export default class Notes extends React.Component {
     ...INITIAL_STATE,
     newEditNotes: this.props.activateNone,
     noteReplace: this.props.activateNone,
-    isEditNotes: this.props.activateNone,
-    notesData: [...config.data.notes]
+    isEditNotes: this.props.activateNone
   }
   static propTypes = {
-    rights: PropTypes.object.isRequired,
-    activateNone: PropTypes.bool.isRequired
+    createNewNote: PropTypes.func.isRequired,
+    activateNone: PropTypes.bool.isRequired,
+    hiddenNotes: PropTypes.func.isRequired,
+    deleteNote: PropTypes.func.isRequired,
+    notesData: PropTypes.array.isRequired,
+    editeNote: PropTypes.func.isRequired,
+    rights: PropTypes.object.isRequired
   }
   backButton = () => {
     this.setState({
@@ -34,7 +38,7 @@ export default class Notes extends React.Component {
       isEditNotes: false,
       newEditNotes: false,
       noteReplace: false
-    })
+    }, () => this.props.hiddenNotes())
   }
   handleIncrementTime = () => {
     this.setState(prevState => ({
@@ -49,23 +53,13 @@ export default class Notes extends React.Component {
     }
   }
   submit = () => {
-    const d = moment().format('YYYY-MM-DD HH:mm:ss')
-    let rem = reminder(this.state.time, this.state.selectedValue)
-    let body = `text=${this.state.description}&added=${d}`
+    const added = moment().format('YYYY-MM-DD HH:mm:ss')
+    let rem = this.state.switch ? reminder(this.state.time, this.state.selectedValue) : ''
+    let body = `text=${this.state.description}&added=${added}`
     if (rem) body = body + `&reminder_date=${rem}`
     notesPostService(body, this.state.note_id).then(r => {
       if (r.status === 201) {
-        const newNote = {}
-        newNote.id = r.data
-        newNote.text = this.state.description
-        newNote.date = d
-        if (rem) newNote.reminder_date = rem
-        this.setState(state => ({
-          notesData: [
-            newNote,
-            ...state.notesData
-          ]
-        }))
+        this.props.createNewNote(rem, r, added, this.state.description)
         this.setState({
           isEditNotes: !this.state.isEditNotes,
           newEditNotes: !this.state.newEditNotes,
@@ -79,20 +73,12 @@ export default class Notes extends React.Component {
     })
   }
   update = () => {
-    let rem = reminder(this.state.time, this.state.selectedValue)
+    let rem = this.state.switch ? reminder(this.state.time, this.state.selectedValue) : ''
     let body = `text=${this.state.description}`
     if (rem) body = `text=${this.state.description}&reminder_date=${rem}`
     notesReplaceService(body, this.state.note_id).then(r => {
       if (r.status === 204) {
-        let idNote = this.state.notesData.find(note => {
-          if (+this.state.key === note.id) {
-            return note
-          }
-        })
-        idNote.text = this.state.description
-        if (rem) {
-          idNote.reminder_date = rem
-        }
+        this.props.editeNote(rem, this.state.key, this.state.description)
         this.setState({
           noteReplace: !this.state.noteReplace,
           isEditNotes: !this.state.isEditNotes,
@@ -117,6 +103,7 @@ export default class Notes extends React.Component {
 
   deleteNote = () => {
     notesDeleteService(this.state.note_id).then(r => {
+      this.props.deleteNote(this.state.note_id)
       if (r.status === 204) {
         this.setState(state => ({
           noteReplace: !this.state.noteReplace,
@@ -125,8 +112,7 @@ export default class Notes extends React.Component {
           description: '',
           note_id: 0,
           time: '0',
-          key: 0,
-          notesData: state.notesData.filter(note => note.id !== this.state.note_id)
+          key: 0
         }))
       }
     })
@@ -157,7 +143,7 @@ export default class Notes extends React.Component {
           }
         </div>
         <div className='note-body' style={{'max-height': (config.notes_height_limit * 56)}}>
-          {this.state.notesData.map(i => (
+          {this.props.notesData.map(i => (
             this.state.note_id === i.id
               ? <AddNote
                 setDescription={this.setDescription}
