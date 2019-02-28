@@ -100,6 +100,13 @@ export default class Notes extends React.Component {
     }
     return str
   }
+  openAddForm = () => {
+    this.setState({
+      isEditNotes: !this.state.isEditNotes,
+      newEditNotes: !this.state.newEditNotes,
+      noteReplace: !this.state.noteReplace
+    }, () => this.props.hiddenNotes())
+  }
 
   deleteNote = () => {
     notesDeleteService(this.state.note_id).then(r => {

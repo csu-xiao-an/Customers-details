@@ -11,7 +11,10 @@ export const postService = body => {
     method: 'POST',
     body
   }
-  return mainRequestService(mainUrl, options)
+  return mainRequestService(mainUrl, options).then(r => r.json().then(data => ({
+    status: r.status,
+    data
+  })))
 }
 export const replaceService = (body, id) => {
   const url = mainUrl + '/' + id
