@@ -24,15 +24,12 @@ class Home extends React.Component {
     isVisibleFields: false,
     isFirstNote: false,
     isFirstDebt: false,
-    // moveToAnchor: false,
-    moveToDebt: false,
     activateNone: false,
     activateDebt: false,
     isFirstItemInGallery: false,
     showAddGallery: config.data.gallery.length === 0 && true,
-    // showAddNote: config.data.notes.length === 0 && true,
-    showAddDebt: config.data.debts.length === 0 && true,
-    notesData: [...config.data.notes]
+    notesData: [...config.data.notes],
+    debtsData: [...config.data.debts]
   }
   createNewNote = (rem, r, added, text) => {
     const newNote = {}
@@ -49,6 +46,21 @@ class Home extends React.Component {
       activateNone: this.state.notesData.lehth > 0
     }))
   }
+  createNewDebt = (sum, description, added, id) => {
+    const newDebt = {}
+    newDebt.id = id
+    newDebt.sum = sum
+    newDebt.desc = description
+    newDebt.date = added
+    this.setState(state => ({
+      debtsData: [
+        newDebt,
+        ...state.debtsData
+      ],
+      activateDebt: this.state.notesData.lehth > 0,
+      isFirstDebt: this.state.notesData.lehth > 0
+    }))
+  }
   editeNote = (rem, key, text) => {
     this.setState(state => ({
       notesData: state.notesData.map(
@@ -59,6 +71,18 @@ class Home extends React.Component {
       )
     }))
   }
+  editeDebt = (sum, description, added, key) => {
+    this.setState(state => ({
+      debtsData: state.debtsData.map(
+        debt => (debt.id === +key ? {
+          ...debt,
+          sum,
+          desc: description,
+          date: added
+        } : debt)
+      )
+    }))
+  }
   handleDeleteNote = id => {
     this.setState(state => ({
       notesData: state.notesData.filter(note => note.id !== id),
@@ -66,8 +90,16 @@ class Home extends React.Component {
       activateNone: this.state.notesData.lehth > 0
     }))
   }
+  handleDeleteDebt = id => {
+    this.setState(state => ({
+      debtsData: state.debtsData.filter(debt => debt.id !== id),
+      activateDebt: this.state.notesData.lehth > 0,
+      isFirstDebt: this.state.notesData.lehth > 0
+    }))
+  }
   showFields = () => this.setState({ isVisibleFields: true })
   hiddenNotes = () => this.setState({ isFirstNote: this.state.notesData.lehth > 0, activateNone: this.state.notesData.lehth > 0 })
+  hiddenEmptyDepts = () => this.setState({ isFirstDebt: this.state.debtsData.lehth > 0, activateDebt: this.state.notesData.lehth > 0 })
   createFirstNote = () => this.setState({ isFirstNote: true, activateNone: true })
   createFirstDebt = () => this.setState({ isFirstDebt: true, activateDebt: true, showAddDebt: false })
   addingFirstItem = () => this.setState({ isFirstItemInGallery: true })
@@ -93,7 +125,7 @@ class Home extends React.Component {
     history.replace(url)
   }
   render () {
-    const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!config.data.debts.length) || this.state.isFirstDebt
+    const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!this.state.debtsData.length) || this.state.isFirstDebt
     const isEventVisible = this.state.isVisibleFields || (config.data.recent_appoinments && !!config.data.recent_appoinments.length)
     const isNotesVisible = this.state.isVisibleFields || (config.data.notes && !!this.state.notesData.length) || this.state.isFirstNote
     const isGalleryVisible = this.state.isVisibleFields || (config.data.gallery && !!config.data.gallery.length) || this.state.isFirstItemInGallery
@@ -106,8 +138,7 @@ class Home extends React.Component {
         <Hero {...this.props} />
         <HotLinks
           notesData={this.state.notesData}
-          showAddDebt={this.state.showAddDebt}
-          // showAddNote={this.state.showAddNote}
+          debtsData={this.state.debtsData}
           showAddGallery={this.state.showAddGallery}
           createFirstDebt={this.createFirstDebt}
           createFirstNote={this.createFirstNote}
@@ -116,7 +147,15 @@ class Home extends React.Component {
         />
         <Profile {...this.props} isVisibleFields={this.state.isVisibleFields} />
         {isEventVisible && <Events {...this.props} />}
-        {isDebtsVisible && <Debts activateDebt={this.state.activateDebt} {...this.props} /> }
+        {isDebtsVisible && <Debts
+          hiddenEmptyDepts={this.hiddenEmptyDepts}
+          createNewDebt={this.createNewDebt}
+          editeDebt={this.editeDebt}
+          deleteDebt={this.handleDeleteDebt}
+          debtsData={this.state.debtsData}
+          activateDebt={this.state.activateDebt}
+          {...this.props}
+        /> }
         {isNotesVisible && <Notes
           hiddenNotes={this.hiddenNotes}
           activateNone={this.state.activateNone}
