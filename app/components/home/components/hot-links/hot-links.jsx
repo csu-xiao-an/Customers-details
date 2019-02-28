@@ -80,7 +80,7 @@ export default class HotLinks extends React.Component {
     const hotLinks = config.data.hot_links.filter(i => {
       // console.log('object', i.name)
       if (i.name === 'notes' && this.props.notesData.length !== 0) return i
-      else if (i.name === 'debts' && this.props.debtsData.length !== 0) return i
+      // else if (i.name === 'debts' && this.props.debtsData.length !== 0) return i
       else if (i.url[0] === '#' && i.name !== 'notes' && i.name !== 'debts' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
       else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
       else if (i.name === 'punch_cards' && (config.urls.punch_cards && config.data.punch_cards.length === 0)) return i
