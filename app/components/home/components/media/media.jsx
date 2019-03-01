@@ -22,7 +22,7 @@ export default class Media extends React.Component {
     imagePreviewUrl: '',
     isOpenGallery: false,
     isOpenGalleryContex: false,
-    previewVideo: false,
+    previewOther: false,
     flag: false
   }
   static propTypes = {
@@ -63,12 +63,12 @@ export default class Media extends React.Component {
     })
   }
   addFile = e => {
-    // debugger
     let file = e.target.files[0]
     if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); Resize(file, this.bar) } else
-    if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_gallery.svg'}) } else
-    if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_gallery.svg', previewVideo: true}) } else
-    if (e.target.files.length && file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'other_gallery.svg'}) }
+    if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'audio_gallery.svg', previewOther: true}) } else
+    if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'video_gallery.svg', previewOther: true}) } else
+    if (e.target.files.length && file.type.indexOf('pdf') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'other_gallery.svg', previewOther: true}) } else
+    if (e.target.files.length && file.type.indexOf('') !== -1) { this.setState({imagePreviewUrl: config.urls.media + 'other_gallery.svg', previewOther: true}) }
     this.setState({file: file})
     document.querySelector('body').classList.toggle('no-scroll')
     this.forceUpdate()
@@ -174,8 +174,7 @@ export default class Media extends React.Component {
     this.setState({gallery: config.data.gallery})
   }
   handleMenuOff = () => {
-    // debugger
-    this.setState({isAddMedia: false, previewVideo: false, imagePreviewUrl: '', file: {}},
+    this.setState({isAddMedia: false, previewOther: false, imagePreviewUrl: '', file: {}},
       () => {
         $imagePreview.type = null
         $imagePreview = null
@@ -291,7 +290,7 @@ export default class Media extends React.Component {
         {this.state.imagePreviewUrl &&
         <GalleryPopup
           preview={$imagePreview}
-          previewVideo={this.state.previewVideo}
+          previewOther={this.state.previewOther}
           handleMenuOff={this.handleMenuOff}
           submit={this.submit}
           handleDescBack={this.handleDescBack}
