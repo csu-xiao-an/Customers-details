@@ -3,13 +3,13 @@ import './agreement.styl'
 
 export default class Agreement extends React.Component {
   state = {
-    isChecked: false
+    isChecked: true
   }
 
-  handleAds = () => {
-    this.setState({isChecked: !this.state.isChecked}, () => this.props.getArgeement(this.state.isChecked))
-    this.forceUpdate()
-  }
+  // handleAds = () => {
+  //   this.setState({isChecked: !this.state.isChecked}, () => this.props.getArgeement(this.state.isChecked))
+  //   this.forceUpdate()
+  // }
 
   render () {
     return (

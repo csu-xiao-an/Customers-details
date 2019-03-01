@@ -197,7 +197,6 @@ var config = {
     punch_end: '{name}. Punch was canceled',
     is_valid: 'Is valid until ',
     left: 'Left',
-    permit_ads: 'permit_ads',
     days: 'days',
     currency_debt: '$',
     use: 'Use',
