@@ -28,6 +28,7 @@ class Home extends React.Component {
     activateDebt: false,
     isFirstItemInGallery: false,
     showAddGallery: config.data.gallery.length === 0 && true,
+    galleryData: [...config.data.gallery],
     notesData: [...config.data.notes],
     debtsData: [...config.data.debts]
   }
@@ -97,6 +98,20 @@ class Home extends React.Component {
       isFirstDebt: this.state.notesData.lehth > 0
     }))
   }
+  addedItemInGallery = (date, name, desc, id) => {
+    const itemGallery = {}
+    itemGallery.id = id
+    itemGallery.date = date
+    itemGallery.name = name
+    if (desc) itemGallery.note = desc
+    this.setState(state => ({
+      galleryData: [
+        itemGallery,
+        ...this.state.galleryData
+      ]
+    }))
+  }
+
   showFields = () => this.setState({ isVisibleFields: true })
   hiddenNotes = () => this.setState({ isFirstNote: this.state.notesData.lehth > 0, activateNone: this.state.notesData.lehth > 0 })
   hiddenEmptyDepts = () => this.setState({ isFirstDebt: this.state.debtsData.lehth > 0, activateDebt: this.state.notesData.lehth > 0 })
@@ -124,6 +139,7 @@ class Home extends React.Component {
     }
     history.replace(url)
   }
+
   render () {
     const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!this.state.debtsData.length) || this.state.isFirstDebt
     const isEventVisible = this.state.isVisibleFields || (config.data.recent_appoinments && !!config.data.recent_appoinments.length)
@@ -165,7 +181,11 @@ class Home extends React.Component {
           notesData={this.state.notesData}
           {...this.props}
         />}
-        <Media {...this.props} />
+        <Media
+          addedItemInGallery={this.addedItemInGallery}
+          galleryData={this.state.galleryData}
+          {...this.props}
+        />
         {isGroupsVisible && <Groups {...this.props} />}
         {/* <Signature {...this.props} /> */}
         {/* {isSocialNetworkVisible && <SocialNetwork {...this.props} />} */}

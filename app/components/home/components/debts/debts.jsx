@@ -8,7 +8,7 @@ export default class Debts extends React.Component {
     description: '',
     debtEdit: this.props.activateDebt,
     total_debt: 0,
-    debt: '0'
+    debt: 0
   }
   static propTypes = {
     hiddenEmptyDepts: PropTypes.func.isRequired,

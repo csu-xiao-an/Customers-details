@@ -35,10 +35,10 @@ export default class Media extends React.Component {
     else this.setState({isOpenGalleryContex: true})
   }
   submit = () => {
-    const d = moment(this.state.file.lastModified).format('YYYY-MM-DD hh:mm:ss')
+    const date = moment(this.state.file.lastModified).format('YYYY-MM-DD HH:mm:ss')
     let body = new FormData()
     body.append('file', this.state.file)
-    body.append('date', d)
+    body.append('date', date)
     this.setState({flag: true})
     if (this.state.desc !== '') body.append('note', this.state.desc)
     mediaPostService(body).then(r => {
@@ -48,12 +48,13 @@ export default class Media extends React.Component {
       }
       if (r.status === 201) {
         let data = {
-          date: d,
+          date: date,
           name: this.state.file.name
         }
         if (this.state.desc !== '') data.note = this.state.desc
         config.data.gallery.unshift(data)
         config.data.gallery[0].id = newId
+        this.props.addedItemInGallery(date, this.state.file.name, this.state.desc, newId)
         this.setState({imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {}},
           () => {
             $imagePreview = null
