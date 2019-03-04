@@ -49,7 +49,7 @@ export default class Media extends React.Component {
       if (r.status === 201) {
         let data = {
           date: date,
-          name: this.state.file.name
+          name: r.data.name
         }
         if (this.state.desc !== '') data.note = this.state.desc
         config.data.gallery.unshift(data)
