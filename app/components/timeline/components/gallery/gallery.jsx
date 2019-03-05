@@ -13,7 +13,7 @@ export default class Gallery extends React.Component {
   }
   fileIcon = name => {
     let splitedName = name.split('.')
-    let typeFile = splitedName[splitedName.length - 1]
+    let typeFile = splitedName[splitedName.length - 1].toLowerCase()
     const image = ['png', 'jpg', 'jpeg', 'svg', 'gif']
     const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg']
     const music = ['mp3']
@@ -31,24 +31,27 @@ export default class Gallery extends React.Component {
   }
   typeItem = i => {
     let src, image
-    if (i.name.indexOf('mp4') !== -1) {
+    let splitedName = i.name.split('.')
+    let typeFile = splitedName[splitedName.length - 1].toLowerCase()
+    const images = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp']
+    if (typeFile === 'mp4') {
       return (<div className='photo-wrap video-block'>
-        <video className='media-vid' src={config.urls.gallery + i.name} controls />
+        <video className='media-vid' src={`${config.urls.gallery}${i.name.split('.', 1)}.${typeFile}`} controls />
       </div>)
     } else {
-      if (i.name.indexOf('mp3') !== -1) {
+      if (typeFile === 'mp3') {
         return (<div className='photo-wrap music-block'>
           <img className='audio-img' src={config.urls.media + 'audio_gallery.svg'} />
-          <audio src={config.urls.gallery + i.name} controls />
+          <audio src={`${config.urls.gallery}${i.name.split('.', 1)}.${typeFile}`} controls />
         </div>)
       } else
-      if (i.name.indexOf('pdf') !== -1) {
+      if (typeFile === 'pdf') {
         src = config.urls.media + 'other_gallery.svg'; image = 'other_gallery.svg'
         return (<div className='photo-wrap other-file'>
           <img className='audio-img' src={`${config.urls.media}other_gallery.svg`} />
         </div>)
       } else
-      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name; image = 'image_gallery.svg' }
+      if (images.find(i => i === typeFile)) { src = `${config.urls.gallery}${i.name.split('.', 1)}.${typeFile}`; image = 'image_gallery.svg' }
       return <div className='photo-wrap'>
         <img className='media-img'
           src={src} onError={e => { this.onError(e, image) }} />
