@@ -36,13 +36,13 @@ export default class Gallery extends React.Component {
     const images = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp']
     if (typeFile === 'mp4') {
       return (<div className='photo-wrap video-block'>
-        <video className='media-vid' src={`${config.urls.gallery}${i.name.split('.', 1)}.${typeFile}`} controls />
+        <video className='media-vid' src={config.urls.gallery + i.name} controls />
       </div>)
     } else {
       if (typeFile === 'mp3') {
         return (<div className='photo-wrap music-block'>
           <img className='audio-img' src={config.urls.media + 'audio_gallery.svg'} />
-          <audio src={`${config.urls.gallery}${i.name.split('.', 1)}.${typeFile}`} controls />
+          <audio src={config.urls.gallery + i.name} controls />
         </div>)
       } else
       if (typeFile === 'pdf') {
@@ -51,7 +51,7 @@ export default class Gallery extends React.Component {
           <img className='audio-img' src={`${config.urls.media}other_gallery.svg`} />
         </div>)
       } else
-      if (images.find(i => i === typeFile)) { src = `${config.urls.gallery}${i.name.split('.', 1)}.${typeFile}`; image = 'image_gallery.svg' }
+      if (images.find(i => i === typeFile)) { src = config.urls.gallery + i.name; image = 'image_gallery.svg' }
       return <div className='photo-wrap'>
         <img className='media-img'
           src={src} onError={e => { this.onError(e, image) }} />
