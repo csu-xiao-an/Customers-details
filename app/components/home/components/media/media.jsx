@@ -82,12 +82,13 @@ export default class Media extends React.Component {
   }
   typeItem = (i, k) => {
     let src
-    if (i.name.indexOf('mp4') !== -1) {
+    let newName = i.name.toLowerCase()
+    if (newName.indexOf('mp4') !== -1) {
       // this.setState({previewVideo: true})
       return (<div className='video-block'>
         <img src={config.urls.media + 'video_play.png'} className='video_play media' />
         <video className='media-vid'
-          src={config.urls.gallery + i.name}
+          src={config.urls.gallery + newName}
           onClick={(this.state.multiDel || this.state.multiShare)
             ? ''
             : (this.props.rights.gallery.open
@@ -96,9 +97,9 @@ export default class Media extends React.Component {
         />
       </div>)
     } else {
-      if (i.name.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_gallery.svg' } else
-      if (i.name.indexOf('pdf') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
-      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + i.name }
+      if (newName.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_gallery.svg' } else
+      if (newName.indexOf('pdf') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
+      if (newName.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + newName }
       return <img className='media-img'
         src={src}
         onClick={(this.state.multiDel || this.state.multiShare)
