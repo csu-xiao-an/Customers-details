@@ -96,6 +96,7 @@ export default class Birthdate extends React.Component {
               getBirthdate={this.getBirthdate} 
               getBirthyear={this.getBirthyear}
               newDays={newDays}
+              defaultBirthday
               getHandleDay={this.getHandleDay}
               getHandleMonth={this.getHandleMonth}
               getHandleYear={this.getHandleYear}
