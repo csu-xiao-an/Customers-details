@@ -10,6 +10,7 @@ export default class HotLinks extends React.Component {
     rights: PropTypes.object.isRequired,
     debtsData: PropTypes.array.isRequired,
     notesData: PropTypes.array.isRequired,
+    showAddGallery: PropTypes.bool.isRequired,
     addingFirstItem: PropTypes.func.isRequired,
     createFirstNote: PropTypes.func.isRequired,
     createFirstDebt: PropTypes.func.isRequired
@@ -102,11 +103,9 @@ export default class HotLinks extends React.Component {
             )
           } else {
             if (i.url === config.urls.punch_cards) {
-              return config.data.punch_cards.length > 0
-              // return this.state.isActivePunchCard
-                ? this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
-                : this.renderAddLink()
-                // : this.renderExternalLink(config.urls.punch_cards_adding, config.translations.punch_cards_adding, `${config.urls.media}plus.svg`)
+              return config.data.punch_cards.length > 0 && this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
+              // : this.renderAddLink()
+              // : this.renderExternalLink(config.urls.punch_cards_adding, config.translations.punch_cards_adding, `${config.urls.media}plus.svg`)
             } else {
               return this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
             }
@@ -114,7 +113,7 @@ export default class HotLinks extends React.Component {
         })}
         {/* {this.props.notesData.length === 0 && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
         {this.props.debtsData.length === 0 && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)} */}
-        {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item)}
+        {/* {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item)} */}
         {/* <div>
           <div className='link add-btn'>
             <img className='add' src={config.urls.media + 'ic_add.png'} />
