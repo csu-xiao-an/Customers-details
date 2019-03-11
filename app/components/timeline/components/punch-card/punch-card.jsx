@@ -8,14 +8,12 @@ export default class PunchCard extends React.Component {
     i: PropTypes.object.isRequired
   }
   get = () => {
-    if (this.props.i.uses.length === 0) {
-      return config.translations.punch_create.replace('{name}', this.props.i.service_name)
-        .replace('{count}', this.props.i.service_count)
-    } else if (this.props.i.uses.length === this.props.i.service_count) {
-      return config.translations.punch_end.replace('{name}', this.props.i.service_name)
-    } else {
-      return config.translations.punch_use.replace('{name}', this.props.i.service_name)
-        .replace('{countCur}', this.props.i.uses.length).replace('{count}', this.props.i.service_count)
+    if (this.props.i.event_type === 'punch_card_created') {
+      return `${this.props.i.service_name}. ${config.translations.punch_create}`
+    } else if (this.props.i.event_type === 'punch_card_used' && this.props.i.use_id !== this.props.i.service_count) {
+      return `${this.props.i.service_name}. ${config.translations.punch_use} ${this.props.i.use_id} / ${this.props.i.service_count}`
+    } else if (this.props.i.event_type === 'punch_card_used' && this.props.i.use_id === this.props.i.service_count) {
+      return `${this.props.i.service_name}. ${config.translations.punch_use_full}`
     }
   }
   render () {
