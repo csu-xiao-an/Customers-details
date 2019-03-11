@@ -324,7 +324,7 @@ var config = {
     punch_cards_adding: '/punch_cards/adding',
     calendar_link: '/calendar/',
     appointment: '/creating-appointment/',
-    main: 'https://api.bewebmaster.co.il',
+    main: 'http://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_profile_img}',
     punch_cards_get: '/catalog/services',
     single_punch: '/punch_cards/{punch_card_id}',

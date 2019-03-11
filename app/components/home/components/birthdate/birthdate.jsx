@@ -74,7 +74,7 @@ export default class Birthdate extends React.Component {
         {
           (this.props.editProfile && (!config.data.birthdate && !config.data.birthyear)) 
             ? <div onClick={() => this.props.changeBirth()}
-              className={!this.props.birthEdit ? 'add-birth' : 'hidden'}>
+              className={!this.props.profileBirthEdit ? 'add-birth' : 'hidden'}>
               <div className='wrap-birth'>
                 <span className='label'>{config.translations.birthday}:</span>
                 <h1>{config.translations.add_birth}</h1>
@@ -87,7 +87,7 @@ export default class Birthdate extends React.Component {
               {/* <img src={config.urls.media + 'profile_add_field.svg'} /> */}
             </div> : ''}
         {this.props.editProfile &&
-        <div className={(this.props.birthEdit || config.data.birthdate || config.data.birthyear) ? 'birthdate-edit' : 'hidden'}>
+        <div className={(this.props.profileBirthEdit || config.data.birthdate || config.data.birthyear) ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
             <Datepicker

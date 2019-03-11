@@ -31,17 +31,22 @@ export default class Email extends React.Component {
           {this.props.rights.email.send_email && <a className='linkto' href={'mailto:' + config.data.email}><img src={config.urls.media + 'ic_email.svg'} /></a>}
         </div>
         {
-          this.props.rights.email.add &&
-          <div onClick={() => this.setState({emailEdit: !this.state.emailEdit})}
-            className={config.data.email || this.state.emailEdit ? 'hidden' : 'add-email'}>
-            <div className='wrap-mail'>
-              <span className='label'>{config.translations.email}:</span>
-              <h1>{config.translations.add_email}</h1>
-            </div>
-            <img src={config.urls.media + 'add.svg'} />
-          </div>
+          (this.props.editProfile && !config.data.email)
+            ? <div onClick={() => this.props.changeEmailEdit()}
+              className={!this.props.profileEmailEdit ? 'add-email' : 'hidden'}>
+              <div className='wrap-mail'>
+                <span className='label'>{config.translations.email}:</span>
+                <h1>{config.translations.add_email}</h1>
+              </div>
+              <div className='add-info'>
+                <div className='add-wrap'>
+                  <img src={config.urls.media + 'profile_plus.svg'} />
+                </div>
+              </div>
+            </div> : ''
         }
-        <div className={this.props.editProfile ? 'email-edit' : 'hidden'}>
+        {this.props.editProfile &&
+        <div className={this.props.profileEmailEdit || config.data.email ? 'email-edit' : 'hidden'}>
           <div className='edit'>
             <div className='edit-wrap'>
               <span className='label'>{config.translations.email}:</span>
@@ -58,7 +63,7 @@ export default class Email extends React.Component {
             </div>
           </div>
           {/* <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div> */}
-        </div>
+        </div>}
       </div>
     )
   }

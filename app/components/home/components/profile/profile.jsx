@@ -16,7 +16,9 @@ state = {
   name: '',
   editProfile: false,
   permit_ads: '',
-  birthEdit: false
+  profileBirthEdit: false,
+  profileEmailEdit: false,
+  profileAddressEdit: false
 }
 componentDidMount = () => {
   this.setState({
@@ -88,10 +90,10 @@ saveAll = () => {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
       config.data.phone && (config.data.phone = this.state.phone)
-      config.data.address && (config.data.address = this.state.address)
-      config.data.email && (config.data.email = this.state.email)
+      config.data.address = this.state.address
+      config.data.email = this.state.email
       config.data.name && (config.data.name = this.state.name)
-      config.data.gender && (config.data.gender = this.state.gender)
+      config.data.gender = this.state.gender
       config.data.permit_ads && (config.data.permit_ads = this.state.permit_ads)
       this.setState({ editProfile: false }, () => this.changeBirth())
       this.changeDays()
@@ -105,7 +107,9 @@ changeDays = () => this.setState({newDays: config.data.birthdate && config.data.
   ? `${config.data.birthyear}-${config.data.birthdate}`
   : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
     : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)})
-changeBirth = () => this.setState({birthEdit: !this.state.birthEdit})
+changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
+changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
+changeAddressEdit = () => this.setState({profileAddressEdit: !this.state.profileAddressEdit})
 render () {
   const { isVisibleFields } = this.props
   return (
@@ -152,15 +156,18 @@ render () {
           getPhone={this.getPhone}
           hatePhone={this.state.phone}
           {...this.props} />}
-      {(this.props.isVisibleFields || config.data.email) &&
+      {((this.props.isVisibleFields || config.data.email) || this.state.editProfile) &&
         <Email editProfile={this.state.editProfile}
           delEmail={this.delEmail}
           getEmail={this.getEmail}
           hateEmail={this.state.email}
+          changeEmailEdit={this.changeEmailEdit}
+          profileEmailEdit={this.state.profileEmailEdit}
           {...this.props} />}
       {/* {(this.props.isVisibleFields || config.data.address) && */}
-      {!this.state.editProfile ? (this.props.isVisibleFields || config.data.address) && <div id='address'>
-        <div className='address-wrap'>
+      {(this.state.editProfile || (this.props.isVisibleFields || config.data.address)) &&
+      <div id='address'>
+        <div className={!this.state.editProfile ? 'address-wrap' : 'hidden'}>
           <div className='address-data'>
             <span className='label'>{config.translations.address}:</span>
             <div className='block-content'>
@@ -186,14 +193,26 @@ render () {
             </div>
           </div>
         </div>
-      </div>
-        : <div id='address'>
-          <div className='address-edit'>
+        {(this.state.editProfile && !config.data.address)
+          ? <div onClick={() => this.changeAddressEdit()}
+            className={!this.state.profileAddressEdit ? 'add-address' : 'hidden'}>
+            <div className='wrap-address'>
+              <span className='label'>{config.translations.address}:</span>
+              <h1>{config.translations.add_address}</h1>
+            </div>
+            <div className='add-info'>
+              <div className='add-wrap'>
+                <img src={config.urls.media + 'profile_plus.svg'} />
+              </div>
+            </div>
+          </div> : ''}
+        {this.state.editProfile &&
+          <div className={this.state.profileAddressEdit || config.data.address ? 'address-edit' : 'hidden'}>
             <div className='address-data-edit'>
               <div className='address-wrap-edit'>
                 <span className='label'>{config.translations.address}:</span>
                 <div className='block-content'>
-                  <input className='edit-input' type='text' value={this.state.address} onChange={e => this.setState({address: e.target.value})} />
+                  <input className='edit-input' type='text' value={this.state.address} onChange={e => this.setState({ address: e.target.value })} />
                 </div>
               </div>
               <div className='del-info'>
@@ -202,16 +221,16 @@ render () {
                 </div>
               </div>
             </div>
-          </div>
-        </div>}
+          </div>}
+      </div>}
       {/* {!config.data.gender && <Sex {...this.props} />} */}
-      {(this.props.isVisibleFields || config.data.gender) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
+      {((this.props.isVisibleFields || config.data.gender) || this.state.editProfile) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}
           getBdate={this.getBdate}
           getByear={this.getByear}
           changeDays={this.state.newDays}
-          birthEdit={this.state.birthEdit}
+          profileBirthEdit={this.state.profileBirthEdit}
           changeBirth={this.changeBirth}
           hateBdate={this.state.birthdate}
           hateByear={this.state.birthyear}
