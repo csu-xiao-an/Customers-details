@@ -95,6 +95,7 @@ export default class Hero extends React.Component {
     this.inputStyle(e.target.value)
   }
   render () {
+    this.props.profilePic && this.setState({clientImg: this.props.profilePic})
     return (
       <div id='hero'>
         <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
@@ -141,7 +142,7 @@ export default class Hero extends React.Component {
         </form>
         <div className='img'>
           <img className='client-img'
-            src={this.state.clientImg}
+            src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
             alt='user-img' onError={e => { this.onError(e) }} />
         </div>
       </div>

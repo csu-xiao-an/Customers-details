@@ -6,7 +6,7 @@ import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {clientPutService} from 'project-services'
+import {clientPutService, clientNewGetService} from 'project-services'
 const {Link} = ReactRouterDOM
 
 export default class Profile extends React.Component {
@@ -89,15 +89,25 @@ saveAll = () => {
     if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
-      config.data.phone && (config.data.phone = this.state.phone)
+      config.data.phone = this.state.phone
       config.data.address = this.state.address
       config.data.email = this.state.email
-      config.data.name && (config.data.name = this.state.name)
+      config.data.name = this.state.name
       config.data.gender = this.state.gender
-      config.data.permit_ads && (config.data.permit_ads = this.state.permit_ads)
+      config.data.permit_ads = this.state.permit_ads
       this.setState({ editProfile: false }, () => this.changeBirth())
       this.changeDays()
       this.forceUpdate()
+      clientNewGetService().then(r => {
+        let newArray = r.r
+        for (let key in newArray) {
+          if (fields.includes(key)) {
+            config.data[key] = newArray[key]
+            this.forceUpdate()
+          }
+        }
+        this.props.getProfilePicture(config.data.profile_image)
+      })
     } else {
       this.setState({ editProfile: true })
     }
@@ -111,6 +121,7 @@ changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdi
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
 changeAddressEdit = () => this.setState({profileAddressEdit: !this.state.profileAddressEdit})
 render () {
+  // console.log(config.data.phone);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>

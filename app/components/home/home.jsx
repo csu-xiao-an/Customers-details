@@ -118,6 +118,9 @@ class Home extends React.Component {
   createFirstNote = () => this.setState({ isFirstNote: true, activateNone: true })
   createFirstDebt = () => this.setState({ isFirstDebt: true, activateDebt: true, showAddDebt: false })
   addingFirstItem = () => this.setState({ isFirstItemInGallery: true })
+  getProfilePicture = value => {
+    this.setState({ profilePic: value })
+  }
   componentWillMount () {
     const { history } = this.props
     const queryParams = qs.parse(history.location.search.slice(1))
@@ -151,7 +154,9 @@ class Home extends React.Component {
     return (
       <div id='home'>
         <Topnav {...this.props} home />
-        <Hero {...this.props} />
+        <Hero {...this.props} 
+          profilePic={this.state.profilePic}
+        />
         <HotLinks
           notesData={this.state.notesData}
           debtsData={this.state.debtsData}
@@ -161,7 +166,10 @@ class Home extends React.Component {
           addingFirstItem={this.addingFirstItem}
           {...this.props}
         />
-        <Profile {...this.props} isVisibleFields={this.state.isVisibleFields} />
+        <Profile {...this.props} 
+          isVisibleFields={this.state.isVisibleFields}
+          getProfilePicture={this.getProfilePicture}
+        />
         {isEventVisible && <Events {...this.props} />}
         {isDebtsVisible && <Debts
           hiddenEmptyDepts={this.hiddenEmptyDepts}
