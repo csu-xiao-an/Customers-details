@@ -96,6 +96,19 @@ export default class Media extends React.Component {
               : () => {})}
         />
       </div>)
+    } else if (newName.indexOf('webm') !== -1) {
+      // this.setState({previewVideo: true})
+      return (<div className='video-block'>
+        <img src={config.urls.media + 'video_play.png'} className='video_play media' />
+        <video className='media-vid'
+          src={config.urls.gallery + newName}
+          onClick={(this.state.multiDel || this.state.multiShare)
+            ? ''
+            : (this.props.rights.gallery.open
+              ? () => { this.handleGallery(); this.setState({ initialSlide: k }) }
+              : () => { })}
+        />
+      </div>)
     } else {
       if (newName.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_gallery.svg' } else
       if (newName.indexOf('pdf') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
