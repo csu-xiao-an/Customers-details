@@ -36,6 +36,7 @@ export default class MediaModal extends React.Component {
   typeItem = (i, k) => {
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
       if (i.name.indexOf('mp4') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
+      if (i.name.indexOf('webm') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
       if (i.name.indexOf('pdf') !== -1) {
         return <iframe src={config.urls.preview_pdf.replace('{url}', config.urls.main + config.urls.url_pdf + i.name)} />
       } else
