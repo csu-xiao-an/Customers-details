@@ -62,10 +62,10 @@ class Timeline extends React.Component {
   }
 
   emptyData = () => {
-    this.getData(false, false, true)
+    this.getData(false, false, true, config.interval_days * cont)
   }
 
-  getData = (firstLoad, fullPageCoef, emptyData) => {
+  getData = (firstLoad, fullPageCoef, emptyData, emptyDataCoef) => {
     this.setState({flag: true})
     cont = cont + cont
     filterParams = urlParams.filter(i => {
@@ -88,6 +88,18 @@ class Timeline extends React.Component {
         list.removeEventListener('touchmove', exp, false)
         this.setState({showMessage: true})
       }
+    } else if (emptyData && emptyDataCoef) {
+      end = getDate(1, this.lastStartDate)
+      start = getDate(emptyDataCoef, end)
+      if (moment(start).isBefore(config.data.registration_date)) {
+        start = getDate(0, config.data.registration_date)
+        fullPageCoef = 0 // Exit from auto fill page
+        emptyData = false
+        emptyDataCoef = 0
+        const list = this.refs.list
+        list.removeEventListener('touchmove', exp, false)
+        this.setState({ showMessage: true })
+      }
     } else {
       start = getDate(config.interval_days, this.lastStartDate)
       end = getDate(1, this.lastStartDate)
@@ -95,6 +107,7 @@ class Timeline extends React.Component {
         start = getDate(0, config.data.registration_date)
         fullPageCoef = 0 // Exit from auto fill page
         emptyData = false
+        emptyDataCoef = 0
         const list = this.refs.list
         list.removeEventListener('touchmove', exp, false)
         this.setState({showMessage: true})
