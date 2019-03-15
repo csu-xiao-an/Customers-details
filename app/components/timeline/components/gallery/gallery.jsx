@@ -1,7 +1,7 @@
 import Share from '../share/share.jsx'
 import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
 import './gallery.styl'
-const image = ['png', 'jpg', 'jpeg', 'svg', 'gif']
+const images = ['png', 'jpg', 'jpeg', 'svg', 'gif']
 const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg', 'webm']
 const music = ['mp3']
 export default class Gallery extends React.Component {
@@ -16,7 +16,7 @@ export default class Gallery extends React.Component {
   fileIcon = name => {
     let splitedName = name.split('.')
     let typeFile = splitedName[splitedName.length - 1].toLowerCase()
-    if (image.find(i => i === typeFile)) return `${config.urls.media}image.svg`
+    if (images.find(i => i === typeFile)) return `${config.urls.media}image.svg`
     else if (video.find(i => i === typeFile)) return `${config.urls.media}video.svg`
     else if (music.find(i => i === typeFile)) return `${config.urls.media}audio.svg`
     else return `${config.urls.media}other.svg`
@@ -48,8 +48,7 @@ export default class Gallery extends React.Component {
         return (<div className='photo-wrap other-file'>
           <img className='audio-img' src={`${config.urls.media}other_gallery.svg`} />
         </div>)
-      } else
-      if (image.find(i => i === typeFile)) { src = config.urls.gallery + i.name; image = 'image_gallery.svg' }
+      } else if (images.find(i => i === typeFile)) { src = config.urls.gallery + i.name; image = 'image_gallery.svg' }
       return <div className='photo-wrap'>
         <img className='media-img'
           src={src} onError={e => { this.onError(e, image) }} />
