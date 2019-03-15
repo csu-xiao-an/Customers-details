@@ -34,7 +34,7 @@ export default class GalleryPopup extends React.Component {
                 onChange={this.props.handleDescBack}
               />
             </div>
-            <button onClick={this.props.submit}>
+            <button onClick={!this.props.flag && this.props.submit}>
               <div className='text-submit'>{config.translations.submit}</div>
               {this.props.flag
                 ? <div className='submit-spin'><img src={config.urls.media + 'refresh-cw.svg'} /></div>
