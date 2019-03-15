@@ -1,7 +1,9 @@
 import Share from '../share/share.jsx'
 import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
 import './gallery.styl'
-
+const image = ['png', 'jpg', 'jpeg', 'svg', 'gif']
+const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg', 'webm']
+const music = ['mp3']
 export default class Gallery extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired,
@@ -14,9 +16,6 @@ export default class Gallery extends React.Component {
   fileIcon = name => {
     let splitedName = name.split('.')
     let typeFile = splitedName[splitedName.length - 1].toLowerCase()
-    const image = ['png', 'jpg', 'jpeg', 'svg', 'gif']
-    const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg']
-    const music = ['mp3']
     if (image.find(i => i === typeFile)) return `${config.urls.media}image.svg`
     else if (video.find(i => i === typeFile)) return `${config.urls.media}video.svg`
     else if (music.find(i => i === typeFile)) return `${config.urls.media}audio.svg`
@@ -33,8 +32,7 @@ export default class Gallery extends React.Component {
     let src, image
     let splitedName = i.name.split('.')
     let typeFile = splitedName[splitedName.length - 1].toLowerCase()
-    const images = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp']
-    if (typeFile === 'mp4') {
+    if (video.find(i => i === typeFile)) {
       return (<div className='photo-wrap video-block'>
         <video className='media-vid' src={config.urls.gallery + i.name} controls />
       </div>)
@@ -51,7 +49,7 @@ export default class Gallery extends React.Component {
           <img className='audio-img' src={`${config.urls.media}other_gallery.svg`} />
         </div>)
       } else
-      if (images.find(i => i === typeFile)) { src = config.urls.gallery + i.name; image = 'image_gallery.svg' }
+      if (image.find(i => i === typeFile)) { src = config.urls.gallery + i.name; image = 'image_gallery.svg' }
       return <div className='photo-wrap'>
         <img className='media-img'
           src={src} onError={e => { this.onError(e, image) }} />
