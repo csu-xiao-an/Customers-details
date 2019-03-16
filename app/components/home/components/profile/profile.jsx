@@ -12,10 +12,11 @@ const {Link} = ReactRouterDOM
 export default class Profile extends React.Component {
 state = {
   visibleMapPopup: false,
+  gender: null,
   address: '',
   name: '',
   editProfile: false,
-  permit_ads: '',
+  permit_ads: false,
   profileBirthEdit: false,
   profileEmailEdit: false,
   profileAddressEdit: false
@@ -72,13 +73,11 @@ getByear = value => {
 getArgeement = value => {
   this.setState({ permit_ads: value })
 }
-// check = () => {
-//   config.data[config.urls.fields.address] = this.state.inputValue
-// }
+
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   const body = Object.keys(this.state).reduce((params, field) => {
-    if (fields.includes(field) && this.state[field]) {
+    if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
       const value = `${this.state[field]}`
       const result = `${field}=${value}`
       return params + (params.length ? `&${result}` : result)
@@ -121,7 +120,6 @@ changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdi
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
 changeAddressEdit = () => this.setState({profileAddressEdit: !this.state.profileAddressEdit})
 render () {
-  // console.log(config.data.phone);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
