@@ -27,7 +27,7 @@ export default class Sex extends React.Component {
   }
   deleteGender = () => {
     config.data.gender = 'Select gender'
-    this.setState({label: config.translations.selectGender, femaleSelected: false, maleSelected: false}, () => this.props.getGender(this.state.genderSelect))
+    this.setState({label: config.translations.selectGender, femaleSelected: false, maleSelected: false, genderSelect: null}, () => this.props.getGender(this.state.genderSelect))
   }
   handleGenderClick = () => {
     let changeState = !this.state.changeState
