@@ -119,7 +119,7 @@ class Home extends React.Component {
   createFirstDebt = () => this.setState({ isFirstDebt: true, activateDebt: true, showAddDebt: false })
   addingFirstItem = () => this.setState({ isFirstItemInGallery: true })
   getProfilePicture = value => {
-    this.setState({ profilePic: value })
+    this.setState({ profilePic: config.urls.client_data + value })
   }
   componentWillMount () {
     const { history } = this.props
