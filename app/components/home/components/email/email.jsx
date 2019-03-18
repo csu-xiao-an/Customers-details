@@ -14,7 +14,7 @@ export default class Email extends React.Component {
     this.setState({email: config.data.email})
   }
   delInfo = () => {
-    this.setState({email: ''}, () => this.props.getEmail(this.state.email))
+    this.setState({email: ''}, () => this.props.deleteEmail())
   }
   render () {
     return this.props.rights.isEmail && (

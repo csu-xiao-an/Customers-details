@@ -9,7 +9,8 @@ export default class Birthdate extends React.Component {
     birthyear: '',
     day: '',
     month: '',
-    year: ''
+    year: '',
+    del: false
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
@@ -60,7 +61,9 @@ export default class Birthdate extends React.Component {
   getHandleDay = value => this.setState({day: value})
   getHandleMonth = value => this.setState({month: value})
   getHandleYear = value => this.setState({year: value})
-
+  delInfo = () => {
+    this.setState({birthdate: null, birthyear: null, del: true}, () => this.props.getDATE(this.state.birthdate, this.state.birthyear))
+  }
   render () {
     let newDays = this.props.changeDays
     return (
@@ -96,11 +99,22 @@ export default class Birthdate extends React.Component {
               getBirthdate={this.getBirthdate} 
               getBirthyear={this.getBirthyear}
               newDays={newDays}
+              birthdate={this.state.birthdate}
+              birthyear={this.state.birthyear}
               defaultBirthday
+              delInfo={this.delInfo}
+              del={this.state.del}
+              // delBirth={this.props.delBirth}
+              deleteBirthday={this.props.deleteBirthday}
               getHandleDay={this.getHandleDay}
               getHandleMonth={this.getHandleMonth}
               getHandleYear={this.getHandleYear}
             />
+          </div>
+          <div className='del-info'>
+            <div className='del-wrap' onClick={this.delInfo}>
+              <img src={config.urls.media + 'plus2.svg'} />
+            </div>
           </div>
         </div>}
       </div>

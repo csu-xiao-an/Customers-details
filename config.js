@@ -364,7 +364,7 @@ var config = {
     address: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
-    phone: '0545421321',
+    phone: '9379992',
     isFavorite: false,
     details_link_active: false,
     permit_ads: false,

@@ -8,7 +8,6 @@ export default class Hero extends React.Component {
     status: config.data.status,
     file: {},
     clientImg: config.data.profile_image ? (config.urls.client_data + config.data.profile_image) : (config.urls.defaultPathToClientImg + config.urls.defaultClientImg),
-    newClientImg: config.urls.client_data + this.props.profilePic,
     isInputDisabled: false,
     succes: false,
     isStar: false,
@@ -143,7 +142,7 @@ export default class Hero extends React.Component {
         </form>
         <div className='img'>
           <img className='client-img'
-            src={this.props.profilePic ? this.state.newClientImg : this.state.clientImg}
+            src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
             alt='user-img' onError={e => { this.onError(e) }} />
         </div>
       </div>

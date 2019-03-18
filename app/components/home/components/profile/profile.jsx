@@ -16,9 +16,11 @@ state = {
   address: '',
   name: '',
   editProfile: false,
+  delBirth: false,
   permit_ads: false,
   profileBirthEdit: false,
   profileEmailEdit: false,
+  profilePhoneEdit: false,
   profileAddressEdit: false
 }
 componentDidMount = () => {
@@ -34,7 +36,7 @@ delName = () => {
   this.setState({name: ''})
 }
 delAddress = () => {
-  this.setState({address: ''})
+  this.setState({address: ''}, () => this.setState({address: null}))
 }
 backAll = () => {
   this.setState({
@@ -49,14 +51,14 @@ backAll = () => {
     editProfile: false
   })
 }
-delEmail = () => {
-  this.setState({email: config.data.email})
-}
 delSex = () => {
   this.setState({gender: config.data.gender})
 }
 getPhone = value => {
   this.setState({ phone: value })
+}
+deletePhone = () => {
+  this.setState({ phone: null })
 }
 getEmail = value => {
   this.setState({ email: value })
@@ -70,8 +72,17 @@ getBdate = value => {
 getByear = value => {
   this.setState({ birthyear: value })
 }
+deleteBirthday = () => {
+  this.setState({ birthyear: null, birthdate: null })
+}
 getArgeement = value => {
   this.setState({ permit_ads: value })
+}
+deleteEmail = () => {
+  this.setState({ email: null })
+}
+getDATE = (date, year) => {
+  this.setState({ birthyear: year, birthdate: date })
 }
 
 saveAll = () => {
@@ -98,6 +109,7 @@ saveAll = () => {
       this.changeDays()
       this.forceUpdate()
       clientNewGetService().then(r => {
+        config.data.profile_image = r.r.profile_image
         let newArray = r.r
         for (let key in newArray) {
           if (fields.includes(key)) {
@@ -118,7 +130,8 @@ changeDays = () => this.setState({newDays: config.data.birthdate && config.data.
     : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)})
 changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
-changeAddressEdit = () => this.setState({profileAddressEdit: !this.state.profileAddressEdit})
+changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
+// changeAddressEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 render () {
   const { isVisibleFields } = this.props
   return (
@@ -160,14 +173,18 @@ render () {
             </div>
           </div>}
       </div>}
-      {(this.props.isVisibleFields || config.data.phone) &&
-        <Phone editProfile={this.state.editProfile} 
+      {((this.props.isVisibleFields || config.data.phone) || this.state.editProfile) &&
+        <Phone editProfile={this.state.editProfile}
           getPhone={this.getPhone}
+          changePhoneEdit={this.changePhoneEdit}
+          profilePhoneEdit={this.state.profilePhoneEdit}
+          deletePhone={this.deletePhone}
           hatePhone={this.state.phone}
           {...this.props} />}
       {((this.props.isVisibleFields || config.data.email) || this.state.editProfile) &&
         <Email editProfile={this.state.editProfile}
-          delEmail={this.delEmail}
+          // delEmail={this.delEmail}
+          deleteEmail={this.deleteEmail}
           getEmail={this.getEmail}
           hateEmail={this.state.email}
           changeEmailEdit={this.changeEmailEdit}
@@ -238,6 +255,9 @@ render () {
         <Birthdate editProfile={this.state.editProfile}
           getBdate={this.getBdate}
           getByear={this.getByear}
+          getDATE={this.getDATE}
+          // delBirth={this.state.delBirth}
+          deleteBirthday={this.deleteBirthday}
           changeDays={this.state.newDays}
           profileBirthEdit={this.state.profileBirthEdit}
           changeBirth={this.changeBirth}

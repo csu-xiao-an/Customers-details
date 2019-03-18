@@ -14,7 +14,7 @@ export default class Phone extends React.Component {
     this.setState({phone: config.data.phone})
   }
   delInfo = () => {
-    this.setState({phone: ''}, () => this.props.getPhone(this.state.phone))
+    this.setState({phone: ''}, () => this.props.deletePhone())
   }
 
   render () {
@@ -38,35 +38,42 @@ export default class Phone extends React.Component {
             {/* // <div className='img-wrap'><a href={'tel:'}><img src={config.urls.media + 'call.svg'} /></a></div>} */}
           </div>
         </div>
-        {this.props.rights.phone.add &&
-          <div onClick={() => this.setState({phoneEdit: !this.state.phoneEdit})}
-            className={config.data.phone || this.state.phoneEdit ? 'hidden' : 'add-phone'}>
-            <div className='add-wrap'>
-              <span className='label'>{config.translations.phone}:</span>
-              <h1>{config.translations.add_phone}</h1>
-            </div>
-            <img src={config.urls.media + 'add.svg'} />
-          </div>}
-        <div className={this.props.editProfile ? 'phone-edit' : 'hidden'}>
-          <div className='edit'>
-            <div className='edit-wrap'>
-              <span className='label'>{config.translations.phone}:</span>
-              <input className='edit-input'
-                type='tel'
-                value={this.state.phone}
-                onChange={e => this.setState({phone: e.target.value, error: ''}, () => this.props.getPhone(this.state.phone))}
-                // onBlur={this.setState({phone: this.state.phoneTemp})}
-              />
-            </div>
-            <div className='del-info'>
-              <div className='del-wrap' onClick={this.delInfo}>
-                <img src={config.urls.media + 'plus2.svg'} />
+        {
+          (this.props.editProfile && !config.data.phone)
+            ? <div onClick={() => this.props.changePhoneEdit()}
+              className={!this.props.profilePhoneEdit ? 'add-phone' : 'hidden'}>
+              <div className='add-wrap'>
+                <span className='label'>{config.translations.phone}:</span>
+                <h1>{config.translations.add_phone}</h1>
               </div>
+              <div className='add-info'>
+                <div className='add-wrap'>
+                  <img src={config.urls.media + 'profile_plus.svg'} />
+                </div>
+              </div>
+            </div> : '' }
+        {
+          this.props.editProfile &&
+          <div className={this.props.profilePhoneEdit || config.data.phone ? 'phone-edit' : 'hidden'}>
+            <div className='edit'>
+              <div className='edit-wrap'>
+                <span className='label'>{config.translations.phone}:</span>
+                <input className='edit-input'
+                  type='tel'
+                  value={this.state.phone}
+                  onChange={e => this.setState({phone: e.target.value, error: ''}, () => this.props.getPhone(this.state.phone))}
+                  // onBlur={this.setState({phone: this.state.phoneTemp})}
+                />
+              </div>
+              <div className='del-info'>
+                <div className='del-wrap' onClick={this.delInfo}>
+                  <img src={config.urls.media + 'plus2.svg'} />
+                </div>
+              </div>
+              {this.state.error && <div className='error'>{this.state.error}</div>}
             </div>
-            {this.state.error && <div className='error'>{this.state.error}</div>}
-          </div>
-          {/* <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div> */}
-        </div>
+            {/* <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div> */}
+          </div>}
       </div>
     )
   }
