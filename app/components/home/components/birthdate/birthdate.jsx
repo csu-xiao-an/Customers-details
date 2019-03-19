@@ -111,11 +111,6 @@ export default class Birthdate extends React.Component {
               getHandleYear={this.getHandleYear}
             />
           </div>
-          <div className='del-info'>
-            <div className='del-wrap' onClick={this.delInfo}>
-              <img src={config.urls.media + 'plus2.svg'} />
-            </div>
-          </div>
         </div>}
       </div>
     )

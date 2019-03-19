@@ -178,6 +178,7 @@ var config = {
     add_first_item: 'Add a first item in gallery',
     procedures: 'Procedures:',
     debts_t: 'Debts',
+    profile_birthdate: 'Year, Month, Day',
     other_t: 'Other',
     note_t: 'Notes',
     sms_t: 'Sms',
