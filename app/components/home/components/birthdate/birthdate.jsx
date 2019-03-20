@@ -63,7 +63,7 @@ export default class Birthdate extends React.Component {
         <div className={(this.props.profileBirthEdit || config.data.birthdate || config.data.birthyear) ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
-            { this.props.profileBirthEdit && <Datepicker
+            { (this.props.profileBirthEdit || (config.data.birthdate || config.data.birthyear)) && <Datepicker
               defaultValue={this.state.configValue} 
               defaultValue1={this.state.configValue1} 
               getBirthdate={this.getBirthdate} 
