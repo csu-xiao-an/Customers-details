@@ -6,9 +6,9 @@ import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {clientPutService, clientNewGetService} from 'project-services'
+import {clientPutService, clientNewGetService, addressGetService} from 'project-services'
 const {Link} = ReactRouterDOM
-
+let timeout
 export default class Profile extends React.Component {
 state = {
   visibleMapPopup: false,
@@ -21,7 +21,9 @@ state = {
   profileBirthEdit: false,
   profileEmailEdit: false,
   profilePhoneEdit: false,
-  profileAddressEdit: false
+  profileAddressEdit: false,
+  isViewAdress: false,
+  adress: []
 }
 componentDidMount = () => {
   this.setState({
@@ -84,7 +86,15 @@ deleteEmail = () => {
 getDATE = (date, year) => {
   this.setState({ birthyear: year, birthdate: date })
 }
-
+changeAdress = e => {
+  clearTimeout(timeout)
+  this.setState({ address: e })
+  localStorage.setItem('address', e)
+  if (e.length > 0) {
+    timeout = setTimeout(() => addressGetService(e).then(r => r.json().then(r =>
+      this.setState({isViewAdress: true, adress: r.results}))), config.timeout)
+  } else this.setState({isViewAdress: false})
+}
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   const body = Object.keys(this.state).reduce((params, field) => {
@@ -190,7 +200,6 @@ render () {
           changeEmailEdit={this.changeEmailEdit}
           profileEmailEdit={this.state.profileEmailEdit}
           {...this.props} />}
-      {/* {(this.props.isVisibleFields || config.data.address) && */}
       {(this.state.editProfile || (this.props.isVisibleFields || config.data.address)) &&
       <div id='address'>
         <div className={!this.state.editProfile ? 'address-wrap' : 'hidden'}>
@@ -238,7 +247,15 @@ render () {
               <div className='address-wrap-edit'>
                 <span className='label'>{config.translations.address}:</span>
                 <div className='block-content'>
-                  <input className='edit-input' type='text' value={this.state.address} onChange={e => this.setState({ address: e.target.value })} />
+                  <input className='edit-input' 
+                    type='text' value={this.state.address} 
+                    onChange={e => this.changeAdress(e.target.value)} />
+                  {/* onChange={e => this.setState({ address: e.target.value })} /> */}
+                  <div className={this.state.isViewAdress ? 'adress-list-wrap' : 'hidden'}>
+                    {this.state.adress.map(i => (
+                      <div onClick={() => this.setState({addres: i.formatted_address, isViewAdress: false}, () => { config.data.address = i.formatted_address })}>{i.formatted_address}</div>)
+                    )}
+                  </div>
                 </div>
               </div>
               <div className='del-info'>
@@ -256,7 +273,6 @@ render () {
           getBdate={this.getBdate}
           getByear={this.getByear}
           getDATE={this.getDATE}
-          // delBirth={this.state.delBirth}
           deleteBirthday={this.deleteBirthday}
           changeDays={this.state.newDays}
           profileBirthEdit={this.state.profileBirthEdit}
