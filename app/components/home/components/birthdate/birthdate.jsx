@@ -9,39 +9,11 @@ export default class Birthdate extends React.Component {
     birthyear: '',
     day: '',
     month: '',
-    year: '',
-    del: false
+    year: ''
   }
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
-  // save = () => {
-  //   const { day, month, year } = this.state
-  //   const birthdate = day && month && `birthdate=${month}-${day}`
-  //   const birthyear = `birthyear=${year}`
-  //   if (birthdate || birthyear) {
-  //     clientReplaceService([birthyear, birthdate].filter(i => i).join('&')).then(r => {
-  //       if (r.status === 204) {
-  //         this.setState({
-  //           configValue: `${year}-${day && month && month}-${day && month && day}`,
-  //           configValue1: `${year}-${day && month && month}-${day && month && day}`,
-  //           birthdateEdit: false
-  //         })
-  //       }
-  //     })
-  //   }
-  // }
-  // save1 = () => {
-  // const { day, month, year } = this.state
-  // const birthdate = day && month && `birthdate=${month}-${day}`
-  // const birthyear = `birthyear=${year}`
-  // if (birthdate || birthyear) {
-  //   this.setState({
-  //     configValue1: ''
-  //   })
-  //   config.data.birthdate = ''
-  //   config.data.birthyear = ''
-  // }
   validation = (value, max) => (value < 0 && 1) || (value >= max && max) || (+value && `${+value}`.padStart(2, '0')) || ''
   changeDay = ({target}) => {
     target.value = this.validation(target.value, 31)
@@ -65,7 +37,6 @@ export default class Birthdate extends React.Component {
     this.setState({birthdate: null, birthyear: null, del: true}, () => this.props.getDATE(this.state.birthdate, this.state.birthyear))
   }
   render () {
-    let newDays = this.props.changeDays
     return (
       <div id='birthdate' className='block'>
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
@@ -87,29 +58,23 @@ export default class Birthdate extends React.Component {
                   <img src={config.urls.media + 'profile_plus.svg'} />
                 </div>
               </div>
-              {/* <img src={config.urls.media + 'profile_add_field.svg'} /> */}
             </div> : ''}
         {this.props.editProfile &&
         <div className={(this.props.profileBirthEdit || config.data.birthdate || config.data.birthyear) ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
             <span className='label'>{config.translations.birthday}:</span>
-            <Datepicker
+            { this.props.profileBirthEdit && <Datepicker
               defaultValue={this.state.configValue} 
               defaultValue1={this.state.configValue1} 
               getBirthdate={this.getBirthdate} 
               getBirthyear={this.getBirthyear}
-              newDays={newDays}
               birthdate={this.state.birthdate}
               birthyear={this.state.birthyear}
               defaultBirthday
-              delInfo={this.delInfo}
-              del={this.state.del}
-              // delBirth={this.props.delBirth}
-              deleteBirthday={this.props.deleteBirthday}
               getHandleDay={this.getHandleDay}
               getHandleMonth={this.getHandleMonth}
               getHandleYear={this.getHandleYear}
-            />
+            />}
           </div>
         </div>}
       </div>
