@@ -143,7 +143,6 @@ changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmai
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 // changeAddressEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 render () {
-  console.log(this.state);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
