@@ -27,11 +27,11 @@ state = {
 }
 componentDidMount = () => {
   this.setState({
-    address: config.data.address,
+    address: config.data.address ? config.data.address : null,
     name: config.data.name,
-    phone: config.data.phone,
-    email: config.data.email,
-    gender: config.data.gender
+    phone: config.data.phone ? config.data.phone : null,
+    email: config.data.email ? config.data.email : null,
+    gender: config.data.gender ? config.data.gender : null
   })
 }
 delName = () => {
@@ -143,6 +143,7 @@ changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmai
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 // changeAddressEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 render () {
+  console.log(this.state);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
