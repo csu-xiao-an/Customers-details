@@ -52,6 +52,7 @@ backAll = () => {
     permit_ads: config.data.permit_ads,
     editProfile: false
   })
+  this.resetFields()
 }
 delSex = () => {
   this.setState({gender: config.data.gender})
@@ -117,6 +118,7 @@ saveAll = () => {
       config.data.permit_ads = this.state.permit_ads
       this.setState({ editProfile: false }, () => this.changeBirth())
       this.changeDays()
+      this.resetFields()
       this.forceUpdate()
       clientNewGetService().then(r => {
         config.data.profile_image = r.r.profile_image
@@ -141,7 +143,15 @@ changeDays = () => this.setState({newDays: config.data.birthdate && config.data.
 changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
-// changeAddressEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
+changeAddressEdit = () => this.setState({profileAddressEdit: !this.state.profileAddressEdit})
+resetFields = () => {
+  this.setState({
+    profileEmailEdit: false,
+    profileBirthEdit: false,
+    profileAddressEdit: false,
+    profilePhoneEdit: false
+  })
+}
 render () {
   const { isVisibleFields } = this.props
   return (
