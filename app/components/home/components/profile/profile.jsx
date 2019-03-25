@@ -153,6 +153,7 @@ resetFields = () => {
   })
 }
 render () {
+  console.log('profile', this.state);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
