@@ -16,13 +16,13 @@ module.exports = env => {
     outputJSCK = '[id].bundle.min.js'
     outputCSS = 'main.bundle.min.css'
     outputJS = 'main.bundle.min.js'
-    devtool = false
+    devtool = 'source-map'
   }
   if (env === 'build-public') {
     outputJSCK = '[id].bundle.min.js'
     outputCSS = 'main.bundle.min.css'
     outputJS = 'main.bundle.min.js'
-    devtool = false
+    devtool = 'source-map'
     baseChunksPath = '/public/clients-details/js/'
     baseBuildPath = './public/clients-details/js'
   }
