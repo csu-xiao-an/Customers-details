@@ -6,7 +6,7 @@ import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {clientPutService, clientNewGetService, addressGetService} from 'project-services'
+import {clientPutService, clientNewGetService, addressGetService, newGetService} from 'project-services'
 const {Link} = ReactRouterDOM
 let timeout
 export default class Profile extends React.Component {
@@ -154,6 +154,10 @@ resetFields = () => {
     profilePhoneEdit: false
   })
 }
+editInfo = () => {
+  // newGetService().then(r => console.log(r))
+  this.setState({editProfile: true})
+}
 render () {
   const { isVisibleFields } = this.props
   return (
@@ -171,7 +175,7 @@ render () {
               <div className='save-btn' onClick={this.saveAll}>{config.translations.success}</div>
             </div>
           </div>
-          : <div className='edit-profile' onClick={() => this.setState({editProfile: true})}>
+          : <div className='edit-profile' onClick={this.editInfo}>
             <div className='edit-wrap'><img className='img-edit-profile' src={config.urls.media + 'edit-note.svg'} /></div>
             <div>{config.translations.editProfile}</div>
           </div>}

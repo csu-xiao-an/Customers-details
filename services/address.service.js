@@ -1,6 +1,7 @@
 import mainRequestService from './request.service'
+import { join } from 'path';
 
-const getService = q => {
+export const getService = q => {
   const url = config.urls.new_address.replace('{query}', q).replace('{language}', config.translations.language)
   const options = {
     mode: 'cors',
@@ -8,5 +9,13 @@ const getService = q => {
   }
   return mainRequestService(url, options)
 }
-export default getService
 
+export const NewGetService = () => {
+  const url = config.urls.new_test_address
+  const options = {
+    method: 'GET'
+  }
+  return mainRequestService(url, options)
+}
+// .then(r => r.json().then(r => ({ r })))
+// export default (getService, NewGetService)
