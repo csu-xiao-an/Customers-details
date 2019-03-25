@@ -12,8 +12,8 @@ let timeout
 export default class Profile extends React.Component {
 state = {
   visibleMapPopup: false,
-  birthdate: config.data.birthdate,
-  birthyear: config.data.birthyear,
+  birthdate: String(config.data.birthdate),
+  birthyear: String(config.data.birthyear),
   gender: null,
   address: '',
   name: '',
@@ -155,7 +155,6 @@ resetFields = () => {
   })
 }
 render () {
-  console.log('profile', this.state);
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
