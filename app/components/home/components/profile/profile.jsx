@@ -12,6 +12,8 @@ let timeout
 export default class Profile extends React.Component {
 state = {
   visibleMapPopup: false,
+  birthdate: config.data.birthdate,
+  birthyear: config.data.birthyear,
   gender: null,
   address: '',
   name: '',
