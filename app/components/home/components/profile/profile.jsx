@@ -1,6 +1,7 @@
 import './profile.styl'
 import Phone from '../phone/phone.jsx'
 // import Address from '../address/address.jsx'
+import NewAddress from '../newAddress/newAddress.jsx'
 import Sex from '../sex/sex.jsx'
 import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
@@ -40,8 +41,11 @@ delName = () => {
   this.setState({name: ''})
 }
 delAddress = () => {
-  this.setState({address: ''}, () => this.setState({address: null}))
+  this.setState({address: '', test: ''}, () => this.setState({address: null}))
 }
+// qwerty = () => {
+//   this.setState({})
+// }
 backAll = () => {
   this.setState({
     address: config.data.address,
@@ -58,6 +62,10 @@ backAll = () => {
 }
 delSex = () => {
   this.setState({gender: config.data.gender})
+}
+getAddress = value => {
+  console.log('object', value)
+  this.setState({ address: value })
 }
 getPhone = value => {
   this.setState({ phone: value })
@@ -259,27 +267,14 @@ render () {
           </div> : ''}
         {this.state.editProfile &&
           <div className={this.state.profileAddressEdit || config.data.address ? 'address-edit' : 'hidden'}>
-            <div className='address-data-edit'>
-              <div className='address-wrap-edit'>
-                <span className='label'>{config.translations.address}:</span>
-                <div className='block-content'>
-                  <input className='edit-input' 
-                    type='text' value={this.state.address} 
-                    onChange={e => this.changeAdress(e.target.value)} />
-                  {/* onChange={e => this.setState({ address: e.target.value })} /> */}
-                  <div className={this.state.isViewAdress ? 'adress-list-wrap' : 'hidden'}>
-                    {this.state.adress.map(i => (
-                      <div onClick={() => this.setState({addres: i.formatted_address, isViewAdress: false}, () => { config.data.address = i.formatted_address })}>{i.formatted_address}</div>)
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className='del-info'>
-                <div className='del-wrap' onClick={this.delAddress}>
-                  <img src={config.urls.media + 'plus2.svg'} />
-                </div>
-              </div>
-            </div>
+            <NewAddress
+              setAddress={this.getAddress}
+              // getAddress={}
+              keyValue='AIzaSyAct7gaVvwyl1-3CBCJnd2_yOVp_dSw4pc'
+              language={config.locale}
+              address={this.state.address}
+              delAddress={this.delAddress}
+            />
           </div>}
       </div>}
       {/* {!config.data.gender && <Sex {...this.props} />} */}
