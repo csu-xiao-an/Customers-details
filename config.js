@@ -305,7 +305,6 @@ var config = {
     ]
   },
   urls: {
-    new_address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}&key=AIzaSyAct7gaVvwyl1-3CBCJnd2_yOVp_dSw4pc',
     new_test_address: 'https://api.bewebmaster.co.il/settings/maps-api-key',
     address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
     preview_pdf: 'https://docs.google.com/viewer?url={url}embedded=true',

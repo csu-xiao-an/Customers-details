@@ -93,13 +93,7 @@ deleteEmail = () => {
   this.setState({ email: null })
 }
 changeAdress = e => {
-  clearTimeout(timeout)
   this.setState({ address: e })
-  localStorage.setItem('address', e)
-  if (e.length > 0) {
-    timeout = setTimeout(() => addressGetService(e).then(r => r.json().then(r =>
-      this.setState({isViewAdress: true, adress: r.results}))), config.timeout)
-  } else this.setState({isViewAdress: false})
 }
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
