@@ -33,9 +33,6 @@ export default class Birthdate extends React.Component {
   getHandleDay = value => this.setState({day: value})
   getHandleMonth = value => this.setState({month: value})
   getHandleYear = value => this.setState({year: value})
-  delInfo = () => {
-    this.setState({birthdate: null, birthyear: null, del: true}, () => this.props.getDATE(this.state.birthdate, this.state.birthyear))
-  }
   render () {
     return (
       <div id='birthdate' className='block'>

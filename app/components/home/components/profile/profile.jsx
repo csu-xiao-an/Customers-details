@@ -26,7 +26,8 @@ state = {
   profilePhoneEdit: false,
   profileAddressEdit: false,
   isViewAdress: false,
-  adress: []
+  adress: [],
+  key: ''
 }
 componentDidMount = () => {
   this.setState({
@@ -43,9 +44,6 @@ delName = () => {
 delAddress = () => {
   this.setState({address: '', test: ''}, () => this.setState({address: null}))
 }
-// qwerty = () => {
-//   this.setState({})
-// }
 backAll = () => {
   this.setState({
     address: config.data.address,
@@ -93,9 +91,6 @@ getArgeement = value => {
 }
 deleteEmail = () => {
   this.setState({ email: null })
-}
-getDATE = (date, year) => {
-  this.setState({ birthyear: year, birthdate: date })
 }
 changeAdress = e => {
   clearTimeout(timeout)
@@ -163,8 +158,9 @@ resetFields = () => {
   })
 }
 editInfo = () => {
-  // newGetService().then(r => console.log(r))
-  this.setState({editProfile: true})
+  newGetService().then(r => {
+    this.setState({editProfile: true, key: r.r.api_key})
+  })
 }
 render () {
   const { isVisibleFields } = this.props
@@ -265,17 +261,14 @@ render () {
               </div>
             </div>
           </div> : ''}
-        {this.state.editProfile &&
-          <div className={this.state.profileAddressEdit || config.data.address ? 'address-edit' : 'hidden'}>
-            <NewAddress
-              setAddress={this.getAddress}
-              // getAddress={}
-              keyValue='AIzaSyAct7gaVvwyl1-3CBCJnd2_yOVp_dSw4pc'
-              language={config.locale}
-              address={this.state.address}
-              delAddress={this.delAddress}
-            />
-          </div>}
+        {(this.state.editProfile && (this.state.profileAddressEdit || config.data.address)) &&
+          <NewAddress
+            setAddress={this.getAddress}
+            keyValue={this.state.key}
+            language={config.locale}
+            address={this.state.address}
+            delAddress={this.delAddress}
+          />}
       </div>}
       {/* {!config.data.gender && <Sex {...this.props} />} */}
       {((this.props.isVisibleFields || config.data.gender) || this.state.editProfile) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}

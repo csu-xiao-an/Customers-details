@@ -15,7 +15,7 @@ export const NewGetService = () => {
   const options = {
     method: 'GET'
   }
-  return mainRequestService(url, options)
+  return mainRequestService(url, options).then(r => r.json().then(r => ({ r })))
 }
 // .then(r => r.json().then(r => ({ r })))
 // export default (getService, NewGetService)
