@@ -17,5 +17,3 @@ export const NewGetService = () => {
   }
   return mainRequestService(url, options).then(r => r.json().then(r => ({ r })))
 }
-// .then(r => r.json().then(r => ({ r })))
-// export default (getService, NewGetService)
