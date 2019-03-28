@@ -12,18 +12,15 @@ class NewAddress extends React.Component {
   }
 
   componentDidMount () {
-    if (!window.google) {
-      this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${this.props.keyValue}&libraries=places&language=${this.props.language}`, this.initMap, document.body)
-    }
+    this.loadMap(this.initMap, document.body)
   }
-
   loadMap = (url, implementationCode, location) => {
-    var scriptTag = document.createElement('script')
+    let scriptTag = document.createElement('script')
     scriptTag.src = url
     scriptTag.onload = implementationCode
     scriptTag.onreadystatechange = implementationCode
-
     location.appendChild(scriptTag)
+    this.forceUpdate()
   }
   testlocation = value => {
     this.props.setAddress(value)

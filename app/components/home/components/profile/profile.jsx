@@ -9,7 +9,7 @@ import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import {clientPutService, clientNewGetService, addressGetService, newGetService} from 'project-services'
 const {Link} = ReactRouterDOM
-let timeout
+let key
 export default class Profile extends React.Component {
 state = {
   visibleMapPopup: false,
@@ -27,7 +27,8 @@ state = {
   profileAddressEdit: false,
   isViewAdress: false,
   adress: [],
-  key: ''
+  key: '',
+  resetApi: true
 }
 componentDidMount = () => {
   this.setState({
@@ -37,6 +38,39 @@ componentDidMount = () => {
     email: config.data.email ? config.data.email : null,
     gender: config.data.gender ? config.data.gender : null
   })
+}
+deleteMap = (url, implementationCode) => {
+  let scriptTag = document.createElement('script')
+  scriptTag.src = url
+  scriptTag.onload = implementationCode
+  scriptTag.onreadystatechange = implementationCode
+  document.getElementById('map-script').remove(scriptTag)
+  this.forceUpdate()
+}
+loadMap = (url, implementationCode, location) => {
+  let scriptTag = document.createElement('script')
+  scriptTag.src = url
+  scriptTag.onload = implementationCode
+  scriptTag.id = 'map-script'
+  scriptTag.onreadystatechange = implementationCode
+  location.appendChild(scriptTag)
+  this.forceUpdate()
+}
+initMap = () => {
+  if (window.google) {
+    let input = this.input
+    const searchBox = new window.google.maps.places.SearchBox(input)
+    searchBox.addListener('places_changed', () => {
+      const places = searchBox.getPlaces()
+      this.setState({
+        address: places[0].formatted_address
+      })
+    })
+  } else {
+    this.initTimeout = setTimeout(() => {
+      this.initMap()
+    }, 500)
+  }
 }
 delName = () => {
   this.setState({name: ''})
@@ -54,15 +88,17 @@ backAll = () => {
     // birthdate: config.data.birthdate,
     // birthyear: config.data.birthyear,
     permit_ads: config.data.permit_ads,
-    editProfile: false
+    editProfile: false,
+    resetApi: false
   })
+  this.deleteMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, this.initMap)
   this.resetFields()
+  this.forceUpdate()
 }
 delSex = () => {
   this.setState({gender: config.data.gender})
 }
 getAddress = value => {
-  console.log('object', value)
   this.setState({ address: value })
 }
 getPhone = value => {
@@ -115,7 +151,7 @@ saveAll = () => {
       config.data.name = this.state.name
       config.data.gender = this.state.gender
       config.data.permit_ads = this.state.permit_ads
-      this.setState({ editProfile: false }, () => this.changeBirth())
+      this.setState({ editProfile: false, resetApi: false }, () => this.changeBirth())
       this.changeDays()
       this.resetFields()
       this.forceUpdate()
@@ -129,6 +165,7 @@ saveAll = () => {
           }
         }
         this.props.getProfilePicture(config.data.profile_image)
+        this.deleteMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, this.initMap)
       })
     } else {
       this.setState({ editProfile: true })
@@ -142,7 +179,14 @@ changeDays = () => this.setState({newDays: config.data.birthdate && config.data.
 changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
-changeAddressEdit = () => this.setState({profileAddressEdit: !this.state.profileAddressEdit})
+changeAddressEdit = () => {
+  this.deleteMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, this.initMap)
+  newGetService().then(r => {
+    this.setState({editProfile: true, resetApi: true, key: r.r.api_key, profileAddressEdit: !this.state.profileAddressEdit})
+    key = r.r.api_key
+    this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, this.initMap, document.body)
+  })
+}
 resetFields = () => {
   this.setState({
     profileEmailEdit: false,
@@ -153,7 +197,9 @@ resetFields = () => {
 }
 editInfo = () => {
   newGetService().then(r => {
-    this.setState({editProfile: true, key: r.r.api_key})
+    this.setState({editProfile: true, resetApi: true, key: r.r.api_key})
+    key = r.r.api_key
+    this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, this.initMap, document.body)
   })
 }
 render () {
@@ -256,13 +302,24 @@ render () {
             </div>
           </div> : ''}
         {(this.state.editProfile && (this.state.profileAddressEdit || config.data.address)) &&
-          <NewAddress
-            setAddress={this.getAddress}
-            keyValue={this.state.key}
-            language={config.locale}
-            address={this.state.address}
-            delAddress={this.delAddress}
-          />}
+          <div className='address-data-edit'>
+            <div className='address-wrap-edit'>
+              <span className='label'>{config.translations.address}:</span>
+              <div className='block-content'>
+                <input id='pac-input' className='controls'
+                  type='text'
+                  ref={input => { this.input = input }}
+                  onChange={e => this.changeAdress(e.target.value)}
+                  value={this.state.address}
+                />
+              </div>
+            </div>
+            <div className='del-info'>
+              <div className='del-wrap' onClick={this.delAddress}>
+                <img src={config.urls.media + 'plus2.svg'} />
+              </div>
+            </div>
+          </div>}
       </div>}
       {/* {!config.data.gender && <Sex {...this.props} />} */}
       {((this.props.isVisibleFields || config.data.gender) || this.state.editProfile) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
