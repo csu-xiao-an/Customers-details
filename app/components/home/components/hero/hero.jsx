@@ -1,4 +1,4 @@
-import {clientReplaceService, clientPostServiceImg} from 'project-services'
+import {clientReplaceService, clientPostServiceImg, StatusPutService} from 'project-services'
 import {dataURLtoFile, getOrientation, Resize} from 'project-components'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
@@ -16,41 +16,33 @@ export default class Hero extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
-  // handleStar = () => {
-  //   const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`
-  //   clientReplaceService(body).then(r => {
-  //     if (r.status === 204) {
-  //       config.data.isFavorite = !config.data.isFavorite
-  //       if (config.data.isFavorite) {
-  //         this.setState({succes: true, isStar: true}, () => { setTimeout(() => { this.setState({succes: false}) }, 1200) })
-  //       } else {
-  //         this.setState({isStar: false})
-  //       }
-  //       this.forceUpdate()
-  //     }
-  //   })
-  // }
-  onError= e => {
+  handleStar = () => {
+    const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`
+    clientReplaceService(body).then(r => {
+      if (r.status === 204) {
+        config.data.isFavorite = !config.data.isFavorite
+        if (config.data.isFavorite) {
+          this.setState({succes: true, isStar: true}, () => { setTimeout(() => { this.setState({succes: false}) }, 1200) })
+        } else {
+          this.setState({isStar: false})
+        }
+        this.forceUpdate()
+      }
+    })
+  }
+  onError = e => {
     if (!e.target.src.endsWith(config.urls.defaultClientImg)) {
       e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
     }
   }
-  handleStatus = e => {
-    e.preventDefault()
-    this.setState({isInputDisabled: true})
-    if (!this.state.isInputDisabled) {
-      this.setState({status: e.target.value})
-      this.refs.autofocus.focus()
-    } else {
-      const body = `${config.urls.status}=${this.state.status}`
-      clientReplaceService(body).then(r => {
-        if (r.status === 204) {
-          config.data.status = this.state.status
-          this.setState({isInputDisabled: false})
-          this.refs.autofocus.blur()
-        }
-      })
-    }
+  handleStatus = () => {
+    const body = `${config.urls.status}=${this.state.status}`
+    StatusPutService(body).then(r => {
+      if (r.status === 204) {
+        config.data.status = this.state.status
+        this.setState({isInputDisabled: false})
+      }
+    })
   }
   addPhoto = img => {
     let photo = img.target.files[0]
@@ -92,13 +84,18 @@ export default class Hero extends React.Component {
   }
 
   changeInput = e => {
-    this.setState({status: e.target.value, statusRem: e.target.value})
-    this.inputStyle(e.target.value)
+    this.setState({status: e.target.value})
+  }
+  changeInputState = () => {
+    this.setState({ isInputDisabled: !this.state.isInputDisabled })
+  }
+  delInfo = () => {
+    this.setState({ isInputDisabled: false, status: config.data.status })
   }
   render () {
     return (
       <div id='hero'>
-        {/* <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
+        <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
           <svg width='14px' height='14px' viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'>
             <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd' opacity='0.800000012'>
               <g id='Customer-Page-(original-size)' transform='translate(-13.000000, -81.000000)' fill='#FFFFFF' fillRule='nonzero'>
@@ -115,7 +112,7 @@ export default class Hero extends React.Component {
             </g>
           </svg>&nbsp;
           <span>{config.translations.vip}</span>
-        </div> */}
+        </div>
         <label className={'camera ' + (config.isRTL ? 'rtll' : 'ltrr')}>
           {this.state.flag
             ? <div className='camera-spin'><img src={config.urls.media + 'refresh-cw.svg'} /></div>
@@ -124,22 +121,23 @@ export default class Hero extends React.Component {
         </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
-        <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
-          {config.data.status && <div className='input-group'>
+        <div>
+          <div className='input-group'>
             <span className='status-label'>{config.translations.status}</span>
-            <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
+            {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.placeholder}</span>}
+            {this.state.isInputDisabled && <input
               type='text'
-              ref='autofocus'
               value={this.state.status}
               placeholder={config.translations.placeholder}
-              onBlur={() => this.setState({isInputDisabled: false, status: config.data.status})}
-              onChange={e => this.changeInput(e)} />
-            {this.props.rights.hero.status &&
-              <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
-                <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
-              </span>} */}
-          </div>}
-        </form>
+              onChange={e => this.changeInput(e)} />}
+            <span onClick={!this.state.isInputDisabled ? () => this.changeInputState() : () => this.handleStatus()} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
+              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
+            </span>
+            {this.state.isInputDisabled && <div className='del-wrap' onClick={this.delInfo}>
+              <img src={config.urls.media + 'plus2.svg'} />
+            </div>}
+          </div>
+        </div>
         <div className='img'>
           <img className='client-img'
             src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
