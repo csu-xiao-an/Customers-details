@@ -1,4 +1,4 @@
-import {clientReplaceService, clientPostServiceImg} from 'project-services'
+import {clientReplaceService, clientPostServiceImg, StatusPutService} from 'project-services'
 import {dataURLtoFile, getOrientation, Resize} from 'project-components'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
@@ -35,22 +35,14 @@ export default class Hero extends React.Component {
       e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
     }
   }
-  handleStatus = e => {
-    e.preventDefault()
-    this.setState({isInputDisabled: true})
-    if (!this.state.isInputDisabled) {
-      this.setState({status: e.target.value})
-      this.refs.autofocus.focus()
-    } else {
-      const body = `${config.urls.status}=${this.state.status}`
-      clientReplaceService(body).then(r => {
-        if (r.status === 204) {
-          config.data.status = this.state.status
-          this.setState({isInputDisabled: false})
-          this.refs.autofocus.blur()
-        }
-      })
-    }
+  handleStatus = () => {
+    const body = `${config.urls.status}=${this.state.status}`
+    StatusPutService(body).then(r => {
+      if (r.status === 204) {
+        config.data.status = this.state.status
+        this.setState({isInputDisabled: false})
+      }
+    })
   }
   addPhoto = img => {
     let photo = img.target.files[0]
@@ -92,8 +84,13 @@ export default class Hero extends React.Component {
   }
 
   changeInput = e => {
-    this.setState({status: e.target.value, statusRem: e.target.value})
-    this.inputStyle(e.target.value)
+    this.setState({status: e.target.value})
+  }
+  changeInputState = () => {
+    this.setState({ isInputDisabled: !this.state.isInputDisabled })
+  }
+  delInfo = () => {
+    this.setState({ isInputDisabled: false, status: config.data.status })
   }
   render () {
     return (
@@ -124,22 +121,23 @@ export default class Hero extends React.Component {
         </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
-        <form onSubmit={e => { this.handleStatus(e); this.setState({status: this.state.statusRem}) }}>
+        <div>
           <div className='input-group'>
             <span className='status-label'>{config.translations.status}</span>
-            <input className={'form-control ' + (config.data.status ? 'form-control-disabled' : '')}
+            {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.placeholder}</span>}
+            {this.state.isInputDisabled && <input
               type='text'
-              ref='autofocus'
               value={this.state.status}
               placeholder={config.translations.placeholder}
-              onBlur={() => this.setState({isInputDisabled: false, status: config.data.status})}
-              onChange={e => this.changeInput(e)} />
-            {this.props.rights.hero.status &&
-              <span onClick={this.state.isInputDisabled ? () => {} : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
-                <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
-              </span>}
+              onChange={e => this.changeInput(e)} />}
+            <span onClick={!this.state.isInputDisabled ? () => this.changeInputState() : () => this.handleStatus()} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
+              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
+            </span>
+            {this.state.isInputDisabled && <div className='del-wrap' onClick={this.delInfo}>
+              <img src={config.urls.media + 'plus2.svg'} />
+            </div>}
           </div>
-        </form>
+        </div>
         <div className='img'>
           <img className='client-img'
             src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
