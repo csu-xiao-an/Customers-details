@@ -74,9 +74,11 @@ initMap = () => {
 }
 delName = () => {
   this.setState({name: ''})
+  document.getElementById('name-input').focus()
 }
 delAddress = () => {
   this.setState({address: '', test: ''}, () => this.setState({address: null}))
+  document.getElementById('pac-input').focus()
 }
 backAll = () => {
   this.setState({
@@ -234,7 +236,11 @@ render () {
           : <div className='fullname-edit'>
             <div className='edit-wrap'>
               <span className='label'>{config.translations.name}:</span>
-              <input className='edit-input' type='text' value={this.state.name} onChange={e => this.setState({name: e.target.value})} />
+              <input className='edit-input'
+                id='name-input'
+                type='text'
+                value={this.state.name}
+                onChange={e => this.setState({name: e.target.value})} />
             </div>
             <div className='del-info'>
               <div className='del-wrap' onClick={this.delName}>

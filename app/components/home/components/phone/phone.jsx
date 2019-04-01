@@ -15,6 +15,7 @@ export default class Phone extends React.Component {
   }
   delInfo = () => {
     this.setState({phone: ''}, () => this.props.deletePhone())
+    document.getElementById('phone-input').focus()
   }
 
   render () {
@@ -59,6 +60,7 @@ export default class Phone extends React.Component {
               <div className='edit-wrap'>
                 <span className='label'>{config.translations.phone}:</span>
                 <input className='edit-input'
+                  id='phone-input'
                   type='tel'
                   value={this.state.phone}
                   onChange={e => this.setState({phone: e.target.value, error: ''}, () => this.props.getPhone(this.state.phone))}

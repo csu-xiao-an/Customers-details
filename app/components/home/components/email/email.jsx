@@ -15,6 +15,7 @@ export default class Email extends React.Component {
   }
   delInfo = () => {
     this.setState({email: ''}, () => this.props.deleteEmail())
+    document.getElementById('email-input').focus()
   }
   render () {
     return this.props.rights.isEmail && (
@@ -51,6 +52,7 @@ export default class Email extends React.Component {
             <div className='edit-wrap'>
               <span className='label'>{config.translations.email}:</span>
               <input className='edit-input'
+                id='email-input'
                 type='email'
                 value={this.state.email}
                 onChange={e => this.setState({email: e.target.value, error: ''}, () => this.props.getEmail(this.state.email))} />
