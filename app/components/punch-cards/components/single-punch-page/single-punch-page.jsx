@@ -17,7 +17,7 @@ export default class SinglePunchPage extends React.Component {
       this.setState({punchsList}, () => {
         this.setState({
           singlePunch: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {},
-          uses: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses || []
+          uses: this.state.punchsList.uses && (this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses || [])
         })
       })
     })
@@ -39,8 +39,9 @@ export default class SinglePunchPage extends React.Component {
   update = () => this.forceUpdate()
   use = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
-    punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r =>
-      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))))
+    punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r => {
+      this.state.punchsList.uses && this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))
+    }))
   }
   render () {
     const { singlePunch = {}, uses = [] } = this.state
@@ -52,7 +53,10 @@ export default class SinglePunchPage extends React.Component {
           <div className={'single-punch ' + (this.daysLeft() > 0 && 'expired')}>
             <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
             <div className='punch-preview'>
-              <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{singlePunch.service_name}</p>
+              <div className='service-wrap'>
+                <span className='service-color' />
+                <p className='punch-name'>{singlePunch.service_name}</p>
+              </div>
               <div className='punch'>
                 <p className='count'><span>{config.translations.used}</span><span className='uses'>{uses ? uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span></p>
               </div>
