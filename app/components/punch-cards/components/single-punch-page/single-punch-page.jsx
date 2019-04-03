@@ -17,7 +17,7 @@ export default class SinglePunchPage extends React.Component {
       this.setState({punchsList}, () => {
         this.setState({
           singlePunch: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {},
-          uses: this.state.punchsList.uses && (this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses || [])
+          uses: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses || []
         })
       })
     })
@@ -39,9 +39,8 @@ export default class SinglePunchPage extends React.Component {
   update = () => this.forceUpdate()
   use = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
-    punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r => {
-      this.state.punchsList.uses && this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))
-    }))
+    punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r =>
+      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))))
   }
   render () {
     const { singlePunch = {}, uses = [] } = this.state
