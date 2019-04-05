@@ -197,6 +197,7 @@ var config = {
     punch_use: '{name}. Punch was used {countCur} / {count} uses',
     punch_end: '{name}. Punch was canceled',
     is_valid: 'Is valid until ',
+    used_punch_card: 'No more uses in this punch card',
     left: 'Left',
     days: 'days',
     currency_debt: '$',
