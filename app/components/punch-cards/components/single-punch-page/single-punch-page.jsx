@@ -57,13 +57,20 @@ export default class SinglePunchPage extends React.Component {
                 <p className='punch-name'>{singlePunch.service_name}</p>
               </div>
               <div className='punch'>
-                <p className='count'><span>{config.translations.used}</span><span className='uses'>{uses ? uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span></p>
+                <p className='count'><span>{config.translations.used}</span>
+                  <span className='uses'>{uses ? uses.length : '0'}</span>
+                  <span className='of'>{config.translations.of}</span>
+                  <span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span>
+                </p>
               </div>
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
             {this.daysLeft() > 0
               ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>
-              : <button className='use-btn' onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}<img src={config.urls.media + 'check-circle.svg'} /></button>}
+              : (this.state.uses && this.state.uses.length !== singlePunch.service_count ? <button className='use-btn'
+                onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}
+                <img src={config.urls.media + 'check-circle.svg'} /></button>
+                : <button className='expiry-btn'>No more uses in this punch card</button>)}
             {singlePunch.expiration && <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
               {this.daysLeft() > 0 ? <div className='expiry-text'>
