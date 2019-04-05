@@ -38,7 +38,9 @@ class PunchCards extends React.Component {
               onClick={() => this.setState({punch: i}, () => {
                 this.props.history.push(baseUrl + config.urls.single_punch.replace('{punch_card_id}', i.id))
               })}>
-              <p className='punch-name'><span style={{backgroundColor: 'black'}} className='service-color' />{i.service_name}</p>
+              <p className='punch-name'>
+                <span className='service-color' />{i.service_name}
+              </p>
               <div className='punch'>
                 <p className='count'><span>{config.translations.used}</span><span className='uses'>{i.uses ? i.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className='total' >{i.service_count}</span></p>
               </div>
