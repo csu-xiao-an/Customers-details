@@ -117,7 +117,7 @@ export default class Debts extends React.Component {
       <div id='debts'>
         <div className='debt-header'>
           <div className='header-text'>{config.translations.debts}
-            <div className='total-debts-wrap'>{total && `${config.translations.currency_debt} ${total}`}</div>
+            <div className='total-debts-wrap'>{total && `${config.data.currency} ${total}`}</div>
           </div>
           {this.state.debtEdit &&
           <div className='btn-header' onClick={this.backButton}>
@@ -133,7 +133,7 @@ export default class Debts extends React.Component {
                 <div className='ink' onClick={this.handleDecrementTime}>
                   <img src={config.urls.media + 'minus.svg'} />
                 </div>
-                <div className='currency-debt'>{config.translations.currency_debt}</div>
+                <div className='currency-debt'>{config.data.currency}</div>
                 <input className='count-input' type='number'
                   value={this.state.debt} onChange={e => this.setState({ debt: +e.target.value })}
                   onFocus={e => { if (toString(e.target.value) === '0') e.target.value = '' }}
@@ -172,7 +172,7 @@ export default class Debts extends React.Component {
               <div className='left-side'>
                 <span className='debt-list-date'>{formatDate(i.date)}</span>
                 <div className='debt-list-name'>
-                  <label className='currency'>{i.sum} {config.translations.currency_debt}</label>
+                  <label className='currency'>{i.sum} {config.data.currency}</label>
                   {i.desc && <span className='debt-list-desc'>{this.checkLength(i.desc)}</span>}
                 </div>
               </div>
