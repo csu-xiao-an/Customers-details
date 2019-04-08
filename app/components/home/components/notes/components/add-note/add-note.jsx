@@ -28,6 +28,7 @@ export default class AddNote extends React.Component {
           <div className='description'>
             <textarea autoFocus className='description-area'
               type='text'
+              rows='3'
               value={this.props.description}
               onChange={e => this.props.setDescription(e.target.value)}
               placeholder={config.translations.description_notes} />

@@ -412,17 +412,17 @@ var config = {
       // }
     ],
     notes: [
-      // {
-      //   id: 123123,
-      //   text: 'New Note',
-      //   date: '2017-11-29T03:58:49.129Z'
-      // },
-      // {
-      //   id: 123124,
-      //   text: 'New Reminder',
-      //   date: '2017-10-29T03:58:49.129Z',
-      //   reminder_date: '2017-12-29T03:58:49.129Z'
-      // }
+      {
+        id: 123123,
+        text: 'New Note',
+        date: '2017-11-29T03:58:49.129Z'
+      },
+      {
+        id: 123124,
+        text: 'New Reminder',
+        date: '2017-10-29T03:58:49.129Z',
+        reminder_date: '2017-12-29T03:58:49.129Z'
+      }
     ],
     groups: [
       {
