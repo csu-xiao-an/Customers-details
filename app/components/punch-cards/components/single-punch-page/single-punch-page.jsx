@@ -1,11 +1,13 @@
 import PunchHeader from '../panch-header/panch-header.jsx'
+import {Modal} from 'project-components'
 import {punchPostServiceUse, punchDeleteService, getPunchCardsList} from 'project-services'
 import './single-punch-page.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 export default class SinglePunchPage extends React.Component {
   state = {
     punchsList: [],
-    singlePunch: {}
+    singlePunch: {},
+    visibleAgreeModal: false
   }
   static propTypes = {
     history: PropTypes.object.isRequired,
@@ -39,8 +41,20 @@ export default class SinglePunchPage extends React.Component {
   update = () => this.forceUpdate()
   use = () => {
     const d = moment().format('YYYY-MM-DD hh:mm:ss')
-    punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r =>
-      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))))
+    punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r => {
+      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))
+      if (r) this.setState({ flag: true })
+    }))
+  }
+  delUse = () => {
+    this.state.uses.length && this.setState({ visibleAgreeModal: true })
+  }
+  confirmDel = () => {
+    this.setState({ visibleAgreeModal: false, flag: false, uses: this.state.singlePunch.uses || [] })
+    this.forceUpdate()
+  }
+  cancel = () => {
+    this.setState({ visibleAgreeModal: false })
   }
   render () {
     const { singlePunch = {}, uses = [] } = this.state
@@ -51,6 +65,7 @@ export default class SinglePunchPage extends React.Component {
         <div className='single-punch-wrap'>
           <div className={'single-punch ' + (this.daysLeft() > 0 && 'expired')}>
             <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
+            {this.state.flag && <button onClick={this.delUse} className={'button-del-use ' + (config.isRTL ? 'button-del-use-rtl' : 'button-del-use-ltr')}>{config.translations.punch_latest_del}</button>}
             <div className='punch-preview'>
               <div className='service-wrap'>
                 <span className='service-color' />
@@ -95,6 +110,16 @@ export default class SinglePunchPage extends React.Component {
             </div>}
           </div>
         </div>
+        <Modal show={this.state.visibleAgreeModal}>
+          <div className='modal-body'>
+            <img className='icon' src={config.urls.media + 'icon_delete_selected.svg'} />
+            <label>{config.translations.punch_del_question}</label>
+          </div>
+          <div className='modal-footer'>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.del_no.toUpperCase()}</button>
+            <button className='yes-btn' onClick={this.confirmDel}>{config.translations.del_yes.toUpperCase()}</button>
+          </div>
+        </Modal>
       </div>
     )
   }
