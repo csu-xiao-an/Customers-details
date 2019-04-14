@@ -394,24 +394,24 @@ var config = {
       {name: 'punch_cards', img: '/dist/media/notes.svg', url: '/punch_cards', plugin_name: 'punch_cards'}
     ],
     debts: [
-      // {
-      //   id: 1,
-      //   sum: 20,
-      //   desc: 'did not pay for a month',
-      //   date: '2015-07-07 13:20'
-      // },
-      // {
-      //   id: 2,
-      //   sum: 22,
-      //   desc: 'did not pay for a month',
-      //   date: '2016-07-07 13:01'
-      // },
-      // {
-      //   id: 3,
-      //   sum: 20,
-      //   desc: 'did not pay for a month',
-      //   date: '2017-07-07 13:01'
-      // }
+      {
+        id: 1,
+        sum: 20,
+        desc: 'did not pay for a month',
+        date: '2015-07-07 13:20'
+      },
+      {
+        id: 2,
+        sum: 22,
+        desc: 'did not pay for a month',
+        date: '2016-07-07 13:01'
+      },
+      {
+        id: 3,
+        sum: 20,
+        desc: 'did not pay for a month',
+        date: '2017-07-07 13:01'
+      }
     ],
     notes: [
       {
