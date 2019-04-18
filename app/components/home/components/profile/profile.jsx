@@ -1,15 +1,12 @@
 import './profile.styl'
 import Phone from '../phone/phone.jsx'
-// import Address from '../address/address.jsx'
-import NewAddress from '../newAddress/newAddress.jsx'
 import Sex from '../sex/sex.jsx'
 import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import {clientPutService, clientNewGetService, addressGetService, newGetService} from 'project-services'
-const {Link} = ReactRouterDOM
-let key
+
 export default class Profile extends React.Component {
 state = {
   visibleMapPopup: false,
@@ -27,7 +24,6 @@ state = {
   profileAddressEdit: false,
   isViewAdress: false,
   adress: [],
-  key: '',
   resetApi: true
 }
 componentDidMount = () => {
@@ -38,11 +34,6 @@ componentDidMount = () => {
     email: config.data.email ? config.data.email : null,
     gender: config.data.gender ? config.data.gender : null
   })
-  // newGetService().then(r => {
-  //   this.setState({key: r.r.api_key})
-  //   key = r.r.api_key
-  //   this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
-  // })
 }
 loadMap = (url, location) => {
   let scriptTag = document.createElement('script')
@@ -195,8 +186,7 @@ resetFields = () => {
 editInfo = () => {
   if (!window.google) {
     newGetService().then(r => {
-      this.setState({key: r.r.api_key})
-      key = r.r.api_key
+      const key = r.r.api_key
       this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
     })
   }
