@@ -38,11 +38,11 @@ componentDidMount = () => {
     email: config.data.email ? config.data.email : null,
     gender: config.data.gender ? config.data.gender : null
   })
-  newGetService().then(r => {
-    this.setState({key: r.r.api_key})
-    key = r.r.api_key
-    this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
-  })
+  // newGetService().then(r => {
+  //   this.setState({key: r.r.api_key})
+  //   key = r.r.api_key
+  //   this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
+  // })
 }
 loadMap = (url, location) => {
   let scriptTag = document.createElement('script')
@@ -193,6 +193,13 @@ resetFields = () => {
   })
 }
 editInfo = () => {
+  if (!window.google) {
+    newGetService().then(r => {
+      this.setState({key: r.r.api_key})
+      key = r.r.api_key
+      this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
+    })
+  }
   this.setState({editProfile: true, resetApi: true}, () => this.initMap())
 }
 render () {

@@ -416,12 +416,18 @@ var config = {
     notes: [
       {
         id: 123123,
-        text: 'New Note',
+        text: `New Notesdededed
+        qdwedewedwedewd
+        qewdewdewdewdew
+        wedewdewd
+        wedwedewd`,
         date: '2017-11-29T03:58:49.129Z'
       },
       {
         id: 123124,
-        text: 'New Reminder',
+        text: `New Notesdededed
+        qdwedewedwedewdц 
+        цццццццц цццццццц ццц ццц ц ццц`,
         date: '2017-10-29T03:58:49.129Z',
         reminder_date: '2017-12-29T03:58:49.129Z'
       }
