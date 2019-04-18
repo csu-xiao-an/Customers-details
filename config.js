@@ -121,7 +121,7 @@ var config = {
     submit: 'Submit',
     // only_now: 'Only now',
     amount: 'Amount',
-    description_debt: 'Description of debt',
+    placeholder_debts: 'Description of debt',
     success: 'Done',
     description_debts: 'Description:',
     description_notes: 'Description',
@@ -174,10 +174,10 @@ var config = {
     canceled: 'canceled',
     employer: 'Employer:',
     duration_minutes: 'mm',
-    add_first_punch: 'Add a first punch card',
+    add_first_punch_card: 'Add a first punch card',
     add_first_note: 'Add a first note',
     add_first_debt: 'Add a first debt',
-    add_first_item: 'Add a first item in gallery',
+    add_first_item_gallery: 'Add a first item in gallery',
     procedures: 'Procedures:',
     debts_t: 'Debts',
     profile_birthdate: 'Year, Month, Day',
@@ -211,7 +211,6 @@ var config = {
     from: ' from {count}',
     used: 'Used: ',
     color_card_topnav: 'Colors "{client_name}"',
-    new_punch: 'New punch',
     serch_proc: 'Search procedure',
     punch_service: 'Punch for {service_name}',
     number_of_uses: 'Number of uses:',
@@ -491,144 +490,144 @@ var config = {
       }
     ],
     gallery: [
-      {
-        id: 1,
-        name: '222.jpg',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 22,
-        name: '01.png',
-        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 2,
-        name: '02.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 3,
-        name: '03.png',
-        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 33,
-        name: '04.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 4,
-        name: '05.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 5,
-        name: '06.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 6,
-        name: '07.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 7,
-        name: '08.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 8,
-        name: 'video.mp4',
-        note: 'Lorem tur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 9,
-        name: '09.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 10,
-        name: '10.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 11,
-        name: 'document.pdf',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 12,
-        name: '11.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 13,
-        name: '12.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 14,
-        name: '13.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 15,
-        name: '14.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 16,
-        name: '15.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 17,
-        name: '16.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 18,
-        name: '17.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 19,
-        name: '18.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 20,
-        name: '19.mp3',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 21,
-        name: '20.mp3',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      }
+      // {
+      //   id: 1,
+      //   name: '222.jpg',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 22,
+      //   name: '01.png',
+      //   // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 2,
+      //   name: '02.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 3,
+      //   name: '03.png',
+      //   // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 33,
+      //   name: '04.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 4,
+      //   name: '05.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 5,
+      //   name: '06.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 6,
+      //   name: '07.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 7,
+      //   name: '08.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 8,
+      //   name: 'video.mp4',
+      //   note: 'Lorem tur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 9,
+      //   name: '09.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 10,
+      //   name: '10.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 11,
+      //   name: 'document.pdf',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 12,
+      //   name: '11.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 13,
+      //   name: '12.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 14,
+      //   name: '13.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 15,
+      //   name: '14.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 16,
+      //   name: '15.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 17,
+      //   name: '16.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 18,
+      //   name: '17.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 19,
+      //   name: '18.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 20,
+      //   name: '19.mp3',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 21,
+      //   name: '20.mp3',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // }
     ],
     recent_appoinments: [
       {

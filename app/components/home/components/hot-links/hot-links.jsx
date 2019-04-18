@@ -65,7 +65,7 @@ export default class HotLinks extends React.Component {
   renderAddLink = () => (
     <div className='link-add'>
       <Link className='circle-wrap' to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + config.urls.punch_cards_adding : config.urls.punch_cards_adding}><img src={`${config.urls.media}plus-white.svg`} /></Link>
-      <span className='link-name'>{config.translations.add_first_punch}</span>
+      <span className='link-name'>{config.translations.add_first_punch_card}</span>
     </div>
   )
   firstAddLink = (click, titles) => (
@@ -116,7 +116,7 @@ export default class HotLinks extends React.Component {
         })}
         {this.props.notesData.length === 0 && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
         {this.props.debtsData.length === 0 && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)}
-        {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item)}
+        {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item_gallery)}
         {/* <div>
           <div className='link add-btn'>
             <img className='add' src={config.urls.media + 'ic_add.png'} />
