@@ -30,9 +30,23 @@
       .punch-preview
         position relative
         border-radius 8px 8px 0 0
-        padding 1.6rem 0.5rem 0
         width 100%
+        background-color white
         height 100px
+      .punchcard-full
+        border-radius 8px 8px 0 0
+        padding 0.75rem 0.5rem 0
+        font-size 16px
+        line-height 1.25
+        opacity 0.3
+        padding-top 27px
+        background-image linear-gradient(to top, rgba(148, 106, 131, 0), rgba(254, 53, 139, 0.31))
+      .punchcard
+        border-radius 8px 8px 0 0
+        padding 0.75rem 0.5rem 0
+        font-size 16px
+        line-height 1.25
+        padding-top 27px
       .punch-preview:not(:first-child)
         margin-top -0.4rem
         box-shadow 0 -4px 20px 0 #bfafe0
@@ -46,6 +60,7 @@
         text-align center
         text-transform uppercase
       .service-color
+        background-color #000
         -webkit-margin-end 0.4rem
         -moz-margin-end 0.4rem
         margin-inline-end 0.4rem

@@ -96,6 +96,8 @@ var config = {
     delete: 'Delete',
     registration_date: 'The user was registered in: {registration_date}',
     del_question: 'Are you sure you want to delete selected customers?',
+    punch_del_question: 'Are you sure you want to delete the latest use?',
+    punch_latest_del: 'Cancel',
     del_no: 'No',
     del_yes: 'Yes',
     empty_punch_cards: 'Add a new punch-card',
@@ -120,7 +122,7 @@ var config = {
     submit: 'Submit',
     // only_now: 'Only now',
     amount: 'Amount',
-    description_debt: 'Description of debt',
+    placeholder_debts: 'Description of debt',
     success: 'Done',
     description_debts: 'Description:',
     description_notes: 'Description',
@@ -173,10 +175,10 @@ var config = {
     canceled: 'canceled',
     employer: 'Employer:',
     duration_minutes: 'mm',
-    add_first_punch: 'Add a first punch card',
+    add_first_punch_card: 'Add a first punch card',
     add_first_note: 'Add a first note',
     add_first_debt: 'Add a first debt',
-    add_first_item: 'Add a first item in gallery',
+    add_first_item_gallery: 'Add a first item in gallery',
     procedures: 'Procedures:',
     debts_t: 'Debts',
     profile_birthdate: 'Year, Month, Day',
@@ -198,6 +200,7 @@ var config = {
     punch_use: '{name}. Punch was used {countCur} / {count} uses',
     punch_end: '{name}. Punch was canceled',
     is_valid: 'Is valid until ',
+    used_punch_card: 'No more uses in this punch card',
     left: 'Left',
     days: 'days',
     currency_debt: '$',
@@ -210,7 +213,6 @@ var config = {
     from: ' from {count}',
     used: 'Used: ',
     color_card_topnav: 'Colors "{client_name}"',
-    new_punch: 'New punch',
     serch_proc: 'Search procedure',
     punch_service: 'Punch for {service_name}',
     number_of_uses: 'Number of uses:',
@@ -222,20 +224,6 @@ var config = {
     valid_until_adding: 'Punch is valid until',
     cancel: 'Cancel',
     next: 'Next',
-    months: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ],
     dates: {
       months: {
         0: 'January',
@@ -393,37 +381,43 @@ var config = {
       {name: 'punch_cards', img: '/dist/media/notes.svg', url: '/punch_cards', plugin_name: 'punch_cards'}
     ],
     debts: [
-      // {
-      //   id: 1,
-      //   sum: 20,
-      //   desc: 'did not pay for a month',
-      //   date: '2015-07-07 13:20'
-      // },
-      // {
-      //   id: 2,
-      //   sum: 22,
-      //   desc: 'did not pay for a month',
-      //   date: '2016-07-07 13:01'
-      // },
-      // {
-      //   id: 3,
-      //   sum: 20,
-      //   desc: 'did not pay for a month',
-      //   date: '2017-07-07 13:01'
-      // }
+      {
+        id: 1,
+        sum: 20,
+        desc: 'did not pay for a month',
+        date: '2015-07-07 13:20'
+      },
+      {
+        id: 2,
+        sum: 22,
+        desc: 'did not pay for a month',
+        date: '2016-07-07 13:01'
+      },
+      {
+        id: 3,
+        sum: 20,
+        desc: 'did not pay for a month',
+        date: '2017-07-07 13:01'
+      }
     ],
     notes: [
-      // {
-      //   id: 123123,
-      //   text: 'New Note',
-      //   date: '2017-11-29T03:58:49.129Z'
-      // },
-      // {
-      //   id: 123124,
-      //   text: 'New Reminder',
-      //   date: '2017-10-29T03:58:49.129Z',
-      //   reminder_date: '2017-12-29T03:58:49.129Z'
-      // }
+      {
+        id: 123123,
+        text: `New Notesdededed
+        qdwedewedwedewd
+        qewdewdewdewdew
+        wedewdewd
+        wedwedewd`,
+        date: '2017-11-29T03:58:49.129Z'
+      },
+      {
+        id: 123124,
+        text: `New Notesdededed
+        qdwedewedwedewdц 
+        цццццццц цццццццц ццц ццц ц ццц`,
+        date: '2017-10-29T03:58:49.129Z',
+        reminder_date: '2017-12-29T03:58:49.129Z'
+      }
     ],
     groups: [
       {
@@ -484,144 +478,144 @@ var config = {
       }
     ],
     gallery: [
-      {
-        id: 1,
-        name: '222.jpg',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 22,
-        name: '01.png',
-        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 2,
-        name: '02.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 3,
-        name: '03.png',
-        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 33,
-        name: '04.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 4,
-        name: '05.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 5,
-        name: '06.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 6,
-        name: '07.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 7,
-        name: '08.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 8,
-        name: 'video.mp4',
-        note: 'Lorem tur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 9,
-        name: '09.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 10,
-        name: '10.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 11,
-        name: 'document.pdf',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 12,
-        name: '11.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 13,
-        name: '12.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 14,
-        name: '13.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 15,
-        name: '14.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 16,
-        name: '15.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 17,
-        name: '16.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 18,
-        name: '17.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 19,
-        name: '18.png',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 20,
-        name: '19.mp3',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      },
-      {
-        id: 21,
-        name: '20.mp3',
-        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        date: '2017-12-18T02:09:54.486Z'
-      }
+      // {
+      //   id: 1,
+      //   name: '222.jpg',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 22,
+      //   name: '01.png',
+      //   // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 2,
+      //   name: '02.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 3,
+      //   name: '03.png',
+      //   // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 33,
+      //   name: '04.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 4,
+      //   name: '05.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 5,
+      //   name: '06.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 6,
+      //   name: '07.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 7,
+      //   name: '08.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 8,
+      //   name: 'video.mp4',
+      //   note: 'Lorem tur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 9,
+      //   name: '09.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 10,
+      //   name: '10.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 11,
+      //   name: 'document.pdf',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 12,
+      //   name: '11.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 13,
+      //   name: '12.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 14,
+      //   name: '13.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 15,
+      //   name: '14.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 16,
+      //   name: '15.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 17,
+      //   name: '16.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 18,
+      //   name: '17.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 19,
+      //   name: '18.png',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 20,
+      //   name: '19.mp3',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // },
+      // {
+      //   id: 21,
+      //   name: '20.mp3',
+      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+      //   date: '2017-12-18T02:09:54.486Z'
+      // }
     ],
     recent_appoinments: [
       {
