@@ -15,6 +15,8 @@ export default class SinglePunchPage extends React.Component {
   }
 
   componentWillMount = () => {
+    let uses = this.state.punchsList.find(i => i.uses)
+    console.log(uses);
     getPunchCardsList().then(punchsList => {
       this.setState({punchsList}, () => {
         this.setState({
