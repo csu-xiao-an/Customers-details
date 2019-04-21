@@ -1,6 +1,6 @@
 import PunchHeader from '../panch-header/panch-header.jsx'
 import {Modal} from 'project-components'
-import {punchPostServiceUse, punchDeleteService, getPunchCardsList} from 'project-services'
+import {punchPostServiceUse, punchDeleteService, getPunchCardsList, punchDeleteServiceUse} from 'project-services'
 import './single-punch-page.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 export default class SinglePunchPage extends React.Component {
@@ -15,19 +15,16 @@ export default class SinglePunchPage extends React.Component {
   }
 
   componentWillMount = () => {
-    let uses = this.state.punchsList.find(i => i.uses)
-    console.log(uses);
     getPunchCardsList().then(punchsList => {
-      this.setState({punchsList}, () => {
-        this.setState({
-          singlePunch: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {},
-          uses: this.state.punchsList.find(i => i.id === +this.props.match.params.punch_card_id).uses || []
-        })
+      const punchCard = punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {}
+      this.setState({
+        punchsList,
+        singlePunch: punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {},
+        uses: punchCard.uses || [],
       })
     })
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
-
   daysLeft = () => {
     const now = moment()
     const end = moment(this.state.singlePunch && this.state.singlePunch.expiration)
@@ -48,12 +45,18 @@ export default class SinglePunchPage extends React.Component {
       if (r) this.setState({ flag: true })
     }))
   }
-  delUse = () => {
-    this.state.uses.length && this.setState({ visibleAgreeModal: true })
+  delUse = usesId => {
+    this.state.uses.length && this.setState({ visibleAgreeModal: true, usesId })
   }
   confirmDel = () => {
-    this.setState({ visibleAgreeModal: false, flag: false, uses: this.state.singlePunch.uses || [] })
-    this.forceUpdate()
+    punchDeleteServiceUse(config.data.id, this.state.singlePunch.id, this.state.usesId).then(r => {
+      if (r.status === 204) {
+        this.setState({
+          uses: this.state.uses.filter(uses => uses.id !== this.state.usesId),
+          visibleAgreeModal: false
+        })
+      }
+    })
   }
   cancel = () => {
     this.setState({ visibleAgreeModal: false })
@@ -67,7 +70,7 @@ export default class SinglePunchPage extends React.Component {
         <div className='single-punch-wrap'>
           <div className={'single-punch ' + (this.daysLeft() > 0 && 'expired')}>
             <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
-            {this.state.flag && <button onClick={this.delUse} className={'button-del-use ' + (config.isRTL ? 'button-del-use-rtl' : 'button-del-use-ltr')}>{config.translations.punch_latest_del}</button>}
+            {/* {this.state.flag && <button onClick={this.delUse} className={'button-del-use ' + (config.isRTL ? 'button-del-use-rtl' : 'button-del-use-ltr')}>{config.translations.punch_latest_del}</button>} */}
             <div className='punch-preview'>
               <div className='service-wrap'>
                 <span className='service-color' />
@@ -106,7 +109,10 @@ export default class SinglePunchPage extends React.Component {
                 <div className='uses-date'><p>{moment(el.date).format('DD/MM/YYYY')}</p></div>
                 <div className='number-select'>
                   <p>{uses.length - [index]}</p>
-                  <img className={this.daysLeft() > 0 ? 'expiry-checkbox' : 'checkbox'} src={config.urls.media + 'checkbox-select.svg'} />
+                  <img className={this.daysLeft() > 0 ? 'expiry-checkbox' : 'checkbox'} 
+                    src={config.urls.media + 'checkbox-select.svg'} 
+                    onClick={() => this.delUse(el.id)}
+                  />
                 </div>
               </div>))}
             </div>}
