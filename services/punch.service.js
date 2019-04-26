@@ -70,8 +70,9 @@ export const deleteService = id => {
   return mainRequestService(url, options)
 }
 
-export const deleteServiceUse = (Pid, Uid) => {
-  const url = mainUrl + '/' + Pid + '/use/' + Uid
+export const deleteServiceUse = (client_id, card_id, use_id) => {
+  const url = config.urls.main +
+   config.urls.punch_card_del.replace('{client_id}', client_id).replace('{punch_card_id}', card_id).replace('{use_id}', use_id)
   const options = {
     mode: 'cors',
     method: 'DELETE'

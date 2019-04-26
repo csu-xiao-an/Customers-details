@@ -10,7 +10,7 @@ export default class PunchHeader extends React.Component {
   render () {
     return (
       <header className='punch-header'>
-        <button className={'prev-button ' + (config.isRTL && 'prev-button-rtl')} onClick={() => window.history.go(-1)} >
+        <button className={'prev-button ' + (config.isRTL ? 'rtl-btn' : 'ltr-btn')} onClick={() => window.history.go(-1)} >
           <img src={config.urls.media + 'arrow-back.svg'} />
         </button>
         <div className='header-wrap'>

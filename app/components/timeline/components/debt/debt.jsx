@@ -16,7 +16,7 @@ export default class Debt extends React.Component {
           <div className={`data ${this.props.i.is_deleted ? 'deleted' : 'normal'}`}>
             <span className='price'>
               {`${this.props.i.sum} ${config.data.currency}`}</span>
-            <p className='desc'>{this.props.i.desc ? this.props.i.desc : 'Long random text for testing depts'}</p>
+            {this.props.i.desc && <p className='desc'>{this.props.i.desc}</p>}
           </div>
         </div>
       </div>

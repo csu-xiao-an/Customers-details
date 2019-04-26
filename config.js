@@ -302,6 +302,7 @@ var config = {
     multi_del_url: '/customers-details/clients/{client_id}/media/{media_ids}',
     media_del: '/customers-details/clients/{client_id}/media/{media_id}',
     punch_cards_req: '/customers-details/clients/{client_id}/punch_cards',
+    punch_card_del: '/customers-details/clients/{client_id}/punch_cards/{punch_card_id}/use/{use_id}',
     signature: '/customers-details/clients/{client_id}/signature',
     gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
     media_url: '/customers-details/clients/{client_id}/media',
