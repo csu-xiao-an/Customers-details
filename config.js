@@ -96,7 +96,8 @@ var config = {
     delete: 'Delete',
     registration_date: 'The user was registered in: {registration_date}',
     del_question: 'Are you sure you want to delete selected customers?',
-    punch_del_question: 'Are you sure you want to delete the latest use?',
+    use_del_question: 'Are you sure you want to delete the latest use?',
+    punch_card_del_question: 'Are you sure you want to delete this punch card ? ',
     punch_latest_del: 'Cancel',
     del_no: 'No',
     del_yes: 'Yes',
@@ -223,6 +224,7 @@ var config = {
     ends: 'Ends',
     valid_until_adding: 'Punch is valid until',
     cancel: 'Cancel',
+    confirm: 'Confirm',
     next: 'Next',
     dates: {
       months: {
