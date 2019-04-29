@@ -98,6 +98,8 @@ var config = {
     del_question: 'Are you sure you want to delete selected customers?',
     use_del_question: 'Are you sure you want to delete the latest use?',
     punch_card_del_question: 'Are you sure you want to delete this punch card ? ',
+    expiration: 'Pls set an expiration date in future',
+    i_got_it: 'I got it',
     punch_latest_del: 'Cancel',
     del_no: 'No',
     del_yes: 'Yes',

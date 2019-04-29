@@ -1,6 +1,6 @@
 import {punchGetService, punchPostService} from 'project-services'
 import AccessRights from '../access-rights/access-rights.jsx'
-import {ProceduresList, Switch} from 'project-components'
+import { ProceduresList, Switch, Modal } from 'project-components'
 import './punch-cards-add.styl'
 const INITIAL_STATE = {
   date: moment().year() + '-12-31',
@@ -60,7 +60,10 @@ class PunchCardsAdd extends React.Component {
     const now = moment()
     const end = moment(this.state.date)
     const duration = now.diff(end, 'day')
-    return duration
+    this.setState({
+      duration: duration * (-1),
+      visibleAgreeModal: this.state.duration < 1
+    })
   }
   save = () => {
     let b = `service_id=${this.state.i.id}&service_count=${this.state.uses}&sum=${this.state.total}&added=${moment().format('YYYY-MM-DD hh:mm:ss')}`
@@ -132,9 +135,26 @@ class PunchCardsAdd extends React.Component {
     editDiscount: false,
     switch: false
   })
+  iGoIt = () => {
+    this.setState({ date: moment().year() + '-12-31', visibleAgreeModal: false }, this.cancel)
+  }
   toogleOpenServices = () => this.setState({isOpenServices: !this.state.isOpenServices})
   getService = i => this.setState({i: i, price: i.price, isService: false}, () => this.getTotal())
-  handleValidity = () => this.setState({switch: !this.state.switch})
+  handleValidity = () => {
+    const now = moment()
+    const end = moment(this.state.date)
+    const duration = now.diff(end, 'day')
+    this.setState({
+      switch: !this.state.switch,
+      duration: duration * (-1)
+    })
+  }
+  cancel = () => {
+    const now = moment()
+    const end = moment(this.state.date)
+    const duration = now.diff(end, 'day')
+    this.setState({ visibleAgreeModal: false, duration: duration * (-1) })
+  }
   render () {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
@@ -216,10 +236,10 @@ class PunchCardsAdd extends React.Component {
                   <div className='date_wrap'>
                     <p>{config.translations.ends}</p>
                   </div>
-                  <p className='daysLeft'>{config.translations.days_left.replace('{days}', this.daysLeft() * (-1))}</p> 
+                  <p className='daysLeft'>{config.translations.days_left.replace('{days}', this.state.duration)}</p>
                   {this.state.editDate
-                    ? <input className='change-expiry-date' onBlur={() => this.setState({editDate: false})} onChange={e => this.setState({date: e.target.value})} ref='changeDate' type='date' value={this.state.date} />
-                    : <p className='is_valid' onClick={() => this.setState({editDate: true}, () => this.refs.changeDate.focus())}>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment().format('YYYY')}`}</p>}
+                    ? <input className='change-expiry-date' onBlur={() => this.setState({ editDate: false }, this.daysLeft)} onChange={e => this.setState({date: e.target.value}, this.daysLeft)} ref='changeDate' type='date' value={this.state.date} />
+                    : <p className='is_valid' onClick={() => this.setState({ editDate: true }, () => { this.refs.changeDate.focus() })}>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment().format('YYYY')}`}</p>}
                 </div>}
               </div>
               <div className='buttons'>
@@ -233,6 +253,15 @@ class PunchCardsAdd extends React.Component {
             </div>}
           </div>
         </div>
+        <Modal show={this.state.visibleAgreeModal} onHide={this.iGoIt}>
+          <div className='modal-body'>
+            <img className='icon' src={config.urls.media + 'alert-octagon.svg'} />
+            <label>{config.translations.expiration}</label>
+          </div>
+          <div className='modal-footer'>
+            <button className='yes-btn' onClick={this.iGoIt}>{config.translations.i_got_it.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+          </div>
+        </Modal>
       </div>
     )
   }
