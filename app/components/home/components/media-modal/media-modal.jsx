@@ -1,9 +1,9 @@
 import {mediaReplaceService, mediaDeleteService} from 'project-services'
 import {formatDate, Modal, Swiper} from 'project-components'
 import './media-modal.styl'
-
+const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg', 'webm']
+const images = ['png', 'jpg', 'jpeg', 'svg', 'gif']
 export default class MediaModal extends React.Component {
-
   static propTypes = {
     initialSlide: PropTypes.number.isRequired,
     isOpenGallery: PropTypes.bool.isRequired,
@@ -16,14 +16,15 @@ export default class MediaModal extends React.Component {
   }
 
   onEdit (i) {
-    if (i.note)
-    {this.setState({
-      isEditNote: !this.state.isEditNote, 
-      textareaValue: config.data.gallery[this.state.activeIndex].note
-    })} else
-    { this.setState({
-      isEditNote: !this.state.isEditNote
-    })
+    if (i.note) {
+      this.setState({
+        isEditNote: !this.state.isEditNote, 
+        textareaValue: config.data.gallery[this.state.activeIndex].note
+      })
+    } else {
+      this.setState({
+        isEditNote: !this.state.isEditNote
+      })
     }
   }
   componentDidUpdate () {
@@ -34,56 +35,59 @@ export default class MediaModal extends React.Component {
   }
 
   typeItem = (i, k) => {
+    let splitedName = i.name.split('.')
+    let typeFile = splitedName[splitedName.length - 1].toLowerCase()
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
-      if (i.name.indexOf('mp4') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
-      if (i.name.indexOf('webm') !== -1) { return <video src={config.urls.gallery + i.name} controls /> } else
-      if (i.name.indexOf('pdf') !== -1) {
+      if (video.find(i => i === typeFile)) { return <video src={config.urls.gallery + i.name.toLowerCase()} controls /> } else
+      if (typeFile === 'pdf') {
         return <iframe src={config.urls.preview_pdf.replace('{url}', config.urls.main + config.urls.url_pdf + i.name)} />
       } else
-      if (i.name.indexOf('mp3') !== -1) {
+      if (typeFile === 'mp3') {
         return (<div>
           <img className='audio-img' src={config.urls.media + 'audio_file.png'} />
           <audio src={config.urls.gallery + i.name} controls />
         </div>)
       } else
-      if (i.name.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { return (
-        <div>
-          <img src={config.urls.gallery + i.name} />
-          <div className='modal-footer'>
-            <div className='main'>
-              <div className='row1'>
-                <span className='name'>{i.name}</span>
-                <div className='icons'>
-                  <img src={config.urls.media + 'pencil-edit.svg'}
-                    style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}}
-                    onClick={() => this.onEdit(i)} />
-                  <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
+      if (images.find(i => i === typeFile)) {
+        return (
+          <div>
+            <img src={config.urls.gallery + i.name} />
+            <div className='modal-footer'>
+              <div className='main'>
+                <div className='row1'>
+                  <span className='name'>{i.name}</span>
+                  <div className='icons'>
+                    <img src={config.urls.media + 'pencil-edit.svg'}
+                      style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}}
+                      onClick={() => this.onEdit(i)} />
+                    <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
+                  </div>
+                </div>
+                <div className='row2'>
+                  <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+                  <span className='date'>{formatDate(i.date)}</span>
                 </div>
               </div>
-              <div className='row2'>
-                <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
-                <span className='date'>{formatDate(i.date)}</span>
-              </div>
+              {(i.note || this.state.isEditNote) && <div className='data'>
+                <span className={this.state.isEditNote ? 'hidden' : 'note'}>
+                  {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
+                <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
+                  <textarea id={'textarea_id_' + i.id} className={this.state.isEditNote ? 'textarea' : 'hidden'}
+                    onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}
+                    placeholder={this.state.textareaValue ? this.state.textareaValue : config.translations.add_note}
+                  />
+                  <div className='action'>
+                    <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
+                      onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
+                      {config.translations.save}
+                    </button>
+                  </div>
+                </div>
+              </div>}
             </div>
-            {(i.note || this.state.isEditNote) && <div className='data'>
-              <span className={this.state.isEditNote ? 'hidden' : 'note'}>
-                {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
-              <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
-                <textarea id={'textarea_id_' + i.id} className={this.state.isEditNote ? 'textarea' : 'hidden'}
-                  onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}
-                  placeholder={this.state.textareaValue ? this.state.textareaValue : config.translations.add_note}
-                />
-                <div className='action'>
-                  <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
-                    onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
-                    {config.translations.save}
-                  </button>
-                </div>
-              </div>
-            </div>}
           </div>
-        </div>
-      )}
+        )
+      }
     }
   }
   replace = id => {
