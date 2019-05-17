@@ -21,20 +21,21 @@ const INITIAL_STATE = {
   data: [],
   i: {}
 }
-const Control = ({c, l, m, p, v}) => {
+const Control = ({c, l, m, p, v, bool}) => {
   Control.propTypes = {
     l: PropTypes.string.isRequired,
     c: PropTypes.string.isRequired,
     v: PropTypes.string.isRequired,
     p: PropTypes.func.isRequired,
-    m: PropTypes.func.isRequired
+    m: PropTypes.func.isRequired,
+    bool: PropTypes.bool
   }
   return (
     <div className={c}>
       <p className='label'>{l}</p>
       <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
-        <div className='ink' onClick={p}><img src={`${config.urls.media}plus.svg`} /></div><input className='count-input' type='text' value={v} disabled />
-        <div className='ink' onClick={m}><img src={`${config.urls.media}minus.svg`} /></div>
+        <button className='ink' onClick={p}><img src={`${config.urls.media}plus.svg`} /></button><input className='count-input' type='text' value={v} disabled />
+        <button className='ink' onClick={m} disabled={bool}><img src={`${config.urls.media}minus.svg`} /></button>
       </div>
     </div>
   )
@@ -86,7 +87,7 @@ class PunchCardsAdd extends React.Component {
     this.setState(prevState => ({
       editDiscount: false,
       renderDiscount: true,
-      uses: prevState.uses + 1
+      uses: +prevState.uses + 1
     }), () => this.setState({total: this.state.i.price * this.state.uses, price: this.state.i.price}))
   }
   handleDecrementUses = () => {
@@ -187,6 +188,7 @@ class PunchCardsAdd extends React.Component {
               </div>
               <div className='single-service'>
                 <Control m={this.handleDecrementUses}
+                  bool={this.state.uses === 1}
                   p={this.handleIncrementUses}
                   l={config.translations.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
                 <div className='upd-discont-wrap'>
@@ -223,9 +225,9 @@ class PunchCardsAdd extends React.Component {
                     </p>
                   </div>
                   <div className='input-wrap'>
-                    <div className='ink' onClick={this.handleIncrementTotal}><img src={`${config.urls.media}plus.svg`} /></div>
+                    <button className='ink' onClick={this.handleIncrementTotal}><img src={`${config.urls.media}plus.svg`} /></button>
                     <input className='count-input total-input' type='text' value={this.state.total + ' ' + config.data.currency} disabled />
-                    <div className='ink' onClick={this.handleDecrementTotal}><img src={`${config.urls.media}minus.svg`} /></div>
+                    <button className='ink' onClick={this.handleDecrementTotal}><img src={`${config.urls.media}minus.svg`} /></button>
                   </div>
                 </div>
                 <div className='expiration_wrap'>
