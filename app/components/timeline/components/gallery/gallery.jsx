@@ -64,13 +64,13 @@ export default class Gallery extends React.Component {
             <img className='img-gallery' src={this.fileIcon(this.props.i.name)} />
             <span className='file-name'>{this.props.i.name}</span>
           </div>
-          <div className='share-wrap'>
+          {/* <div className='share-wrap'>
             <Share {...this.props} opt={{
               title: config.translations.share_title,
               text: config.translations.share_text,
               url: config.urls.gallery_sharing_base_url + this.props.i.name
             }} />
-          </div>
+          </div> */}
         </div>
         <div className='order-in'>
           <div className='create-time'>
