@@ -87,7 +87,7 @@ export default class Hero extends React.Component {
     this.setState({status: e.target.value})
   }
   changeInputState = () => {
-    this.setState({ isInputDisabled: !this.state.isInputDisabled })
+    this.setState({ isInputDisabled: !this.state.isInputDisabled }, () => document.getElementById('status-label').focus())
   }
   delInfo = () => {
     this.setState({ isInputDisabled: false, status: config.data.status })
@@ -122,21 +122,20 @@ export default class Hero extends React.Component {
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
         <div>
-          <div className='input-group'>
+          <form>
             <span className='status-label'>{config.translations.status}</span>
             {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.placeholder}</span>}
             {this.state.isInputDisabled && <input
               type='text'
+              id='status-label'
               value={this.state.status}
               placeholder={config.translations.placeholder}
               onChange={e => this.changeInput(e)} />}
             <span onClick={!this.state.isInputDisabled ? () => this.changeInputState() : () => this.handleStatus()} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
-              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
+              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'check-circle-status.svg'} /> 
             </span>
-            {this.state.isInputDisabled && <div className='del-wrap' onClick={this.delInfo}>
-              <img src={config.urls.media + 'plus2.svg'} />
-            </div>}
-          </div>
+            {this.state.isInputDisabled && <img className='del-status-icon' src={config.urls.media + 'x-circle.svg' } onClick={this.delInfo}/>}
+          </form>
         </div>
         <div className='img'>
           <img className='client-img'
