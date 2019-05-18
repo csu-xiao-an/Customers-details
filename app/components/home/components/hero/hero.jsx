@@ -1,4 +1,4 @@
-import {clientReplaceService, clientPostServiceImg, StatusPutService} from 'project-services'
+import {clientReplaceService, clientPostServiceImg, StatusService} from 'project-services'
 import {dataURLtoFile, getOrientation, Resize} from 'project-components'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
@@ -37,7 +37,7 @@ export default class Hero extends React.Component {
   }
   handleStatus = () => {
     const body = `${config.urls.status}=${this.state.status}`
-    StatusPutService(body).then(r => {
+    StatusService(body).then(r => {
       if (r.status === 204) {
         config.data.status = this.state.status
         this.setState({isInputDisabled: false})

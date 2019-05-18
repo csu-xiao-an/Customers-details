@@ -24,14 +24,14 @@ export const putService = body => {
   }
   return mainRequestService(url, options)
 }
-export const StatusPutService = body => {
+export const StatusReplaceService = body => {
   const url = config.urls.main + config.urls.clients.replace('{client_id}', config.data.id) + config.urls.user_status_url
   const options = {
     mode: 'cors',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    method: 'PUT',
+    method: 'PATCH',
     body
   }
   return mainRequestService(url, options)
