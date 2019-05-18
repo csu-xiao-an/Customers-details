@@ -36,7 +36,7 @@ export default class Hero extends React.Component {
     }
   }
   handleStatus = () => {
-    const body = `${config.urls.status}=${this.state.status}`
+    const body = `status=${this.state.status}`
     StatusService(body).then(r => {
       if (r.status === 204) {
         config.data.status = this.state.status

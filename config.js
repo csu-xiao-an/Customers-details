@@ -342,7 +342,6 @@ var config = {
     timeline: '/timeline',
     groups: '/groups/',
     login: '/en/login',
-    status: 'status',
     source: 'source',
     gender: 'gender',
     phone: 'phone',
