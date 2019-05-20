@@ -296,7 +296,6 @@ var config = {
   },
   urls: {
     new_test_address: 'https://api.bewebmaster.co.il/settings/maps-api-key',
-    user_status_url: '/status',
     address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
     preview_pdf: 'https://docs.google.com/viewer?url={url}embedded=true',
     timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
