@@ -364,7 +364,7 @@ var config = {
     details_link_active: false,
     permit_ads: false,
     signature: './dist/media/autograph.png',
-    status: 'Bla bla bla',
+    status: 'The re is something about ZHU',
     profile_image: '24.jpg',
     // source: 'ads',
     gender: 'male',

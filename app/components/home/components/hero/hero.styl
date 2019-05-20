@@ -1,7 +1,9 @@
 // @import "../../../../variables.css"
 #hero
-  input
+  textarea
     border none
+    height 22px
+    padding 0
     font-size 1rem
     margin-left 10px
     -webkit-margin-start 10px
@@ -9,7 +11,7 @@
     background rgba(0,0,0,0)
     color var(--black)
     font-family var(--font-family)
-    width 100px
+    width 100%
     outline none
     &:focus
       background rgba(0,0,0,0.0)
@@ -102,9 +104,7 @@
   form
     display flex
     align-items center
-    margin-left 10px
-    -webkit-margin-start 10px
-    -moz-margin-start 10px
+    padding 0 10px
     bottom 0
     position absolute
     width -webkit-fill-available

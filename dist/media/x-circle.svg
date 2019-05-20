@@ -10,8 +10,8 @@
         <mask id="mask-2" fill="white">
             <use xlink:href="#path-1"></use>
         </mask>
-        <use id="Combined-Shape" fill="#BFAFE0" fill-rule="nonzero" xlink:href="#path-1"></use>
-        <g id="COLOR/-black" mask="url(#mask-2)" fill="#BFAFE0">
+        <use id="Combined-Shape" fill="#50e3c1" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="COLOR/-black" mask="url(#mask-2)" fill="#50e3c1">
             <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
         </g>
     </g>

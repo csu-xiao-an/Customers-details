@@ -84,13 +84,18 @@ export default class Hero extends React.Component {
   }
 
   changeInput = e => {
-    this.setState({status: e.target.value})
+    this.setState({ status: e.target.value }, () => this.handleHeightStatus())
   }
   changeInputState = () => {
-    this.setState({ isInputDisabled: !this.state.isInputDisabled }, () => document.getElementById('status-label').focus())
+    this.setState({ isInputDisabled: !this.state.isInputDisabled }, () => this.handleHeightStatus())
   }
   delInfo = () => {
     this.setState({ isInputDisabled: false, status: config.data.status })
+  }
+  handleHeightStatus = () => {
+    let height = document.getElementById('status-label').scrollHeight
+    document.getElementById('status-label').focus()
+    document.getElementById('status-label').setAttribute('style', 'height:' + height + 'px')
   }
   render () {
     return (
@@ -125,7 +130,7 @@ export default class Hero extends React.Component {
           <form>
             <span className='status-label'>{config.translations.status}</span>
             {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.placeholder}</span>}
-            {this.state.isInputDisabled && <input
+            {this.state.isInputDisabled && <textarea
               type='text'
               id='status-label'
               value={this.state.status}
