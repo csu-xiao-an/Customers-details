@@ -63,7 +63,7 @@ export default class Appoinment extends React.Component {
             {this.props.i.services && this.props.i.services.map(i => <div className='procedures-item'>
               <div className='service'>
                 <span className='icon' style={{backgroundColor: i.color}} />
-                <span className='name'>{i.name}</span>
+                <span className='name'>{i.name + (i.count > 1 ? (' ⨯ ' + i.count) : '')}</span>
               </div>
             </div>
             )}
