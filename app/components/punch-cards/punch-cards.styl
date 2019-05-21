@@ -48,6 +48,9 @@
         opacity 0.3
         background-image linear-gradient(to top, rgba(148, 106, 131, 0), rgba(254, 53, 139, 0.31))
       .punchcard
+        display flex
+        flex-direction column
+        align-items center
         border-radius 8px 8px 0 0
         padding 0.75rem 0.5rem 0
         font-size 16px
@@ -57,14 +60,17 @@
         margin-top -0.4rem
         box-shadow 0 -4px 20px 0 #bfafe0
       .punch-name
-        // display flex
-        // justify-content center
         opacity 0.87
         font-size 16px
         font-weight 500
         line-height 1
         text-align center
         text-transform uppercase
+      .exp-name
+        width 45%
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
       .service-color
         background-color #000
         -webkit-margin-end 0.4rem

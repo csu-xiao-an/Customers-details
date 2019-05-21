@@ -47,7 +47,7 @@ export default class SinglePunchPage extends React.Component {
   update = () => this.forceUpdate()
   use = () => {
     this.setState({disabledUse: true})
-    const d = moment().format('YYYY-MM-DD hh:mm:ss')
+    const d = moment().format('YYYY-MM-DD HH:mm:ss')
     punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r => {
       this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses], disabledUse: false }))
       if (r) this.setState({ flag: true })
@@ -74,7 +74,6 @@ export default class SinglePunchPage extends React.Component {
     if ((this.state.uses && this.state.uses.length >= this.state.singlePunch.service_count) || this.daysLeft() > 0) {
       return false
     } else this.use()
-    // onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use}
   }
   render () {
     const { singlePunch = {}, uses = [] } = this.state

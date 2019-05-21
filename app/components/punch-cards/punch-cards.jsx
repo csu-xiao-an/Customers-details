@@ -33,8 +33,6 @@ class PunchCards extends React.Component {
         this.props.history.push(baseUrl + config.urls.single_punch.replace('{punch_card_id}', item.id))
       }
     )
-    // onClick={() => this.setState({punch: i}, () => {
-    //   this.props.history.push(baseUrl + config.urls.single_punch.replace('{punch_card_id}', i.id))
   }
   expiration = item => {
     if (item.expiration) {
@@ -54,7 +52,7 @@ class PunchCards extends React.Component {
             </div>}
             <div className={'punchcard' + ((i.uses && i.uses.length === i.service_count) || this.expiration(i) > 0 ? ' punchcard-full' : '')}
               onClick={() => this.handleCardClick(i)}>
-              <p className='punch-name'>
+              <p className={'punch-name' + (this.expiration(i) > 0 ? ' exp-name' : '')}>
                 <span className='service-color' />{i.service_name}
               </p>
               <div className='punch'>
@@ -71,7 +69,6 @@ class PunchCards extends React.Component {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
     }
-    // this.state.from && this.updatePunchList1(this.props.location.state.punchsList)
     return (
       <div id='punch_cards' style={bgrImg}>
         <PunchHeader length={this.state.punchsList.length} />
