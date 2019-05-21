@@ -10,7 +10,6 @@ export default class HotLinks extends React.Component {
     rights: PropTypes.object.isRequired,
     debtsData: PropTypes.array.isRequired,
     notesData: PropTypes.array.isRequired,
-    showAddGallery: PropTypes.bool.isRequired,
     addingFirstItem: PropTypes.func.isRequired,
     createFirstNote: PropTypes.func.isRequired,
     createFirstDebt: PropTypes.func.isRequired
