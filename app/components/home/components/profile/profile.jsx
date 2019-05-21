@@ -20,6 +20,7 @@ state = {
   permit_ads: false,
   profileBirthEdit: false,
   profileEmailEdit: false,
+  profileNameEdit: false,
   profilePhoneEdit: false,
   profileAddressEdit: false,
   isViewAdress: false,
@@ -154,6 +155,7 @@ saveAll = () => {
         for (let key in newArray) {
           if (fields.includes(key)) {
             config.data[key] = newArray[key]
+            this.state[key] = newArray[key]
             this.forceUpdate()
           }
         }
@@ -172,15 +174,15 @@ changeDays = () => this.setState({newDays: config.data.birthdate && config.data.
 changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
-changeAddressEdit = () => {
-  this.setState({profileAddressEdit: !this.state.profileAddressEdit})
-}
+changeAddressEdit = () => { this.setState({profileAddressEdit: !this.state.profileAddressEdit}) }
+changeNameEdit = () => { this.setState({profileNameEdit: !this.state.profileNameEdit}) }
 resetFields = () => {
   this.setState({
     profileEmailEdit: false,
     profileBirthEdit: false,
     profileAddressEdit: false,
-    profilePhoneEdit: false
+    profilePhoneEdit: false,
+    profileNameEdit: false
   })
 }
 editInfo = () => {
@@ -214,21 +216,35 @@ render () {
             <div>{config.translations.editProfile}</div>
           </div>}
       </div>
-      {(this.props.isVisibleFields || config.data.name) && <div id='name'>
-        {!this.state.editProfile ? <div className='fullname'>
+      {(this.state.editProfile || (this.props.isVisibleFields || config.data.name)) && <div id='name'>
+        {!this.state.editProfile && <div className='fullname'>
           <div className='fullname-wrap'>
             <span className='label'>{config.translations.name}:</span>
             <span className='block-content'>{config.data.name}</span>
           </div>
-        </div>
-          : <div className='fullname-edit'>
+        </div>}
+        {(this.state.editProfile && !config.data.name)
+          ? <div onClick={() => this.changeNameEdit()}
+            className={!this.state.profileNameEdit ? 'add-name' : 'hidden'}>
+            <div className='wrap-name-full'>
+              <span className='label'>{config.translations.name}:</span>
+              <h1>{config.translations.add_name}</h1>
+            </div>
+            <div className='add-info'>
+              <div className='add-wrap'>
+                <img src={config.urls.media + 'profile_plus.svg'} />
+              </div>
+            </div>
+          </div> : ''}
+        {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
+          <div className='fullname-edit'>
             <div className='edit-wrap'>
               <span className='label'>{config.translations.name}:</span>
               <input className='edit-input'
                 id='name-input'
                 type='text'
                 value={this.state.name}
-                onChange={e => this.setState({name: e.target.value})} />
+                onChange={e => this.setState({ name: e.target.value })} />
             </div>
             <div className='del-info'>
               <div className='del-wrap' onClick={this.delName}>
