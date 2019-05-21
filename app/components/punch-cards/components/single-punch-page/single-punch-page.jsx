@@ -98,7 +98,7 @@ export default class SinglePunchPage extends React.Component {
                   <span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span>
                 </p>
               </div>
-              <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
+              <div className={'sum ' + (config.isRTL ? 'sum-rtl' : 'sum-ltr')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
             {this.daysLeft() > 0
               ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>

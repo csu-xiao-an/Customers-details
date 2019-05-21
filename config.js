@@ -203,7 +203,7 @@ var config = {
     punch_use: '{name}. Punch was used {countCur} / {count} uses',
     punch_end: '{name}. Punch was canceled',
     is_valid: 'Is valid until ',
-    used_punch_card: 'No more uses in this punch card',
+    used_punch_card: 'No more uses',
     left: 'Left',
     days: 'days',
     currency_debt: '$',
@@ -227,7 +227,6 @@ var config = {
     cancel: 'Cancel',
     confirm: 'Confirm',
     next: 'Next',
-    expired_dates: 'Expired dates',
     dates: {
       months: {
         0: 'January',

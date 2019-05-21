@@ -48,7 +48,7 @@ class PunchCards extends React.Component {
         {this.state.punchsList.map(i => (
           <div className='punch-preview'>
             {this.expiration(i) > 0 && <div className='expired-dates'>
-              <span>{config.translations.expired_dates}</span>
+              <span>{config.translations.expiry_dates}</span>
             </div>}
             <div className={'punchcard' + ((i.uses && i.uses.length === i.service_count) || this.expiration(i) > 0 ? ' punchcard-full' : '')}
               onClick={() => this.handleCardClick(i)}>
