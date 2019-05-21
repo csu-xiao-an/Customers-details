@@ -68,5 +68,7 @@ export default class Topnav extends React.Component {
         {this.state.isActive && <Menu closeMenu={this.closeMenu} />}
       </div>
     )
+    // <div className={'arrow-wrap ' + (config.isRTL ? 'rtl' : 'ltr')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
+    // <img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
   }
 }
