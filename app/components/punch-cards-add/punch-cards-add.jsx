@@ -58,16 +58,16 @@ class PunchCardsAdd extends React.Component {
     }))
   }
   daysLeft = () => {
-    const now = moment()
-    const end = moment(this.state.date)
-    const duration = now.diff(end, 'day')
+    const now = moment().format('YYYY-MM-DD')
+    const end = moment(this.state.date).format('YYYY-MM-DD')
+    const duration = moment(now).diff(moment(end), 'day')
     this.setState({
       duration: duration * (-1),
-      visibleAgreeModal: this.state.duration < 1
+      visibleAgreeModal: this.state.duration < 0
     })
   }
   save = () => {
-    let b = `service_id=${this.state.i.id}&service_count=${this.state.uses}&sum=${this.state.total}&added=${moment().format('YYYY-MM-DD hh:mm:ss')}`
+    let b = `service_id=${this.state.i.id}&service_count=${this.state.uses}&sum=${this.state.total}&added=${moment().format('YYYY-MM-DD HH:mm:ss')}`
     if (this.state.switch) b = b + `&expiration=${this.state.date}`
     punchPostService(b).then(r => r.status === 201 && r.json().then(id => {
       this.props.history.push(baseUrl + config.urls.punch_cards)
@@ -220,7 +220,6 @@ class PunchCardsAdd extends React.Component {
                     <p className='total_num'>{config.translations.price_single}
                       <span className='num'>
                         {this.state.price + ' ' + config.data.currency}
-                        {/* {(this.state.price - ((this.state.price * this.state.discount) / 100)) + ' ' + config.data.currency} */}
                       </span>
                     </p>
                   </div>
@@ -238,9 +237,18 @@ class PunchCardsAdd extends React.Component {
                   <div className='date_wrap'>
                     <p>{config.translations.ends}</p>
                   </div>
-                  <p className='daysLeft'>{config.translations.days_left.replace('{days}', this.state.duration)}</p>
+                  <p className='daysLeft'>
+                    {moment(this.state.date).endOf('day').fromNow()}
+                  </p>
                   {this.state.editDate
-                    ? <input className='change-expiry-date' onBlur={() => this.setState({ editDate: false }, this.daysLeft)} onChange={e => this.setState({date: e.target.value}, this.daysLeft)} ref='changeDate' type='date' value={this.state.date} />
+                    ? <input
+                      className='change-expiry-date'
+                      onBlur={() => this.setState({ editDate: false }, this.daysLeft)}
+                      onChange={e => this.setState({date: e.target.value}, this.daysLeft)}
+                      ref='changeDate'
+                      type='date'
+                      value={this.state.date}
+                    />
                     : <p className='is_valid' onClick={() => this.setState({ editDate: true }, () => { this.refs.changeDate.focus() })}>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment().format('YYYY')}`}</p>}
                 </div>}
               </div>

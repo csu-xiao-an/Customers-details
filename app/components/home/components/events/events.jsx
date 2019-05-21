@@ -105,14 +105,14 @@ export default class Events extends React.Component {
             </div>)
           )}
         </div>
-        {/* <a href={this.props.rights.events.cr_app
+        <a href={this.props.rights.events.cr_app
           ? `${config.urls.main}${config.urls.appointment}?client_id=${config.data.id}&worker_id=${config.user.worker_id}`
           : false}>
           <div className='event-footer'>
             <label>{config.translations.add_new_queue}</label>
             <img className='add' src={config.urls.media + 'c_add_stroke.svg'} />
           </div>
-        </a> */}
+        </a>
       </div>
     )
   }

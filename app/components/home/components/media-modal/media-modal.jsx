@@ -38,7 +38,7 @@ export default class MediaModal extends React.Component {
     let splitedName = i.name.split('.')
     let typeFile = splitedName[splitedName.length - 1].toLowerCase()
     if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
-      if (video.find(i => i === typeFile)) { return <video src={config.urls.gallery + i.name.toLowerCase()} controls /> } else
+      if (video.find(i => i === typeFile)) { return <video src={config.urls.gallery + i.name} controls /> } else
       if (typeFile === 'pdf') {
         return <iframe src={config.urls.preview_pdf.replace('{url}', config.urls.main + config.urls.url_pdf + i.name)} />
       } else

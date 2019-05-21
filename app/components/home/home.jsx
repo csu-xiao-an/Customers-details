@@ -171,7 +171,7 @@ class Home extends React.Component {
           getProfilePicture={this.getProfilePicture}
         />
         {isEventVisible && <Events {...this.props} />}
-        {/* {isDebtsVisible && <Debts
+        {isDebtsVisible && <Debts
           hiddenEmptyDepts={this.hiddenEmptyDepts}
           createNewDebt={this.createNewDebt}
           editeDebt={this.editeDebt}
@@ -179,7 +179,7 @@ class Home extends React.Component {
           debtsData={this.state.debtsData}
           activateDebt={this.state.activateDebt}
           {...this.props}
-        /> } */}
+        /> }
         {isNotesVisible && <Notes
           hiddenNotes={this.hiddenNotes}
           activateNone={this.state.activateNone}
@@ -189,18 +189,18 @@ class Home extends React.Component {
           notesData={this.state.notesData}
           {...this.props}
         />}
-        <Media
+        {isGalleryVisible && <Media
           addedItemInGallery={this.addedItemInGallery}
           galleryData={this.state.galleryData}
           {...this.props}
-        />
+        />}
         {isGroupsVisible && <Groups {...this.props} />}
         {/* <Signature {...this.props} /> */}
         {/* {isSocialNetworkVisible && <SocialNetwork {...this.props} />} */}
-        {/* {!this.state.isVisibleFields && <div className='main-button'>
+        {!this.state.isVisibleFields && <div className='main-button'>
           <button onClick={this.showFields}>{config.translations.show_more_fields.toUpperCase()}</button>
         </div>}
-        <DeleteCustomer {...this.props} /> */}
+        <DeleteCustomer {...this.props} />
       </div>
     )
   }

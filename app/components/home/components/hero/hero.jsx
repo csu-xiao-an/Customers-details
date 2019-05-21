@@ -1,4 +1,4 @@
-import {clientReplaceService, clientPostServiceImg, StatusPutService} from 'project-services'
+import {clientReplaceService, clientPostServiceImg, StatusService} from 'project-services'
 import {dataURLtoFile, getOrientation, Resize} from 'project-components'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
@@ -36,8 +36,8 @@ export default class Hero extends React.Component {
     }
   }
   handleStatus = () => {
-    const body = `${config.urls.status}=${this.state.status}`
-    StatusPutService(body).then(r => {
+    const body = `status=${this.state.status}`
+    StatusService(body).then(r => {
       if (r.status === 204) {
         config.data.status = this.state.status
         this.setState({isInputDisabled: false})
@@ -56,7 +56,7 @@ export default class Hero extends React.Component {
     })
   }
   uploadPhoto = newFile => {
-    let d = moment(newFile.lastModified).format('YYYY-MM-DD hh:mm:ss')
+    let d = moment(newFile.lastModified).format('YYYY-MM-DD HH:mm:ss')
     let body = new FormData()
     body.append('date', d)
     body.append('file', newFile)
@@ -84,13 +84,18 @@ export default class Hero extends React.Component {
   }
 
   changeInput = e => {
-    this.setState({status: e.target.value})
+    this.setState({ status: e.target.value }, () => this.handleHeightStatus())
   }
   changeInputState = () => {
-    this.setState({ isInputDisabled: !this.state.isInputDisabled })
+    this.setState({ isInputDisabled: !this.state.isInputDisabled }, () => this.handleHeightStatus())
   }
   delInfo = () => {
     this.setState({ isInputDisabled: false, status: config.data.status })
+  }
+  handleHeightStatus = () => {
+    let height = document.getElementById('status-label').scrollHeight
+    document.getElementById('status-label').focus()
+    document.getElementById('status-label').setAttribute('style', 'height:' + height + 'px')
   }
   render () {
     return (
@@ -122,21 +127,20 @@ export default class Hero extends React.Component {
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
         <div>
-          <div className='input-group'>
+          <form>
             <span className='status-label'>{config.translations.status}</span>
             {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.placeholder}</span>}
-            {this.state.isInputDisabled && <input
+            {this.state.isInputDisabled && <textarea
               type='text'
+              id='status-label'
               value={this.state.status}
               placeholder={config.translations.placeholder}
               onChange={e => this.changeInput(e)} />}
             <span onClick={!this.state.isInputDisabled ? () => this.changeInputState() : () => this.handleStatus()} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
-              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'checkmark2.png'} />
+              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'check-circle-status.svg'} /> 
             </span>
-            {this.state.isInputDisabled && <div className='del-wrap' onClick={this.delInfo}>
-              <img src={config.urls.media + 'plus2.svg'} />
-            </div>}
-          </div>
+            {this.state.isInputDisabled && <img className='del-status-icon' src={config.urls.media + 'x-circle.svg' } onClick={this.delInfo}/>}
+          </form>
         </div>
         <div className='img'>
           <img className='client-img'

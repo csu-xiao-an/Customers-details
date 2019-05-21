@@ -9,6 +9,7 @@ export default class SinglePunchPage extends React.Component {
     punchsList: [],
     singlePunch: {},
     visibleAgreeModal: false,
+    disabledUse: false,
     isUses: false
   }
   static propTypes = {
@@ -16,7 +17,7 @@ export default class SinglePunchPage extends React.Component {
     match: PropTypes.object.isRequired
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     getPunchCardsList().then(punchsList => {
       const punchCard = punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {}
       this.setState({
@@ -45,9 +46,10 @@ export default class SinglePunchPage extends React.Component {
   }
   update = () => this.forceUpdate()
   use = () => {
-    const d = moment().format('YYYY-MM-DD hh:mm:ss')
+    this.setState({disabledUse: true})
+    const d = moment().format('YYYY-MM-DD HH:mm:ss')
     punchPostServiceUse(this.state.singlePunch.id, `date=${d}`).then(r => r.json().then(r => {
-      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses] }))
+      this.setState(state => ({ uses: [{ id: r, date: d }, ...state.uses], disabledUse: false }))
       if (r) this.setState({ flag: true })
     }))
   }
@@ -68,14 +70,20 @@ export default class SinglePunchPage extends React.Component {
   cancel = () => {
     this.setState({ visibleAgreeModal: false, isUses: false })
   }
+  handleUseBtnClick = () => {
+    if ((this.state.uses && this.state.uses.length >= this.state.singlePunch.service_count) || this.daysLeft() > 0) {
+      return false
+    } else this.use()
+  }
   render () {
     const { singlePunch = {}, uses = [] } = this.state
     const sortUses = uses.sort((a, b) => moment(b.date) - moment(a.date))
+    const bool = singlePunch && +singlePunch.service_count <= uses.length
     return (
       <div id='single-punch-page'>
         <PunchHeader length={this.state.punchsList.length} />
         <div className='single-punch-wrap'>
-          <div className={'single-punch ' + (this.daysLeft() > 0 && 'expired')}>
+          <div className={'single-punch' + ((this.daysLeft() > 0 || bool) ? ' expired' : '')}>
             <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
             {/* {this.state.flag && <button onClick={this.delUse} className={'button-del-use ' + (config.isRTL ? 'button-del-use-rtl' : 'button-del-use-ltr')}>{config.translations.punch_latest_del}</button>} */}
             <div className='punch-preview'>
@@ -90,13 +98,14 @@ export default class SinglePunchPage extends React.Component {
                   <span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span>
                 </p>
               </div>
-              <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
+              <div className={'sum ' + (config.isRTL ? 'sum-rtl' : 'sum-ltr')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
             {this.daysLeft() > 0
               ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>
-              : (this.state.uses && this.state.uses.length !== singlePunch.service_count ? <button className='use-btn'
-                onClick={(this.state.uses && this.state.uses.length === singlePunch.service_count) || this.daysLeft() > 0 ? () => {} : this.use} >{config.translations.use}
-                <img src={config.urls.media + 'check-circle.svg'} /></button>
+              : (this.state.uses && this.state.uses.length < singlePunch.service_count
+                ? <button className='use-btn' disabled={this.state.disabledUse} onClick={this.handleUseBtnClick}>
+                  {config.translations.use}
+                  <img src={config.urls.media + 'check-circle.svg'} /></button>
                 : <button className='expiry-btn'>{config.translations.used_punch_card}</button>)}
             {singlePunch.expiration && <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
