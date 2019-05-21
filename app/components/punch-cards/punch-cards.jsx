@@ -1,9 +1,7 @@
-import SinglePunch from './components/single-punch/single-punch.jsx'
 import PunchHeader from './components/panch-header/panch-header.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import { getPunchCardsList } from 'project-services'
 import './punch-cards.styl'
-const { Link } = ReactRouterDOM
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 class PunchCards extends React.Component {
   state = {
@@ -29,15 +27,33 @@ class PunchCards extends React.Component {
   addPunch = () => {
     this.props.history.push(baseUrl + config.urls.punch_cards_adding)
   }
+  handleCardClick = item => {
+    this.setState({punch: item},
+      () => {
+        this.props.history.push(baseUrl + config.urls.single_punch.replace('{punch_card_id}', item.id))
+      }
+    )
+    // onClick={() => this.setState({punch: i}, () => {
+    //   this.props.history.push(baseUrl + config.urls.single_punch.replace('{punch_card_id}', i.id))
+  }
+  expiration = item => {
+    if (item.expiration) {
+      const now = moment()
+      const end = moment(item.expiration)
+      const duration = now.diff(end, 'day')
+      return duration
+    } else return false
+  }
   renderPunchPreview = () => {
     return (
       <div id='wrap-punch'>
         {this.state.punchsList.map(i => (
           <div className='punch-preview'>
-            <div className={i.uses && i.uses.length === i.service_count ? 'punchcard-full' : 'punchcard'} 
-              onClick={() => this.setState({punch: i}, () => {
-                this.props.history.push(baseUrl + config.urls.single_punch.replace('{punch_card_id}', i.id))
-              })}>
+            {this.expiration(i) > 0 && <div className='expired-dates'>
+              <span>{config.translations.expired_dates}</span>
+            </div>}
+            <div className={'punchcard' + ((i.uses && i.uses.length === i.service_count) || this.expiration(i) > 0 ? ' punchcard-full' : '')}
+              onClick={() => this.handleCardClick(i)}>
               <p className='punch-name'>
                 <span className='service-color' />{i.service_name}
               </p>

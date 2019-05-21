@@ -227,6 +227,7 @@ var config = {
     cancel: 'Cancel',
     confirm: 'Confirm',
     next: 'Next',
+    expired_dates: 'Expired dates',
     dates: {
       months: {
         0: 'January',
