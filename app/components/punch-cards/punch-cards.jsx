@@ -56,7 +56,7 @@ class PunchCards extends React.Component {
                 <span className='service-color' />{i.service_name}
               </p>
               <div className='punch'>
-                <p className='count'><span>{config.translations.used}</span><span className='uses'>{i.uses ? i.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className='total' >{i.service_count}</span></p>
+                <p className='count'><span>{config.translations.punch_cards.used_count_label.used}</span><span className='uses'>{i.uses ? i.uses.length : '0'}</span><span className='of'>{config.translations.of}</span><span className='total' >{i.service_count}</span></p>
               </div>
               <div className={'sum ' + (config.isRTL && 'sum-rtl')}><p>{i.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>

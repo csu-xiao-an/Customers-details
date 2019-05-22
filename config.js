@@ -69,12 +69,18 @@ var config = {
       next: 'Next'
     },
     punch_cards: {
-      expiration_label: 'Expiry date {expiration_date} within {expiration_left_days} days',
+      expiration_label: { // Expiry date 31/07/2019 within 69 days
+        expiry_date: 'Expiry date',
+        within: 'within',
+        days: 'days'
+      },
       card_del_question: 'Are you sure you want to delete this punch card ?',
       use_del_question: 'Are you sure you want to delete the latest use?',
       expiration_modal_text: 'Pls set an expiration date in future',
-      used_count_label: 'Used {used_count} of {total_uses}',
-      expiration_short: 'Expiry date {expiration_date}',
+      used_count_label: { // Used: 8 of 10
+        used: 'Used: ',
+        of: 'of'
+      },
       top_title: 'Punch cards ({punch_cards_count})',
       empty_punch_cards: 'Add a new punch-card',
       select_punch_card: 'Select a punch-card',

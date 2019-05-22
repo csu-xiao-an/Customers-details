@@ -91,9 +91,14 @@ export default class SinglePunchPage extends React.Component {
                 <p className='punch-name'>{singlePunch.service_name}</p>
               </div>
               <div className='punch'>
-                <p className='count'>{config.translations.punch_cards.used_count_label
+                {/* <p className='count'>{config.translations.punch_cards.used_count_label
                   .replace('{used_count}', uses ? uses.length : '0')
                   .replace('{total_uses}', singlePunch.service_count)}
+                </p> */}
+                <p className='count'><span>{config.translations.punch_cards.used_count_label.used}</span>
+                  <span className='uses'>{uses ? uses.length : '0'}</span>
+                  <span className='of'>{config.translations.punch_cards.used_count_label.of}</span>
+                  <span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span>
                 </p>
               </div>
               <div className={'sum ' + (config.isRTL ? 'sum-rtl' : 'sum-ltr')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
@@ -108,12 +113,14 @@ export default class SinglePunchPage extends React.Component {
             {singlePunch.expiration && <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
               {this.daysLeft() > 0 ? <div className='expiry-text'>
-                <p>{config.translations.punch_cards.expiration_short.replace('{expiration_date}', moment(singlePunch.expiration).format('DD/MM/YYYY'))}</p>
+                <p>{config.translations.punch_cards.expiration_label.expiry_date}</p>
+                <p className='expiry-formated-date'>{moment(singlePunch.expiration).format('DD/MM/YYYY')}</p>
               </div> : <div className='expiry-text'>
-                <p>{config.translations.punch_cards.expiration_label
-                  .replace('{expiration_date}', moment(singlePunch.expiration).format('DD/MM/YYYY'))
-                  .replace('{expiration_left_days}', this.daysLeft() * (-1))
-                }</p>
+                <p>{config.translations.punch_cards.expiration_label.expiry_date}</p>
+                <p className='formated-date'>{moment(singlePunch.expiration).format('DD/MM/YYYY')}</p>
+                <p>{config.translations.punch_cards.expiration_label.within}</p>
+                <p className='days-left'>{this.daysLeft() * (-1)}</p>
+                <p>{config.translations.punch_cards.expiration_label.days}</p>
               </div>}
             </div>}
             {uses && <div className='uses-wrap'>
