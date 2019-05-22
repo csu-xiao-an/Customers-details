@@ -57,7 +57,7 @@ class PunchCardsAdd extends React.Component {
       this.setState({data, isOpenServices: isCat, isCategoryList: !isCat})
     }))
   }
-  
+
   save = () => {
     let b = `service_id=${this.state.i.id}&service_count=${this.state.uses}&sum=${this.state.total}&added=${moment().format('YYYY-MM-DD HH:mm:ss')}`
     if (this.state.switch) b = b + `&expiration=${this.state.date}`
@@ -249,7 +249,9 @@ class PunchCardsAdd extends React.Component {
                     <p>{config.translations.punch_cards.ends}</p>
                   </div>
                   <p className='daysLeft'>
-                    {moment(this.state.date).endOf('day').fromNow()}
+                    {this.state.duration >= 0
+                      ? <p className='daysLeft'>{config.translations.punch_cards.days_left.replace('{days}', this.state.duration)}</p>
+                      : <p className='daysLeft'>{config.translations.punch_cards.days_ago.replace('{days}', this.state.duration * (-1))}</p>}
                   </p>
                   {this.state.editDate
                     ? <input

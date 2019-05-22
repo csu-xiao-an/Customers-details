@@ -96,6 +96,8 @@ var config = {
       delete_btn_label: 'Delete',
       use_btn_label: 'Use',
       total: 'Total cost:',
+      days_left: ' in {days} days ',
+      days_ago: '{days} days ago',
       ends: 'Ends'
     },
     language: 'en',
