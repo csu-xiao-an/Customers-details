@@ -32,11 +32,10 @@ export default class Debts extends React.Component {
   }
   updateDebt = (sum, desc, key) => {
     const added = moment().format('YYYY-MM-DD HH:mm')
-    const description = this.state.description ? this.state.description : ''
-    const body = `sum=${parseInt(this.state.debt)}&desc=${description}&added=${added}`
+    const body = `sum=${parseInt(sum)}&desc=${desc}&added=${added}`
     debtReplaceService(body, key).then(r => {
       if (r.status === 204) {
-        this.props.editeDebt(this.state.debt, description, added, key)
+        this.props.editeDebt(sum, desc, added, key)
         this.setState({ debtReplace: !this.state.debtReplace, debtEdit: !this.state.debtEdit, description: '', debt: '0', debt_id: 0 })
       }
     })
