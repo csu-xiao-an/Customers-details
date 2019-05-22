@@ -135,12 +135,31 @@
     flex-grow 1
   .empty-punch-card
     display flex
+    justify-content center
+    align-items flex-start
     width 100%
     flex-grow 1
     padding-top 11rem
+    .add-card-wrap
+      display flex
+      align-items center
+      .punch-add-small
+        display flex
+        align-items center
+        justify-content center
+        border none
+        padding 0
+        width 2.5rem
+        height 2.5rem
+        border-radius 50%
+        background-color var(--active-color)
+        &:focus
+          outline none
     p
-      width 100%
       font-size 24px
       font-weight 500
       color #ffffff
       text-align center
+      -moz-padding-end 0.5rem
+      -webkit-padding-end 0.5rem
+      padding-inline-end 0.5rem

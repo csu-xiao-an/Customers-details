@@ -1,6 +1,6 @@
 import PunchHeader from '../panch-header/panch-header.jsx'
 import {Modal} from 'project-components'
-import Delete from '../modal-delete/modal-delete.jsx'
+// import Delete from '../modal-delete/modal-delete.jsx'
 import {punchPostServiceUse, punchDeleteService, getPunchCardsList, punchDeleteServiceUse} from 'project-services'
 import './single-punch-page.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
@@ -84,40 +84,36 @@ export default class SinglePunchPage extends React.Component {
         <PunchHeader length={this.state.punchsList.length} />
         <div className='single-punch-wrap'>
           <div className={'single-punch' + ((this.daysLeft() > 0 || bool) ? ' expired' : '')}>
-            <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.delete}</button>
-            {/* {this.state.flag && <button onClick={this.delUse} className={'button-del-use ' + (config.isRTL ? 'button-del-use-rtl' : 'button-del-use-ltr')}>{config.translations.punch_latest_del}</button>} */}
+            <button onClick={() => this.del()} className={'delete-btn ' + (config.isRTL ? 'delete-btn-rtl' : 'delete-btn-ltr')}><img src={config.urls.media + 'delete-blue.svg'} />{config.translations.punch_cards.delete_btn_label}</button>
             <div className='punch-preview'>
               <div className='service-wrap'>
                 <span className='service-color' />
                 <p className='punch-name'>{singlePunch.service_name}</p>
               </div>
               <div className='punch'>
-                <p className='count'><span>{config.translations.used}</span>
-                  <span className='uses'>{uses ? uses.length : '0'}</span>
-                  <span className='of'>{config.translations.of}</span>
-                  <span className={'total ' + (this.daysLeft() > 0 && 'unused')} >{singlePunch.service_count}</span>
+                <p className='count'>{config.translations.punch_cards.used_count_label
+                  .replace('{used_count}', uses ? uses.length : '0')
+                  .replace('{total_uses}', singlePunch.service_count)}
                 </p>
               </div>
               <div className={'sum ' + (config.isRTL ? 'sum-rtl' : 'sum-ltr')}><p>{singlePunch.sum}</p><p className='currency'>{config.data.currency}</p></div>
             </div>
             {this.daysLeft() > 0
-              ? <button className='expiry-btn'>{config.translations.expiry_dates}</button>
+              ? <button className='expiry-btn'>{config.translations.punch_cards.use_btn_label_expired}</button>
               : (this.state.uses && this.state.uses.length < singlePunch.service_count
                 ? <button className='use-btn' disabled={this.state.disabledUse} onClick={this.handleUseBtnClick}>
-                  {config.translations.use}
+                  {config.translations.punch_cards.use_btn_label}
                   <img src={config.urls.media + 'check-circle.svg'} /></button>
-                : <button className='expiry-btn'>{config.translations.used_punch_card}</button>)}
+                : <button className='expiry-btn'>{config.translations.punch_cards.used_punch_card_btn}</button>)}
             {singlePunch.expiration && <div className='expiry-date'>
               <div className='img-wrap'><img src={config.urls.media + 'calendar.svg'} /></div>
               {this.daysLeft() > 0 ? <div className='expiry-text'>
-                <p>{config.translations.expiry_date}</p>
-                <p className='expiry-formated-date'>{moment(singlePunch.expiration).format('DD/MM/YYYY')}</p>
+                <p>{config.translations.punch_cards.expiration_short.replace('{expiration_date}', moment(singlePunch.expiration).format('DD/MM/YYYY'))}</p>
               </div> : <div className='expiry-text'>
-                <p>{config.translations.expiry_date}</p>
-                <p className='formated-date'>{moment(singlePunch.expiration).format('DD/MM/YYYY')}</p>
-                <p>{config.translations.within}</p>
-                <p className='days-left'>{this.daysLeft() * (-1)}</p>
-                <p>{config.translations.days}</p>
+                <p>{config.translations.punch_cards.expiration_label
+                  .replace('{expiration_date}', moment(singlePunch.expiration).format('DD/MM/YYYY'))
+                  .replace('{expiration_left_days}', this.daysLeft() * (-1))
+                }</p>
               </div>}
             </div>}
             {uses && <div className='uses-wrap'>
@@ -137,11 +133,11 @@ export default class SinglePunchPage extends React.Component {
         <Modal show={this.state.visibleAgreeModal} onHide={this.cancel}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'trash-del.svg'} />
-            <label>{this.state.isUses ? config.translations.use_del_question : config.translations.punch_card_del_question}</label>
+            <label>{this.state.isUses ? config.translations.punch_cards.use_del_question : config.translations.punch_cards.card_del_question}</label>
           </div>
           <div className='modal-footer'>
             <button className='no-btn' onClick={this.cancel}>{config.translations.cancel.toUpperCase()}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.confirm.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.punch_cards.confirm_btn_label.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </div>

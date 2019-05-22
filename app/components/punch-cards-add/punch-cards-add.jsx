@@ -172,7 +172,7 @@ class PunchCardsAdd extends React.Component {
           <div className='header-wrap'>
             <img src={config.urls.media + 'credit-card.svg'} />
             <div className='title'>
-              <h2>{config.translations.new_punch_card}</h2>
+              <h2>{config.translations.punch_cards.title_new_punch_card}</h2>
             </div>
           </div>
         </header>
@@ -190,11 +190,11 @@ class PunchCardsAdd extends React.Component {
                 <Control m={this.handleDecrementUses}
                   bool={this.state.uses === 1}
                   p={this.handleIncrementUses}
-                  l={config.translations.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
+                  l={config.translations.punch_cards.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
                 <div className='upd-discont-wrap'>
                   <button className={'discont-btn ' + (this.state.discontActive && 'active-discont')} onClick={this.state.renderDiscount && this.activeDiscont} >
                     {this.state.discontActive ? <img className='discont-img' src={`${config.urls.media}discont-act.svg`} /> : <img className='discont-img' src={`${config.urls.media}discont-dis.svg`} />}
-                    {config.translations.add_discount}
+                    {config.translations.punch_cards.add_discount}
                   </button>
                   <div className='input-wrap'>
                     <div className='persent-wrap'>
@@ -205,7 +205,7 @@ class PunchCardsAdd extends React.Component {
                         className='discont-input'
                         type='number'
                         value={(this.state.discontActive || this.state.editDiscount) ? this.state.discount : ''}
-                        placeholder={this.state.discontActive ? config.translations.type_discount : ''}
+                        placeholder={this.state.discontActive ? config.translations.punch_cards.type_discount : ''}
                         autoFocus={!this.state.discontActive}
                         disabled={!this.state.discontActive}
                       />
@@ -216,8 +216,8 @@ class PunchCardsAdd extends React.Component {
                 </div>
                 <div className='total_wrap'>
                   <div className='cost-wrap'>
-                    <p className='label-cost'>{config.translations.total}</p>
-                    <p className='total_num'>{config.translations.price_single}
+                    <p className='label-cost'>{config.translations.punch_cards.total}</p>
+                    <p className='total_num'>{config.translations.punch_cards.price_single}
                       <span className='num'>
                         {this.state.price + ' ' + config.data.currency}
                       </span>
@@ -230,12 +230,12 @@ class PunchCardsAdd extends React.Component {
                   </div>
                 </div>
                 <div className='expiration_wrap'>
-                  <p className='subscription_period'>{config.translations.add_expiry_date}</p>
+                  <p className='subscription_period'>{config.translations.punch_cards.add_expiry_date}</p>
                   <Switch on={this.state.switch} onClick={this.handleValidity} />
                 </div>
                 {this.state.switch && <div className='valid_date'>
                   <div className='date_wrap'>
-                    <p>{config.translations.ends}</p>
+                    <p>{config.translations.punch_cards.ends}</p>
                   </div>
                   <p className='daysLeft'>
                     {moment(this.state.date).endOf('day').fromNow()}
@@ -266,7 +266,7 @@ class PunchCardsAdd extends React.Component {
         <Modal show={this.state.visibleAgreeModal} onHide={this.iGoIt}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'alert-octagon.svg'} />
-            <label>{config.translations.expiration}</label>
+            <label>{config.translations.punch_cards.expiration_modal_text}</label>
           </div>
           <div className='modal-footer'>
             <button className='yes-btn' onClick={this.iGoIt}>{config.translations.i_got_it.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>

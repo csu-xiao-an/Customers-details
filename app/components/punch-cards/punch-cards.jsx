@@ -48,7 +48,7 @@ class PunchCards extends React.Component {
         {this.state.punchsList.map(i => (
           <div className='punch-preview'>
             {this.expiration(i) > 0 && <div className='expired-dates'>
-              <span>{config.translations.expiry_dates}</span>
+              <span>{config.translations.punch_cards.use_btn_label_expired}</span>
             </div>}
             <div className={'punchcard' + ((i.uses && i.uses.length === i.service_count) || this.expiration(i) > 0 ? ' punchcard-full' : '')}
               onClick={() => this.handleCardClick(i)}>
@@ -76,16 +76,18 @@ class PunchCards extends React.Component {
           <div className='preview-wrap'>
             {this.state.punchsList.length > 0
               ? <div className='full-page'>
-                <h2>{config.translations.select_punch_card}</h2>
+                <h2>{config.translations.punch_cards.select_punch_card}</h2>
                 {this.state.punchsList.length > 0 && this.renderPunchPreview()}
               </div>
               : <div className='empty-punch-card'>
-                <p>{config.translations.empty_punch_cards}</p>
+                <div className='add-card-wrap' onClick={this.addPunch}>
+                  <p>{config.translations.punch_cards.empty_punch_cards}</p>
+                  <button className='punch-add-small'><img src={`${config.urls.media}plus-white.svg`} /></button>
+                </div>
               </div>}
           </div>
         </div>
         <div className={'punch-add ' + (config.isRTL ? 'punch-add-rtl' : 'punch-add-ltr')} onClick={this.addPunch}><img src={`${config.urls.media}plus-white.svg`} /></div>
-        {/* <SinglePunch i={this.state.punch} update={this.update} updateSingle={this.updateSingle} updatePunchList={this.updatePunchList} punch_cards={this.state.punchsList} /> */}
       </div>
     )
   }
