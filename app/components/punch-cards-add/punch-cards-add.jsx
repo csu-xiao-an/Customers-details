@@ -57,15 +57,7 @@ class PunchCardsAdd extends React.Component {
       this.setState({data, isOpenServices: isCat, isCategoryList: !isCat})
     }))
   }
-  daysLeft = () => {
-    const now = moment().format('YYYY-MM-DD')
-    const end = moment(this.state.date).format('YYYY-MM-DD')
-    const duration = moment(now).diff(moment(end), 'day')
-    this.setState({
-      duration: duration * (-1),
-      visibleAgreeModal: this.state.duration < 0
-    })
-  }
+  
   save = () => {
     let b = `service_id=${this.state.i.id}&service_count=${this.state.uses}&sum=${this.state.total}&added=${moment().format('YYYY-MM-DD HH:mm:ss')}`
     if (this.state.switch) b = b + `&expiration=${this.state.date}`
@@ -137,7 +129,7 @@ class PunchCardsAdd extends React.Component {
     switch: false
   })
   iGoIt = () => {
-    this.setState({ date: moment().year() + '-12-31', visibleAgreeModal: false }, this.cancel)
+    this.setState({ date: moment().year() + '-12-31', visibleAgreeModal: false }, this.resetDate)
   }
   toogleOpenServices = () => this.setState({isOpenServices: !this.state.isOpenServices})
   getService = i => this.setState({i: i, price: i.price, isService: false}, () => this.getTotal())
@@ -150,12 +142,31 @@ class PunchCardsAdd extends React.Component {
       duration: duration * (-1)
     })
   }
-  cancel = () => {
-    const now = moment()
-    const end = moment(this.state.date)
-    const duration = now.diff(end, 'day')
+  resetDate = () => {
+    let duration = this.findOutDuration()
     this.setState({ visibleAgreeModal: false, duration: duration * (-1) })
   }
+  findOutDuration = () => {
+    const now = moment().format('YYYY-MM-DD')
+    const end = moment(this.state.date).format('YYYY-MM-DD')
+    return moment(now).diff(moment(end), 'day')
+  }
+  handleToEditExpiryDate = () => {
+    this.setState({ editDate: true },
+      () => { this.refs.changeDate.focus() })
+  }
+  handleChangeEditExpiryDate = () => {
+    let duration = this.findOutDuration()
+    this.setState({
+      duration: duration * (-1)
+    })
+  }
+  handleBlurEditExpiryDate = () => {
+    this.setState({
+      visibleAgreeModal: this.state.duration < 0
+    })
+  }
+
   render () {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
@@ -243,13 +254,13 @@ class PunchCardsAdd extends React.Component {
                   {this.state.editDate
                     ? <input
                       className='change-expiry-date'
-                      onBlur={() => this.setState({ editDate: false }, this.daysLeft)}
-                      onChange={e => this.setState({date: e.target.value}, this.daysLeft)}
+                      onBlur={() => this.setState({ editDate: false }, this.handleBlurEditExpiryDate)}
+                      onChange={e => this.setState({date: e.target.value}, this.handleChangeEditExpiryDate)}
                       ref='changeDate'
                       type='date'
                       value={this.state.date}
                     />
-                    : <p className='is_valid' onClick={() => this.setState({ editDate: true }, () => { this.refs.changeDate.focus() })}>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment().format('YYYY')}`}</p>}
+                    : <p className='is_valid' onClick={this.handleToEditExpiryDate}>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment(this.state.date).format('YYYY')}`}</p>}
                 </div>}
               </div>
               <div className='buttons'>
