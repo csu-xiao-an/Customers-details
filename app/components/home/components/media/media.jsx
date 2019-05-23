@@ -216,7 +216,7 @@ export default class Media extends React.Component {
               {this.checkAccessLevel
                 ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
                 : ''}
-              {this.state.multiDel ? <img className='delete' src={config.urls.media + 'ic-delete.svg'}
+              {this.state.multiDel ? <div className='delete-clicked'
                 onClick={() => {
                   if (this.state.multiDel) {
                     let arr = this.state.slides
@@ -226,9 +226,10 @@ export default class Media extends React.Component {
                     this.setState({slides: []})
                   }
                   this.setState({multiDel: !this.state.multiDel})
-                }}
-              />
-                : <img className='delete' src={config.urls.media + 'ic_del.svg'}
+                }}>
+                <img src={config.urls.media + 'multi-del-fill.svg'}/>
+              </div>
+                : <div className='delete'
                   onClick={() => {
                     if (this.state.multiDel) {
                       let arr = this.state.slides
@@ -238,8 +239,9 @@ export default class Media extends React.Component {
                       this.setState({slides: []})
                     }
                     this.setState({multiDel: !this.state.multiDel})
-                  }}
-                />}
+                  }}>
+                  <img src={config.urls.media + 'multi-del-pic.svg'}/>
+                </div>}
             </div> : ''}
           </div>
         </div>
@@ -272,7 +274,7 @@ export default class Media extends React.Component {
             ))}
           </Swiper>
         </div>
-        {this.state.multiDel
+        {this.state.multiDel && this.state.slides.length > 0
           ? (<div className='multi-del' onClick={this.multiDeleteFiles}>
             <span>{config.translations.delete}</span>
             <div>

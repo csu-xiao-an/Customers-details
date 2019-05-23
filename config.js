@@ -486,60 +486,60 @@ var config = {
       }
     ],
     gallery: [
-      // {
-      //   id: 1,
-      //   name: '222.jpg',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 22,
-      //   name: '01.png',
-      //   // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 2,
-      //   name: '02.png',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 3,
-      //   name: '03.png',
-      //   // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 33,
-      //   name: '04.png',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 4,
-      //   name: '05.png',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 5,
-      //   name: '06.png',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 6,
-      //   name: '07.png',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
-      // {
-      //   id: 7,
-      //   name: '08.png',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
+      {
+        id: 1,
+        name: '222.jpg',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 22,
+        name: '01.png',
+        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 2,
+        name: '02.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 3,
+        name: '03.png',
+        // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 33,
+        name: '04.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 4,
+        name: '05.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 5,
+        name: '06.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 6,
+        name: '07.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
+      {
+        id: 7,
+        name: '08.png',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
       // {
       //   id: 8,
       //   name: 'video.mp4',
