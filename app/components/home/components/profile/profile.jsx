@@ -10,8 +10,8 @@ import {clientPutService, clientNewGetService, addressGetService, newGetService}
 export default class Profile extends React.Component {
 state = {
   visibleMapPopup: false,
-  birthdate: String(config.data.birthdate),
-  birthyear: String(config.data.birthyear),
+  birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
+  birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
   gender: null,
   address: '',
   name: '',
