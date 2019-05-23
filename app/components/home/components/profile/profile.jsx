@@ -30,7 +30,7 @@ state = {
 componentDidMount = () => {
   this.setState({
     address: config.data.address ? config.data.address : null,
-    name: config.data.name,
+    name: config.data.name ? config.data.name : null,
     phone: config.data.phone ? config.data.phone : null,
     email: config.data.email ? config.data.email : null,
     gender: config.data.gender ? config.data.gender : null
@@ -59,7 +59,7 @@ initMap = () => {
   }
 }
 delName = () => {
-  this.setState({name: ''})
+  this.setState({ name: '' }, () => this.setState({ name: null }))
   document.getElementById('name-input').focus()
 }
 delAddress = () => {
