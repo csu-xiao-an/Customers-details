@@ -274,36 +274,39 @@ export default class Media extends React.Component {
             ))}
           </Swiper>
         </div>
-        {this.state.multiDel && this.state.slides.length > 0
-          ? (<div className='multi-del' onClick={this.multiDeleteFiles}>
+        {this.state.multiDel && this.state.slides.length === 0 &&
+          <button className='multi-del-disabled' onClick={this.multiDeleteFiles} disabled>
+            <span>{config.translations.delete}</span>
+          </button>}
+        {this.state.multiDel && this.state.slides.length > 0 &&
+          <button className='multi-del' onClick={this.multiDeleteFiles}>
             <span>{config.translations.delete}</span>
             <div>
               <img src={config.urls.media + 'trash-del.svg'} />
             </div>
-          </div>)
-          : this.state.multiShare ? (
-            <div className={this.state.multiShare ? 'isVisible' : 'hidden'}>
-              <Share {...this.props} opt={{
-                title: config.translations.share_title,
-                text: config.translations.share_text,
-                urls: this.state.shares
-              }} />
-            </div>
-          )
-            : (this.props.rights.gallery.add &&
-            <label onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})}
-              className={this.state.isAddMedia
-                ? 'gallery-footer'
-                : 'gallery-footer'}
-            >
-              <input id='file-input' className='file-input' type='file' onChange={e => {
-                this.addFile(e)
-                e.target.value = null
-                // this.handleMenuOff(e)
-              }} style={{display: 'none'}} />
-              <label>{config.translations.add_media}</label>
-              <img src={config.urls.media + 'c_add_stroke.svg'} />
-            </label>)}
+          </button>}
+        {this.state.multiShare &&
+          <div className={this.state.multiShare ? 'isVisible' : 'hidden'}>
+            <Share {...this.props} opt={{
+              title: config.translations.share_title,
+              text: config.translations.share_text,
+              urls: this.state.shares
+            }} />
+          </div>}
+        {this.props.rights.gallery.add &&
+          <label onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})}
+            className={this.state.multiDel || this.state.multiShare
+              ? 'hidden'
+              : 'gallery-footer'}
+          >
+            <input id='file-input' className='file-input' type='file' onChange={e => {
+              this.addFile(e)
+              e.target.value = null
+              // this.handleMenuOff(e)
+            }} style={{display: 'none'}} />
+            <label>{config.translations.add_media}</label>
+            <img src={config.urls.media + 'c_add_stroke.svg'} />
+          </label>}
         {this.state.imagePreviewUrl &&
         <GalleryPopup
           preview={$imagePreview}
