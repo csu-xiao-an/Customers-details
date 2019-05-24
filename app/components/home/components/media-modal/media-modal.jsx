@@ -102,7 +102,14 @@ export default class MediaModal extends React.Component {
       }
     })
   }
+  cancel = () => {
+    this.setState({ visibleAgreeModal: false })
+  }
   delete = id => {
+    this.setState({ visibleAgreeModal: true, id })
+  }
+  confirmDelete = () => {
+    let id = this.state.id
     mediaDeleteService(id).then(r => {
       if (r.status === 204) {
         config.data.gallery.splice(this.state.activeIndex, 1)
@@ -160,6 +167,16 @@ export default class MediaModal extends React.Component {
             {config.data.gallery.map((i, k) => (<div key={k} className='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}
           </Swiper>
         </div>
+        <Modal show={this.state.visibleAgreeModal} onHide={this.cancel}>
+          <div className='modal-body-new'>
+            <img className='icon' src={config.urls.media + 'trash-del.svg'} />
+            <label>{config.translations.confirm_del_media}</label>
+          </div>
+          <div className='modal-footer-new'>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel.toUpperCase()}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.confirmDelete}>{config.translations.punch_cards.confirm_btn_label.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+          </div>
+        </Modal>
       </Modal>
     )
   }

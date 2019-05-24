@@ -1,4 +1,4 @@
-import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
+import {formatDate, dataURLtoFile, Swiper, Resize, Modal} from 'project-components'
 import GalleryModal from '../media-modal/media-modal.jsx'
 import GalleryPopup from '../gallery-popup/gallery-popup.jsx'
 import {mediaPostService, multiMediaDeleteService} from 'project-services'
@@ -152,7 +152,7 @@ export default class Media extends React.Component {
           slides.map(val => {
             document.getElementById('slide' + val).classList.remove('selected')
           })
-          this.setState({gallery: gallery, slides: [], shares: [], multiDel: !this.state.multiDel})
+          this.setState({ gallery: gallery, slides: [], shares: [], multiDel: !this.state.multiDel, visibleAgreeModal: false })
         }
       })
     }
@@ -199,6 +199,12 @@ export default class Media extends React.Component {
   }
   handleDescBack = e => {
     this.setState({desc: e.target.value})
+  }
+  cancel = () => {
+    this.setState({ visibleAgreeModal: false })
+  }
+  confirmDel = () => {
+    this.setState({ visibleAgreeModal: true })
   }
   render () {
     if (this.state.imagePreviewUrl) {
@@ -275,11 +281,11 @@ export default class Media extends React.Component {
           </Swiper>
         </div>
         {this.state.multiDel && this.state.slides.length === 0 &&
-          <button className='multi-del-disabled' onClick={this.multiDeleteFiles} disabled>
+          <button className='multi-del-disabled' disabled>
             <span>{config.translations.delete}</span>
           </button>}
         {this.state.multiDel && this.state.slides.length > 0 &&
-          <button className='multi-del' onClick={this.multiDeleteFiles}>
+          <button className='multi-del' onClick={this.confirmDel}>
             <span>{config.translations.delete}</span>
             <div>
               <img src={config.urls.media + 'trash-del.svg'} />
@@ -307,6 +313,16 @@ export default class Media extends React.Component {
             <label>{config.translations.add_media}</label>
             <img src={config.urls.media + 'c_add_stroke.svg'} />
           </label>}
+        <Modal show={this.state.visibleAgreeModal} onHide={this.cancel}>
+          <div className='modal-body-new'>
+            <img className='icon' src={config.urls.media + 'trash-del.svg'} />
+            <label>{this.state.slides.length > 1 ? config.translations.confirm_del_media_multiple : config.translations.confirm_del_media}</label>
+          </div>
+          <div className='modal-footer-new'>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel.toUpperCase()}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.multiDeleteFiles}>{config.translations.punch_cards.confirm_btn_label.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+          </div>
+        </Modal>
         {this.state.imagePreviewUrl &&
         <GalleryPopup
           preview={$imagePreview}

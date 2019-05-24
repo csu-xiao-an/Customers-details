@@ -215,6 +215,8 @@ var config = {
     punch_cards_adding: 'Add punch cards',
     punch_topnav: 'Punch "{client_name}"',
     punch: 'Punch',
+    confirm_del_media: 'Are you sure to delete this file?',
+    confirm_del_media_multiple: 'Are you sure to delete these files?',
     punch_create: '{name}. Punch was created, {count} uses',
     punch_use: '{name}. Punch was used {countCur} / {count} uses',
     punch_end: '{name}. Punch was canceled',
