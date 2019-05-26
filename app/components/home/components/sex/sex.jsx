@@ -77,8 +77,8 @@ export default class Sex extends React.Component {
   render () {
     return (
       <div id='sex'>
-        <div className='block'>
-          <div className='gender' onClick={this.props.editProfile && this.handleGenderClick}>
+        <div className='block' onClick={this.props.editProfile && this.handleGenderClick}>
+          <div className='gender'>
             <span className='label'>{config.translations.gender}:</span>
             <span className='block-content'>
               <span className='sex-label'>{this.state.label}</span>
