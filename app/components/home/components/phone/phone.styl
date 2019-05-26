@@ -23,12 +23,12 @@
     justify-content space-between
     .wrap
       display flex
-      flex-direction column
+      flex-wrap wrap
       margin-top 5px
   .phone-labels
     cursor pointer
     font-size 18px
-    margin-top 5px
+    width 100%
     .label-wrap
       .call-label
         background-color transparent
@@ -72,17 +72,18 @@
       justify-content space-between
       width 100%
       .edit-wrap  
+        width 100%
         display flex
-        flex-direction column
+        flex-wrap wrap
         margin-top 5px
+        padding-inline-end 2rem
+        -webkit-padding-end 2rem
+        -moz-padding-end 2rem
       .edit-input
         display flex
         border none
         font-size 18px
-        margin-top 7px
-        // height 30px
-        // width 80%
-        font-weight 500
+        width 100%
         &:focus
           outline none
       .del-info

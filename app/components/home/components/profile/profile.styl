@@ -131,17 +131,21 @@
       .fullname-wrap
         display flex
         margin-top 5px
-        flex-direction column
+        flex-wrap wrap
         .block-content
-          margin-top 5px
+          width 100%
     .fullname-edit
       display flex
       width 100%
       justify-content space-between
       .edit-wrap
+        width 100%
         display flex
         margin-top 5px
-        flex-direction column
+        flex-wrap: wrap
+        padding-inline-end 2rem
+        -webkit-padding-end 2rem
+        -moz-padding-end 2rem
       .label
         font-size 0.8em
         font-weight 600
@@ -149,8 +153,7 @@
       .edit-input
         display flex
         border none
-        margin-top 6px
-        font-weight 500
+        width 100%
         &:focus
           outline none
       .del-info
@@ -179,10 +182,9 @@
       justify-content space-between
       .address-data
         display flex
-        flex-direction column
-        margin-top 5px
+        flex-wrap wrap
         .block-content
-          margin-top 5px
+          width 100%
       .label
         font-size 0.8em
         font-weight 600
@@ -197,14 +199,16 @@
         display flex
         align-items center
       .address-wrap-edit
-        display flex
-        flex-direction column
-        margin-top 5px
-        flex-grow 1
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 5px;
+        padding-inline-end: 2rem;
+        -webkit-padding-end: 2rem;
         input 
           outline none
         .block-content
-          margin-top 6px
+          width 100%
       .label
         font-size 0.8em
         font-weight 600

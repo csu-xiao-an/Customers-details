@@ -17,7 +17,7 @@
     display flex
   .data-wrap
     display flex
-    flex-direction column
+    flex-wrap wrap
     margin-top 5px
     .label-wrap
       width 100%
@@ -33,7 +33,7 @@
         color var(--main-color)
     .gmailcom
       // font-size 16px
-      margin-top 5px
+      width 100%
       cursor pointer
 .add-email
   display flex
@@ -79,12 +79,15 @@
     justify-content space-between
     width 100%
     .edit-wrap 
+      width 100%
       display flex
-      flex-direction column
+      flex-wrap wrap
       margin-top 5px
+      padding-inline-end 2rem
+      -webkit-padding-end 2rem
+      -moz-padding-end 2rem
     .edit-input
       width 100%
-      margin-top 5px
       font-size 16px
       border transparent
       // color deepskyblue
