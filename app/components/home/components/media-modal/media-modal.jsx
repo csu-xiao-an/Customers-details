@@ -173,8 +173,8 @@ export default class MediaModal extends React.Component {
             <label>{config.translations.confirm_del_media}</label>
           </div>
           <div className='modal-footer-new'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel.toUpperCase()}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.confirmDelete}>{config.translations.punch_cards.confirm_btn_label.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.confirmDelete}>{config.translations.punch_cards.confirm_btn_label}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </Modal>

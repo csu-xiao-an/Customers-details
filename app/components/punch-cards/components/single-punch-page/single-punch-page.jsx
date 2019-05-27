@@ -143,8 +143,8 @@ export default class SinglePunchPage extends React.Component {
             <label>{this.state.isUses ? config.translations.punch_cards.use_del_question : config.translations.punch_cards.card_del_question}</label>
           </div>
           <div className='modal-footer'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel.toUpperCase()}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.punch_cards.confirm_btn_label.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.punch_cards.confirm_btn_label}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </div>

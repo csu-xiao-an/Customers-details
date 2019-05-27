@@ -321,8 +321,8 @@ export default class Media extends React.Component {
             <label>{this.state.slides.length > 1 ? config.translations.confirm_del_media_multiple : config.translations.confirm_del_media}</label>
           </div>
           <div className='modal-footer-new'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel.toUpperCase()}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.multiDeleteFiles}>{config.translations.punch_cards.confirm_btn_label.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.multiDeleteFiles}>{config.translations.punch_cards.confirm_btn_label}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
         {this.state.imagePreviewUrl &&

@@ -21,16 +21,16 @@ export default class HiddenFields extends React.Component {
     return this.props.rights.more_fields.isVisible && (
       <div id='delete-customer'>
         <div className='del-btn'>
-          <button onClick={() => this.setState({isVisiblePopup: true})}>{config.translations.delete_customer.toUpperCase()}</button>
+          <button onClick={() => this.setState({isVisiblePopup: true})}>{config.translations.delete_customer}</button>
         </div>
         <Modal show={this.state.isVisiblePopup}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'icon_delete_selected.svg'} />
             <label>{config.translations.del_question}</label>
           </div>
-          <div className='modal-footer'>
-            <button className='no-btn' onClick={() => this.setState({isVisiblePopup: false})}>{config.translations.del_no.toUpperCase()}</button>
-            <button className='yes-btn' onClick={() => { this.deleteClient() }}>{config.translations.del_yes.toUpperCase()}</button>
+          <div className='modal-delete-footer'>
+            <button className='no-btn' onClick={() => this.setState({isVisiblePopup: false})}>{config.translations.del_no}</button>
+            <button className='yes-btn' onClick={() => { this.deleteClient() }}>{config.translations.del_yes}</button>
           </div>
         </Modal>
       </div>

@@ -282,7 +282,7 @@ class PunchCardsAdd extends React.Component {
             <label>{config.translations.punch_cards.expiration_modal_text}</label>
           </div>
           <div className='modal-footer'>
-            <button className='yes-btn' onClick={this.iGoIt}>{config.translations.i_got_it.toUpperCase()}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='yes-btn' onClick={this.iGoIt}>{config.translations.i_got_it}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </div>
