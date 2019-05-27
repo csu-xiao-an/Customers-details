@@ -55,7 +55,16 @@ export default class Gallery extends React.Component {
       </div>
     }
   }
-
+  nativeShared = () => {
+    if (navigator.share) {
+      let opt = {
+        title: config.translations.share_title,
+        text: config.translations.share_text,
+        url: config.urls.gallery_sharing_base_url + config.urls.media + this.props.i.name
+      }
+      navigator.share && navigator.share(opt)
+    }
+  }
   render () {
     return (
       <div id='gallery-timeline'>
@@ -65,11 +74,16 @@ export default class Gallery extends React.Component {
             <span className='file-name'>{this.props.i.name}</span>
           </div>
           <div className='share-wrap'>
-            <Share {...this.props} opt={{
-              title: config.translations.share_title,
-              text: config.translations.share_text,
-              url: config.urls.gallery_sharing_base_url + this.props.i.name
-            }} />
+            { navigator.share
+              ? <img onClick={this.nativeShared} className='share' src={config.urls.media + 'ic-share-pink.svg'} onClick={this.share} />
+              : <Share
+                {...this.props}
+                opt={{
+                  title: config.translations.share_title,
+                  text: config.translations.share_text,
+                  url: config.urls.gallery_sharing_base_url + config.urls.gallery + this.props.i.name
+                }}
+              />}
           </div>
         </div>
         <div className='order-in'>
