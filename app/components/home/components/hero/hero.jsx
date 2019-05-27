@@ -122,7 +122,7 @@ export default class Hero extends React.Component {
           {this.state.flag
             ? <div className='camera-spin'><img src={config.urls.media + 'refresh-cw.svg'} /></div>
             : <img src={config.urls.media + 'ic_photo.svg'} />}
-          <input type='file' style={{display: 'none'}} onChange={this.addPhoto} />
+          <input type='file' accept='image/*' capture style={{display: 'none'}} onChange={this.addPhoto} />
         </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
         <Birthday />
