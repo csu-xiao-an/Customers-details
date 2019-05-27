@@ -1,5 +1,5 @@
 import lazy from '../../../../lazy.js'
-import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
+import {formatDate, dataURLtoFile, Swiper, Resize, Modal} from 'project-components'
 import GalleryModal from '../media-modal/media-modal.jsx'
 import GalleryPopup from '../gallery-popup/gallery-popup.jsx'
 import {mediaPostService, multiMediaDeleteService} from 'project-services'
