@@ -5,7 +5,7 @@ import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {clientPutService, clientNewGetService, addressGetService, newGetService} from 'project-services'
+import {clientPutService, clientNewGetService, addressGetService, addressService} from 'project-services'
 
 export default class Profile extends React.Component {
 state = {
@@ -187,7 +187,7 @@ resetFields = () => {
 }
 editInfo = () => {
   if (!window.google) {
-    newGetService().then(r => {
+    addressService().then(r => {
       const key = r.r.api_key
       this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
     })

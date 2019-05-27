@@ -1,11 +1,11 @@
-import {formatDate, dataURLtoFile, Swiper, Resize, Modal} from 'project-components'
+import lazy from '../../../../lazy.js'
+import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
 import GalleryModal from '../media-modal/media-modal.jsx'
 import GalleryPopup from '../gallery-popup/gallery-popup.jsx'
 import {mediaPostService, multiMediaDeleteService} from 'project-services'
 import './media.styl'
-import Share from '../share/share.jsx'
 let $imagePreview
-
+const Share = lazy(() => import('../share/share.jsx').then(r => r.default))
 export default class Media extends React.Component {
   state = {
     file: {},
@@ -158,25 +158,23 @@ export default class Media extends React.Component {
     }
   }
     share = () => {
-      if (navigator.share) {
-        this.state.shares.map(val => {
-          let opt = {
-            title: config.translations.share_title,
-            text: config.translations.share_text,
-            urls: val
-          }
-          navigator.share(opt)
-        })
-        //
-        // .then(() => console.log('Successful share'))
-        // .catch(er => console.log('Error sharing', er))
-      } else this.setState({multiShare: !this.state.multiShare})
+      this.setState({multiShare: !this.state.multiShare})
       if (this.state.multiShare) {
         this.state.slides.map(val => {
           document.getElementById('slide' + val).classList.remove('selected')
         })
         this.setState({slides: [], shares: []})
       }
+    }
+    nativeShared = () => {
+      this.state.shares.map(val => {
+        let opt = {
+          title: config.translations.share_title,
+          text: config.translations.share_text,
+          urls: val
+        }
+        navigator.share && navigator.share(opt)
+      })
     }
     checkAccessLevel = () => {
       return ((config.user.permission_level === 'admin' ||
@@ -233,7 +231,7 @@ export default class Media extends React.Component {
                   }
                   this.setState({multiDel: !this.state.multiDel})
                 }}>
-                <img src={config.urls.media + 'multi-del-fill.svg'}/>
+                <img src={config.urls.media + 'multi-del-fill.svg'} />
               </div>
                 : <div className='delete'
                   onClick={() => {
@@ -266,7 +264,7 @@ export default class Media extends React.Component {
               >
                 <div className='img-selected'>
                   {this.typeItem(i, k)}
-                  {this.state.multiDel && <img className='empty-check' src={config.urls.media + 'checkbox-empty.svg'} />}
+                  {(this.state.multiDel || this.state.multiShare) && <img className='empty-check' src={config.urls.media + 'checkbox-empty.svg'} />}
                 </div>
                 <div className='check-box'>
                   <img src={config.urls.media + 'checkbox-select.svg'} />
@@ -293,11 +291,15 @@ export default class Media extends React.Component {
           </button>}
         {this.state.multiShare &&
           <div className={this.state.multiShare ? 'isVisible' : 'hidden'}>
-            <Share {...this.props} opt={{
-              title: config.translations.share_title,
-              text: config.translations.share_text,
-              urls: this.state.shares
-            }} />
+            { navigator.share
+              ? <div className='native-share'>
+                <img onClick={this.state.shares.length && this.nativeShared} src={config.urls.soc_net + 'share.svg'} />
+              </div>
+              : <Share {...this.props} opt={{
+                title: config.translations.share_title,
+                text: config.translations.share_text,
+                urls: this.state.shares
+              }} />}
           </div>}
         {this.props.rights.gallery.add &&
           <label onClick={() => this.setState({isAddMedia: !this.state.isAddMedia})}

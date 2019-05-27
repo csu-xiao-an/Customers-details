@@ -1,4 +1,3 @@
-import Dialog from 'share-dialog'
 import './share.styl'
 
 export default class Share extends React.Component {
@@ -6,13 +5,24 @@ export default class Share extends React.Component {
     rights: PropTypes.object.isRequired,
     opt: PropTypes.object.isRequired
   }
+
+  componentDidMount () {
+    if (!window.VanillaSharing) {
+      let scriptTag = document.createElement('script')
+      scriptTag.src = config.urls.vanilla_sharing
+      document.body.appendChild(scriptTag)
+    }
+  }
+
   render () {
     return this.props.rights.timeline.share && (
       <div id='share'>
-        <img src={config.urls.soc_net + 'facebook.png'}
+        <img src={config.urls.soc_net + 'facebook.svg'}
           onClick={() => {
             this.props.opt.urls.map(val => {
-              Dialog.facebook(val).open()
+              VanillaSharing.fbButton({
+                url: config.urls.gallery_sharing_base_url + val
+              })
             })
           }}
           className={'icon-default facebook'}
@@ -20,34 +30,13 @@ export default class Share extends React.Component {
         <img className={'icon-default twitter'}
           onClick={() => {
             this.props.opt.urls.map(val => {
-              Dialog.twitter(val, this.props.opt.title, this.props.opt.text).open()
+              VanillaSharing.whatsapp({
+                url: config.urls.gallery_sharing_base_url + val,
+                title: this.props.opt.title
+              })
             })
           }}
-          src={config.urls.soc_net + 'twitter.png'}
-        />
-        <img className={'icon-default pingterest'}
-          onClick={() => {
-            this.props.opt.urls.map(val => {
-              Dialog.pinterest(val, this.props.opt.title, this.props.opt.text).open()
-            })
-          }}
-          src={config.urls.soc_net + 'pinterest.png'}
-        />
-        <img className={'icon-default gplus'}
-          src={config.urls.soc_net + 'google.png'}
-          onClick={() => {
-            this.props.opt.urls.map(val => {
-              Dialog.gplus(val, this.props.opt.title, this.props.opt.text).open()
-            })
-          }}
-        />
-        <img className={'icon-default linkedin'}
-          onClick={() => {
-            this.props.opt.urls.map(val => {
-              Dialog.linkedIn(val, this.props.opt.title, this.props.opt.text).open()
-            })
-          }}
-          src={config.urls.soc_net + 'linkedin.png'}
+          src={config.urls.soc_net + 'whatsapp.svg'}
         />
       </div>
     )

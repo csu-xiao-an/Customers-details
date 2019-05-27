@@ -305,6 +305,8 @@ var config = {
   },
   urls: {
     new_test_address: 'https://api.bewebmaster.co.il/settings/maps-api-key',
+    add_address: `https://api.bewebmaster.co.il/settings/maps-api-key?token=${token}`,
+    vanilla_sharing: 'https://unpkg.com/vanilla-sharing',
     address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
     preview_pdf: 'https://docs.google.com/viewer?url={url}embedded=true',
     timeline_events: '/customers-details/clients/123/timeline/{event}?start={ds}&end={de}',
@@ -314,7 +316,7 @@ var config = {
     punch_cards_req: '/customers-details/clients/{client_id}/punch_cards',
     punch_card_del: '/customers-details/clients/{client_id}/punch_cards/{punch_card_id}/use/{use_id}',
     signature: '/customers-details/clients/{client_id}/signature',
-    gallery_sharing_base_url: 'https://api.bewebmaster.co.il/',
+    gallery_sharing_base_url: 'https://api.bewebmaster.co.il',
     media_url: '/customers-details/clients/{client_id}/media',
     fill: '/send-filling-up',
     client_page_url: '/clients/{id}',
