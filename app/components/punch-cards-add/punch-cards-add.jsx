@@ -189,10 +189,10 @@ class PunchCardsAdd extends React.Component {
         </header>
         <div className='preview-img'>
           <div className='preview-wrap'>
-            <div style={this.state.isService ? {display: 'block', width: '100%'} : {display: 'none'}}>
+            {this.state.isService && <div className='procedure-list'>
               {this.state.data.length > 0 && <ProceduresList data={this.state.data} getService={this.getService}
                 isOpenServices={this.state.isOpenServices} toogleOpenServices={this.toogleOpenServices} />}
-            </div>
+            </div>}
             {!this.state.isService && <div className='service_edit'>
               <div className='name-wrap'>
                 <p className='service-name'><span className='service-color' style={{backgroundColor: this.state.i.color}} />{this.state.i.name}</p>
