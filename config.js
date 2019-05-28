@@ -386,7 +386,7 @@ var config = {
     timeout: 500,
     hot_links: [
       // {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
-      {name: 'notes', img: '/dist/media/edit.svg', url: '#notes'},
+      {name: 'notes', img: '/dist/media/edit.png', url: '#notes'},
       {name: 'colors_beautech', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
       {name: 'debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
       {name: 'gallery', img: '/dist/media/icon_delete_selected.svg', url: '#gallery', plugin_name: 'gallery'},
