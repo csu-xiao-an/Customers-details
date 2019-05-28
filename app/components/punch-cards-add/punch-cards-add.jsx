@@ -174,7 +174,7 @@ class PunchCardsAdd extends React.Component {
     return (
       <div id='punch_cards_adding' style={bgrImg}>
         <header className='punch-header'>
-          <button className={'prev-button ' + (config.isRTL && 'prev-button-rtl')} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
+          <button className={'prev-button ' + (config.isRTL ? 'prev-button-rtl' : 'prev-button-ltr')} onClick={this.props.rights.topnav.back ? this.state.isService ? this.state.isCategoryList
             ? this.state.isOpenServices ? () => this.toogleOpenServices() : () => window.history.go(-1)
             : () => window.history.go(-1) : this.resetState : () => {}}
           >
