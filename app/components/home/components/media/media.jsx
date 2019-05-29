@@ -60,9 +60,11 @@ export default class Media extends React.Component {
             $imagePreview = null
           })
         document.querySelector('body').classList.remove('no-scroll')
+        this.checkAmountSlides()
       }
     })
   }
+  checkAmountSlides = () => { this.setState({ slideAmount: config.data.gallery.length }) }
   addFile = e => {
     let file = e.target.files[0]
     if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); Resize(file, this.bar) } else
@@ -143,16 +145,14 @@ export default class Media extends React.Component {
     if (slides.length > 0) {
       multiMediaDeleteService(slides).then(r => {
         if (r.status === 204) {
-          let gallery = this.state.gallery
-          gallery.map((val, index) => {
-            if (slides.indexOf(val.id) >= 0) {
-              gallery.splice(index, 1)
-            }
-          })
+          let filterGallery = this.state.gallery
+          filterGallery = filterGallery.filter(i => !slides.includes(i.id))
+          config.data.gallery = filterGallery
           slides.map(val => {
             document.getElementById('slide' + val).classList.remove('selected')
           })
-          this.setState({ gallery: gallery, slides: [], shares: [], multiDel: !this.state.multiDel, visibleAgreeModal: false })
+          this.setState({ gallery: filterGallery, slides: [], shares: [], multiDel: !this.state.multiDel, visibleAgreeModal: false })
+          this.checkAmountSlides()
         }
       })
     }
@@ -257,7 +257,7 @@ export default class Media extends React.Component {
         <div id='swiper-wrap-gallery'>
           <Swiper spaceBetween={5} slidesPerView='auto' slidesPerGroup={1} slidesPerColumn={2} observer>
             {this.state.gallery.map((i, k) => (
-              <div key={k} id={'slide' + i.id}
+              <div key={i.id} id={'slide' + i.id}
                 onClick={() => (this.state.multiDel || this.state.multiShare) && this.selectSlide(i.id, this.state.multiDel
                   ? '' : (config.urls.gallery + i.name).substr(1))
                 }
