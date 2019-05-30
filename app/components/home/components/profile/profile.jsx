@@ -345,7 +345,7 @@ render () {
           hateBdate={this.state.birthdate}
           hateByear={this.state.birthyear}
           {...this.props} />}
-      {config.data.phone && <Sendlink {...this.props} />}
+      {/* {config.data.phone && <Sendlink {...this.props} />} */}
       <Agreement editProfile={this.state.editProfile}getArgeement={this.getArgeement}{...this.props} />
     </div>
   )
