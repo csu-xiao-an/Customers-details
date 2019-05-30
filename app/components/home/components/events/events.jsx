@@ -3,7 +3,8 @@ import './events.styl'
 
 export default class Events extends React.Component {
   static propTypes = {
-    rights: PropTypes.object.isRequired
+    rights: PropTypes.object.isRequired,
+    recentAppointmentsData: PropTypes.array.isRequired,
   }
   // price (i) {
   //   let sum = 0
@@ -57,16 +58,17 @@ export default class Events extends React.Component {
 
   initialSlide = () => {
     let slide
-    config.data.recent_appoinments && config.data.recent_appoinments.every((i, k) => {
+    config.data.recent_appointments && this.props.recentAppointmentsData.every((i, k) => {
       if (moment() > moment(i.date)) { slide = k; return false } else return true
     })
     return slide
   }
   componentWillMount = () => {
-    if (!Array.isArray(config.data.recent_appoinments)) config.data.recent_appoinments = []
-    config.data.recent_appoinments.sort((a, b) => moment(a.date) - moment(b.date))
+    if (!Array.isArray(config.data.recent_appointments)) config.data.recent_appointments = []
+    // config.data.recent_appoinments.sort((a, b) => moment(a.date) - moment(b.date))
   }
   render () {
+    const { recentAppointmentsData } = this.props
     return (
       <div id='events'>
         {/* <a href={this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}> */}
@@ -76,9 +78,9 @@ export default class Events extends React.Component {
           <label>{config.translations.close_queue}</label>
         </div>
         <div className='wrap-events'>
-          {config.data.recent_appoinments.map((i, k) => (
-            <div key={k} className='events-list'>
-              <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${config.data.recent_appoinments[k].id}&worker_id=${config.user.worker_id}`}>
+          {recentAppointmentsData.sort((a, b) => moment(a.date) - moment(b.date)).map(i => (
+            <div key={i.id} className='events-list'>
+              <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${i.id}&worker_id=${config.user.worker_id}`}>
                 <div className='note' style={i.services && this.getColorLine(i)} >
                   <div className='note-head'>
                     <img className='icon' src={config.urls.media + 'ic_servise.svg'} />

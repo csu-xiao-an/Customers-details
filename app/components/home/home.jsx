@@ -30,7 +30,8 @@ class Home extends React.Component {
     showAddGallery: config.data.gallery.length === 0 && true,
     galleryData: [...config.data.gallery],
     notesData: [...config.data.notes],
-    debtsData: [...config.data.debts]
+    debtsData: [...config.data.debts],
+    recentAppointmentsData: [...config.data.recent_appointments]
   }
   createNewNote = (rem, r, added, text) => {
     const newNote = {}
@@ -145,7 +146,7 @@ class Home extends React.Component {
 
   render () {
     const isDebtsVisible = this.state.isVisibleFields || (config.data.debts && !!this.state.debtsData.length) || this.state.isFirstDebt
-    const isEventVisible = this.state.isVisibleFields || (config.data.recent_appoinments && !!config.data.recent_appoinments.length)
+    const isEventVisible = this.state.isVisibleFields || (config.data.recent_appointments && !!config.data.recent_appointments.length)
     const isNotesVisible = this.state.isVisibleFields || (config.data.notes && !!this.state.notesData.length) || this.state.isFirstNote
     const isGalleryVisible = this.state.isVisibleFields || (config.data.gallery && !!config.data.gallery.length) || this.state.isFirstItemInGallery
     const isGroupsVisible = this.state.isVisibleFields || (config.data.groups && !!config.data.groups.length)
@@ -158,6 +159,7 @@ class Home extends React.Component {
           profilePic={this.state.profilePic}
         />
         <HotLinks
+          recentAppointmentsData={this.state.recentAppointmentsData}
           notesData={this.state.notesData}
           debtsData={this.state.debtsData}
           showAddGallery={this.state.showAddGallery}
@@ -170,7 +172,7 @@ class Home extends React.Component {
           isVisibleFields={this.state.isVisibleFields}
           getProfilePicture={this.getProfilePicture}
         />
-        {isEventVisible && <Events {...this.props} />}
+        {isEventVisible && <Events recentAppointmentsData={this.state.recentAppointmentsData} {...this.props} />}
         {isDebtsVisible && <Debts
           hiddenEmptyDepts={this.hiddenEmptyDepts}
           createNewDebt={this.createNewDebt}

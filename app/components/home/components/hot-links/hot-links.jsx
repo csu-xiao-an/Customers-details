@@ -8,6 +8,7 @@ export default class HotLinks extends React.Component {
   }
   static propTypes = {
     rights: PropTypes.object.isRequired,
+    recentAppointmentsData: PropTypes.array.isRequired,
     debtsData: PropTypes.array.isRequired,
     notesData: PropTypes.array.isRequired,
     addingFirstItem: PropTypes.func.isRequired,
@@ -55,7 +56,17 @@ export default class HotLinks extends React.Component {
       input.click()
     }, 10)
   }
-
+  addFirstAppointment = titles => (
+    <a className='link-add block-link'
+      href={this.props.rights.events.cr_app
+        ? `${config.urls.main}${config.urls.appointment}?client_id=${config.data.id}&worker_id=${config.user.worker_id}`
+        : false}>
+      <div className='circle-wrap'>
+        <img src={`${config.urls.media}plus-white.svg`} />
+      </div>
+      <span className='link-name'>{titles}</span>
+    </a>
+  )
   renderExternalLink = (url, name, img) => (
     <div className='link-wrap'>
       <Link className={'link ' + (this.props.rights.hot_links.external ? 'square' : 'hidden')} to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + url : url}><img src={img} /></Link>
@@ -114,6 +125,7 @@ export default class HotLinks extends React.Component {
             }
           }
         })}
+        {this.props.recentAppointmentsData.length === 0 && this.addFirstAppointment(config.translations.add_first_event)}
         {this.props.notesData.length === 0 && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
         {this.props.debtsData.length === 0 && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)}
         {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item_gallery)}
