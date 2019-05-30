@@ -169,8 +169,8 @@ export default class Media extends React.Component {
     nativeShared = () => {
       this.state.shares.map(val => {
         let opt = {
-          title: config.translations.share_title,
-          text: config.translations.share_text,
+          title: config.translations.media.share_title,
+          text: config.translations.media.share_text,
           urls: val
         }
         navigator.share && navigator.share(opt)
@@ -212,10 +212,10 @@ export default class Media extends React.Component {
       <div id='gallery'>
         <div className='gallery-header'>
           <div className='title'>
-            {config.translations.gallery}
+            {config.translations.media.title}
           </div>
           <div className='files-amount'>
-            {config.data.gallery.length ? (config.translations.files + ': ' + config.data.gallery.length) : (config.translations.files + ': ' + '0')}
+            {config.data.gallery.length ? (config.translations.media.files + ': ' + config.data.gallery.length) : (config.translations.media.files + ': ' + '0')}
             {this.state.slideAmount ? <div className='action'>
               {this.checkAccessLevel
                 ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
@@ -279,12 +279,15 @@ export default class Media extends React.Component {
           </Swiper>
         </div>
         {this.state.multiDel && this.state.slides.length === 0 &&
-          <button className='multi-del-disabled' disabled>
-            <span>{config.translations.delete}</span>
+          <button className='multi-del' disabled>
+            <span>{config.translations.media.media_delete}</span>
+            <div>
+              <img src={config.urls.media + 'trash-del-disable.svg'} />
+            </div>
           </button>}
         {this.state.multiDel && this.state.slides.length > 0 &&
           <button className='multi-del' onClick={this.confirmDel}>
-            <span>{config.translations.delete}</span>
+            <span>{config.translations.media.media_delete}</span>
             <div>
               <img src={config.urls.media + 'trash-del.svg'} />
             </div>
@@ -296,8 +299,8 @@ export default class Media extends React.Component {
                 <img onClick={this.state.shares.length && this.nativeShared} src={config.urls.soc_net + 'share.svg'} />
               </div>
               : <Share {...this.props} opt={{
-                title: config.translations.share_title,
-                text: config.translations.share_text,
+                title: config.translations.media.share_title,
+                text: config.translations.media.share_text,
                 urls: this.state.shares
               }} />}
           </div>}
@@ -312,17 +315,17 @@ export default class Media extends React.Component {
               e.target.value = null
               // this.handleMenuOff(e)
             }} style={{display: 'none'}} />
-            <label>{config.translations.add_media}</label>
+            <label>{config.translations.media.add_media}</label>
             <img src={config.urls.media + 'c_add_stroke.svg'} />
           </label>}
         <Modal show={this.state.visibleAgreeModal} onHide={this.cancel}>
           <div className='modal-body-new'>
             <img className='icon' src={config.urls.media + 'trash-del.svg'} />
-            <label>{this.state.slides.length > 1 ? config.translations.confirm_del_media_multiple : config.translations.confirm_del_media}</label>
+            <label>{this.state.slides.length > 1 ? config.translations.media.confirm_del_media_multiple : config.translations.media.confirm_del_media}</label>
           </div>
           <div className='modal-footer-new'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.multiDeleteFiles}>{config.translations.punch_cards.confirm_btn_label}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.media.cancel_media}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.multiDeleteFiles}>{config.translations.media.confirm_del}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
         {this.state.imagePreviewUrl &&
