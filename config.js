@@ -386,6 +386,7 @@ var config = {
     reminders_default_date_period: 'Days',
     timeout: 500,
     hot_links: [
+      {name: 'appointments', img: '', url: ''},
       {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
       {name: 'notes', img: '/dist/media/edit.png', url: '#notes'},
       {name: 'colors_beautech', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},

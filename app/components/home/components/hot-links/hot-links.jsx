@@ -89,6 +89,7 @@ export default class HotLinks extends React.Component {
   )
 
   render () {
+    const appointments = config.data.hot_links.find(i => i.name === 'appointments')
     const hotLinks = config.data.hot_links.filter(i => {
       // console.log('object', i.name)
       if (i.name === 'notes' && this.props.notesData.length !== 0) return i
@@ -125,7 +126,7 @@ export default class HotLinks extends React.Component {
             }
           }
         })}
-        {this.props.recentAppointmentsData.length === 0 && this.addFirstAppointment(config.translations.add_first_event)}
+        {this.props.recentAppointmentsData.length === 0 && appointments && this.addFirstAppointment(config.translations.add_first_event)}
         {this.props.notesData.length === 0 && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
         {this.props.debtsData.length === 0 && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)}
         {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item_gallery)}
