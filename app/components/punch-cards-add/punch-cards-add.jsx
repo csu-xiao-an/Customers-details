@@ -161,12 +161,29 @@ class PunchCardsAdd extends React.Component {
       duration: duration * (-1)
     })
   }
-  handleBlurEditExpiryDate = () => {
-    this.setState({
-      visibleAgreeModal: this.state.duration < 0
-    })
+  handleBlurEditExpiryDate = date => {
+    if (moment(date).isValid()) {
+      this.setState({
+        visibleAgreeModal: this.state.duration < 0
+      })
+    } else {
+      let date = moment().year() + '-12-31'
+      this.setState({
+        date,
+        visibleAgreeModal: this.state.duration < 0
+      }, this.handleChangeEditExpiryDate)
+    }
   }
 
+  handleonBlur = e => {
+    let date = (e.target.value)
+    this.setState({ editDate: false },
+      this.handleBlurEditExpiryDate(date))
+  }
+  handleChangeDate = e => {
+    this.setState({date: e.target.value},
+      this.handleChangeEditExpiryDate)
+  }
   render () {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
@@ -248,16 +265,17 @@ class PunchCardsAdd extends React.Component {
                   <div className='date_wrap'>
                     <p>{config.translations.punch_cards.ends}</p>
                   </div>
-                  <p className='daysLeft'>
+                  {moment(this.state.date).isValid() && <div>
                     {this.state.duration >= 0
                       ? <p className='daysLeft'>{config.translations.punch_cards.days_left.replace('{days}', this.state.duration)}</p>
-                      : <p className='daysLeft'>{config.translations.punch_cards.days_ago.replace('{days}', this.state.duration * (-1))}</p>}
-                  </p>
+                      : <p className='daysLeft'>{config.translations.punch_cards.days_ago.replace('{days}', this.state.duration * (-1))}</p>
+                    }
+                  </div>}
                   {this.state.editDate
                     ? <input
                       className='change-expiry-date'
-                      onBlur={() => this.setState({ editDate: false }, this.handleBlurEditExpiryDate)}
-                      onChange={e => this.setState({date: e.target.value}, this.handleChangeEditExpiryDate)}
+                      onBlur={this.handleonBlur}
+                      onChange={this.handleChangeDate}
                       ref='changeDate'
                       type='date'
                       value={this.state.date}
