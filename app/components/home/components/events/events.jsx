@@ -68,7 +68,8 @@ export default class Events extends React.Component {
     // config.data.recent_appoinments.sort((a, b) => moment(a.date) - moment(b.date))
   }
   render () {
-    const { recentAppointmentsData } = this.props
+    let currDate = moment().format('YYYY-MM-DD HH-mm')
+    const recentAppointmentsData = this.props.recentAppointmentsData.sort((a, b) => moment(b.date) - moment(currDate))
     return (
       <div id='events'>
         {/* <a href={this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}> */}
@@ -78,7 +79,7 @@ export default class Events extends React.Component {
           <label>{config.translations.close_queue}</label>
         </div>
         <div className='wrap-events'>
-          {recentAppointmentsData.sort((a, b) => moment(a.date) - moment(b.date)).map(i => (
+          {recentAppointmentsData.map(i => (
             <div key={i.id} className='events-list'>
               <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${i.id}&worker_id=${config.user.worker_id}`}>
                 <div className='note' style={i.services && this.getColorLine(i)} >
