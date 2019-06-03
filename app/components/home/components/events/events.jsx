@@ -6,24 +6,6 @@ export default class Events extends React.Component {
     rights: PropTypes.object.isRequired,
     recentAppointmentsData: PropTypes.array.isRequired,
   }
-  // price (i) {
-  //   let sum = 0
-  //   if (i.length > 1) {
-  //     for (let c = 0; c < i.length; c++) sum += i[c].total_price
-  //   } else { sum = i[0].total_price }
-  //   return sum + config.data.currency
-  // }
-  //   duration (i) {
-  //     let duration = 0
-  //     if (i.services.length > 1) {
-  //       for (let c = 0; c < i.services.length; c++) duration += i.services[c].duration
-  //     } else { duration = i.services[0].duration }
-  //     return `${moment(i.start).format('HH:mm')}-${moment(i.end).subtract(moment(i.start)).format('HH:mm')}`
-  // }
-  // duration (i) {
-  //   const duration = i.services.reduce((sum, item) => sum + (item.duration || 0), 0)
-  //   return moment(i.start).format('HH:mm') + ' - ' + moment(i.start).add(duration, 'minutes').format('HH:mm')
-  // }
   getColorLine (i) {
     let nextNum = 0
     let colorStr = ''
@@ -55,17 +37,8 @@ export default class Events extends React.Component {
     return (colorStr ? (config.isRTL ? rightBorder : leftBorder) : BorderNone)
   }
   getHeaderTitle = i => i.services.map(i => i.name).join(', ')
-
-  initialSlide = () => {
-    let slide
-    config.data.recent_appointments && this.props.recentAppointmentsData.every((i, k) => {
-      if (moment() > moment(i.date)) { slide = k; return false } else return true
-    })
-    return slide
-  }
   componentWillMount = () => {
     if (!Array.isArray(config.data.recent_appointments)) config.data.recent_appointments = []
-    // config.data.recent_appoinments.sort((a, b) => moment(a.date) - moment(b.date))
   }
   render () {
     let currDate = moment().format('YYYY-MM-DD HH-mm')
@@ -81,7 +54,7 @@ export default class Events extends React.Component {
         <div className='wrap-events'>
           {recentAppointmentsData.map(i => (
             <div key={i.id} className='events-list'>
-              <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${i.id}&worker_id=${config.user.worker_id}`}>
+              <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${i.id}&worker_id=${i.worker_id}`}>
                 <div className='note' style={i.services && this.getColorLine(i)} >
                   <div className='note-head'>
                     <img className='icon' src={config.urls.media + 'ic_servise.svg'} />

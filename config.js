@@ -656,6 +656,7 @@ var config = {
         start: '2019-09-01 15:00',
         end: '2019-09-01 19:00',
         total_price: '250',
+        worker_id: 1,
         services: [
           {
             id: 159159,
@@ -674,6 +675,7 @@ var config = {
         start: '2019-09-02 15:00',
         end: '2019-09-02 15:30',
         total_price: '4100',
+        worker_id: 1,
         services: [
           {
             id: 778954,
@@ -687,6 +689,7 @@ var config = {
         start: '2020-01-01 15:00',
         end: '2020-01-01 15:30',
         total_price: '1200',
+        worker_id: 1,
         services: [
           {
             id: 778954,
@@ -700,6 +703,7 @@ var config = {
         start: '2025-01-02 15:00',
         end: '2025-01-02 15:30',
         total_price: '10',
+        worker_id: 1,
         services: [
           {
             id: 778954,
@@ -713,6 +717,7 @@ var config = {
         start: '2025-01-03 15:00',
         end: '2025-01-03 15:30',
         total_price: '1200',
+        worker_id: 1,
         services: [
           {
             id: 778954,
@@ -726,6 +731,7 @@ var config = {
         start: '2025-01-04 15:00',
         end: '2025-01-04 15:30',
         total_price: '700',
+        worker_id: 1,
         services: [
           {
             id: 778954,
@@ -739,6 +745,7 @@ var config = {
         start: '2025-01-05 15:00',
         end: '2025-01-05 15:30',
         total_price: '600',
+        worker_id: 1,
         services: [
           {
             id: 778954,
@@ -752,6 +759,7 @@ var config = {
         start: '2025-01-06 15:00',
         end: '2025-01-06 15:30',
         total_price: '600',
+        worker_id: 1,
         services: [
           {
             id: 778954,
@@ -765,6 +773,7 @@ var config = {
         start: '2025-01-07 15:00',
         end: '2025-01-07 15:30',
         total_price: '1000',
+        worker_id: 1,
         services: [
           {
             id: 778954,
