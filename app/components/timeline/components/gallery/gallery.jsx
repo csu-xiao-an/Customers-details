@@ -75,7 +75,7 @@ export default class Gallery extends React.Component {
           </div>
           <div className='share-wrap'>
             { navigator.share
-              ? <img onClick={this.nativeShared} className='share' src={config.urls.media + 'ic-share-pink.svg'} onClick={this.share} />
+              ? <img onClick={this.nativeShared} className='share' src={config.urls.media + 'ic-share-pink.svg'} />
               : <Share
                 {...this.props}
                 opt={{
