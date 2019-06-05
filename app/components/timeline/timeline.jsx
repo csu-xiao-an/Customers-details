@@ -221,7 +221,7 @@ class Timeline extends React.Component {
             <div className='single-button' onClick={() => this.filter('gallery')}>
               <img className={`mark ${this.state.filter.gallery ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-g.svg`} />
-              <p>{config.translations.gallery}</p>
+              <p>{config.translations.media.title}</p>
             </div>}
             {config.plugins_list.some(i => i === 'debts') && <div className='single-button' onClick={() => this.filter('debts')}>
               <img className={`mark ${this.state.filter.debts ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
