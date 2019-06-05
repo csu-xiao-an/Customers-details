@@ -158,13 +158,15 @@ export default class Media extends React.Component {
     }
   }
     share = () => {
-      this.setState({multiShare: !this.state.multiShare})
-      if (this.state.multiShare) {
+      this.setState({
+        multiShare: !this.state.multiShare,
+        multiDel: false
+      }, () => {
         this.state.slides.map(val => {
           document.getElementById('slide' + val).classList.remove('selected')
+          this.setState({slides: [], shares: []})
         })
-        this.setState({slides: [], shares: []})
-      }
+      })
     }
     nativeShared = () => {
       this.state.shares.map(val => {
@@ -204,7 +206,18 @@ export default class Media extends React.Component {
   confirmDel = () => {
     this.setState({ visibleAgreeModal: true })
   }
+  handleMultiDeleteClick = () => {
+    this.setState({multiDel: !this.state.multiDel, multiShare: false}, () => {
+      let arr = this.state.slides
+      arr.map(val => {
+        document.getElementById('slide' + val).classList.remove('selected')
+      })
+      this.setState({slides: [], shares: []})
+    })
+  }
   render () {
+    const { multiDel, multiShare } = this.state
+    let checkLength = this.state.slides.length === 0
     if (this.state.imagePreviewUrl) {
       $imagePreview = (<img src={this.state.imagePreviewUrl} />)
     }
@@ -217,35 +230,11 @@ export default class Media extends React.Component {
           <div className='files-amount'>
             {config.data.gallery.length ? (config.translations.media.files + ': ' + config.data.gallery.length) : (config.translations.media.files + ': ' + '0')}
             {this.state.slideAmount ? <div className='action'>
-              {this.checkAccessLevel
-                ? <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />
-                : ''}
-              {this.state.multiDel ? <div className='delete-clicked'
-                onClick={() => {
-                  if (this.state.multiDel) {
-                    let arr = this.state.slides
-                    arr.map(val => {
-                      document.getElementById('slide' + val).classList.remove('selected')
-                    })
-                    this.setState({slides: []})
-                  }
-                  this.setState({multiDel: !this.state.multiDel})
-                }}>
-                <img src={config.urls.media + 'multi-del-fill.svg'} />
+              {this.checkAccessLevel && <img className='share' src={config.urls.media + 'ic_share.svg'} onClick={this.share} />}
+              <div className={'delete' + (multiDel ? ' delete-clicked' : multiShare ? ' grey' : '')}
+                onClick={this.handleMultiDeleteClick}>
+                <img src={config.urls.media + (multiDel ? 'multi-del-fill.svg' : multiShare ? 'multi-del-fill.svg' : 'multi-del-pic.svg')} />
               </div>
-                : <div className='delete'
-                  onClick={() => {
-                    if (this.state.multiDel) {
-                      let arr = this.state.slides
-                      arr.map(val => {
-                        document.getElementById('slide' + val).classList.remove('selected')
-                      })
-                      this.setState({slides: []})
-                    }
-                    this.setState({multiDel: !this.state.multiDel})
-                  }}>
-                  <img src={config.urls.media + 'multi-del-pic.svg'}/>
-                </div>}
             </div> : ''}
           </div>
         </div>
@@ -278,22 +267,13 @@ export default class Media extends React.Component {
             ))}
           </Swiper>
         </div>
-        {this.state.multiDel && this.state.slides.length === 0 &&
-          <button className='multi-del' disabled>
+        {this.state.multiDel &&
+          <button className='multi-del' disabled={checkLength} onClick={this.confirmDel}>
             <span>{config.translations.media.media_delete}</span>
-            <div>
-              <img src={config.urls.media + 'trash-del-disable.svg'} />
-            </div>
-          </button>}
-        {this.state.multiDel && this.state.slides.length > 0 &&
-          <button className='multi-del' onClick={this.confirmDel}>
-            <span>{config.translations.media.media_delete}</span>
-            <div>
-              <img src={config.urls.media + 'trash-del.svg'} />
-            </div>
+            <img src={config.urls.media + (checkLength ? 'trash-del-disable.svg' : 'trash-del.svg')} />
           </button>}
         {this.state.multiShare &&
-          <div className={this.state.multiShare ? 'isVisible' : 'hidden'}>
+          <div className='isVisible'>
             { navigator.share
               ? <div className='native-share'>
                 <img onClick={this.state.shares.length && this.nativeShared} src={config.urls.soc_net + 'share.svg'} />
