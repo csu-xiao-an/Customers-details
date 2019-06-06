@@ -9,13 +9,6 @@ import {clientPutService, clientNewGetService, addressGetService, addressService
 import { EmptyDataModal } from 'project-components'
 
 export default class Profile extends React.Component {
-  constructor (props) {
-    super(props)
-    this.text = {
-      btn_text: config.translations.personal_info_editing.name_text,
-      agree: config.translations.personal_info_editing.agree
-    }
-  }
 state = {
   visibleMapPopup: false,
   birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
@@ -271,9 +264,8 @@ render () {
             </div>
           </div>}
         <EmptyDataModal
-          show={this.state.active} 
+          show={this.state.active}
           onHide={this.cancelModal}
-          text={this.text}
         />
       </div>}
       {((this.props.isVisibleFields || config.data.phone) || this.state.editProfile) &&

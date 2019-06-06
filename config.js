@@ -125,7 +125,7 @@ var config = {
       submit: 'Submit'
     },
     personal_info_editing: {
-      name_text: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',
+      title: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',
       agree: 'Got it!'
     },
     language: 'en',
