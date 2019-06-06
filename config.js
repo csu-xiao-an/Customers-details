@@ -124,6 +124,10 @@ var config = {
       add_caption: 'Add a caption...',
       submit: 'Submit'
     },
+    personal_info_editing: {
+      name_text: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',
+      agree: 'Got it!'
+    },
     language: 'en',
     editProfile: 'Edit',
     status: 'Status:',

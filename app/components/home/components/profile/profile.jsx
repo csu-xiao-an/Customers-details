@@ -6,8 +6,16 @@ import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import {clientPutService, clientNewGetService, addressGetService, addressService} from 'project-services'
+import { EmptyDataModal } from 'project-components'
 
 export default class Profile extends React.Component {
+  constructor (props) {
+    super(props)
+    this.text = {
+      btn_text: config.translations.personal_info_editing.name_text,
+      agree: config.translations.personal_info_editing.agree
+    }
+  }
 state = {
   visibleMapPopup: false,
   birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
@@ -175,7 +183,9 @@ changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdi
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 changeAddressEdit = () => { this.setState({profileAddressEdit: !this.state.profileAddressEdit}) }
-changeNameEdit = () => { this.setState({profileNameEdit: !this.state.profileNameEdit}) }
+changeNameEdit = () => { 
+  this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus()) 
+}
 resetFields = () => {
   this.setState({
     profileEmailEdit: false,
@@ -193,6 +203,13 @@ editInfo = () => {
     })
   }
   this.setState({editProfile: true, resetApi: true}, () => this.initMap())
+}
+blurName = () => {
+  this.setState({active: true})
+}
+cancelModal = () => {
+  this.setState({ active: false, name: config.data.name })
+  document.getElementById('name-input').focus()
 }
 render () {
   const { isVisibleFields } = this.props
@@ -243,6 +260,7 @@ render () {
               <input className='edit-input'
                 id='name-input'
                 type='text'
+                onBlur={!this.state.name && this.blurName}
                 value={this.state.name}
                 onChange={e => this.setState({ name: e.target.value })} />
             </div>
@@ -252,6 +270,11 @@ render () {
               </div>
             </div>
           </div>}
+        <EmptyDataModal
+          show={this.state.active} 
+          onHide={this.cancelModal}
+          text={this.text}
+        />
       </div>}
       {((this.props.isVisibleFields || config.data.phone) || this.state.editProfile) &&
         <Phone editProfile={this.state.editProfile}
