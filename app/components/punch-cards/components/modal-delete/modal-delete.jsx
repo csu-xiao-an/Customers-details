@@ -1,4 +1,4 @@
-import {punchDeleteService, punchDeleteServiceUse} from 'project-services'
+import {deleteService as punchDeleteService, deleteServiceUse as punchDeleteServiceUse} from 'project-services/punch.service.js'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import './modal-delete.styl'
 

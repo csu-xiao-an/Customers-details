@@ -5,7 +5,8 @@ import Sex from '../sex/sex.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {clientPutService, clientNewGetService, addressService} from 'project-services'
+import {putService as clientPutService, newGetService as clientNewGetService} from 'project-services/client.service.js'
+import {addressService} from 'project-services/address.service.js'
 import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
 
 export default class Profile extends React.Component {

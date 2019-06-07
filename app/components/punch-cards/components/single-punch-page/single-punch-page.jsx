@@ -1,6 +1,6 @@
 import PunchHeader from '../panch-header/panch-header.jsx'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
-import {punchPostServiceUse, punchDeleteService, getPunchCardsList, punchDeleteServiceUse} from 'project-services'
+import {postServiceUse as punchPostServiceUse, deleteService as punchDeleteService, getPunchCards as getPunchCardsList, deleteServiceUse as punchDeleteServiceUse} from 'project-services/punch.service.js'
 import './single-punch-page.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 export default class SinglePunchPage extends React.Component {

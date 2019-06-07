@@ -1,4 +1,3 @@
-import {clientReplaceService} from 'project-services'
 import './agreement.styl'
 
 export default class Agreement extends React.Component {

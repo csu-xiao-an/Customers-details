@@ -1,4 +1,4 @@
-import {detailsReplaceService} from 'project-services'
+import {replaceService as detailsReplaceService} from 'project-services/details.service.js'
 import './sendlink.styl'
 
 export default class Sendlink extends React.Component {

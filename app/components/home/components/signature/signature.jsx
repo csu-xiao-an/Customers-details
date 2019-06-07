@@ -1,4 +1,5 @@
-import {signatureDeleteService, clientReplaceService} from 'project-services'
+import {deleteService as signatureDeleteService} from 'project-services/signature.service.js'
+import {replaceService as clientReplaceService} from 'project-services/client.service.js'
 import SignatureModal from '../signature-modal/signature-modal.jsx'
 import { default as Switch } from 'project-components/Switch/Switch.jsx'
 import './signature.styl'

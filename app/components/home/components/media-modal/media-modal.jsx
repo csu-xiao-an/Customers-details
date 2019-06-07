@@ -1,4 +1,4 @@
-import {mediaReplaceService, mediaDeleteService} from 'project-services'
+import {replaceService as mediaReplaceService, deleteService as mediaDeleteService} from 'project-services/media.service.js'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import { default as formatDate } from 'project-components/format-date.js'
 import { default as Swiper } from 'project-components/Swiper/Swiper.js'

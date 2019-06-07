@@ -1,4 +1,4 @@
-import {signatureReplaceService} from 'project-services'
+import {replaceService as signatureReplaceService} from 'project-services/signature.service.js'
 import { default as dataURLtoFile } from 'project-components/decodeBase64.js'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import './signature-modal.styl'

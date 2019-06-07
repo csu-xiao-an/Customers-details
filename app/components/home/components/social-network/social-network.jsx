@@ -1,4 +1,4 @@
-import {socialPostService, socialDeleteService} from 'project-services'
+import {postService as socialPostService, deleteService as socialDeleteService} from 'project-services/social.service.js'
 import { default as Select } from 'project-components/Select/Select.jsx'
 import './social-network.styl'
 

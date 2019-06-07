@@ -1,4 +1,4 @@
-import {clientReplaceService, clientPostServiceImg, StatusService} from 'project-services'
+import { replaceService as clientReplaceService, postServiceTest as clientPostServiceImg, StatusReplaceService as StatusService } from 'project-services/client.service.js'
 import { default as dataURLtoFile } from 'project-components/decodeBase64.js'
 import { default as Resize } from 'project-components/resize.js'
 import Birthday from '../birthday/birthday.jsx'

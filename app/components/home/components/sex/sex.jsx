@@ -1,6 +1,4 @@
-import {clientReplaceService} from 'project-services'
 import './sex.styl'
-import { timingSafeEqual } from 'crypto';
 
 export default class Sex extends React.Component {
   state = {

@@ -1,4 +1,4 @@
-import {punchGetService, punchPostService} from 'project-services'
+import {getService as punchGetService, postService as punchPostService} from 'project-services/punch.service.js'
 import AccessRights from '../access-rights/access-rights.jsx'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import { default as Switch } from 'project-components/Switch/Switch.jsx'

@@ -6,7 +6,7 @@ import { default as dataURLtoFile } from 'project-components/decodeBase64.js'
 import { default as Resize } from 'project-components/resize.js'
 import GalleryModal from '../media-modal/media-modal.jsx'
 import GalleryPopup from '../gallery-popup/gallery-popup.jsx'
-import {mediaPostService, multiMediaDeleteService} from 'project-services'
+import {postService as mediaPostService, multiDeleteService as multiMediaDeleteService} from 'project-services/media.service.js'
 import './media.styl'
 let $imagePreview
 const Share = lazy(() => import('../share/share.jsx').then(r => r.default))

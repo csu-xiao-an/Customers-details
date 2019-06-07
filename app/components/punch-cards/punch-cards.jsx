@@ -1,6 +1,6 @@
 import PunchHeader from './components/panch-header/panch-header.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
-import { getPunchCardsList } from 'project-services'
+import { getPunchCards as getPunchCardsList } from 'project-services/punch.service.js'
 import './punch-cards.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 class PunchCards extends React.Component {

@@ -1,4 +1,3 @@
-import {clientReplaceService} from 'project-services'
 import './phone.styl'
 
 export default class Phone extends React.Component {

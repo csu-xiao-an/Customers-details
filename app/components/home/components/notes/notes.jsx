@@ -1,4 +1,4 @@
-import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
+import {postService as notesPostService, replaceService as notesReplaceService, deleteService as notesDeleteService} from 'project-services/notes.service.js'
 import { default as NotesLib } from 'project-components/NotesLib/noteslib.jsx'
 import './notes.styl'
 

@@ -6,7 +6,7 @@ import Debt from './components/debt/debt.jsx'
 import Note from './components/note/note.jsx'
 import Sms from './components/sms/sms.jsx'
 import Topnav from '../topnav/topnav.jsx'
-import {getTimeline} from 'project-services'
+import {default as getTimeline} from 'project-services/timeline.service.js'
 import './timeline.styl'
 
 let urlParams = ['appointments', 'sms']

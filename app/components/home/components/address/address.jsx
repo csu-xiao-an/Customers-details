@@ -1,4 +1,4 @@
-import {clientReplaceService} from 'project-services'
+import { replaceService as clientReplaceService } from 'project-services/client.service.js'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import './address.styl'
 

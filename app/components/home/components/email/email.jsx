@@ -1,4 +1,3 @@
-import { clientReplaceService } from 'project-services'
 import './email.styl'
 
 export default class Email extends React.Component {

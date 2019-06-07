@@ -1,4 +1,8 @@
-import { debtPostService, debtReplaceService, debtDeleteService } from 'project-services'
+import {
+  postService as debtPostService,
+  deleteService as debtDeleteService,
+  replaceService as debtReplaceService
+} from 'project-services/debt.service.js'
 import { default as DebtsLib } from 'project-components/DebtsLib/debtslib.jsx'
 import './debts.styl'
 

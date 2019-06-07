@@ -1,4 +1,4 @@
-import {clientReplaceService, clientGetService} from 'project-services'
+import {replaceService as clientReplaceService, getService as clientGetService} from 'project-services/client.service.js'
 import './source.styl'
 let timeout
 
