@@ -1,5 +1,5 @@
 import {notesPostService, notesReplaceService, notesDeleteService} from 'project-services'
-import {NotesLib} from 'project-components'
+import { default as NotesLib } from 'project-components/NotesLib/noteslib.jsx'
 import './notes.styl'
 
 export default class Notes extends React.Component {
@@ -15,8 +15,7 @@ export default class Notes extends React.Component {
     hiddenNotes: PropTypes.func.isRequired,
     deleteNote: PropTypes.func.isRequired,
     notesData: PropTypes.array.isRequired,
-    editeNote: PropTypes.func.isRequired,
-    rights: PropTypes.object.isRequired
+    editeNote: PropTypes.func.isRequired
   }
 
   saveNote = (reminder, desc, id) => {

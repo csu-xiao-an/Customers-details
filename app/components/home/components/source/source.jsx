@@ -1,5 +1,4 @@
 import {clientReplaceService, clientGetService} from 'project-services'
-import {Select} from 'project-components'
 import './source.styl'
 let timeout
 

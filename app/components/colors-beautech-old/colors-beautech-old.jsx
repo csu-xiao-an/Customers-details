@@ -1,5 +1,5 @@
 import AccessRights from '../access-rights/access-rights.jsx'
-import { Swiper } from 'project-components'
+import { default as Swiper } from 'project-components/Swiper/Swiper.js'
 import './colors-beautech-old.styl'
 
 class ColorsBeautechOld extends React.Component {

@@ -1,5 +1,4 @@
-import {clientReplaceService} from 'project-services'
-import {Datepicker} from 'project-components'
+import { default as Datepicker } from 'project-components/Datepicker/datepicker.jsx'
 import './birthdate.styl'
 
 export default class Birthdate extends React.Component {

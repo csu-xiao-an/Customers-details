@@ -1,5 +1,7 @@
 import {mediaReplaceService, mediaDeleteService} from 'project-services'
-import {formatDate, Modal, Swiper} from 'project-components'
+import { default as Modal } from 'project-components/Modal/Modal.jsx'
+import { default as formatDate } from 'project-components/format-date.js'
+import { default as Swiper } from 'project-components/Swiper/Swiper.js'
 import './media-modal.styl'
 const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg', 'webm']
 const images = ['png', 'jpg', 'jpeg', 'svg', 'gif']

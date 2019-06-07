@@ -1,5 +1,5 @@
 import {punchDeleteService, punchDeleteServiceUse} from 'project-services'
-import {Modal} from 'project-components'
+import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import './modal-delete.styl'
 
 export default class Delete extends React.Component {

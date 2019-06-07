@@ -1,5 +1,5 @@
 import './delete_customer.styl'
-import {Modal} from 'project-components'
+import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import { clientDeleteService } from 'project-services'
 
 export default class HiddenFields extends React.Component {

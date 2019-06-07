@@ -1,5 +1,6 @@
 import {signatureReplaceService} from 'project-services'
-import {dataURLtoFile, Modal} from 'project-components'
+import { default as dataURLtoFile } from 'project-components/decodeBase64.js'
+import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import './signature-modal.styl'
 
 export default class SignatureModal extends React.Component {

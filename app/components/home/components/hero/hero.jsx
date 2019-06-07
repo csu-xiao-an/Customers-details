@@ -1,5 +1,6 @@
 import {clientReplaceService, clientPostServiceImg, StatusService} from 'project-services'
-import {dataURLtoFile, getOrientation, Resize} from 'project-components'
+import { default as dataURLtoFile } from 'project-components/decodeBase64.js'
+import { default as Resize } from 'project-components/resize.js'
 import Birthday from '../birthday/birthday.jsx'
 import './hero.styl'
 

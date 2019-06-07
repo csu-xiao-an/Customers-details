@@ -1,5 +1,5 @@
 import Share from '../share/share.jsx'
-import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
+import { default as formatDate } from 'project-components/format-date.js'
 import './gallery.styl'
 const images = ['png', 'jpg', 'jpeg', 'svg', 'gif']
 const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg', 'webm']

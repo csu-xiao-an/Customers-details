@@ -1,6 +1,6 @@
 import AccessRights from '../access-rights/access-rights.jsx'
 import Color from './components/color/color.jsx'
-import {Swiper} from 'project-components'
+import { default as Swiper } from 'project-components/Swiper/Swiper.js'
 import Topnav from '../topnav/topnav.jsx'
 import './colors-beautech.styl'
 

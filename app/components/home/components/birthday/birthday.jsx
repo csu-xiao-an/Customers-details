@@ -1,4 +1,4 @@
-import {birthdaysStatus} from 'project-components'
+import { default as birthdaysStatus } from 'project-components/birthday-status.js'
 import './birthday.styl'
 
 export default class Birthday extends React.Component {

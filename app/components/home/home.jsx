@@ -1,5 +1,5 @@
 import DeleteCustomer from './components/delete_customer/delete_customer.jsx'
-import SocialNetwork from './components/social-network/social-network.jsx'
+// import SocialNetwork from './components/social-network/social-network.jsx'
 import AccessRights from '../access-rights/access-rights.jsx'
 import HotLinks from './components/hot-links/hot-links.jsx'
 import Profile from './components/profile/profile.jsx'

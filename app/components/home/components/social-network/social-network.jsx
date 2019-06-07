@@ -1,6 +1,5 @@
 import {socialPostService, socialDeleteService} from 'project-services'
-import {Select} from 'project-components'
-import Line from '../line/line.jsx'
+import { default as Select } from 'project-components/Select/Select.jsx'
 import './social-network.styl'
 
 export default class SocialNetwork extends React.Component {

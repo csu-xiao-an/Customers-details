@@ -1,6 +1,5 @@
 import PunchHeader from '../panch-header/panch-header.jsx'
-import {Modal} from 'project-components'
-// import Delete from '../modal-delete/modal-delete.jsx'
+import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import {punchPostServiceUse, punchDeleteService, getPunchCardsList, punchDeleteServiceUse} from 'project-services'
 import './single-punch-page.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''

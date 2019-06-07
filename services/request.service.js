@@ -1,3 +1,3 @@
-import { requestService } from 'project-components'
+import { default as requestService } from 'project-components/request.service.js'
 
 export default requestService

@@ -1,6 +1,8 @@
 import {punchGetService, punchPostService} from 'project-services'
 import AccessRights from '../access-rights/access-rights.jsx'
-import { ProceduresList, Switch, Modal } from 'project-components'
+import { default as Modal } from 'project-components/Modal/Modal.jsx'
+import { default as Switch } from 'project-components/Switch/Switch.jsx'
+import { default as ProceduresList } from 'project-components/ProceduresList/ProceduresList.jsx'
 import './punch-cards-add.styl'
 const INITIAL_STATE = {
   date: moment().year() + '-12-31',

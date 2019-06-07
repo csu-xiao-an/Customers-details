@@ -1,12 +1,12 @@
 import './profile.styl'
 import Phone from '../phone/phone.jsx'
 import Sex from '../sex/sex.jsx'
-import Sendlink from '../sendlink/sendlink.jsx'
+// import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {clientPutService, clientNewGetService, addressGetService, addressService} from 'project-services'
-import { EmptyDataModal } from 'project-components'
+import {clientPutService, clientNewGetService, addressService} from 'project-services'
+import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
 
 export default class Profile extends React.Component {
 state = {
@@ -346,7 +346,6 @@ render () {
             </div>
           </div>}
       </div>}
-      {/* {!config.data.gender && <Sex {...this.props} />} */}
       {((this.props.isVisibleFields || config.data.gender) || this.state.editProfile) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}

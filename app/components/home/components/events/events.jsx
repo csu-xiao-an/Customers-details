@@ -1,17 +1,17 @@
-import {formatDate, dataURLtoFile, Swiper, Resize} from 'project-components'
+import { default as formatDate } from 'project-components/format-date.js'
 import './events.styl'
 
 export default class Events extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired,
-    recentAppointmentsData: PropTypes.array.isRequired,
+    recentAppointmentsData: PropTypes.array.isRequired
   }
   getColorLine (i) {
     let nextNum = 0
     let colorStr = ''
     let filteredColor = i.services.filter(i => !!i.color)
     let oneColorHeight = (100 / (filteredColor.length).toFixed(2))
-    filteredColor.map((i, k) => {
+    filteredColor.map(i => {
       colorStr += ', ' + (i.color || '') + ' ' + nextNum + '%, ' + (i.color || '') + ' ' + (
         parseFloat(nextNum) + parseFloat(oneColorHeight)) + '%'
       nextNum = parseFloat(nextNum) + parseFloat(oneColorHeight)

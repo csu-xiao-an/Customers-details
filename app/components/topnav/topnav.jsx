@@ -1,4 +1,4 @@
-import { Menu } from 'project-components'
+import { default as Menu } from 'project-components/Menu/Menu.jsx'
 import './topnav.styl'
 
 export default class Topnav extends React.Component {

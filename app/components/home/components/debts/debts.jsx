@@ -1,5 +1,5 @@
 import { debtPostService, debtReplaceService, debtDeleteService } from 'project-services'
-import { formatDate, DebtsLib, Swiper, Resize } from 'project-components'
+import { default as DebtsLib } from 'project-components/DebtsLib/debtslib.jsx'
 import './debts.styl'
 
 export default class Debts extends React.Component {
@@ -17,8 +17,7 @@ export default class Debts extends React.Component {
     activateDebt: PropTypes.bool.isRequired,
     debtsData: PropTypes.array.isRequired,
     deleteDebt: PropTypes.func.isRequired,
-    editeDebt: PropTypes.func.isRequired,
-    rights: PropTypes.object.isRequired
+    editeDebt: PropTypes.func.isRequired
   }
   saveDebt = () => {
     const added = moment().format('YYYY-MM-DD HH:mm')

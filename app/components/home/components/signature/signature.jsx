@@ -1,6 +1,6 @@
 import {signatureDeleteService, clientReplaceService} from 'project-services'
 import SignatureModal from '../signature-modal/signature-modal.jsx'
-import {Switch} from 'project-components'
+import { default as Switch } from 'project-components/Switch/Switch.jsx'
 import './signature.styl'
 
 export default class Signature extends React.Component {

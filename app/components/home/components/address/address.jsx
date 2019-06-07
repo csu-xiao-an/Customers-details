@@ -1,5 +1,5 @@
-import {clientReplaceService, addressGetService} from 'project-services'
-import {Modal} from 'project-components'
+import {clientReplaceService} from 'project-services'
+import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import './address.styl'
 
 export default class Address extends React.Component {
