@@ -1,9 +1,20 @@
+import { default as ModalPhoneLib } from 'project-components/ModalPhoneLib/modal-phone-lib.jsx'
 import './phone.styl'
 
 export default class Phone extends React.Component {
+  constructor (props) {
+    super(props)
+    this.text = {
+      cancel_modal: config.translations.personal_info_editing.skip,
+      not_found_title: config.translations.personal_info_editing.not_found_title,
+      save: config.translations.personal_info_editing.save,
+      enter_phone_number: config.translations.personal_info_editing.enter_phone_number,
+      phone_number: config.translations.personal_info_editing.phone_number
+    }
+  }
   state = {
     phoneEdit: false,
-    phone: this.props.hatePhone,
+    phone: config.data.phone,
     error: ''
   }
   static propTypes = {
@@ -16,7 +27,12 @@ export default class Phone extends React.Component {
     this.setState({phone: ''}, () => this.props.deletePhone())
     document.getElementById('phone-input').focus()
   }
-
+  saveNumber = phone => {
+    this.setState({ phone }, () => this.props.getPhone(this.state.phone))
+  }
+  phoneNumber = phone => {
+    this.setState({ phone: phone.target.value, error: '' }, () => this.props.getPhone(this.state.phone))
+  }
   render () {
     return this.props.rights.isPhone && (
       <div id='phone'>
@@ -62,8 +78,8 @@ export default class Phone extends React.Component {
                   id='phone-input'
                   type='tel'
                   value={this.state.phone}
-                  onChange={e => this.setState({phone: e.target.value, error: ''}, () => this.props.getPhone(this.state.phone))}
-                  // onBlur={this.setState({phone: this.state.phoneTemp})}
+                  onChange={e => this.phoneNumber(e)}
+                  onBlur={!this.state.phone && this.props.visibleModalOpen}
                 />
               </div>
               <div className='del-info'>
@@ -75,6 +91,14 @@ export default class Phone extends React.Component {
             </div>
             {/* <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div> */}
           </div>}
+        <ModalPhoneLib
+          text={this.text}
+          visibleModal={this.props.visibleModal}
+          closeModal={this.props.cancel}
+          create={this.create}
+          cancel={this.cancel}
+          saveNumber={this.saveNumber}
+        />
       </div>
     )
   }

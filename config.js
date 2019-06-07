@@ -126,7 +126,12 @@ var config = {
     },
     personal_info_editing: {
       title: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',
-      agree: 'Got it!'
+      agree: 'Got it!',
+      not_found_title: 'Phone number is not filled. Reminders or notifications won\'t be sent to this client',
+      skip: 'Skip',
+      save: 'Save',
+      enter_phone_number: 'Do you want to enter a phone number?',
+      phone_number: 'type client\'s phone number'
     },
     language: 'en',
     editProfile: 'Edit',

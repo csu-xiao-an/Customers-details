@@ -205,6 +205,12 @@ cancelModal = () => {
   this.setState({ active: false, name: config.data.name })
   document.getElementById('name-input').focus()
 }
+visibleModal = () => {
+  this.setState({ visibleModal: true })
+}
+cancel = () => {
+  this.setState({ visibleModal: false })
+}
 render () {
   const { isVisibleFields } = this.props
   return (
@@ -219,7 +225,7 @@ render () {
             </div>
             <div className='save-wrap'>
               <div><img src={config.urls.media + 'apply.svg'} /></div>
-              <div className='save-btn' onClick={this.saveAll}>{config.translations.success}</div>
+              <div className='save-btn' onClick={this.state.phone ? this.saveAll : this.visibleModal}>{config.translations.success}</div>
             </div>
           </div>
           : <div className='edit-profile' onClick={this.editInfo}>
@@ -276,6 +282,9 @@ render () {
           profilePhoneEdit={this.state.profilePhoneEdit}
           deletePhone={this.deletePhone}
           hatePhone={this.state.phone}
+          visibleModal={this.state.visibleModal}
+          cancel={this.cancel}
+          visibleModalOpen={this.visibleModal}
           {...this.props} />}
       {((this.props.isVisibleFields || config.data.email) || this.state.editProfile) &&
         <Email editProfile={this.state.editProfile}
