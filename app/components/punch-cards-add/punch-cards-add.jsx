@@ -190,6 +190,7 @@ class PunchCardsAdd extends React.Component {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
     }
+    console.log('object')
     return (
       <div id='punch_cards_adding' style={bgrImg}>
         <header className='punch-header'>
