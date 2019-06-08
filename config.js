@@ -400,7 +400,7 @@ var config = {
     phone: '9379992',
     isFavorite: false,
     details_link_active: false,
-    permit_ads: false,
+    permit_ads: true,
     signature: './dist/media/autograph.png',
     status: 'The re is something about ZHU',
     profile_image: '24.jpg',

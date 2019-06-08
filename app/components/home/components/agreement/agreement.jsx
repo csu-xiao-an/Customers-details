@@ -2,7 +2,7 @@ import './agreement.styl'
 
 export default class Agreement extends React.Component {
   state = {
-    isChecked: false
+    isChecked: config.data.permit_ads
   }
 
   handleAds = () => {
