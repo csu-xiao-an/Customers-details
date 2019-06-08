@@ -21,6 +21,15 @@
       color var(--dark-color)
   position relative
   height 17.2em
+  .status-warp
+    padding: 0 10px;
+    bottom: 0;
+    position: absolute;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    justify-content: start;
+    border-collapse: separate;
+    z-index: 2;
   .img
     position relative
     .client-img
@@ -105,15 +114,10 @@
     display flex
     align-items center
     padding 0 10px
-    bottom 0
-    position absolute
     width -webkit-fill-available
     width -moz-available
     justify-content start
     border-collapse separate
-    z-index 2
-    // .divv
-    //   color #fff
     .del-status-icon
       margin-left 10px
       -webkit-margin-start 10px

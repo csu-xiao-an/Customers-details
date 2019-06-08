@@ -126,8 +126,8 @@ export default class Hero extends React.Component {
           <input type='file' accept='image/*' capture style={{display: 'none'}} onChange={this.addPhoto} />
         </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
-        <Birthday />
-        <div>
+        <div className='status-warp'>
+          <Birthday />
           <form>
             <span className='status-label'>{config.translations.status}</span>
             {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.placeholder}</span>}
