@@ -199,11 +199,10 @@ editInfo = () => {
   this.setState({editProfile: true, resetApi: true}, () => this.initMap())
 }
 blurName = () => {
-  this.setState({active: true})
+  this.setState({ activeNameModal: true })
 }
 cancelModal = () => {
-  this.setState({ active: false, name: config.data.name })
-  document.getElementById('name-input').focus()
+  this.setState({ activeNameModal: false, name: config.data.name, profileNameEdit: true }, () => document.getElementById('name-input').focus())
 }
 visibleModal = () => {
   this.setState({ visibleModal: true })
@@ -225,7 +224,7 @@ render () {
             </div>
             <div className='save-wrap'>
               <div><img src={config.urls.media + 'apply.svg'} /></div>
-              <div className='save-btn' onClick={this.state.phone ? this.saveAll : this.visibleModal}>{config.translations.success}</div>
+              <div className='save-btn' onClick={this.state.phone ? this.state.name ? this.saveAll : this.blurName : this.visibleModal}>{config.translations.success}</div>
             </div>
           </div>
           : <div className='edit-profile' onClick={this.editInfo}>
@@ -271,7 +270,7 @@ render () {
             </div>
           </div>}
         <EmptyDataModal
-          show={this.state.active}
+          show={this.state.activeNameModal}
           onHide={this.cancelModal}
         />
       </div>}

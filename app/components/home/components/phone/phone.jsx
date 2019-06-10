@@ -55,7 +55,7 @@ export default class Phone extends React.Component {
           </div>
         </div>
         {
-          (this.props.editProfile && !config.data.phone)
+          (this.props.editProfile && !config.data.phone && !this.state.phone)
             ? <div onClick={() => this.props.changePhoneEdit()}
               className={!this.props.profilePhoneEdit ? 'add-phone' : 'hidden'}>
               <div className='add-wrap'>
@@ -70,7 +70,7 @@ export default class Phone extends React.Component {
             </div> : '' }
         {
           this.props.editProfile &&
-          <div className={this.props.profilePhoneEdit || config.data.phone ? 'phone-edit' : 'hidden'}>
+          <div className={this.props.profilePhoneEdit || config.data.phone || this.state.phone ? 'phone-edit' : 'hidden'}>
             <div className='edit'>
               <div className='edit-wrap'>
                 <span className='label'>{config.translations.phone}:</span>
