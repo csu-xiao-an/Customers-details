@@ -74,6 +74,10 @@ var config = {
         within: 'within',
         days: 'days'
       },
+      preview_invalid_label: {
+        expired: 'Expired',
+        used: 'Used'
+      },
       card_del_question: 'Are you sure you want to delete this punch card ?',
       use_del_question: 'Are you sure you want to delete the latest use?',
       expiration_modal_text: 'Pls set an expiration date in future',
