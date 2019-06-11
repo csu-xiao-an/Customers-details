@@ -79,7 +79,7 @@ export default class Phone extends React.Component {
                   type='tel'
                   value={this.state.phone}
                   onChange={e => this.phoneNumber(e)}
-                  onBlur={!this.state.phone && this.props.visibleModalOpen}
+                  onBlur={!this.state.phone && this.props.blurPhoneModal}
                 />
               </div>
               <div className='del-info'>

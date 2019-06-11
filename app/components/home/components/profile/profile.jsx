@@ -85,7 +85,9 @@ backAll = () => {
     // birthyear: config.data.birthyear,
     permit_ads: config.data.permit_ads,
     editProfile: false,
-    resetApi: false
+    resetApi: false,
+    permit_empty_phone: false,
+    blur: false
   })
   this.removeElements()
   this.resetFields()
@@ -201,14 +203,21 @@ editInfo = () => {
 blurName = () => {
   this.setState({ activeNameModal: true })
 }
-cancelModal = () => {
+cancelNameModal = () => {
   this.setState({ activeNameModal: false, name: config.data.name, profileNameEdit: true }, () => document.getElementById('name-input').focus())
 }
 visibleModal = () => {
   this.setState({ visibleModal: true })
 }
-cancel = () => {
-  this.setState({ visibleModal: false })
+blurPhoneModal = () => {
+  this.setState({ visibleModal: true, blur: true })
+}
+cancelPhoneModal = () => {
+  this.setState({ visibleModal: false, permit_empty_phone: true })
+  if (!this.state.blur) this.saveAll()
+}
+saveBtn = () => {
+  this.state.name ? (this.state.phone || this.state.permit_empty_phone) ? this.saveAll() : this.visibleModal() : this.blurName()
 }
 render () {
   const { isVisibleFields } = this.props
@@ -224,7 +233,7 @@ render () {
             </div>
             <div className='save-wrap'>
               <div><img src={config.urls.media + 'apply.svg'} /></div>
-              <div className='save-btn' onClick={this.state.phone ? this.state.name ? this.saveAll : this.blurName : this.visibleModal}>{config.translations.success}</div>
+              <div className='save-btn' onClick={this.saveBtn}>{config.translations.success}</div>
             </div>
           </div>
           : <div className='edit-profile' onClick={this.editInfo}>
@@ -271,7 +280,7 @@ render () {
           </div>}
         <EmptyDataModal
           show={this.state.activeNameModal}
-          onHide={this.cancelModal}
+          onHide={this.cancelNameModal}
         />
       </div>}
       {((this.props.isVisibleFields || config.data.phone) || this.state.editProfile) &&
@@ -282,7 +291,8 @@ render () {
           deletePhone={this.deletePhone}
           hatePhone={this.state.phone}
           visibleModal={this.state.visibleModal}
-          cancel={this.cancel}
+          blurPhoneModal={this.blurPhoneModal}
+          cancel={this.cancelPhoneModal}
           visibleModalOpen={this.visibleModal}
           {...this.props} />}
       {((this.props.isVisibleFields || config.data.email) || this.state.editProfile) &&
