@@ -160,8 +160,9 @@ class Home extends React.Component {
         />
         <HotLinks
           recentAppointmentsData={this.state.recentAppointmentsData}
-          notesData={this.state.notesData}
-          debtsData={this.state.debtsData}
+          notes={this.state.notesData}
+          debts={this.state.debtsData}
+          gallery={this.state.galleryData}
           showAddGallery={this.state.showAddGallery}
           createFirstDebt={this.createFirstDebt}
           createFirstNote={this.createFirstNote}

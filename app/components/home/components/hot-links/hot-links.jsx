@@ -9,8 +9,8 @@ export default class HotLinks extends React.Component {
   static propTypes = {
     rights: PropTypes.object.isRequired,
     recentAppointmentsData: PropTypes.array.isRequired,
-    debtsData: PropTypes.array.isRequired,
-    notesData: PropTypes.array.isRequired,
+    debts: PropTypes.array.isRequired,
+    notes: PropTypes.array.isRequired,
     addingFirstItem: PropTypes.func.isRequired,
     createFirstNote: PropTypes.func.isRequired,
     createFirstDebt: PropTypes.func.isRequired
@@ -89,22 +89,19 @@ export default class HotLinks extends React.Component {
   )
 
   render () {
-    const appointments = config.data.hot_links.find(i => i.name === 'appointments')
     const hotLinks = config.data.hot_links.filter(i => {
-      // console.log('object', i.name)
-      if (i.name === 'notes' && this.props.notesData.length !== 0) return i
-      else if (i.name === 'debts' && this.props.debtsData.length !== 0) return i
-      else if (i.url[0] === '#' && i.name !== 'notes' && i.name !== 'debts' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
+      if (i.name === 'notes') return i
+      else if (i.name === 'debts') return i
+      else if (i.name === 'gallery') return i
+      else if (i.name === 'appointments' && this.props.recentAppointmentsData.length === 0) return i
       else if (i.url[0] !== '#' && (config.data[i.name] && config.data[i.name].length !== 0)) return i
       else if (i.name === 'punch_cards' && (config.urls.punch_cards && config.data.punch_cards.length === 0)) return i
       else if (i.name === 'timeline') return i
-      // else if (i.name === 'hair_dyeing' && (config.data.colors_beautech && config.data.colors_beautech.length !== 0)) return i
     })
-
     return (
       <div id='hot-links'>
         {hotLinks.map(i => {
-          if (i.url[0] === '#') {
+          if (i.url[0] === '#' && this.props[i.name].length !== 0) {
             return (
               <div className='link-wrap'>
                 <div onClick={() => this.link(i)}
@@ -114,22 +111,24 @@ export default class HotLinks extends React.Component {
                 <span>{config.translations.hot_links[i.name]}</span>
               </div>
             )
+          } else if (i.name === 'appointments') {
+            return this.addFirstAppointment(config.translations.add_first_event)
+          } else if (i.name === 'debts' && this.props.debts.length === 0) {
+            return this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)
+          } else if (i.name === 'notes' && this.props.notes.length === 0) {
+            return this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)
+          } else if (i.name === 'gallery' && this.props.gallery.length === 0) {
+            return this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item_gallery)
           } else {
             if (i.url === config.urls.punch_cards) {
               return config.data.punch_cards.length > 0
-              // return this.state.isActivePunchCard
                 ? this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
                 : this.renderAddLink()
-                // : this.renderExternalLink(config.urls.punch_cards_adding, config.translations.punch_cards_adding, `${config.urls.media}plus.svg`)
             } else {
               return this.renderExternalLink(i.url, config.translations.hot_links[i.name], i.img)
             }
           }
         })}
-        {this.props.recentAppointmentsData.length === 0 && appointments && this.addFirstAppointment(config.translations.add_first_event)}
-        {this.props.notesData.length === 0 && this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)}
-        {this.props.debtsData.length === 0 && this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)}
-        {this.props.showAddGallery && this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item_gallery)}
         {/* <div>
           <div className='link add-btn'>
             <img className='add' src={config.urls.media + 'ic_add.png'} />

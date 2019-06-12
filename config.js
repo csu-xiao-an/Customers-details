@@ -417,13 +417,13 @@ var config = {
     reminders_default_date_period: 'Days',
     timeout: 500,
     hot_links: [
-      {name: 'appointments', img: '', url: ''},
       {name: 'timeline', img: '/dist/media/ic_timeline.svg', url: '/timeline'},
-      {name: 'notes', img: '/dist/media/edit.png', url: '#notes'},
-      {name: 'colors_beautech', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
-      {name: 'debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
+      {name: 'punch_cards', img: '/dist/media/notes.svg', url: '/punch_cards', plugin_name: 'punch_cards'},
       {name: 'gallery', img: '/dist/media/icon_delete_selected.svg', url: '#gallery', plugin_name: 'gallery'},
-      {name: 'punch_cards', img: '/dist/media/notes.svg', url: '/punch_cards', plugin_name: 'punch_cards'}
+      {name: 'notes', img: '/dist/media/edit.png', url: '#notes'},
+      {name: 'debts', img: '/dist/media/ic_debts.svg', url: '#debts', plugin_name: 'debts'},
+      {name: 'appointments', img: '', url: ''},
+      {name: 'colors_beautech', img: '/dist/media/ic_hair_d.svg', url: '/colors_beautech', plugin_name: 'colors_beautech'},
     ],
     debts: [
       {
@@ -446,23 +446,23 @@ var config = {
       }
     ],
     notes: [
-      // {
-      //   id: 123123,
-      //   text: `New Notesdededed
-      //   qdwedewedwedewd
-      //   qewdewdewdewdew
-      //   wedewdewd
-      //   wedwedewd`,
-      //   date: '2017-11-29T03:58:49.129Z'
-      // },
-      // {
-      //   id: 123124,
-      //   text: `New Notesdededed
-      //   qdwedewedwedewdц 
-      //   цццццццц цццццццц ццц ццц ц ццц`,
-      //   date: '2017-10-29T03:58:49.129Z',
-      //   reminder_date: '2017-12-29T03:58:49.129Z'
-      // }
+      {
+        id: 123123,
+        text: `New Notesdededed
+        qdwedewedwedewd
+        qewdewdewdewdew
+        wedewdewd
+        wedwedewd`,
+        date: '2017-11-29T03:58:49.129Z'
+      },
+      {
+        id: 123124,
+        text: `New Notesdededed
+        qdwedewedwedewdц 
+        цццццццц цццццццц ццц ццц ц ццц`,
+        date: '2017-10-29T03:58:49.129Z',
+        reminder_date: '2017-12-29T03:58:49.129Z'
+      }
     ],
     groups: [
       {
@@ -664,147 +664,147 @@ var config = {
     ],
     // recent_appointments
     recent_appointments: [
-      {
-        id: 321321,
-        start: '2019-09-01 15:00',
-        end: '2019-09-01 19:00',
-        total_price: '250',
-        worker_id: 1,
-        services: [
-          {
-            id: 159159,
-            name: 'manicure',
-            color: 'red'
-          },
-          {
-            id: 756756,
-            name: 'hair coloring',
-            color: 'blue'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2019-09-02 15:00',
-        end: '2019-09-02 15:30',
-        total_price: '4100',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'visit',
-            color: 'green'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2020-01-01 15:00',
-        end: '2020-01-01 15:30',
-        total_price: '1200',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'chemistry',
-            color: 'red'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2025-01-02 15:00',
-        end: '2025-01-02 15:30',
-        total_price: '10',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'chemistry',
-            color: 'green'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2025-01-03 15:00',
-        end: '2025-01-03 15:30',
-        total_price: '1200',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'chemistry',
-            color: 'green'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2025-01-04 15:00',
-        end: '2025-01-04 15:30',
-        total_price: '700',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'manicure',
-            color: 'green'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2025-01-05 15:00',
-        end: '2025-01-05 15:30',
-        total_price: '600',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'hair coloring',
-            color: 'green'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2025-01-06 15:00',
-        end: '2025-01-06 15:30',
-        total_price: '600',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'hair coloring',
-            color: 'green'
-          }
-        ]
-      },
-      {
-        id: 456465,
-        start: '2025-01-07 15:00',
-        end: '2025-01-07 15:30',
-        total_price: '1000',
-        worker_id: 1,
-        services: [
-          {
-            id: 778954,
-            name: 'facial treatment',
-            color: 'green'
-          },
-          {
-            id: 778954,
-            name: 'laser hair 3 treatments',
-            color: 'blue'
-          },
-          {
-            id: 778954,
-            name: 'laser hair 3 treatments',
-            color: 'red'
-          }
-        ]
-      }
+      // {
+      //   id: 321321,
+      //   start: '2019-09-01 15:00',
+      //   end: '2019-09-01 19:00',
+      //   total_price: '250',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 159159,
+      //       name: 'manicure',
+      //       color: 'red'
+      //     },
+      //     {
+      //       id: 756756,
+      //       name: 'hair coloring',
+      //       color: 'blue'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2019-09-02 15:00',
+      //   end: '2019-09-02 15:30',
+      //   total_price: '4100',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'visit',
+      //       color: 'green'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2020-01-01 15:00',
+      //   end: '2020-01-01 15:30',
+      //   total_price: '1200',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'chemistry',
+      //       color: 'red'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2025-01-02 15:00',
+      //   end: '2025-01-02 15:30',
+      //   total_price: '10',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'chemistry',
+      //       color: 'green'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2025-01-03 15:00',
+      //   end: '2025-01-03 15:30',
+      //   total_price: '1200',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'chemistry',
+      //       color: 'green'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2025-01-04 15:00',
+      //   end: '2025-01-04 15:30',
+      //   total_price: '700',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'manicure',
+      //       color: 'green'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2025-01-05 15:00',
+      //   end: '2025-01-05 15:30',
+      //   total_price: '600',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'hair coloring',
+      //       color: 'green'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2025-01-06 15:00',
+      //   end: '2025-01-06 15:30',
+      //   total_price: '600',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'hair coloring',
+      //       color: 'green'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 456465,
+      //   start: '2025-01-07 15:00',
+      //   end: '2025-01-07 15:30',
+      //   total_price: '1000',
+      //   worker_id: 1,
+      //   services: [
+      //     {
+      //       id: 778954,
+      //       name: 'facial treatment',
+      //       color: 'green'
+      //     },
+      //     {
+      //       id: 778954,
+      //       name: 'laser hair 3 treatments',
+      //       color: 'blue'
+      //     },
+      //     {
+      //       id: 778954,
+      //       name: 'laser hair 3 treatments',
+      //       color: 'red'
+      //     }
+      //   ]
+      // }
     ],
     colors_beautech: [
       {
