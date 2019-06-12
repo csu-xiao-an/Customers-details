@@ -178,7 +178,6 @@ changeDays = () => this.setState({newDays: config.data.birthdate && config.data.
 changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
 changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
-changeAddressEdit = () => { this.setState({profileAddressEdit: !this.state.profileAddressEdit}) }
 changeNameEdit = () => { 
   this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus()) 
 }
@@ -218,6 +217,11 @@ cancelPhoneModal = () => {
 }
 saveBtn = () => {
   this.state.name ? (this.state.phone || this.state.permit_empty_phone) ? this.saveAll() : this.visibleModal() : this.blurName()
+}
+changeAddressEdit = () => {
+  this.setState({profileAddressEdit: !this.state.profileAddressEdit}, () => {
+    this.initMap()
+  })
 }
 render () {
   const { isVisibleFields } = this.props
@@ -332,8 +336,8 @@ render () {
             </div>
           </div>
         </div>
-        {(this.state.editProfile && !config.data.address)
-          ? <div onClick={() => this.changeAddressEdit()}
+        {this.state.editProfile && !config.data.address &&
+          <div ref={input => { this.input = input }} onClick={this.changeAddressEdit}
             className={!this.state.profileAddressEdit ? 'add-address' : 'hidden'}>
             <div className='wrap-address'>
               <span className='label'>{config.translations.address}:</span>
@@ -344,7 +348,7 @@ render () {
                 <img src={config.urls.media + 'profile_plus.svg'} />
               </div>
             </div>
-          </div> : ''}
+          </div>}
         {(this.state.editProfile && (this.state.profileAddressEdit || config.data.address)) &&
           <div className='address-data-edit'>
             <div className='address-wrap-edit'>
