@@ -65,8 +65,10 @@ delName = () => {
   document.getElementById('name-input').focus()
 }
 delAddress = () => {
-  this.setState({address: '', test: ''}, () => this.setState({address: null}))
-  document.getElementById('pac-input').focus()
+  this.setState({address: '', test: ''}, () => {
+    this.setState({address: null})
+    document.getElementById('pac-input').focus()
+  })
 }
 removeElements = () => {
   let elem = document.getElementsByClassName('pac-container')
