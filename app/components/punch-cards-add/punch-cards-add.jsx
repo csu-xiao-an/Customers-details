@@ -290,7 +290,7 @@ class PunchCardsAdd extends React.Component {
                   {config.translations.cancel}<img className='cancel-img' src={`${config.urls.media}plus-blue.svg`} />
                 </button>
                 <button className='btn-save' onClick={this.save}>
-                  {config.translations.next}<img src={`${config.urls.media}plus-square-white.svg`} />
+                  {config.translations.add_new_punch_card_btn}<img src={`${config.urls.media}plus-square-white.svg`} />
                 </button>
               </div>
             </div>}

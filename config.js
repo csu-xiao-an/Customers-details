@@ -266,7 +266,7 @@ var config = {
     valid_until_adding: 'Punch is valid until',
     cancel: 'Cancel',
     confirm: 'Confirm',
-    next: 'Next',
+    add_new_punch_card_btn: 'Next',
     dates: {
       months: {
         0: 'January',
