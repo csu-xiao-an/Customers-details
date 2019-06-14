@@ -26,8 +26,9 @@ export default class Topnav extends React.Component {
     const currentDate = config.data.birthdate
     const currentYear = config.data.birthyear
     const fullDate = new Date(currentYear + '-' + currentDate)
+    let diffDate = Math.floor(moment.duration(moment().diff(moment(fullDate))).asYears())
     return (currentDate && currentYear)
-      ? Math.floor(moment.duration(moment().diff(moment(fullDate))).asYears())
+      ? (diffDate === 0 ? '0' : diffDate)
       : ''
   }
 

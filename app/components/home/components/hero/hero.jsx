@@ -37,10 +37,11 @@ export default class Hero extends React.Component {
     }
   }
   handleStatus = () => {
-    const body = `status=${this.state.status}`
+    let status = this.state.status ? this.state.status : null
+    const body = `status=${status}`
     StatusService(body).then(r => {
       if (r.status === 204) {
-        config.data.status = this.state.status
+        config.data.status = status
         this.setState({isInputDisabled: false})
       }
     })
@@ -81,7 +82,7 @@ export default class Hero extends React.Component {
     })
   }
   componentDidMount = () => {
-    this.setState({isStar: config.data.isFavorite})
+    this.setState({ isStar: config.data.isFavorite })
   }
 
   changeInput = e => {
@@ -91,7 +92,7 @@ export default class Hero extends React.Component {
     this.setState({ isInputDisabled: !this.state.isInputDisabled }, () => this.handleHeightStatus())
   }
   delInfo = () => {
-    this.setState({ isInputDisabled: false, status: config.data.status })
+    this.setState({ status: '' }, () => document.getElementById('status-label').focus())
   }
   handleHeightStatus = () => {
     let height = document.getElementById('status-label').scrollHeight
