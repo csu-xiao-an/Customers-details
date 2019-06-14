@@ -55,7 +55,6 @@ export default class Topnav extends React.Component {
               onClick={() => this.props.history.push(config.urls.punch_cards_adding)} />}
           </div>
           {(this.props.home || this.props.timeline) && <div className='client-name'>
-            <div className='icon-online' />
             <h1>{config.data.name}</h1>
             {birthdate && <span>{config.translations.topnav_years_old.replace('{count}', birthdate)}</span>}
           </div>}

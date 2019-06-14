@@ -394,7 +394,7 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     // birthdate: '1990-03-30',
-    birthdate: '06-08',
+    birthdate: '12-11',
     birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',
