@@ -135,7 +135,8 @@ var config = {
       skip: 'Skip',
       save: 'Save',
       enter_phone_number: 'Do you want to enter a phone number?',
-      phone_number: 'type client\'s phone number'
+      phone_number: 'type client\'s phone number',
+      add_phone_number: 'Add phone number'
     },
     language: 'en',
     editProfile: 'Edit',
@@ -401,7 +402,7 @@ var config = {
     address: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
-    // phone: '9379992',
+    phone: ['9379992', '1232131','222222'],
     isFavorite: false,
     details_link_active: false,
     permit_ads: true,

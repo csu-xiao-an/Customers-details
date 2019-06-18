@@ -1,11 +1,12 @@
 import './profile.styl'
-import Phone from '../phone/phone.jsx'
+import Phones from '../phones/phones.jsx'
 import Sex from '../sex/sex.jsx'
 // import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import {putService as clientPutService, newGetService as clientNewGetService} from 'project-services/client.service.js'
+import { default as ModalPhoneLib } from 'project-components/ModalPhoneLib/modal-phone-lib.jsx'
 import {addressService} from 'project-services/address.service.js'
 import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
 
@@ -27,17 +28,28 @@ state = {
   profileAddressEdit: false,
   isViewAdress: false,
   adress: [],
-  resetApi: true
+  resetApi: true,
+  // phone: [...config.data.phone],
+  newPhone: []
 }
 componentDidMount = () => {
   this.setState({
     address: config.data.address ? config.data.address : null,
     name: config.data.name ? config.data.name : null,
-    phone: config.data.phone ? config.data.phone : null,
+    phone: this.normalizePhones(config.data.phone),
     email: config.data.email ? config.data.email : null,
     gender: config.data.gender ? config.data.gender : null
   })
 }
+
+normalizePhones = phones => {
+  if (phones && phones.length) {
+    return phones.map((phone, index) => ({ id: index, number: phone.number || phone }))
+  } else {
+    return []
+  }
+}
+
 loadMap = (url, location) => {
   let scriptTag = document.createElement('script')
   scriptTag.src = url
@@ -80,7 +92,7 @@ backAll = () => {
   this.setState({
     address: config.data.address,
     name: config.data.name,
-    phone: config.data.phone,
+    phone: this.normalizePhones(config.data.phone),
     email: config.data.email,
     gender: config.data.gender,
     // birthdate: config.data.birthdate,
@@ -101,11 +113,20 @@ delSex = () => {
 getAddress = value => {
   this.setState({ address: value })
 }
+changeOnePhone = value => {
+  let phone = this.state.phone
+  let phoneIndex = phone.findIndex(phone => phone.id === value.id)
+  if (phoneIndex > -1) {
+    phone[phoneIndex].number = value.number
+    this.setState({ phone })
+  }
+} 
+
 getPhone = value => {
-  this.setState({ phone: value })
+  this.changeOnePhone(value)
 }
-deletePhone = () => {
-  this.setState({ phone: null })
+deletePhone = value => {
+  this.changeOnePhone(value)
 }
 getEmail = value => {
   this.setState({ email: value })
@@ -132,11 +153,29 @@ changeAdress = e => {
   let value = e.target.value
   this.setState({ address: value })
 }
+
+//стрингой
+// getPhonesValue = value => {
+//   let array = value.map(phone => phone.number)
+//   return array
+// }
+
+//массивом
+getPhonesValue = value => {
+  let filterValues = value.filter(i => !!i.number)
+  this.setState({ phone: filterValues })
+  if (filterValues.length) {
+    return `[${filterValues.map(phone => phone.number)}]`
+  } else {
+    return null
+  }
+}
+
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
-  const body = Object.keys(this.state).reduce((params, field) => {
+  let body = Object.keys(this.state).reduce((params, field) => {
     if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
-      const value = `${this.state[field]}`
+      const value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
       const result = `${field}=${value}`
       return params + (params.length ? `&${result}` : result)
     }
@@ -160,7 +199,7 @@ saveAll = () => {
         config.data.profile_image = r.r.profile_image
         let newArray = r.r
         for (let key in newArray) {
-          if (fields.includes(key)) {
+          if (fields.exept('phone').includes(key)) {
             config.data[key] = newArray[key]
             this.state[key] = newArray[key]
             this.forceUpdate()
@@ -168,6 +207,7 @@ saveAll = () => {
         }
         this.props.getProfilePicture(config.data.profile_image)
         this.removeElements()
+        this.setState({ phone: this.normalizePhones(this.state.phone) })
       })
     } else {
       this.setState({ editProfile: true })
@@ -200,7 +240,7 @@ editInfo = () => {
       this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
     })
   }
-  this.setState({editProfile: true, resetApi: true}, () => this.initMap())
+  this.setState({ editProfile: true, resetApi: true, phone: this.normalizePhones(config.data.phone) }, () => this.initMap())
 }
 blurName = () => {
   this.setState({ activeNameModal: true })
@@ -212,7 +252,8 @@ visibleModal = () => {
   this.setState({ visibleModal: true })
 }
 blurPhoneModal = () => {
-  this.setState({ visibleModal: true, blur: true })
+  let arrayPhones = this.state.phone.filter(phone => !!phone.number)
+  if (arrayPhones.length === 0) this.setState({ visibleModal: true, blur: true })
 }
 cancelPhoneModal = () => {
   this.setState({ visibleModal: false, permit_empty_phone: true })
@@ -226,6 +267,21 @@ changeAddressEdit = () => {
     this.initMap()
     document.getElementById('pac-input').focus()
   })
+}
+
+getUniqkId = id => {
+  let nextId = id
+  const { phone } = this.state
+  if (phone.filter(phone => phone.id === id).length) {
+    nextId++
+    return this.getUniqkId(nextId)
+  } else return nextId
+}
+
+onAddPhone = () => {
+  const { phone } = this.state
+  phone.push({ id: this.getUniqkId(0), number: '' })
+  this.setState({ phone })
 }
 render () {
   const { isVisibleFields } = this.props
@@ -291,18 +347,40 @@ render () {
           onHide={this.cancelNameModal}
         />
       </div>}
-      {((this.props.isVisibleFields || config.data.phone) || this.state.editProfile) &&
-        <Phone editProfile={this.state.editProfile}
+      {((this.props.isVisibleFields || this.state.phone) || this.state.editProfile) &&
+        <Phones editProfile={this.state.editProfile}
           getPhone={this.getPhone}
           changePhoneEdit={this.changePhoneEdit}
           profilePhoneEdit={this.state.profilePhoneEdit}
           deletePhone={this.deletePhone}
-          hatePhone={this.state.phone}
           visibleModal={this.state.visibleModal}
           blurPhoneModal={this.blurPhoneModal}
           cancel={this.cancelPhoneModal}
           visibleModalOpen={this.visibleModal}
+          phones={this.state.phone || []}
           {...this.props} />}
+      {this.state.editProfile && this.state.phone.length !== 5 &&
+        <div className='add-phones' onClick={this.onAddPhone}>
+          <div className='add-phones-wrap'>
+            <div className='phone-wrap-half'>
+              <span className='label'>{config.translations.personal_info_editing.add_phone_number}</span>
+            </div>
+            <div className='add-info-pic'>
+              <div className='pic-wrap'>
+                <img src={config.urls.media + 'profile_plus.svg'} />
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+      {/* <ModalPhoneLib
+        text={this.text}
+        visibleModal={this.state.visibleModal}
+        closeModal={this.cancel}
+        create={this.create}
+        cancelModal={this.cancelPhoneModal}
+        saveNumber={this.getPhone}
+      /> */}
       {((this.props.isVisibleFields || config.data.email) || this.state.editProfile) &&
         <Email editProfile={this.state.editProfile}
           // delEmail={this.delEmail}
