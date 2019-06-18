@@ -26,9 +26,12 @@
     width 43px
   .twitter
     transform translateX(-200%)
-  .pingterest
-    transform translateX(-300%)
-  .gplus
-    transform translateX(-400%)
-  .linkedin
-    transform translateX(-500%)
+
+  body[style="direction: rtl;"] & {
+		.facebook {
+      transform translateX(100%)
+    }
+    .twitter {
+      transform translateX(200%)
+    }
+}
