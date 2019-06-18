@@ -129,7 +129,8 @@ deleteEmail = () => {
   this.setState({ email: null })
 }
 changeAdress = e => {
-  this.setState({ address: e })
+  let value = e.target.value
+  this.setState({ address: value })
 }
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
@@ -223,6 +224,7 @@ saveBtn = () => {
 changeAddressEdit = () => {
   this.setState({profileAddressEdit: !this.state.profileAddressEdit}, () => {
     this.initMap()
+    document.getElementById('pac-input').focus()
   })
 }
 render () {
@@ -359,7 +361,7 @@ render () {
                 <input id='pac-input' className='controls'
                   type='text'
                   ref={input => { this.input = input }}
-                  onChange={e => this.changeAdress(e.target.value)}
+                  onChange={this.changeAdress}
                   value={this.state.address}
                 />
               </div>
