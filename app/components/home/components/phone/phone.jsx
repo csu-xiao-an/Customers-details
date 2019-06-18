@@ -88,14 +88,14 @@ export default class Phone extends React.Component {
               {this.state.error && <div className='error'>{this.state.error}</div>}
             </div>
           </div>}
-        <ModalPhoneLib
+        {/* <ModalPhoneLib
           text={this.text}
           visibleModal={this.props.visibleModal}
           closeModal={this.props.cancel}
           create={this.create}
           cancel={this.cancel}
           saveNumber={this.saveNumber}
-        />
+        /> */}
       </div>
     )
   }
