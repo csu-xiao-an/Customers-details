@@ -199,7 +199,7 @@ saveAll = () => {
         config.data.profile_image = r.r.profile_image
         let newArray = r.r
         for (let key in newArray) {
-          if (fields.exept('phone').includes(key)) {
+          if (fields.includes(key)) {
             config.data[key] = newArray[key]
             this.state[key] = newArray[key]
             this.forceUpdate()
