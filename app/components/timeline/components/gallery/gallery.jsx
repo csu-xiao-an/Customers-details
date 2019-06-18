@@ -56,6 +56,8 @@ export default class Gallery extends React.Component {
     }
   }
   nativeShared = () => {
+    console.log(navigator)
+    console.log(navigator.share)
     if (navigator.share) {
       let opt = {
         title: config.translations.share_title,
