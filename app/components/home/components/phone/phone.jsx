@@ -14,6 +14,7 @@ export default class Phone extends React.Component {
     const phone = this.props.phone
     phone.number = ''
     this.setState({ phone }, () => this.props.deletePhone(phone))
+    this.nameInput.focus()
   }
   saveNumber = phone => {
     this.setState({ phone })
@@ -61,8 +62,10 @@ export default class Phone extends React.Component {
                 <span className='label'>{config.translations.phone}:</span>
                 <input className='edit-input'
                   autoComplete='off'
+                  autoFocus
                   id='phone-input'
                   type='tel'
+                  ref={input => { this.nameInput = input }}
                   value={this.props.phone.number}
                   onChange={e => this.phoneNumber(e)}
                   onBlur={!this.props.phone.number && this.props.blurPhoneModal}
