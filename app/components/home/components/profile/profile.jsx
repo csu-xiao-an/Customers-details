@@ -120,9 +120,10 @@ changeOnePhone = value => {
     phone[phoneIndex].number = value.number
     this.setState({ phone })
   }
-} 
+}
 
 getPhone = value => {
+  this.setState({ phone: value })
   this.changeOnePhone(value)
 }
 deletePhone = value => {
@@ -207,7 +208,7 @@ saveAll = () => {
         }
         this.props.getProfilePicture(config.data.profile_image)
         this.removeElements()
-        this.setState({ phone: this.normalizePhones(this.state.phone) })
+        this.setState({ phone: this.normalizePhones(this.state.phone)})
       })
     } else {
       this.setState({ editProfile: true })
@@ -249,18 +250,28 @@ cancelNameModal = () => {
   this.setState({ activeNameModal: false, name: config.data.name, profileNameEdit: true }, () => document.getElementById('name-input').focus())
 }
 visibleModal = () => {
-  this.setState({ visibleModal: true })
+  this.setState({ visibleModal: true, blur: false })
 }
 blurPhoneModal = () => {
   let arrayPhones = this.state.phone.filter(phone => !!phone.number)
   if (arrayPhones.length === 0) this.setState({ visibleModal: true, blur: true })
 }
-cancelPhoneModal = () => {
+cancelEmptyPhoneModal = () => {
   this.setState({ visibleModal: false, permit_empty_phone: true })
   if (!this.state.blur) this.saveAll()
 }
+cancelPhoneModal = () => {
+  this.setState({ visibleModal: false, permit_empty_phone: false })
+}
 saveBtn = () => {
-  this.state.name ? (this.state.phone || this.state.permit_empty_phone) ? this.saveAll() : this.visibleModal() : this.blurName()
+  let numbers = this.state.phone.filter(phone => phone.number !== '')
+  if (this.state.name) {
+    if (numbers.length !== 0) {
+      this.saveAll()
+    } else this.visibleModal()
+  } else {
+    this.blurName()
+  }
 }
 changeAddressEdit = () => {
   this.setState({profileAddressEdit: !this.state.profileAddressEdit}, () => {
@@ -355,6 +366,7 @@ render () {
           deletePhone={this.deletePhone}
           visibleModal={this.state.visibleModal}
           blurPhoneModal={this.blurPhoneModal}
+          cancelEmpty={this.cancelEmptyPhoneModal}
           cancel={this.cancelPhoneModal}
           visibleModalOpen={this.visibleModal}
           phones={this.state.phone || []}

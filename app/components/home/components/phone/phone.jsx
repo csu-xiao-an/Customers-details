@@ -2,16 +2,6 @@ import { default as ModalPhoneLib } from 'project-components/ModalPhoneLib/modal
 import './phone.styl'
 
 export default class Phone extends React.Component {
-  constructor (props) {
-    super(props)
-    this.text = {
-      cancel_modal: config.translations.personal_info_editing.skip,
-      not_found_title: config.translations.personal_info_editing.not_found_title,
-      save: config.translations.personal_info_editing.save,
-      enter_phone_number: config.translations.personal_info_editing.enter_phone_number,
-      phone_number: config.translations.personal_info_editing.phone_number
-    }
-  }
   state = {
     phoneEdit: false,
     phone: this.props.phone,
@@ -24,16 +14,14 @@ export default class Phone extends React.Component {
     const phone = this.props.phone
     phone.number = ''
     this.setState({ phone }, () => this.props.deletePhone(phone))
-    // document.getElementById('phone-input').focus()
   }
   saveNumber = phone => {
-    this.setState({ phone }, () => this.props.getNumbers(this.state.phone))
+    this.setState({ phone })
   }
   phoneNumber = e => {
     const phone = this.props.phone;
     phone.number = e.target.value
-    this.setState({ phone, error: '' }, () => {
-    })
+    this.setState({ phone, error: '' }, () => this.props.getPhone(this.state.phone))
   }
   render () {
     return this.props.rights.isPhone && (
@@ -88,14 +76,6 @@ export default class Phone extends React.Component {
               {this.state.error && <div className='error'>{this.state.error}</div>}
             </div>
           </div>}
-        {/* <ModalPhoneLib
-          text={this.text}
-          visibleModal={this.props.visibleModal}
-          closeModal={this.props.cancel}
-          create={this.create}
-          cancel={this.cancel}
-          saveNumber={this.saveNumber}
-        /> */}
       </div>
     )
   }
