@@ -25,10 +25,6 @@ export default class Phones extends React.Component {
   componentDidMount = () => {
     this.setState({phone: this.props.phones})
   }
-  delInfo = () => {
-    this.setState({phone: ''}, () => this.props.deletePhone())
-    document.getElementById('phone-input').focus()
-  }
   render () {
     return this.props.rights.isPhone && (
       <div id='phones'>

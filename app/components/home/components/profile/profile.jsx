@@ -57,6 +57,7 @@ loadMap = (url, location) => {
   this.forceUpdate()
 }
 initMap = () => {
+  this.inputName.focus()
   if (window.google) {
     let input = this.input
     const searchBox = new window.google.maps.places.SearchBox(input)
@@ -342,6 +343,7 @@ render () {
               <span className='label'>{config.translations.name}:</span>
               <input className='edit-input'
                 id='name-input'
+                ref={inp => { this.inputName = inp }}
                 type='text'
                 onBlur={!this.state.name && this.blurName}
                 value={this.state.name}
