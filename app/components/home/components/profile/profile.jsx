@@ -177,7 +177,8 @@ saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   let body = Object.keys(this.state).reduce((params, field) => {
     if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
-      const value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
+      let value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
+      if (field === 'address') value = encodeURIComponent(value)
       const result = `${field}=${value}`
       return params + (params.length ? `&${result}` : result)
     }
