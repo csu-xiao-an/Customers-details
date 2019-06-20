@@ -24,8 +24,8 @@ export const putService = body => {
   }
   return mainRequestService(url, options)
 }
-export const StatusReplaceService = body => {
-  const url = config.urls.main + config.urls.clients.replace('{client_id}', config.data.id)
+export const StatusReplaceService = (body, urlencoded) => {
+  const url = `${config.urls.main + config.urls.clients.replace('{client_id}', config.data.id)}?${encodeURIComponent(urlencoded)}`
   const options = {
     mode: 'cors',
     headers: {
