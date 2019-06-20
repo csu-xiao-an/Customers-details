@@ -405,7 +405,7 @@ var config = {
     phone: ['9379992', '1232131','222222'],
     isFavorite: false,
     details_link_active: false,
-    permit_ads: true,
+    permit_ads: false,
     signature: './dist/media/autograph.png',
     status: 'The re is something about ZHU',
     profile_image: '24.jpg',
