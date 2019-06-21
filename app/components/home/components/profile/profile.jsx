@@ -20,7 +20,7 @@ state = {
   name: '',
   editProfile: false,
   delBirth: false,
-  permit_ads: false,
+  permit_ads: config.data.permit_ads,
   profileBirthEdit: false,
   profileEmailEdit: false,
   profileNameEdit: false,
@@ -29,8 +29,7 @@ state = {
   isViewAdress: false,
   adress: [],
   resetApi: true,
-  // phone: [...config.data.phone],
-  newPhone: []
+  newPhone: [],
 }
 componentDidMount = () => {
   this.setState({
@@ -296,6 +295,10 @@ onAddPhone = () => {
   phone.push({ id: this.getUniqkId(0), number: '' })
   this.setState({ phone })
 }
+handleAds = () => {
+  this.setState({ permit_ads: !this.state.permit_ads })
+  this.forceUpdate()
+}
 render () {
   const { isVisibleFields } = this.props
   return (
@@ -480,7 +483,12 @@ render () {
           hateByear={this.state.birthyear}
           {...this.props} />}
       {/* {config.data.phone && <Sendlink {...this.props} />} */}
-      <Agreement editProfile={this.state.editProfile}getArgeement={this.getArgeement}{...this.props} />
+      <Agreement
+        editProfile={this.state.editProfile}
+        getArgeement={this.getArgeement}
+        permit_ads={this.state.permit_ads}
+        handleAds={this.handleAds}
+        {...this.props} />
     </div>
   )
 }
