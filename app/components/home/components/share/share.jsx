@@ -20,6 +20,7 @@ export default class Share extends React.Component {
         <img src={config.urls.soc_net + 'facebook.svg'}
           onClick={() => {
             this.props.opt.urls.map(val => {
+              console.log('fbButton', config.urls.gallery_sharing_base_url + val)
               VanillaSharing.fbButton({
                 url: config.urls.gallery_sharing_base_url + val
               })
@@ -30,6 +31,7 @@ export default class Share extends React.Component {
         <img className={'icon-default twitter'}
           onClick={() => {
             this.props.opt.urls.map(val => {
+              console.log('whatsapp', config.urls.gallery_sharing_base_url + val, this.props.opt.title)
               VanillaSharing.whatsapp({
                 url: config.urls.gallery_sharing_base_url + val,
                 title: this.props.opt.title

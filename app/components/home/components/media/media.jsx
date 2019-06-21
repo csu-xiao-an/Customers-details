@@ -177,8 +177,9 @@ export default class Media extends React.Component {
         let opt = {
           title: config.translations.media.share_title,
           text: config.translations.media.share_text,
-          urls: val
+          url: val
         }
+        console.log('share_opt', opt)
         navigator.share && navigator.share(opt)
       })
     }

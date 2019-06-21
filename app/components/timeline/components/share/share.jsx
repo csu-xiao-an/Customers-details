@@ -27,6 +27,7 @@ export default class Share extends React.Component {
         <img className='share' src={config.urls.media + 'ic-share-pink.svg'} onClick={this.share} />
         <img src={config.urls.soc_net + 'facebook.svg'}
           onClick={() => {
+            console.log('fbButton', this.props.opt.url)
             VanillaSharing.fbButton({
               url: this.props.opt.url
             })
@@ -34,6 +35,7 @@ export default class Share extends React.Component {
           className={'icon-default ' + (this.state.isVisibleIcons ? 'isVisible facebook' : '')} />
         <img className={'icon-default ' + (this.state.isVisibleIcons ? 'isVisible twitter' : '')}
           onClick={() => {
+            console.log('whatsapp', this.props.opt.url, this.props.opt.title)
             VanillaSharing.whatsapp({
               url: this.props.opt.url,
               title: this.props.opt.title
