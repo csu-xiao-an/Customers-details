@@ -20,7 +20,7 @@ state = {
   name: '',
   editProfile: false,
   delBirth: false,
-  permit_ads: config.data.permit_ads,
+  permit_ads: config.data.permit_ads || false,
   profileBirthEdit: false,
   profileEmailEdit: false,
   profileNameEdit: false,
@@ -56,7 +56,7 @@ loadMap = (url, location) => {
   this.forceUpdate()
 }
 initMap = () => {
-  this.inputName.focus()
+  this.inputName && this.inputName.focus()
   if (window.google) {
     let input = this.input
     const searchBox = new window.google.maps.places.SearchBox(input)
@@ -97,7 +97,7 @@ backAll = () => {
     gender: config.data.gender,
     // birthdate: config.data.birthdate,
     // birthyear: config.data.birthyear,
-    permit_ads: config.data.permit_ads,
+    permit_ads: config.data.permit_ads || false,
     editProfile: false,
     resetApi: false,
     permit_empty_phone: false,
