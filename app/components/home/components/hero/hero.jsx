@@ -38,7 +38,8 @@ export default class Hero extends React.Component {
   }
   handleStatus = () => {
     let status = this.state.status ? this.state.status : null
-    let urlencoded = encodeURIComponent(status)
+    let urlencoded
+    if (status) urlencoded = encodeURIComponent(status)
     const body = `status=${status}`
     StatusService(body, urlencoded).then(r => {
       if (r.status === 204) {
