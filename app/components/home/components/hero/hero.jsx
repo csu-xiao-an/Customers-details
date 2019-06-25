@@ -38,10 +38,9 @@ export default class Hero extends React.Component {
   }
   handleStatus = () => {
     let status = this.state.status ? this.state.status : null
-    let urlencoded
-    if (status) urlencoded = encodeURIComponent(status)
-    const body = `status=${status}`
-    StatusService(body, urlencoded).then(r => {
+    let urlencoded = encodeURIComponent(status)
+    const body = `status=${urlencoded}`
+    StatusService(body).then(r => {
       if (r.status === 204) {
         config.data.status = status
         this.setState({isInputDisabled: false})
