@@ -4,7 +4,7 @@ import { default as formatDate } from 'project-components/format-date.js'
 import { default as Swiper } from 'project-components/Swiper/Swiper.js'
 import './media-modal.styl'
 const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg', 'webm']
-const images = ['png', 'jpg', 'jpeg', 'svg', 'gif']
+const images = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp']
 export default class MediaModal extends React.Component {
   static propTypes = {
     initialSlide: PropTypes.number.isRequired,
