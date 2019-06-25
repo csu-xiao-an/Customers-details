@@ -221,7 +221,7 @@ changeDays = () => this.setState({newDays: config.data.birthdate && config.data.
   : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
     : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)})
 changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
-changeEmailEdit = () => this.setState({profileEmailEdit: !this.state.profileEmailEdit})
+  changeEmailEdit = () => this.setState({ profileEmailEdit: !this.state.profileEmailEdit }, () => document.getElementById('email-input').focus())
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 changeNameEdit = () => { 
   this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus()) 
