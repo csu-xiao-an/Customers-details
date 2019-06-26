@@ -30,6 +30,56 @@ state = {
   adress: [],
   resetApi: true,
   newPhone: [],
+  changeState: false,
+  maleSelected: false,
+  femaleSelected: false,
+  genderSelect: '',
+  label: config.translations.selectGender
+}
+defaultPos = () => {
+  if (config.data.gender) {
+    let initState = config.data.gender
+    if (initState.toLowerCase() === 'male') {
+      this.setState({ label: config.translations.male, maleSelected: true })
+    } else if (initState.toLowerCase() === 'female') {
+      this.setState({ label: config.translations.female, femaleSelected: true })
+    } else if (!initState) {
+      this.setState({ label: config.translations.selectGender, femaleSelected: false, maleSelected: false })
+    }
+  }
+}
+
+deleteGender = () => {
+  this.state.gender = null
+  this.setState({ label: config.translations.selectGender, changeState: false, femaleSelected: false, maleSelected: false, genderSelect: null }, () => this.getGender(this.state.genderSelect))
+}
+
+handleGenderClick = () => {
+  let changeState = !this.state.changeState
+  this.setState({changeState})
+}
+
+selectedSex = () => {
+  let male = document.getElementById('radioMale')
+  male && male.addEventListener('click', e => {
+    this.state.genderSelect = 'male'
+    this.setState({label: config.translations.male,
+      maleSelected: true,
+      femaleSelected: false,
+      changeState: false
+    })
+    this.getGender(this.state.genderSelect)
+  })
+  let female = document.getElementById('radioFemale')
+  female && female.addEventListener('click', e => {
+    this.state.genderSelect = 'female'
+    this.setState({label: config.translations.female,
+      maleSelected: false,
+      femaleSelected: true,
+      changeState: false
+    })
+    this.getGender(this.state.genderSelect)
+  })
 }
 componentDidMount = () => {
   this.setState({
@@ -56,6 +106,21 @@ loadMap = (url, location) => {
   this.forceUpdate()
 }
 initMap = () => {
+  const divNode = document.createElement('div')
+  const url = `${config.urls.media}ic-marked.svg`
+  divNode.innerHTML = `<style>
+    .circle:before{
+      content: url(${url});
+    }
+    </style>`
+  document.body.appendChild(divNode)
+  divNode.innerHTML = `<style>
+    .radio.checked .circle:before{
+      content: url(${url});
+    }
+    </style>`
+  document.body.appendChild(divNode)
+  this.selectedSex()
   this.inputName && this.inputName.focus()
   if (window.google) {
     let input = this.input
@@ -101,9 +166,15 @@ backAll = () => {
     editProfile: false,
     resetApi: false,
     permit_empty_phone: false,
-    blur: false
+    blur: false,
+    changeState: false,
+    maleSelected: config.data.gender === 'male' && true,
+    femaleSelected: config.data.gender === 'female' && true,
+    genderSelect: config.data.gender,
+    label: config.translations.selectGender
   })
   this.removeElements()
+  this.defaultPos()
   this.resetFields()
   this.forceUpdate()
 }
@@ -469,7 +540,20 @@ render () {
             </div>
           </div>}
       </div>}
-      {((this.props.isVisibleFields || config.data.gender) || this.state.editProfile) && <Sex editProfile={this.state.editProfile}getGender={this.getGender}{...this.props} />}
+      {((this.props.isVisibleFields || config.data.gender) || this.state.editProfile) &&
+        <Sex editProfile={this.state.editProfile}
+          defaultPos={this.defaultPos}
+          selectedSex={this.selectedSex}
+          deleteGender={this.deleteGender}
+          maleSelected={this.state.maleSelected}
+          femaleSelected={this.state.femaleSelected}
+          genderSelect={this.state.genderSelect}
+          changeState={this.state.changeState}
+          getGender={this.getGender}
+          handleGenderClick={this.handleGenderClick}
+          label={this.state.label}
+          // {...this.props} 
+        />}
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}
           getBdate={this.getBdate}
