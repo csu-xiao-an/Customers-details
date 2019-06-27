@@ -8,6 +8,7 @@ export default class SinglePunchPage extends React.Component {
     punchsList: [],
     singlePunch: {},
     visibleAgreeModal: false,
+    deleteStatus: false,
     disabledUse: false,
     isUses: false
   }
@@ -40,6 +41,9 @@ export default class SinglePunchPage extends React.Component {
       .then(r => {
         if (r.status === 204) {
           this.props.history.push(baseUrl + config.urls.punch_cards)
+        } else if (r.status === 422) {
+          this.cancel()
+          this.unprocessableDelete()
         }
       })
   }
@@ -74,6 +78,7 @@ export default class SinglePunchPage extends React.Component {
       return false
     } else this.use()
   }
+  unprocessableDelete = () => this.setState({ deleteStatus: !this.state.deleteStatus })
   render () {
     const { singlePunch = {}, uses = [] } = this.state
     const sortUses = uses.sort((a, b) => moment(b.date) - moment(a.date))
@@ -144,6 +149,15 @@ export default class SinglePunchPage extends React.Component {
           <div className='modal-footer'>
             <button className='no-btn' onClick={this.cancel}>{config.translations.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
             <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.punch_cards.confirm_btn_label}<img src={config.urls.media + 'confirm.svg'} /></button>
+          </div>
+        </Modal>
+        <Modal show={this.state.deleteStatus} onHide={this.unprocessableDelete}>
+          <div className='modal-body'>
+            <img className='icon' src={config.urls.media + 'alert-octagon.svg'} />
+            <label className='unprocessable_label'>{config.translations.punch_cards.unprocessable_label}</label>
+          </div>
+          <div className='modal-footer'>
+            <button className='ok-btn' onClick={this.unprocessableDelete}>{config.translations.punch_cards.ok_btn_lable}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </div>

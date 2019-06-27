@@ -85,6 +85,8 @@ var config = {
         used: 'Used: ',
         of: 'of'
       },
+      unprocessable_label: 'Punch card is used, we cannot delete it without affecting the history',
+      ok_btn_lable: 'ok',
       top_title: 'Punch cards ({punch_cards_count})',
       empty_punch_cards: 'Add a new punch-card',
       select_punch_card: 'Select a punch-card',

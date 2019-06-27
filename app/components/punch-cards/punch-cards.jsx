@@ -50,12 +50,12 @@ class PunchCards extends React.Component {
             {this.expiration(i) > 0 && <div className={'expired-dates' + (config.isRTL ? ' expired-rtl' : ' expired-ltr')}>
               <span>{config.translations.punch_cards.preview_invalid_label.expired}</span>
             </div>}
-            {i.uses && i.uses.length === i.service_count && this.expiration(i) <= 0 && <div className={'expired-dates' + (config.isRTL ? ' expired-rtl' : ' expired-ltr')}>
+            {i.uses && i.uses.length >= i.service_count && this.expiration(i) <= 0 && <div className={'expired-dates' + (config.isRTL ? ' expired-rtl' : ' expired-ltr')}>
               <span>{config.translations.punch_cards.preview_invalid_label.used}</span>
             </div>}
-            <div className={'punchcard' + ((i.uses && i.uses.length === i.service_count) || this.expiration(i) > 0 ? ' punchcard-full' : '')}
+            <div className={'punchcard' + ((i.uses && i.uses.length >= i.service_count) || this.expiration(i) > 0 ? ' punchcard-full' : '')}
               onClick={() => this.handleCardClick(i)}>
-              <p className={'punch-name' + (this.expiration(i) > 0 || (i.uses && i.uses.length === i.service_count && this.expiration(i) <= 0) ? ' exp-name' : '')}>
+              <p className={'punch-name' + (this.expiration(i) > 0 || (i.uses && i.uses.length >= i.service_count && this.expiration(i) <= 0) ? ' exp-name' : '')}>
                 <span className='service-color' />{i.service_name}
               </p>
               <div className='punch'>
