@@ -1,12 +1,10 @@
 import './profile.styl'
 import Phones from '../phones/phones.jsx'
 import Sex from '../sex/sex.jsx'
-// import Sendlink from '../sendlink/sendlink.jsx'
 import Email from '../email/email.jsx'
 import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import {putService as clientPutService, newGetService as clientNewGetService} from 'project-services/client.service.js'
-import { default as ModalPhoneLib } from 'project-components/ModalPhoneLib/modal-phone-lib.jsx'
 import {addressService} from 'project-services/address.service.js'
 import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
 
@@ -19,7 +17,6 @@ state = {
   address: '',
   name: '',
   editProfile: false,
-  delBirth: false,
   permit_ads: config.data.permit_ads || false,
   profileBirthEdit: false,
   profileEmailEdit: false,
@@ -29,13 +26,115 @@ state = {
   isViewAdress: false,
   adress: [],
   resetApi: true,
-  newPhone: [],
   changeState: false,
   maleSelected: false,
   femaleSelected: false,
   genderSelect: '',
   label: config.translations.selectGender
 }
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  NAME  ///////////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
+changeNameEdit = () => {
+  this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus())
+}
+
+delName = () => {
+  this.setState({ name: '' }, () => this.setState({ name: null }))
+  document.getElementById('name-input').focus()
+}
+
+blurName = () => {
+  this.setState({ activeNameModal: true })
+}
+
+cancelNameModal = () => {
+  this.setState({ activeNameModal: false, name: config.data.name, profileNameEdit: true }, () => document.getElementById('name-input').focus())
+}
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  PHONE  //////////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
+changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
+
+normalizePhones = phones => {
+  if (phones && phones.length) {
+    return phones.map((phone, index) => ({ id: index, number: phone.number || phone }))
+  } else {
+    return []
+  }
+}
+
+changeOnePhone = value => {
+  let phone = this.state.phone
+  let phoneIndex = phone.findIndex(phone => phone.id === value.id)
+  if (phoneIndex > -1) {
+    phone[phoneIndex].number = value.number
+    this.setState({ phone })
+  }
+}
+
+getPhone = value => {
+  this.setState({ phone: value })
+  this.changeOnePhone(value)
+}
+
+deletePhone = value => {
+  this.changeOnePhone(value)
+}
+
+getPhonesValue = value => {
+  let filterValues = value.filter(i => !!i.number)
+  this.setState({ phone: filterValues })
+  if (filterValues.length) {
+    return `[${filterValues.map(phone => phone.number)}]`
+  } else {
+    return null
+  }
+}
+
+visibleModal = () => {
+  this.setState({ visibleModal: true, blur: false })
+}
+
+blurPhoneModal = () => {
+  let arrayPhones = this.state.phone.filter(phone => !!phone.number)
+  if (arrayPhones.length === 0) this.setState({ visibleModal: true, blur: true })
+}
+
+cancelEmptyPhoneModal = () => {
+  this.setState({ visibleModal: false, permit_empty_phone: true })
+  if (!this.state.blur) this.saveAll()
+}
+
+cancelPhoneModal = () => {
+  this.setState({ visibleModal: false, permit_empty_phone: false })
+}
+
+getUniqkId = id => {
+  let nextId = id
+  const { phone } = this.state
+  if (phone.filter(phone => phone.id === id).length) {
+    nextId++
+    return this.getUniqkId(nextId)
+  } else return nextId
+}
+
+onAddPhone = () => {
+  const { phone } = this.state
+  phone.push({ id: this.getUniqkId(0), number: '' })
+  this.setState({ phone })
+}
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  GENDER  /////////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
+getGender = gender => this.setState({ gender })
+
 defaultPos = () => {
   if (config.data.gender) {
     let initState = config.data.gender
@@ -81,6 +180,87 @@ selectedSex = () => {
     this.getGender(this.state.genderSelect)
   })
 }
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  ADDRESS  ////////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
+getAddress = address => this.setState({ address })
+
+loadMap = (url, location) => {
+  let scriptTag = document.createElement('script')
+  scriptTag.src = url
+  location.appendChild(scriptTag)
+  this.forceUpdate()
+}
+
+delAddress = () => {
+  this.setState({address: '', test: ''}, () => {
+    this.setState({address: null})
+    document.getElementById('pac-input').focus()
+  })
+}
+
+removeElements = () => {
+  let elem = document.getElementsByClassName('pac-container')
+  while (elem.length > 0) {
+    elem[0].parentNode.removeChild(elem[0])
+  }
+}
+
+changeAdress = e => {
+  let value = e.target.value
+  this.setState({ address: value })
+}
+
+changeAddressEdit = () => {
+  this.setState({profileAddressEdit: !this.state.profileAddressEdit}, () => {
+    this.initMap()
+    document.getElementById('pac-input').focus()
+  })
+}
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  EMAIL  //////////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
+deleteEmail = () => this.setState({ email: null })
+
+getEmail = email => this.setState({ email })
+
+changeEmailEdit = () => this.setState({ profileEmailEdit: !this.state.profileEmailEdit }, () => document.getElementById('email-input').focus())
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  BIRTHDATE  //////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
+getBdate = birthdate => this.setState({ birthdate })
+
+getByear = birthyear => this.setState({ birthyear })
+
+deleteBirthday = () => this.setState({ birthyear: null, birthdate: null })
+
+changeDays = () => this.setState({newDays: config.data.birthdate && config.data.birthyear
+  ? `${config.data.birthyear}-${config.data.birthdate}`
+  : ((config.data.birthyear) ? (`${config.data.birthyear}${config.data.birthdate ? config.data.birthdate : ''}`)
+    : `${moment().format('YYYY')}-${config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)})
+
+changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  PERMIT ADS  /////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
+handleAds = () => {
+  this.setState({ permit_ads: !this.state.permit_ads })
+  this.forceUpdate()
+}
+getArgeement = value => this.setState({ permit_ads: value })
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  OTHER  //////////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
 componentDidMount = () => {
   this.setState({
     address: config.data.address ? config.data.address : null,
@@ -91,20 +271,6 @@ componentDidMount = () => {
   })
 }
 
-normalizePhones = phones => {
-  if (phones && phones.length) {
-    return phones.map((phone, index) => ({ id: index, number: phone.number || phone }))
-  } else {
-    return []
-  }
-}
-
-loadMap = (url, location) => {
-  let scriptTag = document.createElement('script')
-  scriptTag.src = url
-  location.appendChild(scriptTag)
-  this.forceUpdate()
-}
 initMap = () => {
   const divNode = document.createElement('div')
   const url = `${config.urls.media}ic-marked.svg`
@@ -137,111 +303,10 @@ initMap = () => {
     }, 500)
   }
 }
-delName = () => {
-  this.setState({ name: '' }, () => this.setState({ name: null }))
-  document.getElementById('name-input').focus()
-}
-delAddress = () => {
-  this.setState({address: '', test: ''}, () => {
-    this.setState({address: null})
-    document.getElementById('pac-input').focus()
-  })
-}
-removeElements = () => {
-  let elem = document.getElementsByClassName('pac-container')
-  while (elem.length > 0) {
-    elem[0].parentNode.removeChild(elem[0])
-  }
-}
-backAll = () => {
-  this.setState({
-    address: config.data.address,
-    name: config.data.name,
-    phone: this.normalizePhones(config.data.phone),
-    email: config.data.email,
-    gender: config.data.gender,
-    // birthdate: config.data.birthdate,
-    // birthyear: config.data.birthyear,
-    permit_ads: config.data.permit_ads || false,
-    editProfile: false,
-    resetApi: false,
-    permit_empty_phone: false,
-    blur: false,
-    changeState: false,
-    maleSelected: config.data.gender === 'male' && true,
-    femaleSelected: config.data.gender === 'female' && true,
-    genderSelect: config.data.gender,
-    label: config.translations.selectGender
-  })
-  this.removeElements()
-  this.defaultPos()
-  this.resetFields()
-  this.forceUpdate()
-}
-delSex = () => {
-  this.setState({gender: config.data.gender})
-}
-getAddress = value => {
-  this.setState({ address: value })
-}
-changeOnePhone = value => {
-  let phone = this.state.phone
-  let phoneIndex = phone.findIndex(phone => phone.id === value.id)
-  if (phoneIndex > -1) {
-    phone[phoneIndex].number = value.number
-    this.setState({ phone })
-  }
-}
 
-getPhone = value => {
-  this.setState({ phone: value })
-  this.changeOnePhone(value)
-}
-deletePhone = value => {
-  this.changeOnePhone(value)
-}
-getEmail = value => {
-  this.setState({ email: value })
-}
-getGender = value => {
-  this.setState({ gender: value })
-}
-getBdate = value => {
-  this.setState({ birthdate: value })
-}
-getByear = value => {
-  this.setState({ birthyear: value })
-}
-deleteBirthday = () => {
-  this.setState({ birthyear: null, birthdate: null })
-}
-getArgeement = value => {
-  this.setState({ permit_ads: value })
-}
-deleteEmail = () => {
-  this.setState({ email: null })
-}
-changeAdress = e => {
-  let value = e.target.value
-  this.setState({ address: value })
-}
-
-//стрингой
-// getPhonesValue = value => {
-//   let array = value.map(phone => phone.number)
-//   return array
-// }
-
-//массивом
-getPhonesValue = value => {
-  let filterValues = value.filter(i => !!i.number)
-  this.setState({ phone: filterValues })
-  if (filterValues.length) {
-    return `[${filterValues.map(phone => phone.number)}]`
-  } else {
-    return null
-  }
-}
+/// ///////////////////////////////////////////////////////////////////
+/// /////////////////////  SAVE AND BACK BUTTONS  /////////////////////
+/// ///////////////////////////////////////////////////////////////////
 
 saveAll = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
@@ -287,16 +352,37 @@ saveAll = () => {
     }
   })
 }
-changeDays = () => this.setState({newDays: config.data.birthdate && config.data.birthyear
-  ? `${config.data.birthyear}-${config.data.birthdate}`
-  : ((!!config.data.birthyear) ? (`${config.data.birthyear}${!!config.data.birthdate ? config.data.birthdate : ''}`)
-    : `${moment().format('YYYY')}-${!!config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)})
-changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
-  changeEmailEdit = () => this.setState({ profileEmailEdit: !this.state.profileEmailEdit }, () => document.getElementById('email-input').focus())
-changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
-changeNameEdit = () => { 
-  this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus()) 
+
+backAll = () => {
+  this.setState({
+    address: config.data.address,
+    name: config.data.name,
+    phone: this.normalizePhones(config.data.phone),
+    email: config.data.email,
+    gender: config.data.gender,
+    // birthdate: config.data.birthdate,
+    // birthyear: config.data.birthyear,
+    permit_ads: config.data.permit_ads || false,
+    editProfile: false,
+    resetApi: false,
+    permit_empty_phone: false,
+    blur: false,
+    changeState: false,
+    maleSelected: config.data.gender === 'male' && true,
+    femaleSelected: config.data.gender === 'female' && true,
+    genderSelect: config.data.gender,
+    label: config.translations.selectGender
+  })
+  this.removeElements()
+  this.defaultPos()
+  this.resetFields()
+  this.forceUpdate()
 }
+
+/// ///////////////////////////////////////////////////////////////////
+/// ////////////////////////////  OTHER  //////////////////////////////
+/// ///////////////////////////////////////////////////////////////////
+
 resetFields = () => {
   this.setState({
     profileEmailEdit: false,
@@ -306,6 +392,7 @@ resetFields = () => {
     profileNameEdit: false
   })
 }
+
 editInfo = () => {
   if (!window.google) {
     addressService().then(r => {
@@ -315,26 +402,7 @@ editInfo = () => {
   }
   this.setState({ editProfile: true, resetApi: true, phone: this.normalizePhones(config.data.phone) }, () => this.initMap())
 }
-blurName = () => {
-  this.setState({ activeNameModal: true })
-}
-cancelNameModal = () => {
-  this.setState({ activeNameModal: false, name: config.data.name, profileNameEdit: true }, () => document.getElementById('name-input').focus())
-}
-visibleModal = () => {
-  this.setState({ visibleModal: true, blur: false })
-}
-blurPhoneModal = () => {
-  let arrayPhones = this.state.phone.filter(phone => !!phone.number)
-  if (arrayPhones.length === 0) this.setState({ visibleModal: true, blur: true })
-}
-cancelEmptyPhoneModal = () => {
-  this.setState({ visibleModal: false, permit_empty_phone: true })
-  if (!this.state.blur) this.saveAll()
-}
-cancelPhoneModal = () => {
-  this.setState({ visibleModal: false, permit_empty_phone: false })
-}
+
 saveBtn = () => {
   let numbers = this.state.phone.filter(phone => phone.number !== '')
   if (this.state.name) {
@@ -345,38 +413,14 @@ saveBtn = () => {
     this.blurName()
   }
 }
-changeAddressEdit = () => {
-  this.setState({profileAddressEdit: !this.state.profileAddressEdit}, () => {
-    this.initMap()
-    document.getElementById('pac-input').focus()
-  })
-}
 
-getUniqkId = id => {
-  let nextId = id
-  const { phone } = this.state
-  if (phone.filter(phone => phone.id === id).length) {
-    nextId++
-    return this.getUniqkId(nextId)
-  } else return nextId
-}
-
-onAddPhone = () => {
-  const { phone } = this.state
-  phone.push({ id: this.getUniqkId(0), number: '' })
-  this.setState({ phone })
-}
-handleAds = () => {
-  this.setState({ permit_ads: !this.state.permit_ads })
-  this.forceUpdate()
-}
 render () {
   const { isVisibleFields } = this.props
   return (
     <div id='profile'>
       <div id='profile-header'>
         <h2 className='block-title'>{config.translations.profile}</h2>
-        {this.state.editProfile 
+        {this.state.editProfile
           ? <div className='back-save-btn'>
             <div className='back-wrap'>
               <div className='img-back'><img src={config.urls.media + 'arrow-left.svg'} /></div>
@@ -552,7 +596,7 @@ render () {
           getGender={this.getGender}
           handleGenderClick={this.handleGenderClick}
           label={this.state.label}
-          // {...this.props} 
+          // {...this.props}
         />}
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}
