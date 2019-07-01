@@ -314,6 +314,8 @@ saveAll = () => {
     if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
       let value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
       if (field === 'address') value = encodeURIComponent(value)
+      if (field === 'name') value = encodeURIComponent(value)
+      if (field === 'email') value = encodeURIComponent(value)
       const result = `${field}=${value}`
       return params + (params.length ? `&${result}` : result)
     }
