@@ -224,11 +224,28 @@ changeAddressEdit = () => {
 /// ////////////////////////////  EMAIL  //////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-deleteEmail = () => this.setState({ email: null })
+deleteEmail = () => this.setState({ email: '' }, () => {
+  this.setState({email: null})
+  document.getElementById('email-input').focus()
+})
 
 getEmail = email => this.setState({ email })
 
 changeEmailEdit = () => this.setState({ profileEmailEdit: !this.state.profileEmailEdit }, () => document.getElementById('email-input').focus())
+
+changeMail = e => {
+  this.setState({ email: e })
+  if (e !== '' && e.length >= 3) {
+    this.validate(e) ? this.setState({ isValidation: true }) : this.setState({ isValidation: false })
+  } else {
+    this.setState({ isValidation: false })
+  }
+}
+
+validate = email => {
+  const r = /^.+@.+\..+$/
+  return r.test(email)
+}
 
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  BIRTHDATE  //////////////////////////
@@ -522,8 +539,10 @@ render () {
           deleteEmail={this.deleteEmail}
           getEmail={this.getEmail}
           hateEmail={this.state.email}
+          changeMail={this.changeMail}
           changeEmailEdit={this.changeEmailEdit}
           profileEmailEdit={this.state.profileEmailEdit}
+          validate={this.validate}
           {...this.props} />}
       {(this.state.editProfile || (this.props.isVisibleFields || config.data.address)) &&
       <div id='address'>

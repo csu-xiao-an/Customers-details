@@ -3,7 +3,6 @@ import './email.styl'
 export default class Email extends React.Component {
   state = {
     emailEdit: false,
-    email: this.props.hateEmail,
     isValidation: false
   }
   static propTypes = {
@@ -11,23 +10,7 @@ export default class Email extends React.Component {
   }
   componentDidMount = () => {
     this.setState({ email: config.data.email })
-    this.validate(config.data.email) && this.setState({ isValidation: true })
-  }
-  delInfo = () => {
-    this.setState({ email: '' }, () => this.props.deleteEmail())
-    document.getElementById('email-input').focus()
-  }
-  changeMail = e => {
-    this.setState({ email: e }, () => this.props.getEmail(this.state.email))
-    if (e !== '' && e.length >= 3) {
-      this.validate(e) ? this.setState({ isValidation: true }) : this.setState({ isValidation: false })
-    } else {
-      this.setState({ isValidation: false })
-    }
-  }
-  validate = email => {
-    const r = /^.+@.+\..+$/
-    return r.test(email)
+    this.props.validate(config.data.email) && this.setState({ isValidation: true })
   }
   render () {
     return this.props.rights.isEmail && (
@@ -66,12 +49,12 @@ export default class Email extends React.Component {
                 <input className='edit-input'
                   id='email-input'
                   type='email'
-                  value={this.state.email}
-                  onChange={e => this.changeMail(e.target.value)} />
+                  value={this.props.hateEmail}
+                  onChange={e => this.props.changeMail(e.target.value)} />
               </div>
               <div className='del-info'>
                 {!this.state.isValidation && <div className='error'>&#10007;</div>}
-                <div className='del-wrap' onClick={this.delInfo}>
+                <div className='del-wrap' onClick={this.props.deleteEmail}>
                   <img src={config.urls.media + 'plus2.svg'} />
                 </div>
               </div>
