@@ -76,7 +76,7 @@ export default class HotLinks extends React.Component {
   renderAddLink = () => (
     <div className='link-add'>
       <Link className='circle-wrap' to={config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) + config.urls.punch_cards_adding : config.urls.punch_cards_adding}><img src={`${config.urls.media}plus-white.svg`} /></Link>
-      <span className='link-name'>{config.translations.add_first_punch_card}</span>
+      <span className='link-name'>{config.translations.hot_links.add_first_punch_card}</span>
     </div>
   )
   firstAddLink = (click, titles) => (
@@ -112,13 +112,13 @@ export default class HotLinks extends React.Component {
               </div>
             )
           } else if (i.name === 'appointments') {
-            return this.addFirstAppointment(config.translations.add_first_event)
+            return this.addFirstAppointment(config.translations.hot_links.add_first_event)
           } else if (i.name === 'debts' && this.props.debts.length === 0) {
-            return this.firstAddLink(this.showAndMovetoDebt, config.translations.add_first_debt)
+            return this.firstAddLink(this.showAndMovetoDebt, config.translations.hot_links.add_first_debt)
           } else if (i.name === 'notes' && this.props.notes.length === 0) {
-            return this.firstAddLink(this.showAndMovetoNotes, config.translations.add_first_note)
+            return this.firstAddLink(this.showAndMovetoNotes, config.translations.hot_links.add_first_note)
           } else if (i.name === 'gallery' && this.props.gallery.length === 0) {
-            return this.firstAddLink(this.showAndMovetoGallery, config.translations.add_first_item_gallery)
+            return this.firstAddLink(this.showAndMovetoGallery, config.translations.hot_links.add_first_item_gallery)
           } else {
             if (i.url === config.urls.punch_cards) {
               return config.data.punch_cards.length > 0

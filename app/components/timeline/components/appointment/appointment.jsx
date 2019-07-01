@@ -30,7 +30,7 @@ export default class Appoinment extends React.Component {
     return (
       <div id='appoinments'>
         <p className='order-in'>
-          {config.translations.appointment_creted}
+          {config.translations.appointment_created}
           {/* <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(this.props.i.added_date).get('day')]},`}</span>
           <span className='date_month'>{config.translations.dates.months[moment(this.props.i.added_date).get('month')]}</span> */}
           <span className='date_day'>{this.dateFormat(this.props.i.added_date)}</span>

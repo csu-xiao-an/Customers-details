@@ -51,15 +51,11 @@ export default class Topnav extends React.Component {
         <div className='header' >
           <div className={'edit-wrap ' + (config.isRTL ? 'rtl' : 'ltr')} style={!config.isRTL ? {transform: 'scale(-1, 1)'} : {}}>
             {this.props.home && <img className='edit' onClick={this.menuOnOff} src={config.urls.media + 'ic_menu.svg'} />}
-            {this.props.punch && <img className='add' src={config.urls.media + 'add_bt.svg'}
-              onClick={() => this.props.history.push(config.urls.punch_cards_adding)} />}
           </div>
           {(this.props.home || this.props.timeline) && <div className='client-name'>
             <h1>{config.data.name}</h1>
             {birthdate && <span>{config.translations.topnav_years_old.replace('{count}', birthdate)}</span>}
           </div>}
-          {this.props.punch && <div className='client-name'>
-            <h1>{config.translations.punch_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           {this.props.color && <div className='client-name'>
             <h1>{config.translations.color_card_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           <div className={'arrow-wrap ' + (config.isRTL ? 'ltr' : 'rtl')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
