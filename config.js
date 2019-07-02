@@ -1,5 +1,5 @@
 var config = {
-  isRTL: true,
+  isRTL: false,
   baseUrl: '/en/clients/{client_id}',
   interval_days: 28,
   min_data_length: 300,

@@ -90,7 +90,7 @@ getPhonesValue = value => {
   let filterValues = value.filter(i => !!i.number)
   this.setState({ phone: filterValues })
   if (filterValues.length) {
-    return `[${filterValues.map(phone => phone.number)}]`
+    return `[${filterValues.map(phone => JSON.stringify(phone.number))}]`
   } else {
     return null
   }
