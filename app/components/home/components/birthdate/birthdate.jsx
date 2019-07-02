@@ -36,7 +36,7 @@ export default class Birthdate extends React.Component {
     return (
       <div id='birthdate' className='block'>
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
-          <span className='label'>{config.translations.birthday}:</span>
+          <span className='label'>{config.translations.personal_info.birthday_label}:</span>
           <span>
             {(config.data.birthyear ? config.data.birthyear : '') + ((config.data.birthyear && config.data.birthdate) ? '-' : '') + (config.data.birthdate ? config.data.birthdate : '')}
           </span>
@@ -46,8 +46,8 @@ export default class Birthdate extends React.Component {
             ? <div onClick={() => this.props.changeBirth()}
               className={!this.props.profileBirthEdit ? 'add-birth' : 'hidden'}>
               <div className='wrap-birth'>
-                <span className='label'>{config.translations.birthday}:</span>
-                <h1>{config.translations.add_birth}</h1>
+                <span className='label'>{config.translations.personal_info.birthday_label}:</span>
+                <h1>{config.translations.personal_info.add_birth_label}</h1>
               </div>
               <div className='add-info'>
                 <div className='add-wrap' onClick={this.delName}>
@@ -58,7 +58,7 @@ export default class Birthdate extends React.Component {
         {this.props.editProfile &&
         <div className={(this.props.profileBirthEdit || config.data.birthdate || config.data.birthyear) ? 'birthdate-edit' : 'hidden'}>
           <div className='edit-wrap'>
-            <span className='label'>{config.translations.birthday}:</span>
+            <span className='label'>{config.translations.personal_info.birthday_label}:</span>
             { (this.props.profileBirthEdit || (config.data.birthdate || config.data.birthyear)) && <Datepicker
               defaultValue={this.state.configValue} 
               defaultValue1={this.state.configValue1} 

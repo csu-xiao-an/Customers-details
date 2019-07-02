@@ -330,7 +330,6 @@ export default class Media extends React.Component {
             <textarea className='note-input' type='text-area' onChange={e => this.setState({desc: e.target.value})} value={this.state.desc} />
           </form>
           <div className='action'>
-            <button className='btn-save' onClick={this.submit}>{config.translations.save}</button>
           </div>
         </div> */}
         {/* <Line /> */}

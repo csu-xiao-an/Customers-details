@@ -51,15 +51,15 @@ export default class Source extends React.Component {
           : config.data.source ? 'add-select-wrap ' + (this.state.isRecomendation ? 'h125' : 'h85') : 'hidden'}>
           {/*<h1>{config.translations.traffic_source}</h1>*/}
           {/*<div className='button-wrap'>*/}
-            {/*{this.props.rights.source.save && <button onClick={this.submit}>{config.translations.save}</button>}*/}
+            {/*{this.props.rights.source.save && <button onClick={this.submit}>static text</button>}*/}
           {/*</div>*/}
           {/*<div className='select-wrap'>*/}
             {/*<Select value={this.state.selectedLabel} onChange={e => this.changeSelect(e)} options={config.translations.source_list} disabled={!this.props.rights.source.select} />*/}
           {/*</div>*/}
           <div className={this.state.isRecomendation ? 'input-wrap' : 'hidden'}>
-            <div className='label'>{config.translations.recommended_by}</div>
+            <div className='label'>static recommended_by</div>
             <input type='text' value={this.state.inputValue} onChange={e => this.changeInput(e.target.value)}
-              placeholder={config.translations.customer_pl} />
+              placeholder='customer_pl' />
             <div className={this.state.isViewClients ? 'clients-list-wrap ' + (config.isRTL ? 'clients-list-wrap-left'
               : 'clients-list-wrap-right') : 'hidden'}>
               {this.state.clients.map((i, k) =>

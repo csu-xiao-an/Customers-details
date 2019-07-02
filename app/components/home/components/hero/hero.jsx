@@ -119,7 +119,7 @@ export default class Hero extends React.Component {
               </g>
             </g>
           </svg>&nbsp;
-          <span>{config.translations.vip}</span>
+          <span>{config.translations.hero.vip_lable}</span>
         </div>
         <label className={'camera ' + (config.isRTL ? 'rtll' : 'ltrr')}>
           {this.state.flag
@@ -127,28 +127,28 @@ export default class Hero extends React.Component {
             : <img src={config.urls.media + 'ic_photo.svg'} />}
           <input type='file' accept='image/*' capture style={{display: 'none'}} onChange={this.addPhoto} />
         </label>
-        <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.added_to_favorites}</h1></div>
+        <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.hero.favorites_label}</h1></div>
         <div className='status-warp'>
           <Birthday />
           <form>
-            <span className='status-label'>{config.translations.status}</span>
-            {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.placeholder}</span>}
+            <span className='status-label'>{config.translations.hero.status_label}</span>
+            {!this.state.isInputDisabled && <span className='status-config'>{config.data.status ? config.data.status : config.translations.hero.status_placeholder}</span>}
             {this.state.isInputDisabled && <textarea
               type='text'
               id='status-label'
               value={this.state.status}
-              placeholder={config.translations.placeholder}
-              onChange={e => this.changeInput(e)} />}
-            <span onClick={!this.state.isInputDisabled ? () => this.changeInputState() : () => this.handleStatus()} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
-              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'check-circle-status.svg'} /> 
+              placeholder={config.translations.hero.status_placeholder}
+              onChange={this.changeInput} />}
+            <span onClick={!this.state.isInputDisabled ? this.changeInputState : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
+              <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'check-circle-status.svg'} />
             </span>
-            {this.state.isInputDisabled && <img className='del-status-icon' src={config.urls.media + 'x-circle.svg' } onClick={this.delInfo}/>}
+            {this.state.isInputDisabled && <img className='del-status-icon' src={config.urls.media + 'x-circle.svg' } onClick={this.delInfo} />}
           </form>
         </div>
         <div className='img'>
           <img className='client-img'
             src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
-            alt='user-img' onError={e => { this.onError(e) }} />
+            alt='user-img' onError={this.onError} />
         </div>
       </div>
     )

@@ -29,7 +29,7 @@ export default class Phone extends React.Component {
       <div id='phone'>
         <div className={!this.props.editProfile ? 'data-phone' : 'hidden'}>
           <div className='wrap'>
-            <span className='label'>{config.translations.phone}:</span>
+            <span className='label'>{config.translations.personal_info.phone_label}:</span>
             <span className={!this.props.editProfile ? 'phone-labels' : 'hidden'}>{this.props.phone.number}</span>
           </div>
           <div className='phone-img'>
@@ -45,8 +45,8 @@ export default class Phone extends React.Component {
             ? <div onClick={() => this.props.changePhoneEdit()}
               className={!this.props.profilePhoneEdit ? 'add-phone' : 'hidden'}>
               <div className='add-wrap'>
-                <span className='label'>{config.translations.phone}:</span>
-                <h1>{config.translations.add_phone}</h1>
+                <span className='label'>{config.translations.personal_info.phone_label}:</span>
+                <h1>{config.translations.personal_info.empty_phone_label}</h1>
               </div>
               <div className='add-info'>
                 <div className='add-wrap'>
@@ -59,7 +59,7 @@ export default class Phone extends React.Component {
           <div className={this.props.profilePhoneEdit || this.props.phones || this.state.phone ? 'phone-edit' : 'hidden'}>
             <div className='edit'>
               <div className='edit-wrap'>
-                <span className='label'>{config.translations.phone}:</span>
+                <span className='label'>{config.translations.personal_info.phone_label}:</span>
                 <input className='edit-input'
                   autoComplete='off'
                   // autoFocus

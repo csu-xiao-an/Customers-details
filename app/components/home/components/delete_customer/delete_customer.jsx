@@ -17,20 +17,21 @@ export default class HiddenFields extends React.Component {
       }
     })
   }
+  closePopup = () => this.setState({isVisiblePopup: false})
   render () {
     return this.props.rights.more_fields.isVisible && (
       <div id='delete-customer'>
         <div className='del-btn'>
-          <button onClick={() => this.setState({isVisiblePopup: true})}>{config.translations.delete_customer}</button>
+          <button onClick={() => this.setState({isVisiblePopup: true})}>{config.translations.client_page_btn.delete_customer}</button>
         </div>
-        <Modal show={this.state.isVisiblePopup}>
+        <Modal show={this.state.isVisiblePopup} onHide={this.closePopup}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'icon_delete_selected.svg'} />
-            <label>{config.translations.del_question}</label>
+            <label>{config.translations.del_сustomer_popup.question}</label>
           </div>
           <div className='modal-delete-footer'>
-            <button className='no-btn' onClick={() => this.setState({isVisiblePopup: false})}>{config.translations.del_no}</button>
-            <button className='yes-btn' onClick={() => { this.deleteClient() }}>{config.translations.del_yes}</button>
+            <button className='no-btn' onClick={this.closePopup}>{config.translations.del_сustomer_popup.cancel}</button>
+            <button className='yes-btn' onClick={this.deleteClient}>{config.translations.del_сustomer_popup.confirm}</button>
           </div>
         </Modal>
       </div>

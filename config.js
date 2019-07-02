@@ -11,6 +11,7 @@ var config = {
   increment_by: 10,
   decrement_by: 10,
   locale: 'en',
+  language: 'en',
   user: {
     // admin, senior, junior, readonly, untrusted
     business_logo: 'public/business_data/1/logo.jpg',
@@ -83,30 +84,44 @@ var config = {
         expired: 'Expired',
         used: 'Used'
       },
-      card_del_question: 'Are you sure you want to delete this punch card ?',
-      use_del_question: 'Are you sure you want to delete the latest use?',
-      expiration_modal_text: 'Pls set an expiration date in future',
       used_count_label: { // Used: 8 of 10
         used: 'Used: ',
         of: 'of'
       },
-      unprocessable_label: 'Punch card is used, we cannot delete it without affecting the history',
-      ok_btn_lable: 'ok',
+      procedures_list: {
+        title: 'New Punch Card',
+        choose_service: 'Choose service ',
+        search_service: 'Please enter a service',
+        duration_minutes: 'mm'
+      },
+      use_del_popup: {
+        card_del_question: 'Are you sure you want to delete this punch card ?',
+        use_del_question: 'Are you sure you want to delete the latest use?',
+        confirm: 'Confirm',
+        cancel: 'Cancel'
+      },
+      unprocessable_del_popup: {
+        notification: 'Punch card is used, we cannot delete it without affecting the history',
+        confirm: 'ok'
+      },
+      expiration_popup: {
+        notification: 'Pls set an expiration date in future',
+        confirm: 'I got it'
+      },
       punch_card_created: '{name}. Punch was created, {count} uses',
       punch_card_used: '{name}. Punch was used {countCur} / {count} uses',
       punch_card_canceled: '{name}. Punch was canceled',
       top_title: 'Punch cards ({punch_cards_count})',
       empty_punch_cards: 'Add a new punch-card',
       select_punch_card: 'Select a punch-card',
-      title_new_punch_card: 'New Punch Card',
       used_punch_card_btn: 'No more uses',
       add_expiry_date: 'Add expiry date',
       number_of_uses: 'Number of uses:',
       use_btn_label_expired: 'Expired',
       add_new_punch_card_btn: 'Next',
+      cancel_new_punch_card_btn: 'Cancel',
       type_discount: 'Type discount',
       price_single: 'Cost at once:',
-      confirm_btn_label: 'Confirm',
       add_discount: 'Add discount',
       delete_btn_label: 'Delete',
       use_btn_label: 'Use',
@@ -125,7 +140,7 @@ var config = {
       confirm_del_media: 'Are you sure to delete this file?',
       confirm_del_media_multiple: 'Are you sure to delete these files?',
       cancel_media: 'Cancel',
-      confirm_del: 'Confirm',
+      confirm_del: 'Confirm'
     },
     media_modal: {
       add_note: 'Add note',
@@ -149,114 +164,128 @@ var config = {
       phone_number: 'type client\'s phone number',
       add_phone_number: 'Add phone number'
     },
-    language: 'en',
-    editProfile: 'Edit',
-    status: 'Status:',
-    vip: 'VIP',
-    birthdate_was_ago: 'was {count} days ago',
-    birthdate_in_days: 'in {count} days',
-    topnav_years_old: '{count} years old',
-    choose_service: 'Choose service ',
-    search_service: 'Please enter a service',
-    add_name: 'Add name',
-    of: 'of',
-    in: 'In',
-    del: 'X',
-    profile: 'Personal Info',
-    profile_sent_link: 'Sent',
-    name: 'Name',
-    phone: 'Phone',
-    gender: 'Gender',
-    birthday: 'Birthday',
-    summary: 'summary',
-    delete: 'Delete',
-    registration_date: 'The user was registered in: {registration_date}',
-    del_question: 'Are you sure you want to delete selected customers?',
-    i_got_it: 'I got it',
-    del_no: 'No',
-    del_yes: 'Yes',
-    address_agree: 'Do you want to change this address as a permanent customer address?',
-    agreement: 'Agreement to send advertising',
-    added_to_favorites: 'Added to favorites',
-    placeholder: 'Pls enter a client status',
-    add_phone: 'Add a phone',
-    close_queue: 'Close Queue',
-    add_new_queue: 'Add New Queue',
-    add_email: 'Add an email',
-    email: 'Email',
-    back: 'Back',
-    add_address: 'Add an address',
-    address: 'Address',
-    add_debt: 'Add New Debt',
-    debts: 'Debts',
-    save: 'Save',
-    submit: 'Submit',
-    amount: 'Amount',
-    placeholder_debts: 'Description of debt',
-    success: 'Done',
-    description_debts: 'Description:',
-    description_notes: 'Description',
-    reminder: 'Set a reminder',
-    add_note: 'Add Note',
-    notes: 'Notes:',
-    add_new_debt: 'Debt:',
-    recommended_by: 'Recommended by:',
-    add_new_link: 'Add New Link',
-    social_net: 'Social Links',
-    groups: 'Groups',
-    add_new_group: 'Add New Group',
-    request_to_detail: 'Send a link to the customer',
-    send: 'Send',
-    permitted: 'The client have permitted sending ads',
-    not_permitted: 'The client haven`t permitted sending ads',
-    signature_added: 'Signature added successfully',
-    add_signature: 'Add client`s signature',
-    save_signature: 'Save signature',
-    clear: 'Clear',
-    btn_delete: 'Remove',
-    btn_replace: 'Change',
-    services: 'services',
-    all_visits: 'For all visits...',
-    url: 'Url',
-    customer_pl: 'Customer',
-    show_more_fields: 'Show All Fields',
-    delete_customer: 'Delete customer',
-    male: 'Male',
-    female: 'Female',
-    selectGender: 'Select gender',
-    other: 'Other',
-    worker: 'Worker',
-    services_timeline: 'Services',
-    hours: 'h',
-    note: 'Note:',
-    meeting: 'Address:',
-    photo: 'Photo',
-    appointment_created: 'Ordered in: ',
-    photo_creted: 'Photo created at {time}',
-    appointment_at: 'Appointment at',
-    canceled: 'canceled',
-    employer: 'Employer:',
-    duration_minutes: 'mm',
-    procedures: 'Procedures:',
-    debts_t: 'Debts',
-    profile_birthdate: 'Year, Month, Day',
-    other_t: 'Other',
-    note_t: 'Notes',
-    sms_t: 'Sms',
-    queues: 'Queues',
-    add_birth: 'Add Birthdate',
-    debt_add: 'The debt is add: {time}',
-    debt_edited: 'The debt is edited: {time}',
-    debt_closed: 'The debt is closed: {time}',
-    debt: 'Debt',
-    is_valid: 'Is valid until ',
-    left: 'Left',
-    days: 'days',
-    currency_debt: '$',
-    use: 'Use',
-    color_card_topnav: 'Colors "{client_name}"',
-    cancel: 'Cancel',
-    confirm: 'Confirm',
+    personal_info: {
+      title: 'Personal Info',
+      edit_label_btn: 'Edit',
+      back_label_btn: 'Back',
+      done_label_btn: 'Done',
+      name_label: 'Name',
+      empty_name_label: 'Add name',
+      phone_label: 'Phone',
+      empty_phone_label: 'Add a phone',
+      email_lable: 'Email',
+      empty_email_label: 'Add an email',
+      address_lable: 'Address',
+      empty_address_label: 'Add an address',
+      gender_label: 'Gender',
+      gender: {
+        male: 'Male',
+        female: 'Female',
+        select_gender: 'Select gender'
+      },
+      birthday_label: 'Birthday',
+      add_birth_label: 'Add Birthdate',
+      send_link: {
+        sent_label: 'Sent',
+        title: 'Send a link to the customer'
+      }
+    },
+    hero: {
+      status_label: 'Status',
+      status_placeholder: 'Pls enter a client status',
+      vip_lable: 'VIP',
+      favorites_label: 'Added to favorites'
+
+    },
+    birthdate_info: {
+      birthdate_was_ago: 'was {count} days ago',
+      birthdate_in_days: 'in {count} days',
+      years_old: '{count} years old'
+    },
+    notes: {
+      title: 'Notes',
+      subtitle: 'Description',
+      back_label_btn: 'Back',
+      in_label: 'In',
+      del_btn: 'Delete',
+      success_btn: 'success',
+      placeholder: 'Description',
+      reminder_label: 'Set a reminder',
+      add_note_label: 'Add Note'
+    },
+    debts: {
+      title: 'Debts',
+      edit_sum_title: 'Debt:',
+      subtitle: 'Description',
+      back_label_btn: 'Back',
+      del_btn: 'Delete',
+      success_btn: 'success',
+      add_debt_label: 'Add New Debt',
+      placeholder: 'Description of debt'
+    },
+    appointments: {
+      summary_label: 'summary',
+      title: 'Closest Queue',
+      add_new_lable: 'Add New Queue'
+    },
+    timeline: {
+      registration_date: 'The user was registered in: {registration_date}',
+      appointment: {
+        note_label: 'Note:',
+        location_label: 'Address:',
+        appointment_created: 'Ordered in: ',
+        canceled_lable: 'canceled',
+        employer_label: 'Employer:',
+        procedures_label: 'Procedures:'
+      },
+      debts: {
+        debt_add: 'The debt is add: {time}',
+        debt_edited: 'The debt is edited: {time}',
+        debt_closed: 'The debt is closed: {time}'
+      },
+      filter_btn: {
+        debts_btn: 'Debts',
+        note_btn: 'Notes',
+        sms_btn: 'Sms',
+        queues_btn: 'Queues',
+        punch_cards_btn: 'Punch_cards',
+        gallery_btn: 'Gallery'
+      }
+    },
+    del_сustomer_popup: {
+      question: 'Are you sure you want to delete selected customers?',
+      cancel: 'No',
+      confirm: 'Yes'
+    },
+    agreement: {
+      agreement_label: 'Agreement to send advertising'
+    },
+    social_network: {
+      title: 'Social Links',
+      save_label_btn: 'Save',
+      add_link_lable: 'Add New Link',
+      url_label: 'Url'
+    },
+    groups: {
+      title: 'Groups',
+      add_group_lable: 'Add New Group'
+    },
+    signature: {
+      added_label: 'Signature added successfully',
+      permitted: 'The client have permitted sending ads',
+      not_permitted: 'The client haven`t permitted sending ads',
+      save_btn: 'Save signature',
+      cancel_btn: 'Clear',
+      delete_btn: 'Remove',
+      edit_btn: 'Change'
+    },
+    client_page_btn: {
+      show_more_fields: 'Show All Fields',
+      delete_customer: 'Delete customer'
+    },
+    datepicker: {
+      placeholder: 'Year, Month, Day'
+    },
     dates: {
       months: {
         0: 'January',
@@ -384,13 +413,14 @@ var config = {
     id: 123123,
     name: 'Ahuva Ben Shushan',
     // birthdate: '1990-03-30',
-    birthdate: '12-11',
+    birthdate: '07-04',
     birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',
     address: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
+    // phone: [],
     phone: ['9379992', '1232131','222222'],
     isFavorite: false,
     details_link_active: false,
@@ -654,147 +684,147 @@ var config = {
     ],
     // recent_appointments
     recent_appointments: [
-      // {
-      //   id: 321321,
-      //   start: '2019-09-01 15:00',
-      //   end: '2019-09-01 19:00',
-      //   total_price: '250',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 159159,
-      //       name: 'manicure',
-      //       color: 'red'
-      //     },
-      //     {
-      //       id: 756756,
-      //       name: 'hair coloring',
-      //       color: 'blue'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2019-09-02 15:00',
-      //   end: '2019-09-02 15:30',
-      //   total_price: '4100',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'visit',
-      //       color: 'green'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2020-01-01 15:00',
-      //   end: '2020-01-01 15:30',
-      //   total_price: '1200',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'chemistry',
-      //       color: 'red'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2025-01-02 15:00',
-      //   end: '2025-01-02 15:30',
-      //   total_price: '10',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'chemistry',
-      //       color: 'green'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2025-01-03 15:00',
-      //   end: '2025-01-03 15:30',
-      //   total_price: '1200',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'chemistry',
-      //       color: 'green'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2025-01-04 15:00',
-      //   end: '2025-01-04 15:30',
-      //   total_price: '700',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'manicure',
-      //       color: 'green'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2025-01-05 15:00',
-      //   end: '2025-01-05 15:30',
-      //   total_price: '600',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'hair coloring',
-      //       color: 'green'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2025-01-06 15:00',
-      //   end: '2025-01-06 15:30',
-      //   total_price: '600',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'hair coloring',
-      //       color: 'green'
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 456465,
-      //   start: '2025-01-07 15:00',
-      //   end: '2025-01-07 15:30',
-      //   total_price: '1000',
-      //   worker_id: 1,
-      //   services: [
-      //     {
-      //       id: 778954,
-      //       name: 'facial treatment',
-      //       color: 'green'
-      //     },
-      //     {
-      //       id: 778954,
-      //       name: 'laser hair 3 treatments',
-      //       color: 'blue'
-      //     },
-      //     {
-      //       id: 778954,
-      //       name: 'laser hair 3 treatments',
-      //       color: 'red'
-      //     }
-      //   ]
-      // }
+      {
+        id: 321321,
+        start: '2019-09-01 15:00',
+        end: '2019-09-01 19:00',
+        total_price: '250',
+        worker_id: 1,
+        services: [
+          {
+            id: 159159,
+            name: 'manicure',
+            color: 'red'
+          },
+          {
+            id: 756756,
+            name: 'hair coloring',
+            color: 'blue'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2019-09-02 15:00',
+        end: '2019-09-02 15:30',
+        total_price: '4100',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'visit',
+            color: 'green'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2020-01-01 15:00',
+        end: '2020-01-01 15:30',
+        total_price: '1200',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'chemistry',
+            color: 'red'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2025-01-02 15:00',
+        end: '2025-01-02 15:30',
+        total_price: '10',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'chemistry',
+            color: 'green'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2025-01-03 15:00',
+        end: '2025-01-03 15:30',
+        total_price: '1200',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'chemistry',
+            color: 'green'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2025-01-04 15:00',
+        end: '2025-01-04 15:30',
+        total_price: '700',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'manicure',
+            color: 'green'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2025-01-05 15:00',
+        end: '2025-01-05 15:30',
+        total_price: '600',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'hair coloring',
+            color: 'green'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2025-01-06 15:00',
+        end: '2025-01-06 15:30',
+        total_price: '600',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'hair coloring',
+            color: 'green'
+          }
+        ]
+      },
+      {
+        id: 456465,
+        start: '2025-01-07 15:00',
+        end: '2025-01-07 15:30',
+        total_price: '1000',
+        worker_id: 1,
+        services: [
+          {
+            id: 778954,
+            name: 'facial treatment',
+            color: 'green'
+          },
+          {
+            id: 778954,
+            name: 'laser hair 3 treatments',
+            color: 'blue'
+          },
+          {
+            id: 778954,
+            name: 'laser hair 3 treatments',
+            color: 'red'
+          }
+        ]
+      }
     ],
     colors_beautech: [
       {

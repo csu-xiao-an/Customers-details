@@ -30,7 +30,7 @@ state = {
   maleSelected: false,
   femaleSelected: false,
   genderSelect: '',
-  label: config.translations.selectGender
+  label: config.translations.personal_info.gender.select_gender
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -140,18 +140,18 @@ defaultPos = () => {
   if (config.data.gender) {
     let initState = config.data.gender
     if (initState.toLowerCase() === 'male') {
-      this.setState({ label: config.translations.male, maleSelected: true })
+      this.setState({ label: config.translations.personal_info.gender.male, maleSelected: true })
     } else if (initState.toLowerCase() === 'female') {
-      this.setState({ label: config.translations.female, femaleSelected: true })
+      this.setState({ label: config.translations.personal_info.gender.female, femaleSelected: true })
     } else if (!initState) {
-      this.setState({ label: config.translations.selectGender, femaleSelected: false, maleSelected: false })
+      this.setState({ label: config.translations.personal_info.gender.select_gender, femaleSelected: false, maleSelected: false })
     }
   }
 }
 
 deleteGender = () => {
   this.state.gender = null
-  this.setState({ label: config.translations.selectGender, changeState: false, femaleSelected: false, maleSelected: false, genderSelect: null }, () => this.getGender(this.state.genderSelect))
+  this.setState({ label: config.translations.personal_info.gender.select_gender, changeState: false, femaleSelected: false, maleSelected: false, genderSelect: null }, () => this.getGender(this.state.genderSelect))
 }
 
 handleGenderClick = () => {
@@ -163,7 +163,7 @@ selectedSex = () => {
   let male = document.getElementById('radioMale')
   male && male.addEventListener('click', e => {
     this.state.genderSelect = 'male'
-    this.setState({label: config.translations.male,
+    this.setState({label: config.translations.personal_info.gender.male,
       maleSelected: true,
       femaleSelected: false,
       changeState: false
@@ -173,7 +173,7 @@ selectedSex = () => {
   let female = document.getElementById('radioFemale')
   female && female.addEventListener('click', e => {
     this.state.genderSelect = 'female'
-    this.setState({label: config.translations.female,
+    this.setState({label: config.translations.personal_info.gender.female,
       maleSelected: false,
       femaleSelected: true,
       changeState: false
@@ -390,7 +390,7 @@ backAll = () => {
     maleSelected: config.data.gender === 'male' && true,
     femaleSelected: config.data.gender === 'female' && true,
     genderSelect: config.data.gender,
-    label: config.translations.selectGender
+    label: config.translations.personal_info.gender.select_gender
   })
   this.removeElements()
   this.defaultPos()
@@ -438,27 +438,27 @@ render () {
   return (
     <div id='profile'>
       <div id='profile-header'>
-        <h2 className='block-title'>{config.translations.profile}</h2>
+        <h2 className='block-title'>{config.translations.personal_info.title}</h2>
         {this.state.editProfile
           ? <div className='back-save-btn'>
             <div className='back-wrap'>
               <div className='img-back'><img src={config.urls.media + 'arrow-left.svg'} /></div>
-              <div className='back-btn' onClick={this.backAll}>{config.translations.back}</div>
+              <div className='back-btn' onClick={this.backAll}>{config.translations.personal_info.back_label_btn}</div>
             </div>
             <div className='save-wrap'>
               <div><img src={config.urls.media + 'apply.svg'} /></div>
-              <div className='save-btn' onClick={this.saveBtn}>{config.translations.success}</div>
+              <div className='save-btn' onClick={this.saveBtn}>{config.translations.personal_info.done_label_btn}</div>
             </div>
           </div>
-          : <div className='edit-profile' onClick={this.editInfo}>
+          : <button className='edit-profile' onClick={this.editInfo}>
             <div className='edit-wrap'><img className='img-edit-profile' src={config.urls.media + 'edit-note.svg'} /></div>
-            <div>{config.translations.editProfile}</div>
-          </div>}
+            {config.translations.personal_info.edit_label_btn}
+          </button>}
       </div>
       {(this.state.editProfile || (this.props.isVisibleFields || config.data.name)) && <div id='name'>
         {!this.state.editProfile && <div className='fullname'>
           <div className='fullname-wrap'>
-            <span className='label'>{config.translations.name}:</span>
+            <span className='label'>{config.translations.personal_info.name_label}:</span>
             <span className='block-content'>{config.data.name}</span>
           </div>
         </div>}
@@ -466,8 +466,8 @@ render () {
           ? <div onClick={() => this.changeNameEdit()}
             className={!this.state.profileNameEdit ? 'add-name' : 'hidden'}>
             <div className='wrap-name-full'>
-              <span className='label'>{config.translations.name}:</span>
-              <h1>{config.translations.add_name}</h1>
+              <span className='label'>{config.translations.personal_info.name_label}:</span>
+              <h1>{config.translations.personal_info.empty_name_label}</h1>
             </div>
             <div className='add-info'>
               <div className='add-wrap'>
@@ -478,7 +478,7 @@ render () {
         {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
           <div className='fullname-edit'>
             <div className='edit-wrap'>
-              <span className='label'>{config.translations.name}:</span>
+              <span className='label'>{config.translations.personal_info.name_label}:</span>
               <input className='edit-input'
                 id='name-input'
                 ref={inp => { this.inputName = inp }}
@@ -548,7 +548,7 @@ render () {
       <div id='address'>
         <div className={!this.state.editProfile ? 'address-wrap' : 'hidden'}>
           <div className='address-data'>
-            <span className='label'>{config.translations.address}:</span>
+            <span className='label'>{config.translations.personal_info.address_lable}:</span>
             <div className='block-content'>
               <div className='text'>{config.data.address}</div>
             </div>
@@ -576,8 +576,8 @@ render () {
           <div ref={input => { this.input = input }} onClick={this.changeAddressEdit}
             className={!this.state.profileAddressEdit ? 'add-address' : 'hidden'}>
             <div className='wrap-address'>
-              <span className='label'>{config.translations.address}:</span>
-              <h1>{config.translations.add_address}</h1>
+              <span className='label'>{config.translations.personal_info.address_lable}:</span>
+              <h1>{config.translations.personal_info.empty_address_label}</h1>
             </div>
             <div className='add-info'>
               <div className='add-wrap'>
@@ -588,7 +588,7 @@ render () {
         {(this.state.editProfile && (this.state.profileAddressEdit || config.data.address)) &&
           <div className='address-data-edit'>
             <div className='address-wrap-edit'>
-              <span className='label'>{config.translations.address}:</span>
+              <span className='label'>{config.translations.personal_info.address_lable}:</span>
               <div className='block-content'>
                 <input id='pac-input' className='controls'
                   type='text'

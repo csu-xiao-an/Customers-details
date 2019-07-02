@@ -16,7 +16,7 @@ export default class Groups extends React.Component {
     return (
       <div id='groups'>
         <div className='group-header'>
-          <span className='groups-label'>{config.translations.groups}</span>
+          <span className='groups-label'>{config.translations.groups.title}</span>
         </div>
         <div className='group-body'>
           {config.data.groups.map((i, k) => (
@@ -34,7 +34,7 @@ export default class Groups extends React.Component {
           )}
         </div>
         {/* <div className='group-footer'>
-          <label className='footer-label'>{config.translations.add_new_group}</label>
+          <label className='footer-label'>{config.translations.groups.add_group_lable}</label>
           <a className='href' href={'' this.props.rights.events.cr_app ? config.urls.main + config.urls.appointment + '?client_id=' + config.data.id : false}>
             <img className='add' src={config.urls.media + 'c_add_stroke.svg'} />
           </a>

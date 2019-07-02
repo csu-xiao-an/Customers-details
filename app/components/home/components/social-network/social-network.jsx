@@ -50,7 +50,7 @@ export default class SocialNetwork extends React.Component {
     return (
       <div id='social-network' className='soc-media-label'>
         <div className='soc-header'>
-          <span className='soc-label'>{config.translations.social_net}</span>
+          <span className='soc-label'>{config.translations.social_network.title}</span>
         </div>
         <div className='soc-body'>
           {config.data.soc_media.map((i, k) => (
@@ -84,13 +84,13 @@ export default class SocialNetwork extends React.Component {
                   onChange={e => this.setState({inputName: e.target.value})}
                 />
                 <input type='text' value={this.state.inputValue}
-                  placeholder={config.translations.url}
+                  placeholder={config.translations.social_network.url_label}
                   onChange={e => this.setState({inputValue: e.target.value})}
                 />
               </div>
             </div>
             <div className='action'>
-              <button className='save' onClick={this.submit}>{config.translations.save}</button>
+              <button className='save' onClick={this.submit}>{config.translations.social_network.save_label_btn}</button>
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default class SocialNetwork extends React.Component {
           <div className={this.state.isEditSocial ? 'hidden' : 'soc-footer'}
             onClick={() => this.setState({isEditSocial: !this.state.isEditSocial})}
           >
-            <label>{config.translations.add_new_link}</label>
+            <label>{config.translations.social_network.add_link_lable}</label>
             <img src={config.urls.media + 'c_add_stroke.svg'} />
           </div>}
 

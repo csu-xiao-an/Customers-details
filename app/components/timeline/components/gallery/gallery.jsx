@@ -101,7 +101,7 @@ export default class Gallery extends React.Component {
         {this.typeItem(this.props.i)}
         <div className={this.props.i.note ? 'note' : 'hidden'}>
           <div className='title'>
-            <span>{`${config.translations.notes}`}</span>
+            <span>{`${config.translations.notes.title}`}</span>
           </div>
           <div className='gallery-note'>
             <div className='note-txt'>

@@ -144,20 +144,20 @@ export default class SinglePunchPage extends React.Component {
         <Modal show={this.state.visibleAgreeModal} onHide={this.cancel}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'trash-del.svg'} />
-            <label>{this.state.isUses ? config.translations.punch_cards.use_del_question : config.translations.punch_cards.card_del_question}</label>
+            <label>{this.state.isUses ? config.translations.punch_cards.use_del_popup.use_del_question : config.translations.punch_cards.use_del_popup.card_del_question}</label>
           </div>
           <div className='modal-footer'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.punch_cards.confirm_btn_label}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.punch_cards.use_del_popup.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.punch_cards.use_del_popup.confirm}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
         <Modal show={this.state.deleteStatus} onHide={this.unprocessableDelete}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'alert-octagon.svg'} />
-            <label className='unprocessable_label'>{config.translations.punch_cards.unprocessable_label}</label>
+            <label className='unprocessable_label'>{config.translations.punch_cards.unprocessable_del_popup.notification}</label>
           </div>
           <div className='modal-footer'>
-            <button className='ok-btn' onClick={this.unprocessableDelete}>{config.translations.punch_cards.ok_btn_lable}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='ok-btn' onClick={this.unprocessableDelete}>{config.translations.punch_cards.unprocessable_del_popup.confirm}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </div>

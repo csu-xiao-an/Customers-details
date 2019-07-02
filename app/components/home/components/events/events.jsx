@@ -49,7 +49,7 @@ export default class Events extends React.Component {
         {/* <img className='clock' src={config.urls.media + 'clock.png'} /></a> */}
         {/* <h1 className={'label ' + (config.isRTL ? 'left' : 'right')}>{config.translations.close_visits}</h1> */}
         <div className='event-header'>
-          <label>{config.translations.close_queue}</label>
+          <label>{config.translations.appointments.title}</label>
         </div>
         <div className='wrap-events'>
           {recentAppointmentsData.map(i => (
@@ -74,7 +74,7 @@ export default class Events extends React.Component {
                   </div>
                   <div className='block2' >
                     <span>{i.total_price}{config.data.currency}</span>
-                    <span className='min'>/&nbsp;{config.translations.summary}</span>
+                    <span className='min'>/&nbsp;{config.translations.appointments.summary_label}</span>
                   </div>
                 </div>
               </a>
@@ -85,7 +85,7 @@ export default class Events extends React.Component {
           ? `${config.urls.main}${config.urls.appointment}?client_id=${config.data.id}&worker_id=${config.user.worker_id}`
           : false}>
           <div className='event-footer'>
-            <label>{config.translations.add_new_queue}</label>
+            <label>{config.translations.appointments.add_new_lable}</label>
             <img className='add' src={config.urls.media + 'c_add_stroke.svg'} />
           </div>
         </a>

@@ -54,10 +54,8 @@ export default class Topnav extends React.Component {
           </div>
           {(this.props.home || this.props.timeline) && <div className='client-name'>
             <h1>{config.data.name}</h1>
-            {birthdate && <span>{config.translations.topnav_years_old.replace('{count}', birthdate)}</span>}
+            {birthdate && <span>{config.translations.birthdate_info.years_old.replace('{count}', birthdate)}</span>}
           </div>}
-          {this.props.color && <div className='client-name'>
-            <h1>{config.translations.color_card_topnav.replace('{client_name}', config.data.name)}</h1></div>}
           <div className={'arrow-wrap ' + (config.isRTL ? 'ltr' : 'rtl')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
             <img className='arrow-back' src={config.urls.media + 'arrow-back.svg'} style={!config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
         </div>

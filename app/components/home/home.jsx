@@ -201,7 +201,7 @@ class Home extends React.Component {
         {/* <Signature {...this.props} /> */}
         {/* {isSocialNetworkVisible && <SocialNetwork {...this.props} />} */}
         {!this.state.isVisibleFields && <div className='main-button'>
-          <button onClick={this.showFields}>{config.translations.show_more_fields}</button>
+          <button onClick={this.showFields}>{config.translations.client_page_btn.show_more_fields}</button>
         </div>}
         <DeleteCustomer {...this.props} />
       </div>

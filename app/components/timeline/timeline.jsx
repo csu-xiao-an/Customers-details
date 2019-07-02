@@ -202,7 +202,7 @@ class Timeline extends React.Component {
           </div>)}
           {this.state.showMessage && <div className='separator-wrap'><div className='separator'>
             {/* <span className='date_weekday'>{`${moment(config.data.registration_date).format('YYYY-MM-DD')},`}</span> */}
-            <span className='date_month'>{config.translations.registration_date.replace('{registration_date}', `${moment(config.data.registration_date).format('YYYY-MM-DD')}`)}</span>
+            <span className='date_month'>{config.translations.timeline.registration_date.replace('{registration_date}', `${moment(config.data.registration_date).format('YYYY-MM-DD')}`)}</span>
           </div>
           </div>}
           <div className={this.state.flag ? 'preloader' : 'hidden'}>
@@ -214,37 +214,33 @@ class Timeline extends React.Component {
             <div className='single-button' onClick={() => this.filter('appointments')}>
               <img className={`mark ${this.state.filter.appointments ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-q.svg`} />
-              <p>{config.translations.queues}</p>
+              <p>{config.translations.timeline.filter_btn.queues_btn}</p>
             </div>
             {config.plugins_list.some(i => i === 'gallery') && this.props.rights.timeline.isVisibleGalleryButton &&
             <div className='single-button' onClick={() => this.filter('gallery')}>
               <img className={`mark ${this.state.filter.gallery ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-g.svg`} />
-              <p>{config.translations.media.title}</p>
+              <p>{config.translations.timeline.filter_btn.gallery_btn}</p>
             </div>}
             {config.plugins_list.some(i => i === 'debts') && <div className='single-button' onClick={() => this.filter('debts')}>
               <img className={`mark ${this.state.filter.debts ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-d.svg`} />
-              <p>{config.translations.debts_t}</p>
+              <p>{config.translations.timeline.filter_btn.debts_btn}</p>
             </div>}
-            {/* <div onClick={() => this.filter('other')}>
-              <img className={this.state.filter.other ? '' : 'nVisible'} src={config.urls.media + 'ic-mark.svg'} />
-              <span>{config.translations.other_t}</span>
-            </div> */}
             {config.plugins_list.some(i => i === 'punch_cards') && <div className='single-button' onClick={() => this.filter('punch_cards')}>
               <img className={`mark ${this.state.filter.punch_cards ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-sub.svg`} />
-              <p>{config.translations.hot_links.punch_cards}</p>
+              <p>{config.translations.timeline.filter_btn.punch_cards_btn}</p>
             </div>}
             {config.plugins_list.some(i => i === 'notes') && <div className='single-button' onClick={() => this.filter('notes')}>
               <img className={`mark ${this.state.filter.notes ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-n.svg`} />
-              <p>{config.translations.note_t}</p>
+              <p>{config.translations.timeline.filter_btn.note_btn}</p>
             </div>}
             <div className='single-button' onClick={() => this.filter('sms')}>
               <img className={`mark ${this.state.filter.sms ? '' : 'nVisible'}`} src={config.urls.media + 'ic-mark.svg'} />
               <img className='main-img' src={`${config.urls.media}ic-s.svg`} />
-              <p>{config.translations.sms_t}</p>
+              <p>{config.translations.timeline.filter_btn.sms_btn}</p>
             </div>
           </div>
         </div>

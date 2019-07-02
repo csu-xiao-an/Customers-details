@@ -42,7 +42,7 @@ export default class Signature extends React.Component {
         <SignatureModal isEditSignature={this.state.isEditSignature} handleEditSignature={this.handleEditSignature}
           isAds={this.state.isAds} handleAds={this.handleAds} />
         <div className='checkbox-wrap' onClick={this.handleAds}>
-          <div className='text'><h1 className='text-h1'>{config.data.permit_ads ? config.translations.permitted : config.translations.not_permitted}</h1></div>
+          <div className='text'><h1 className='text-h1'>{config.data.permit_ads ? config.translations.signature.permitted : config.translations.signature.not_permitted}</h1></div>
           {this.props.rights.signature.ads &&
             <div className='switch'><Switch on={config.data.permit_ads} className={config.isRTL ? 'switchleft' : 'switchright'} /></div>}
         </div>
@@ -51,13 +51,13 @@ export default class Signature extends React.Component {
           <div className='label'>
             <h1>{config.translations.signature_added}</h1>
             {this.props.rights.signature.remove &&
-              <button onClick={this.delete}>{config.translations.btn_delete}</button>}
+              <button onClick={this.delete}>{config.translations.signature.delete_btn}</button>}
             {this.props.rights.signature.change &&
-              <button onClick={this.handleEditSignature}>{config.translations.btn_replace}</button>}
+              <button onClick={this.handleEditSignature}>{config.translations.signature.edit_btn}</button>}
           </div> */}
         </div>
         <div className={config.data.signature ? 'hidden' : 'add-signature-wrap'} onClick={this.handleEditSignature}>
-          <div className='text-wrap'><h1>{config.translations.add_signature}</h1></div>
+          <div className='text-wrap'><h1>{config.translations.signature.added_label}</h1></div>
           <div className='img-wrap'><img src={config.urls.media + 'pencil.svg'} /></div>
         </div>
       </div>

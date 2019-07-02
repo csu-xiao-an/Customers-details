@@ -1,6 +1,6 @@
 import './appointment.styl'
 
-export default class Appoinment extends React.Component {
+export default class Appointment extends React.Component {
   static propTypes = {
     i: PropTypes.object.isRequired
   }
@@ -30,7 +30,7 @@ export default class Appoinment extends React.Component {
     return (
       <div id='appoinments'>
         <p className='order-in'>
-          {config.translations.appointment_created}
+          {config.translations.timeline.appointment.appointment_created}
           {/* <span className='date_weekday'>{`${config.translations.dates.weekdays[moment(this.props.i.added_date).get('day')]},`}</span>
           <span className='date_month'>{config.translations.dates.months[moment(this.props.i.added_date).get('month')]}</span> */}
           <span className='date_day'>{this.dateFormat(this.props.i.added_date)}</span>
@@ -47,17 +47,17 @@ export default class Appoinment extends React.Component {
             </div>
           </div>
           {this.props.i.is_deleted && <div className='cancel-wrap'>
-            <span className='cancel'>{config.translations.canceled}</span>
+            <span className='cancel'>{config.translations.timeline.appointment.canceled_lable}</span>
           </div>}
         </div>
         {config.plugins_list.includes('multiple_workers') && <div className='worker-info'>
-          <p className='worker-label'>{config.translations.employer}</p>
+          <p className='worker-label'>{config.translations.timeline.appointment.employer_label}</p>
           <div className='worker'>
             <img src={config.urls.main + config.urls.worker_img.replace('{worker_profile_img}', this.props.i.worker_profile_image)} onError={e => { this.onError(e) }} />
             <span className='worker-name'>{this.props.i.worker_name}</span>
           </div>
         </div>}
-        <p className='procedures'>{config.translations.procedures}</p>
+        <p className='procedures'>{config.translations.timeline.appointment.procedures_label}</p>
         <div className='service-wrap'>
           <div className='procedures-list'>
             {this.props.i.services && this.props.i.services.map(i => <div className='procedures-item'>
@@ -72,7 +72,7 @@ export default class Appoinment extends React.Component {
         </div>
         <div className={this.props.i.note ? 'note' : 'hidden'}>
           <div className='title'>
-            <span>{`${config.translations.note}`}</span>
+            <span>{`${config.translations.timeline.appointment.note_label}`}</span>
           </div>
           <div className='gallery-note'>
             <div className='note-txt'>
@@ -85,7 +85,7 @@ export default class Appoinment extends React.Component {
         </div>
         <div className={this.props.i.location ? 'address' : 'hidden'}>
           <div className='data'>
-            <p className='meet'>{config.translations.meeting}</p>
+            <p className='meet'>{config.translations.timeline.appointment.location_label}</p>
             <p className='address'>{this.props.i.location}</p>
           </div>
           <div className='icon'>

@@ -16,7 +16,7 @@ export default class Details extends React.Component {
     return (
       <div className='block'>
         <div className='completion'>
-          <span className='label'>{config.translations.request_to_detail}</span>
+          <span className='label'>stat request_to_detail</span>
           <div className='block-content'>
             <div id='details'>
               <div className='data-wrap'>

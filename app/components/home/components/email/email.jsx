@@ -17,7 +17,7 @@ export default class Email extends React.Component {
       <div id='email'>
         <div className={!this.props.editProfile ? 'gmailwrap' : 'hidden'}>
           <div className='data-wrap'>
-            <span className='label'>{config.translations.email}:</span>
+            <span className='label'>{config.translations.personal_info.email_lable}:</span>
             <div className='gmailcom'>
               <span>{config.data.email}
               </span>
@@ -31,8 +31,8 @@ export default class Email extends React.Component {
             ? <div onClick={() => this.props.changeEmailEdit()}
               className={!this.props.profileEmailEdit ? 'add-email' : 'hidden'}>
               <div className='wrap-mail'>
-                <span className='label'>{config.translations.email}:</span>
-                <h1>{config.translations.add_email}</h1>
+                <span className='label'>{config.translations.personal_info.email_lable}:</span>
+                <h1>{config.translations.personal_info.empty_email_label}</h1>
               </div>
               <div className='add-info'>
                 <div className='add-wrap'>
@@ -45,7 +45,7 @@ export default class Email extends React.Component {
           <div className={this.props.profileEmailEdit || config.data.email ? 'email-edit' : 'hidden'}>
             <div className='edit'>
               <div className='edit-wrap'>
-                <span className='label'>{config.translations.email}:</span>
+                <span className='label'>{config.translations.personal_info.email_lable}:</span>
                 <input className='edit-input'
                   id='email-input'
                   type='email'
@@ -59,7 +59,6 @@ export default class Email extends React.Component {
                 </div>
               </div>
             </div>
-            {/* <div className='button'><button onClick={this.submit}>{config.translations.save}</button></div> */}
           </div>}
       </div>
     )

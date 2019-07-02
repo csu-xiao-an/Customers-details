@@ -210,7 +210,7 @@ class PunchCardsAdd extends React.Component {
           <div className='header-wrap'>
             <img src={config.urls.media + 'credit-card.svg'} />
             <div className='title'>
-              <h2>{config.translations.punch_cards.title_new_punch_card}</h2>
+              <h2>{config.translations.punch_cards.procedures_list.title}</h2>
             </div>
           </div>
         </header>
@@ -295,7 +295,7 @@ class PunchCardsAdd extends React.Component {
               </div>
               <div className='buttons'>
                 <button className='btn-cancel' onClick={() => this.props.history.push(baseUrl + config.urls.punch_cards)}>
-                  {config.translations.cancel}<img className='cancel-img' src={`${config.urls.media}plus-blue.svg`} />
+                  {config.translations.punch_cards.cancel_new_punch_card_btn}<img className='cancel-img' src={`${config.urls.media}plus-blue.svg`} />
                 </button>
                 <button className='btn-save' onClick={this.save}>
                   {config.translations.punch_cards.add_new_punch_card_btn}<img src={`${config.urls.media}plus-square-white.svg`} />
@@ -307,10 +307,10 @@ class PunchCardsAdd extends React.Component {
         <Modal show={this.state.visibleAgreeModal} onHide={this.iGoIt}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'alert-octagon.svg'} />
-            <label>{config.translations.punch_cards.expiration_modal_text}</label>
+            <label>{config.translations.punch_cards.expiration_popup.notification}</label>
           </div>
           <div className='modal-footer'>
-            <button className='yes-btn' onClick={this.iGoIt}>{config.translations.i_got_it}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='yes-btn' onClick={this.iGoIt}>{config.translations.punch_cards.expiration_popup.confirm}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </div>

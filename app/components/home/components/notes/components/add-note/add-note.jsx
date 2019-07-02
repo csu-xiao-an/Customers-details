@@ -25,14 +25,14 @@ export default class AddNote extends React.Component {
     return (
       <div className='edit-note'>
         <div className='edit-note-dody'>
-          <span className='one-note'>{config.translations.note}</span>
+          <span className='one-note'>{config.translations.notes.title}</span>
           <div className='description'>
             <textarea autoFocus className='description-area'
               type='text'
               rows='3'
               value={this.props.description}
               onChange={e => this.props.setDescription(e.target.value)}
-              placeholder={config.translations.description_notes} />
+              placeholder={config.translations.notes.placeholder} />
             <div className='cancel-search'>
               {this.props.description && <img onClick={this.props.cancelSearch} className='search-img' src={`${config.urls.media}x-circle.svg`} />}
             </div>
@@ -44,13 +44,13 @@ export default class AddNote extends React.Component {
                   <div className={'img-wrap'}>
                     <img src={config.urls.media + 'bell.svg'} />
                   </div>
-                  <span>{config.translations.reminder}</span>
+                  <span>{config.translations.notes.reminder_label}</span>
                 </div>
                 <Switch on={this.props.switch} onClick={this.props.activateSwitch} />
               </div>
               {this.props.isReminderEdit && <div className='reminder-time'>
                 <div className='input-wrap'>
-                  <span className='reminder-in'>{config.translations.in}</span>
+                  <span className='reminder-in'>{config.translations.notes.in_label}</span>
                   <div className='ink' onClick={this.props.handleIncrementTime}><img src={`${config.urls.media}plus.svg`} /></div>
                   <input className='count-input total-input' type='text' value={this.props.time} disabled />
                   <div className='ink' onClick={this.props.handleDecrementTime}><img src={`${config.urls.media}minus.svg`} /></div>
@@ -69,13 +69,13 @@ export default class AddNote extends React.Component {
             className='delete'
             onClick={this.props.deleteNote}>
             <img src={`${config.urls.media}delete.svg`} />
-            <span>{config.translations.delete}</span>
+            <span>{config.translations.notes.del_btn}</span>
           </button>}
           <button
             className='save'
             onClick={this.props.noteReplace && this.props.submit}>
             <img src={`${config.urls.media}apply.svg`} />
-            <span>{config.translations.success}</span>
+            <span>{config.translations.notes.success_btn}</span>
           </button>
         </div>
       </div>

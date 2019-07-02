@@ -92,8 +92,8 @@ export default class SignatureModal extends React.Component {
         </div>
         <div className='signature-modal-body'><canvas ref='canvas' width={336} height={200} /></div>
         <div className='signature-modal-footer'>
-          <button className={config.isRTL ? 'radiusRight' : 'radiusLeft'} onClick={this.save}>{config.translations.save_signature}</button>
-          <button className={config.isRTL ? 'radiusLeft' : 'radiusRight'} onClick={this.clear}>{config.translations.clear}</button>
+          <button className={config.isRTL ? 'radiusRight' : 'radiusLeft'} onClick={this.save}>{config.translations.signature.save_btn}</button>
+          <button className={config.isRTL ? 'radiusLeft' : 'radiusRight'} onClick={this.clear}>{config.translations.signature.cancel_btn}</button>
         </div>
       </Modal>
     )

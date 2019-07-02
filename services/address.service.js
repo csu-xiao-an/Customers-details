@@ -1,7 +1,7 @@
 import mainRequestService from './request.service'
 
 export const getService = q => {
-  const url = config.urls.new_address.replace('{query}', q).replace('{language}', config.translations.language)
+  const url = config.urls.new_address.replace('{query}', q).replace('{language}', config.language)
   const options = {
     mode: 'cors',
     method: 'GET'
