@@ -186,6 +186,14 @@ class PunchCardsAdd extends React.Component {
     this.setState({date: e.target.value},
       this.handleChangeEditExpiryDate)
   }
+  handleChangeDiscountValue = e => {
+    const value = e.target.value
+    if (+value >= 100 || value.length >= 3) {
+      let discountValue = value.substring(0, value.length - 1)
+      this.setState({discount: discountValue}, this.handleChangeDiscount)
+    } else this.setState({discount: value}, this.handleChangeDiscount)
+  }
+  discontValueBlur = () => this.setState({editDiscount: true, discontActive: false})
   render () {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`
@@ -229,8 +237,8 @@ class PunchCardsAdd extends React.Component {
                   <div className='input-wrap'>
                     <div className='persent-wrap'>
                       <input
-                        onChange={e => this.setState({discount: e.target.value}, this.handleChangeDiscount)}
-                        onBlur={() => this.setState({editDiscount: true, discontActive: false})}
+                        onChange={this.handleChangeDiscountValue}
+                        onBlur={this.discontValueBlur}
                         ref='discont'
                         className='discont-input'
                         type='number'
