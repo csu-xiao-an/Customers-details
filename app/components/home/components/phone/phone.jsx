@@ -62,7 +62,7 @@ export default class Phone extends React.Component {
                 <span className='label'>{config.translations.phone}:</span>
                 <input className='edit-input'
                   autoComplete='off'
-                  autoFocus
+                  // autoFocus
                   id='phone-input'
                   type='tel'
                   ref={input => { this.nameInput = input }}

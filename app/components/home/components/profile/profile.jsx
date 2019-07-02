@@ -127,6 +127,7 @@ onAddPhone = () => {
   const { phone } = this.state
   phone.push({ id: this.getUniqkId(0), number: '' })
   this.setState({ phone })
+  document.getElementById('phone-input').focus()
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -304,7 +305,6 @@ initMap = () => {
     </style>`
   document.body.appendChild(divNode)
   this.selectedSex()
-  this.inputName && this.inputName.focus()
   if (window.google) {
     let input = this.input
     const searchBox = new window.google.maps.places.SearchBox(input)
