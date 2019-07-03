@@ -188,10 +188,12 @@ class PunchCardsAdd extends React.Component {
   }
   handleChangeDiscountValue = e => {
     const value = e.target.value
-    if (+value >= 100 || value.length >= 3) {
+    if (+value > 100) {
+      this.setState({discount: 100}, this.handleChangeDiscount)
+    } else if (value.length >= 4) {
       let discountValue = value.substring(0, value.length - 1)
-      this.setState({discount: discountValue}, this.handleChangeDiscount)
-    } else this.setState({discount: value}, this.handleChangeDiscount)
+      this.setState({discount: Math.abs(+discountValue)}, this.handleChangeDiscount)
+    } else this.setState({discount: Math.abs(+value)}, this.handleChangeDiscount)
   }
   discontValueBlur = () => this.setState({editDiscount: true, discontActive: false})
   render () {
@@ -236,7 +238,7 @@ class PunchCardsAdd extends React.Component {
                   </button>
                   <div className='input-wrap'>
                     <div className='persent-wrap'>
-                      <input
+                      {this.state.discontActive ? <div><input
                         onChange={this.handleChangeDiscountValue}
                         onBlur={this.discontValueBlur}
                         ref='discont'
@@ -247,7 +249,9 @@ class PunchCardsAdd extends React.Component {
                         autoFocus={!this.state.discontActive}
                         disabled={!this.state.discontActive}
                       />
-                      {(this.state.discontActive || this.state.editDiscount) && this.state.discount && <span className={'persent ' + (config.isRTL ? 'persent-rtl' : 'persent-ltr')}>%</span>}
+                      <span className={'persent ' + (config.isRTL ? 'persent-rtl' : 'persent-ltr')}>%</span>
+                      </div>
+                        : this.state.editDiscount && <p className='discont-view'><span>{this.state.discount}</span><span className={'persent ' + (config.isRTL ? 'persent-rtl' : 'persent-ltr')}>%</span></p>}
                     </div>
                     {this.state.editDiscount && <img onClick={this.focusForDiscont} className='discont-img' src={`${config.urls.media}edit-note.svg`} />}
                   </div>
