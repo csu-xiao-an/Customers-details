@@ -253,7 +253,7 @@ var config = {
       }
     },
     del_сustomer_popup: {
-      question: 'Are you sure you want to delete selected customers?',
+      question: 'Are you sure to delete the client {client_name}',
       cancel: 'No',
       confirm: 'Yes'
     },

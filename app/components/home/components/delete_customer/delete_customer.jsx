@@ -27,7 +27,7 @@ export default class HiddenFields extends React.Component {
         <Modal show={this.state.isVisiblePopup} onHide={this.closePopup}>
           <div className='modal-body'>
             <img className='icon' src={config.urls.media + 'icon_delete_selected.svg'} />
-            <label>{config.translations.del_сustomer_popup.question}</label>
+            <label>{config.translations.del_сustomer_popup.question.replace('{client_name}', config.data.name)}</label>
           </div>
           <div className='modal-delete-footer'>
             <button className='no-btn' onClick={this.closePopup}>{config.translations.del_сustomer_popup.cancel}</button>
