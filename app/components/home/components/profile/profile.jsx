@@ -333,6 +333,7 @@ saveAll = () => {
       if (field === 'address') value = encodeURIComponent(value)
       if (field === 'name') value = encodeURIComponent(value)
       if (field === 'email') value = encodeURIComponent(value)
+      if (value === '') value = null
       const result = `${field}=${value}`
       return params + (params.length ? `&${result}` : result)
     }
