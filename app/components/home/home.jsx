@@ -115,7 +115,7 @@ class Home extends React.Component {
 
   showFields = () => this.setState({ isVisibleFields: true })
   hiddenNotes = () => this.setState({ isFirstNote: this.state.notesData.lehth > 0, activateNone: this.state.notesData.lehth > 0 })
-  hiddenEmptyDepts = () => this.setState({ isFirstDebt: this.state.debtsData.lehth > 0, activateDebt: this.state.notesData.lehth > 0 })
+  hiddenEmptyDepts = () => this.setState({ isFirstDebt: this.state.debtsData.lehth > 0, activateDebt: this.state.debtsData.lehth > 0 })
   createFirstNote = () => this.setState({ isFirstNote: true, activateNone: true })
   createFirstDebt = () => this.setState({ isFirstDebt: true, activateDebt: true, showAddDebt: false })
   addingFirstItem = () => this.setState({ isFirstItemInGallery: true })
