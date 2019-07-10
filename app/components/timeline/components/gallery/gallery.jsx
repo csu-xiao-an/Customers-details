@@ -56,14 +56,13 @@ export default class Gallery extends React.Component {
     }
   }
   nativeShared = () => {
-    console.log(navigator)
-    console.log(navigator.share)
     if (navigator.share) {
       let opt = {
-        title: config.translations.share_title,
-        text: config.translations.share_text,
+        title: config.translations.media.share_title,
+        text: config.translations.media.share_text,
         url: config.urls.gallery_sharing_base_url + config.urls.media + this.props.i.name
       }
+      console.log('timeline_opt', opt)
       navigator.share && navigator.share(opt)
     }
   }
