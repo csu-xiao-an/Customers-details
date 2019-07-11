@@ -516,7 +516,8 @@ render () {
         <div className='add-phones' onClick={this.onAddPhone}>
           <div className='add-phones-wrap'>
             <div className='phone-wrap-half'>
-              <span className='label'>{config.translations.personal_info_editing.add_phone_number}</span>
+              <span className='label'>{config.translations.personal_info.phone_label}</span>
+              <h1>{config.translations.personal_info.empty_phone_label}</h1>
             </div>
             <div className='add-info-pic'>
               <div className='pic-wrap'>
