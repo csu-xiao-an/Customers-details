@@ -30,6 +30,7 @@ export default class Phones extends React.Component {
       <div id='phones'>
         {this.props.phones.map((i, k) => (
           <Phone
+            add={this.props.add}
             phones={this.props.phones}
             getPhone={this.props.getPhone}
             phone={i}

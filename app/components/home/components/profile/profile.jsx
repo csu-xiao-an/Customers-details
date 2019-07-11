@@ -126,8 +126,7 @@ getUniqkId = id => {
 onAddPhone = () => {
   const { phone } = this.state
   phone.push({ id: this.getUniqkId(0), number: '' })
-  this.setState({ phone })
-  document.getElementById('phone-input').focus()
+  this.setState({ phone, add: true })
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -502,6 +501,7 @@ render () {
       {((this.props.isVisibleFields || this.state.phone) || this.state.editProfile) &&
         <Phones editProfile={this.state.editProfile}
           getPhone={this.getPhone}
+          add={this.state.add}
           changePhoneEdit={this.changePhoneEdit}
           profilePhoneEdit={this.state.profilePhoneEdit}
           deletePhone={this.deletePhone}

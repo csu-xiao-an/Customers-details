@@ -14,7 +14,7 @@ export default class Phone extends React.Component {
     const phone = this.props.phone
     phone.number = ''
     this.setState({ phone }, () => this.props.deletePhone(phone))
-    this.nameInput.focus()
+    this.phoneInput.focus()
   }
   saveNumber = phone => {
     this.setState({ phone })
@@ -23,6 +23,9 @@ export default class Phone extends React.Component {
     const phone = this.props.phone;
     phone.number = e.target.value
     this.setState({ phone, error: '' }, () => this.props.getPhone(this.state.phone))
+  }
+  componentDidMount = () => {
+    this.props.add && this.phoneInput.focus()
   }
   render () {
     return this.props.rights.isPhone && (
@@ -63,9 +66,9 @@ export default class Phone extends React.Component {
                 <input className='edit-input'
                   autoComplete='off'
                   // autoFocus
-                  id='phone-input'
+                  // id='phone-input'
                   type='tel'
-                  ref={input => { this.nameInput = input }}
+                  ref={input => { this.phoneInput = input }}
                   value={this.props.phone.number}
                   onChange={e => this.phoneNumber(e)}
                   onBlur={!this.props.phone.number && this.props.blurPhoneModal}
