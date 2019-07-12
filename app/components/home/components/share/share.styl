@@ -1,32 +1,35 @@
-// @import "../../../../variables.css"
 #share
-  // margin 0 7px
-  padding 0.6rem 0
-  display flex
-  justify-content center
-  border-bottom-left-radius 8px
-  border-bottom-right-radius 8px
-  background-color #fff
+  position relative
   .share
     object-fit cover
+    height 45px
+    width 45px
   .icon-default
+    position absolute
+    visibility hidden
+    opacity 0
     object-fit cover
-    height 30px
-    width 30px
-    margin 10px
+    height 45px
+    width 45px
     transform translateX(0%)
     transition 0.2s ease-in-out
     border-radius 50%
-    .facebook
-      transform translateX(-125%)
-    .twitter
-      transform translateX(-225%)
-    .pingterest
-      transform translateX(-325%)
-    .gplus
-      transform translateX(-425%)
-    .linkedin
-      transform translateX(-525%)
-  .hidden
-    visibility hidden
-    opacity 0
+  .isVisible
+    visibility visible
+    opacity 1
+    transition 0.2s ease-in-out
+  .facebook
+    transform translateX(-305%)
+    height 43px
+    width 43px
+  .twitter
+    transform translateX(-440%)
+
+  body[style="direction: rtl;"] & {
+		.facebook {
+      transform translateX(305%)
+    }
+    .twitter {
+      transform translateX(440%)
+    }
+}

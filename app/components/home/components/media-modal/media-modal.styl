@@ -20,7 +20,7 @@
     .swiper-container
       background-color #fff
     .gallery-swiper-wrap
-      img
+      .gallery-img
         width 100% 
         max-height 70vh
         object-fit cover
@@ -80,7 +80,13 @@
       border-bottom-left-radius 8px
       border-bottom-right-radius 8px
       .main
-        padding 7px 9px 10px 15px
+        padding 0.5rem 0
+        -moz-padding-start 1rem
+        -webkit-padding-start 1rem
+        padding-inline-start 1rem
+        -moz-padding-end 0.6rem
+        -webkit-padding-end 0.6rem
+        padding-inline-end 0.6rem
         .row1
           display flex
           justify-content space-between
@@ -94,9 +100,10 @@
             img
               width 20px
               height 20px
-              &:nth-child(2)
-                -webkit-margin-start 10px
-                -moz-margin-start 10px
+              &:not(:first-child)
+                -moz-margin-start 0.8rem
+                -webkit-margin-start 0.8rem
+                margin-inline-start 0.8rem
         .row2
           display flex
           align-items center
@@ -111,7 +118,12 @@
         min-height 4em
         display flex
         align-items center
-        padding 0 9px 0 15px
+        -moz-padding-start 1rem
+        -webkit-padding-start 1rem
+        padding-inline-start 1rem
+        -moz-padding-end 0.6rem
+        -webkit-padding-end 0.6rem
+        padding-inline-end 0.6rem
         border-top 1px solid #dedeff
         .note
           width 100%

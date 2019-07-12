@@ -1,4 +1,5 @@
 import {replaceService as mediaReplaceService, deleteService as mediaDeleteService} from 'project-services/media.service.js'
+import Share from '../share/share.jsx'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import { default as formatDate } from 'project-components/format-date.js'
 import { default as Swiper } from 'project-components/Swiper/Swiper.js'
@@ -35,7 +36,17 @@ export default class MediaModal extends React.Component {
       document.getElementById('textarea_id_' + id).focus()
     }
   }
-
+  nativeShared = () => {
+    if (navigator.share) {
+      let opt = {
+        title: config.translations.media.share_title,
+        text: config.translations.media.share_text,
+        url: config.urls.gallery_sharing_base_url + config.urls.media + this.props.i.name
+      }
+      console.log('gallery_opt', opt)
+      navigator.share && navigator.share(opt)
+    }
+  }
   typeItem = (i, k) => {
     let splitedName = i.name.split('.')
     let typeFile = splitedName[splitedName.length - 1].toLowerCase()
@@ -53,12 +64,22 @@ export default class MediaModal extends React.Component {
       if (images.find(i => i === typeFile)) {
         return (
           <div>
-            <img src={config.urls.gallery + i.name} />
+            <img className='gallery-img' src={config.urls.gallery + i.name} />
             <div className='modal-footer'>
               <div className='main'>
                 <div className='row1'>
                   <span className='name'>{i.name}</span>
                   <div className='icons'>
+                    {navigator.share
+                      ? <img onClick={this.nativeShared} className='share' src={config.urls.media + 'ic_share.svg'} />
+                      : <Share
+                        {...this.props}
+                        opt={{
+                          title: config.translations.share_title,
+                          text: config.translations.share_text,
+                          url: config.urls.gallery_sharing_base_url + config.urls.gallery + i.name
+                        }}
+                      />}
                     <img src={config.urls.media + 'pencil-edit.svg'}
                       style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}}
                       onClick={() => this.onEdit(i)} />
