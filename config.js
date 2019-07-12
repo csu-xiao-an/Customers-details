@@ -172,7 +172,7 @@ var config = {
       name_label: 'Name',
       empty_name_label: 'Add name',
       phone_label: 'Phone',
-      empty_phone_label: 'Add a phone',
+      empty_phone_label: 'Add phone number',
       email_lable: 'Email',
       empty_email_label: 'Add an email',
       address_lable: 'Address',
