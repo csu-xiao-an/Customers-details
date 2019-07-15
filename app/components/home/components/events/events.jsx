@@ -54,7 +54,7 @@ export default class Events extends React.Component {
         <div className='wrap-events'>
           {recentAppointmentsData.map(i => (
             <div key={i.id} className='events-list'>
-              <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${i.id}&worker_id=${i.worker_id}`}>
+              <a href={`${config.urls.calendar_link}${moment(i.start).format('YYYY-MM-DD')}?appointment_id=${i.id}&worker_id=${i.worker_id}&appointment_view=true`}>
                 <div className='note' style={i.services && this.getColorLine(i)} >
                   <div className='note-head'>
                     <img className='icon' src={config.urls.media + 'ic_servise.svg'} />
