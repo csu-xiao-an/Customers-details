@@ -20,11 +20,16 @@ export default class SinglePunchPage extends React.Component {
   componentDidMount = () => {
     getPunchCardsList().then(punchsList => {
       const punchCard = punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {}
-      this.setState({
-        punchsList,
-        singlePunch: punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {},
-        uses: punchCard.uses || []
-      })
+      const emptyObj = Object.entries(punchCard).length === 0 && punchCard.constructor === Object
+      if (punchsList.length && !emptyObj) {
+        this.setState({
+          punchsList,
+          singlePunch: punchCard,
+          uses: punchCard.uses || []
+        })
+      } else {
+        this.props.history.replace(baseUrl + config.urls.punch_cards)
+      }
     })
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
@@ -95,10 +100,6 @@ export default class SinglePunchPage extends React.Component {
                 <p className='punch-name'>{singlePunch.service_name}</p>
               </div>
               <div className='punch'>
-                {/* <p className='count'>{config.translations.punch_cards.used_count_label
-                  .replace('{used_count}', uses ? uses.length : '0')
-                  .replace('{total_uses}', singlePunch.service_count)}
-                </p> */}
                 <p className='count'><span>{config.translations.punch_cards.used_count_label.used}</span>
                   <span className='uses'>{uses ? uses.length : '0'}</span>
                   <span className='of'>{config.translations.punch_cards.used_count_label.of}</span>
