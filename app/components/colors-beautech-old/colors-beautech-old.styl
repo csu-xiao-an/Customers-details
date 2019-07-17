@@ -16,18 +16,18 @@
     .ban
       opacity .5
     .btn
-      width 2rem
+      // width 2rem
       height 2rem
       position absolute
-      -webkit-padding-start 17px
-      -moz-padding-start 17px
+      -webkit-padding-end 17px
+      -moz-padding-end 17px
       img
         width 2rem
         height 2rem
-    .rtl
-      right 0
-    .ltr
+    .rtl-dir
       left 0
+    .ltr-dir
+      right 0
     .middle-section
       text-align center
       color #fff
@@ -173,8 +173,11 @@
     bottom: 0px;
     /* background-color: rgba(239,239,255,0.56); */
     background-color: #dedeff;
-    .buttons-bot-wrap-left, .buttons-bot-wrap-right
+    .btns-bot-back, .btns-bot-next
       width 50%
+      outline none
+      border none
+      font-size 0.875rem
       // box-shadow: 0 1px 4px 1px #bfafe0;
       background-color #fff
       text-transform uppercase
@@ -184,17 +187,17 @@
       justify-content center
       color var(--dark-color)
       font-weight 600
-    .buttons-bot-wrap-left
+    .btns-bot-back
       .btn-bot-img
           justify-content center
           display flex
           width 40px
           padding-right 10px
-    .ltr-dir-left
+    .ltr-dir-back
       box-shadow: -2px 0px 5px 0px #bfafe0;
       border-top-left-radius: 0.5rem;
       border-bottom-left-radius: 0.45rem;
-    .rtl-dir-left
+    .rtl-dir-back
       box-shadow: 2px 0px 5px 0px #bfafe0;
       border-top-right-radius: 0.5rem;
       border-bottom-right-radius: 0.45rem;
@@ -203,19 +206,22 @@
         display flex
         width 40px
         padding-right 10px
-    .buttons-bot-wrap-right
+    .btns-bot-next
       .btn-bot-img
         justify-content center
         display flex
         width 40px
         padding-right 10px
-    .ltr-dir-right
+    .ltr-dir-next
       box-shadow: 2px 0px 5px 0px #bfafe0;
       border-top-right-radius: 0.5rem;
       border-bottom-right-radius: 0.45rem;
-    .rtl-dir-right
+    .rtl-dir-next
       box-shadow: -2px 0px 5px 0px #bfafe0;
       border-top-left-radius: 0.5rem;
       border-bottom-left-radius: 0.45rem;
+    .disabled
+      background-color #e6e7e8
+      color #a6a6a6
 .hh
   display flex 

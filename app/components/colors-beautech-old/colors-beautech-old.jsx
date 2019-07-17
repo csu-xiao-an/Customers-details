@@ -4,7 +4,9 @@ import './colors-beautech-old.styl'
 
 class ColorsBeautechOld extends React.Component {
   state = {
-    ind: 0
+    ind: 0,
+    disabledBackBtn: false,
+    disabledNextBtn: false
   }
   goNext = () => {
     if (this.swiper) this.swiper.slideNext()
@@ -13,7 +15,18 @@ class ColorsBeautechOld extends React.Component {
   goPrev = () => {
     if (this.swiper) this.swiper.slidePrev()
   }
-  chengeDate = e => this.setState({ ind: e.activeIndex })
+  changeDate = e => {
+    if (e.activeIndex === 0) {
+      this.setState({ ind: e.activeIndex, disabledBackBtn: true })
+    } else {
+      this.setState({ ind: e.activeIndex, disabledBackBtn: false })
+    }
+    const beautech = config.data.colors_beautech.sort((a, b) => moment(a.date) - moment(b.date))
+    let lastIndex = beautech.length - 1
+    if (e.activeIndex === lastIndex) {
+      this.setState({ disabledNextBtn: true })
+    } else this.setState({ disabledNextBtn: false })
+  }
   render () {
     const { ind } = this.state
     const translations = config.translations.colors_beautech
@@ -21,7 +34,7 @@ class ColorsBeautechOld extends React.Component {
     return (
       <div id='punch_cards_old'>
         <div className='btn-wrap'>
-          <div className={'btn ' + (config.isRTL ? 'rtl' : 'ltr')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+          <div className={'btn ' + (config.isRTL ? 'rtl-dir' : 'ltr-dir')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={!config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           <div className='middle-section'>
             {beautech[ind].type && <p className='middle-type'>{beautech[ind].type}</p>}
             <p className='middle-date'>{`${translations.date} ${moment(beautech[ind].date).format('DD/MM/YY')}`}</p>
@@ -39,7 +52,7 @@ class ColorsBeautechOld extends React.Component {
         </div>
         <div className='swiper'>
           <div id='swiper-wrap-punch'>
-            <Swiper onSlideChangeEnd={this.chengeDate} ref={node => { if (node) this.swiper = node.swiper }} slidesPerView='auto' centeredSlides observer initialSlide={beautech.length - 1}>
+            <Swiper onSlideChangeEnd={this.changeDate} ref={node => { if (node) this.swiper = node.swiper }} slidesPerView='auto' centeredSlides observer initialSlide={beautech.length - 1}>
               {beautech.map(i => <div>
                 <div className='main'>
                   {i.company && <div className='main-top-title'><p>{translations.brand}</p>
@@ -105,12 +118,12 @@ class ColorsBeautechOld extends React.Component {
           </div>
         </div>
         {beautech.length > 1 && <div className='buttons-bot'>
-          <div className={'buttons-bot-wrap-left ' + (config.isRTL ? 'rtl-dir-left' : 'ltr-dir-left')} onClick={this.goPrev}>{config.translations.colors_beautech.back}
-            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
-          </div>
-          <div className={'buttons-bot-wrap-right ' + (config.isRTL ? 'rtl-dir-right' : 'ltr-dir-right')} onClick={this.goNext}>{config.translations.colors_beautech.next}
-            <div className='btn-bot-img'><img src={config.urls.media + 'arrow-right.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
-          </div>
+          <button className={'btns-bot-back ' + (config.isRTL ? 'rtl-dir-back ' : 'ltr-dir-back ') + (this.state.disabledBackBtn && 'disabled')} disabled={this.state.disabledBackBtn} onClick={this.goPrev}>{config.translations.colors_beautech.back}
+            <div className='btn-bot-img'><img src={config.urls.media + (this.state.disabledBackBtn ? 'arrow-back-dis.svg' : 'arrow-left.svg')} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+          </button>
+          <button className={'btns-bot-next ' + (config.isRTL ? 'rtl-dir-next ' : 'ltr-dir-next ') + (this.state.disabledNextBtn && 'disabled')} disabled={this.state.disabledNextBtn} onClick={this.goNext}>{config.translations.colors_beautech.next}
+            <div className='btn-bot-img'><img src={config.urls.media + (this.state.disabledNextBtn ? 'arrow-next-dis.svg' : 'arrow-right.svg')} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+          </button>
         </div>}
       </div>
     )
