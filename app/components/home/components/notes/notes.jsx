@@ -1,7 +1,6 @@
-import {postService as notesPostService, replaceService as notesReplaceService, deleteService as notesDeleteService} from 'project-services/notes.service.js'
+import { postService as notesPostService, replaceService as notesReplaceService, deleteService as notesDeleteService, deleteReminderService as delNotesWithRem } from 'project-services/notes.service.js'
 import { default as NotesLib } from 'project-components/NotesLib/noteslib.jsx'
 import './notes.styl'
-
 export default class Notes extends React.Component {
   state = {
     newEditNotes: this.props.activateNone,
@@ -56,7 +55,22 @@ export default class Notes extends React.Component {
       }
     })
   }
-
+  deleteNoteReminder = id => {
+    delNotesWithRem(id).then(r => {
+      this.props.deleteNote(id)
+      if (r.status === 204) {
+        this.setState(state => ({
+          noteReplace: !this.state.noteReplace,
+          isEditNotes: !this.state.isEditNotes,
+          isReminderEdit: false,
+          description: '',
+          note_id: 0,
+          time: '0',
+          key: 0
+        }))
+      }
+    })
+  }
   deleteNote = id => {
     notesDeleteService(id).then(r => {
       this.props.deleteNote(id)
@@ -77,6 +91,7 @@ export default class Notes extends React.Component {
   render () {
     return (
       <NotesLib
+        deleteNoteReminder={this.deleteNoteReminder}
         notesData={this.props.notesData}
         hiddenNotes={this.props.hiddenNotes}
         saveNote={this.saveNote}

@@ -380,6 +380,7 @@ var config = {
     add_client_url: '/add-client/clients?q={query}',
     punch_cards_adding: '/punch_cards/adding',
     calendar_link: '/calendar/',
+    note_with_reminder: '/reminders/',
     appointment: '/creating-appointment/',
     main: 'https://api.bewebmaster.co.il',
     worker_img: '/worker/{worker_profile_img}',

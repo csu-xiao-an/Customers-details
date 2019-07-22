@@ -68,7 +68,7 @@ class Home extends React.Component {
       notesData: state.notesData.map(
         note => (note.id === +key ? {
           ...note,
-          reminder_date: rem || note.reminder_date,
+          reminder_date: rem,
           text } : note)
       )
     }))

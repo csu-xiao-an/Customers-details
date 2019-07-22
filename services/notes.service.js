@@ -40,3 +40,11 @@ export const deleteService = id => {
   }
   return mainRequestService(url, options)
 }
+export const deleteReminderService = id => {
+  const url = config.urls.main + config.urls.note_with_reminder + id
+  const options = {
+    mode: 'cors',
+    method: 'DELETE'
+  }
+  return mainRequestService(url, options)
+}
