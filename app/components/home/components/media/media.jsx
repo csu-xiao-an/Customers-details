@@ -114,6 +114,9 @@ export default class Media extends React.Component {
     } else {
       if (newName.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_gallery.svg' } else
       if (newName.indexOf('pdf') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
+      if (newName.indexOf('docx') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
+      if (newName.indexOf('xlsx') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
+      if (newName.indexOf('csv') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
       if (newName.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + newName }
       return <img className='media-img'
         src={src}

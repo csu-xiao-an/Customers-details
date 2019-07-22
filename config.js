@@ -546,13 +546,13 @@ var config = {
     gallery: [
       {
         id: 1,
-        name: '222.jpg',
+        name: 'ras.docx',
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
       {
         id: 22,
-        name: '01.png',
+        name: 'witcher.pdf',
         // note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
@@ -598,12 +598,12 @@ var config = {
         note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         date: '2017-12-18T02:09:54.486Z'
       },
-      // {
-      //   id: 8,
-      //   name: 'video.mp4',
-      //   note: 'Lorem tur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // },
+      {
+        id: 8,
+        name: 'video.mp4',
+        note: 'Lorem tur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      },
       // {
       //   id: 9,
       //   name: '09.png',
@@ -676,12 +676,12 @@ var config = {
       //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
       //   date: '2017-12-18T02:09:54.486Z'
       // },
-      // {
-      //   id: 21,
-      //   name: '20.mp3',
-      //   note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-      //   date: '2017-12-18T02:09:54.486Z'
-      // }
+      {
+        id: 21,
+        name: '20.mp3',
+        note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        date: '2017-12-18T02:09:54.486Z'
+      }
     ],
     // recent_appointments
     recent_appointments: [
