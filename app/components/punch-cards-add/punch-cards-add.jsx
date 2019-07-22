@@ -63,7 +63,7 @@ class PunchCardsAdd extends React.Component {
   save = () => {
     let b = `service_id=${this.state.i.id}&service_count=${this.state.uses}&sum=${this.state.total}&added=${moment().format('YYYY-MM-DD HH:mm:ss')}`
     if (this.state.switch) b = b + `&expiration=${this.state.date}`
-    punchPostService(b).then(r => r.status === 201 && r.json().then(id => {
+    punchPostService(b).then(r => r.status === 201 && r.json().then(() => {
       this.props.history.replace(baseUrl + config.urls.punch_cards)
     }))
   }
@@ -98,7 +98,7 @@ class PunchCardsAdd extends React.Component {
       editDiscount: false,
       renderDiscount: true,
       total: Math.round(prevState.total) + this.state.incrementBy
-    }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+    }), () => this.setState({price: parseFloat((this.state.total / this.state.uses).toFixed(2))}))
   }
   handleDecrementTotal = () => {
     if (+this.state.total > 0) {
@@ -106,7 +106,7 @@ class PunchCardsAdd extends React.Component {
         editDiscount: false,
         renderDiscount: true,
         total: Math.round(prevState.total) - this.state.decrementBy
-      }), () => this.setState({price: Math.round(this.state.total / this.state.uses)}))
+      }), () => this.setState({price: parseFloat((this.state.total / this.state.uses).toFixed(2))}))
     }
   }
   getTotal = () => this.setState({total: this.state.price * this.state.uses})

@@ -11,7 +11,7 @@ class PunchCards extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired
   }
-  componentWillMount = () => {
+  componentDidMount = () => {
     getPunchCardsList().then(punchsList => {
       punchsList.sort((a, b) => a.id - b.id).sort((a, b) => !!a.isActive - !!b.isActive)
       this.setState({punch: punchsList.find(i => i.isActive) || punchsList[0] || {}, punchsList})
