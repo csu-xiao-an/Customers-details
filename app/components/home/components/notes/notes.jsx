@@ -91,6 +91,7 @@ export default class Notes extends React.Component {
   render () {
     return (
       <NotesLib
+        customers
         deleteNoteReminder={this.deleteNoteReminder}
         notesData={this.props.notesData}
         hiddenNotes={this.props.hiddenNotes}
