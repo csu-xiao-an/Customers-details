@@ -210,7 +210,7 @@ export default class Media extends React.Component {
           </div>
           <div className='files-amount'>
             {config.data.gallery.length ? (config.translations.media.files + ': ' + config.data.gallery.length) : (config.translations.media.files + ': ' + '0')}
-            {this.state.slideAmount && <div className='action'>
+            {this.state.slideAmount > 0 && <div className='action'>
               <div className={'delete' + (multiDel ? ' delete-clicked' : '')}
                 onClick={this.handleMultiDeleteClick}>
                 <img src={config.urls.media + (multiDel ? 'multi-del-fill.svg' : 'multi-del-pic.svg')} />
