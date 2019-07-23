@@ -8,6 +8,11 @@ import GalleryPopup from '../gallery-popup/gallery-popup.jsx'
 import {postService as mediaPostService, multiDeleteService as multiMediaDeleteService} from 'project-services/media.service.js'
 import './media.styl'
 let $imagePreview
+
+const images = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp', 'bmp']
+const video = ['mpeg4', 'mp4', 'mov', 'mpg', 'mpeg', 'webm']
+const music = ['mp3']
+
 export default class Media extends React.Component {
   state = {
     file: {},
@@ -83,10 +88,10 @@ export default class Media extends React.Component {
     })
   }
   typeItem = (i, k) => {
-    let src
     let newName = i.name.toLowerCase()
-    if (newName.indexOf('mp4') !== -1) {
-      // this.setState({previewVideo: true})
+    let splitedName = i.name.split('.')
+    let typeFile = splitedName[splitedName.length - 1].toLowerCase()
+    if (video.find(i => i === typeFile)) {
       return (<div className='video-block'>
         <img src={config.urls.media + 'video_play.png'} className='video_play media' />
         <video className='media-vid'
@@ -98,32 +103,29 @@ export default class Media extends React.Component {
               : () => {})}
         />
       </div>)
-    } else if (newName.indexOf('webm') !== -1) {
-      // this.setState({previewVideo: true})
-      return (<div className='video-block'>
-        <img src={config.urls.media + 'video_play.png'} className='video_play media' />
-        <video className='media-vid'
-          src={config.urls.gallery + newName}
-          onClick={this.state.multiDel
-            ? ''
-            : (this.props.rights.gallery.open
-              ? () => { this.handleGallery(); this.setState({ initialSlide: k }) }
-              : () => { })}
-        />
-      </div>)
-    } else {
-      if (newName.indexOf('mp3') !== -1) { src = config.urls.media + 'audio_gallery.svg' } else
-      if (newName.indexOf('pdf') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
-      if (newName.indexOf('docx') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
-      if (newName.indexOf('xlsx') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
-      if (newName.indexOf('csv') !== -1) { src = config.urls.media + 'other_gallery.svg' } else
-      if (newName.split(/png|jpg|bmp|jpeg|gif|webp/i).pop() !== -1) { src = config.urls.gallery + newName }
+    } else if (images.find(i => i === typeFile)) {
       return <img className='media-img'
-        src={src}
+        src={config.urls.gallery + newName}
         onClick={this.state.multiDel
           ? '' : (this.props.rights.gallery.open
-            ? () => { this.handleGallery(); this.setState({initialSlide: k}) }
-            : () => {})}
+            ? () => { this.handleGallery(); this.setState({ initialSlide: k }) }
+            : () => { })}
+      />
+    } else if (music.find(i => i === typeFile)) {
+      return <img className='media-img'
+        src={config.urls.media + 'audio_gallery.svg'}
+        onClick={this.state.multiDel
+          ? '' : (this.props.rights.gallery.open
+            ? () => { this.handleGallery(); this.setState({ initialSlide: k }) }
+            : () => { })}
+      />
+    } else {
+      return <img className='media-img'
+        src={config.urls.media + 'other_gallery.svg'}
+        onClick={this.state.multiDel
+          ? '' : (this.props.rights.gallery.open
+            ? () => { this.handleGallery(); this.setState({ initialSlide: k }) }
+            : () => { })}
       />
     }
   }
