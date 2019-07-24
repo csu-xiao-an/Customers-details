@@ -10,6 +10,7 @@ import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emp
 
 export default class Profile extends React.Component {
 state = {
+  loader: false,
   visibleMapPopup: false,
   birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
   birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
@@ -325,6 +326,7 @@ initMap = () => {
 /// ///////////////////////////////////////////////////////////////////
 
 saveAll = () => {
+  this.setState({loader: true})
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   let body = Object.keys(this.state).reduce((params, field) => {
     if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
@@ -348,7 +350,7 @@ saveAll = () => {
       config.data.name = this.state.name
       config.data.gender = this.state.gender
       config.data.permit_ads = this.state.permit_ads
-      this.setState({ editProfile: false, resetApi: false }, () => this.changeBirth())
+      this.setState({ editProfile: false, resetApi: false, loader: false }, () => this.changeBirth())
       this.changeDays()
       this.resetFields()
       this.forceUpdate()
@@ -435,6 +437,7 @@ saveBtn = () => {
 
 render () {
   const { isVisibleFields } = this.props
+  const { loader } = this.state
   return (
     <div id='profile'>
       <div id='profile-header'>
@@ -446,7 +449,7 @@ render () {
               <div className='back-btn' onClick={this.backAll}>{config.translations.personal_info.back_label_btn}</div>
             </div>
             <div className='save-wrap'>
-              <div><img src={config.urls.media + 'apply.svg'} /></div>
+              <div className={'img-wrap' + (!loader ? '' : ' spin')}>{!loader ? <img src={config.urls.media + 'apply.svg'} /> : <img className='loader' src={config.urls.media + 'refresh-blue.svg'} />}</div>
               <div className='save-btn' onClick={this.saveBtn}>{config.translations.personal_info.done_label_btn}</div>
             </div>
           </div>
