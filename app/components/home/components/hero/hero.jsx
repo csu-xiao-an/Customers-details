@@ -123,7 +123,11 @@ export default class Hero extends React.Component {
         </div>
         <label className={'camera ' + (config.isRTL ? 'rtll' : 'ltrr')}>
           {this.state.flag
-            ? <div className='camera-spin'><img src={config.urls.media + 'refresh-cw.svg'} /></div>
+            ? <div className='camera-spin'>
+              <svg className='img_loader'>
+                <use xlinkHref={config.urls.media + 'sprite.svg#refresh'} />
+              </svg>
+            </div>
             : <img src={config.urls.media + 'ic_photo.svg'} />}
           <input type='file' accept='image/*' capture style={{display: 'none'}} onChange={this.addPhoto} />
         </label>
