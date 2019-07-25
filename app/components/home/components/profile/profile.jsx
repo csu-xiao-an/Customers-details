@@ -449,7 +449,14 @@ render () {
               <div className='back-btn' onClick={this.backAll}>{config.translations.personal_info.back_label_btn}</div>
             </div>
             <div className='save-wrap'>
-              <div className={'img-wrap' + (!loader ? '' : ' spin')}>{!loader ? <img src={config.urls.media + 'apply.svg'} /> : <img className='loader' src={config.urls.media + 'refresh-blue.svg'} />}</div>
+              <div className={'img-wrap' + (!loader ? '' : ' spin')}>{!loader
+                ? <svg className='img_apply'>
+                  <use xlinkHref={config.urls.media + 'sprite.svg#apply'} />
+                </svg>
+                : <svg className='img_refresh'>
+                  <use xlinkHref={config.urls.media + 'sprite.svg#refresh'} />
+                </svg>}
+              </div>
               <div className='save-btn' onClick={this.saveBtn}>{config.translations.personal_info.done_label_btn}</div>
             </div>
           </div>
