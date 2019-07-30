@@ -25,7 +25,7 @@ export default class Debts extends React.Component {
   }
   saveDebt = () => {
     const added = moment().format('YYYY-MM-DD HH:mm')
-    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description}&added=${added}`
+    const body = `sum=${parseInt(this.state.debt)}&desc=${this.state.description ? this.state.description : null}&added=${added}`
     debtPostService(body).then(r => {
       if (r.status === 201) {
         this.props.createNewDebt(this.state.debt, this.state.description, added, r.data)
