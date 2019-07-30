@@ -115,7 +115,7 @@ export default class MediaModal extends React.Component {
   }
   replace = id => {
     // debugger
-    const body = `note=${this.state.textareaValue}`
+    const body = `note=${this.state.textareaValue ? this.state.textareaValue : null}`
     mediaReplaceService(body, id).then(r => {
       if (r.status === 204) {
         config.data.gallery[this.state.activeIndex].date = moment().format('YYYY-MM-DD HH:mm')
