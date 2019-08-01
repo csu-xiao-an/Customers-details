@@ -6,11 +6,15 @@ import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import {putService as clientPutService, newGetService as clientNewGetService} from 'project-services/client.service.js'
 import {addressService} from 'project-services/address.service.js'
+import { default as IncorrectMail } from 'project-components/incorrectMail/incorrectMail.jsx'
+import { default as IncorrectPhone } from 'project-components/incorrectPhone/incorrectPhone.jsx'
 import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
 
 export default class Profile extends React.Component {
 state = {
   loader: false,
+  validateMail: false,
+  validatePhone: false,
   visibleMapPopup: false,
   birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
   birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
@@ -79,12 +83,19 @@ changeOnePhone = value => {
 }
 
 getPhone = value => {
+  if (value.number !== '') {
+    this.setState({ ifEnterPhone: true })
+    this.validatePhone(value.number) ? this.setState({ validatePhone: true }) : this.setState({ validatePhone: false })
+  } else {
+    this.setState({ validatePhone: false })
+  }
   this.setState({ phone: value })
   this.changeOnePhone(value)
 }
 
 deletePhone = value => {
   this.changeOnePhone(value)
+  this.setState({ ifEnterPhone: false })
 }
 
 getPhonesValue = value => {
@@ -129,7 +140,16 @@ onAddPhone = () => {
   phone.push({ id: this.getUniqkId(0), number: '' })
   this.setState({ phone, add: true })
 }
-
+// validatePhone = phone => {
+//   const r = /^[0-9-+*#]+$/
+//   return r.test(phone)
+// }
+showPhoneValidateModal = () => {
+  this.setState({ phoneValidateModal: true })
+}
+hidePhoneValidateModal = () => {
+  this.setState({ phoneValidateModal: false, loader: false })
+}
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  GENDER  /////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
@@ -226,7 +246,7 @@ changeAddressEdit = () => {
 /// ///////////////////////////////////////////////////////////////////
 
 deleteEmail = () => this.setState({ email: '' }, () => {
-  this.setState({email: null})
+  this.setState({email: null, validateMail: false})
   document.getElementById('email-input').focus()
 })
 
@@ -237,15 +257,23 @@ changeEmailEdit = () => this.setState({ profileEmailEdit: !this.state.profileEma
 changeMail = e => {
   this.setState({ email: e })
   if (e !== '' && e.length >= 3) {
-    this.validate(e) ? this.setState({ isValidation: true }) : this.setState({ isValidation: false })
+    this.validate(e) ? this.setState({ validateMail: true }) : this.setState({ validateMail: false })
   } else {
-    this.setState({ isValidation: false })
+    this.setState({ validateMail: false })
   }
 }
 
 validate = email => {
   const r = /^.+@.+\..+$/
   return r.test(email)
+}
+
+showMail = () => {
+  this.setState({ activateMailModal: true })
+}
+hideMailModal = () => {
+  this.setState({ activateMailModal: false, loader: false })
+  document.getElementById('email-input').focus()
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -290,6 +318,7 @@ componentDidMount = () => {
 }
 
 initMap = () => {
+  this.validate(this.state.email) && this.setState({ validateMail: true })
   const divNode = document.createElement('div')
   const url = `${config.urls.media}ic-marked.svg`
   divNode.innerHTML = `<style>
@@ -325,7 +354,14 @@ initMap = () => {
 /// /////////////////////  SAVE AND BACK BUTTONS  /////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
+validatePhone = phone => {
+  const r = /^[0-9-+*#]+$/
+  return r.test(phone)
+}
+
 saveAll = () => {
+  let arrPhones = this.state.phone.map(item => item.number)
+  arrPhones.some(i => this.validatePhone(i))
   this.setState({loader: true})
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   let body = Object.keys(this.state).reduce((params, field) => {
@@ -340,7 +376,7 @@ saveAll = () => {
     }
     return params
   }, '')
-  body && clientPutService(body).then(r => {
+  if ((!this.state.ifEnterPhone || (this.state.validatePhone && this.state.ifEnterPhone)) && this.state.validateMail) { body && clientPutService(body).then(r => {
     if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
@@ -366,12 +402,19 @@ saveAll = () => {
         }
         this.props.getProfilePicture(config.data.profile_image)
         this.removeElements()
-        this.setState({ phone: this.normalizePhones(this.state.phone)})
+        this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false })
       })
     } else {
       this.setState({ editProfile: true })
     }
-  })
+  }) } else if (this.state.ifEnterPhone && !this.state.validatePhone && this.state.validateMail) {
+    this.showPhoneValidateModal()
+  } else if (!this.state.validateMail && (!this.state.ifEnterPhone || this.state.validatePhone)) {
+    this.showMail()
+  } 
+  else if ((!this.state.validatePhone && this.state.ifEnterPhone) && !this.state.validateMail) {
+    this.showMail()
+  }
 }
 
 backAll = () => {
@@ -381,8 +424,9 @@ backAll = () => {
     phone: this.normalizePhones(config.data.phone),
     email: config.data.email,
     gender: config.data.gender,
-    // birthdate: config.data.birthdate,
-    // birthyear: config.data.birthyear,
+    ifEnterPhone: false,
+    validatePhone: false,
+    validateMail: false,
     permit_ads: config.data.permit_ads || false,
     editProfile: false,
     resetApi: false,
@@ -436,6 +480,9 @@ saveBtn = () => {
 }
 
 render () {
+  // console.log('mail', this.state.validateMail);
+  // console.log('phone', this.state.validatePhone);
+  // console.log('enter', this.state.ifEnterPhone);
   const { isVisibleFields } = this.props
   const { loader } = this.state
   return (
@@ -522,6 +569,11 @@ render () {
           visibleModalOpen={this.visibleModal}
           phones={this.state.phone || []}
           {...this.props} />}
+      <IncorrectPhone
+        show={this.state.phoneValidateModal}
+        onHide={this.hidePhoneValidateModal}
+        phone={this.state.phone}
+      />
       {this.state.editProfile && this.state.phone.length !== 5 &&
         <div className='add-phones' onClick={this.onAddPhone}>
           <div className='add-phones-wrap'>
@@ -555,7 +607,13 @@ render () {
           changeEmailEdit={this.changeEmailEdit}
           profileEmailEdit={this.state.profileEmailEdit}
           validate={this.validate}
+          blurMail={this.blurMail}
           {...this.props} />}
+      <IncorrectMail
+        show={this.state.activateMailModal}
+        onHide={this.hideMailModal}
+        email={this.state.email}
+      />
       {(this.state.editProfile || (this.props.isVisibleFields || config.data.address)) &&
       <div id='address'>
         <div className={!this.state.editProfile ? 'address-wrap' : 'hidden'}>

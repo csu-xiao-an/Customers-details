@@ -157,6 +157,8 @@ var config = {
     personal_info_editing: {
       title: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',
       agree: 'Got it!',
+      title_incorrect_mail: 'Email address {email} is not correct',
+      title_incorrect_phone: 'Phone number is not correct',
       not_found_title: 'Phone number is not filled. Reminders or notifications won\'t be sent to this client',
       skip: 'Skip',
       save: 'Save',
@@ -422,7 +424,7 @@ var config = {
     intent_x: 50.4016991,
     intent_y: 30.2525126,
     // phone: [],
-    phone: ['9379992'],
+    phone: ['9379992', '32432434', '232312'],
     isFavorite: false,
     details_link_active: false,
     permit_ads: false,
