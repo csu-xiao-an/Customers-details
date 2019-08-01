@@ -31,6 +31,18 @@ export const replaceService = (body, id) => {
   }
   return mainRequestService(url, options)
 }
+export const replaceReminderService = (body, id) => {
+  const url = config.urls.main + config.urls.note_with_reminder + id
+  const options = {
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'PUT',
+    body
+  }
+  return mainRequestService(url, options)
+}
 
 export const deleteService = id => {
   const url = mainUrl + '/' + id

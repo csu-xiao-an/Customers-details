@@ -207,6 +207,8 @@ var config = {
     notes: {
       title: 'Notes',
       subtitle: 'Description',
+      reminder_date_label: 'Reminder date:',
+      left_to_reminder_day: 'Time left:',
       back_label_btn: 'Back',
       in_label: 'In',
       del_btn: 'Delete',
@@ -470,21 +472,21 @@ var config = {
     ],
     notes: [
       {
-        id: 123123,
+        id: 18,
         text: `New Notesdededed
         qdwedewedwedewd
         qewdewdewdewdew
         wedewdewd
         wedwedewd`,
-        date: '2017-11-29T03:58:49.129Z'
+        date: '2017-11-29T03:58:49'
       },
       {
-        id: 123124,
+        id: 56,
         text: `New Notesdededed
         qdwedewedwedewdц 
         цццццццц цццццццц ццц ццц ц ццц`,
         date: '2017-10-29T03:58:49.129Z',
-        reminder_date: '2017-12-29T03:58:49.129Z'
+        reminder_date: '2019-08-03T15:58:49'
       }
     ],
     groups: [

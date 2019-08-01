@@ -1,4 +1,4 @@
-import { postService as notesPostService, replaceService as notesReplaceService, deleteService as notesDeleteService, deleteReminderService as delNotesWithRem } from 'project-services/notes.service.js'
+import { postService as notesPostService, replaceService as notesReplaceService, replaceReminderService, deleteService as notesDeleteService, deleteReminderService as delNotesWithRem } from 'project-services/notes.service.js'
 import { default as NotesLib } from 'project-components/NotesLib/noteslib.jsx'
 import './notes.styl'
 export default class Notes extends React.Component {
@@ -36,24 +36,36 @@ export default class Notes extends React.Component {
       }
     })
   }
-
-  editNote = (reminder, id, desc) => {
+  clearState = () => {
+    this.setState({
+      noteReplace: !this.state.noteReplace,
+      isEditNotes: !this.state.isEditNotes,
+      isReminderEdit: false,
+      switch: false,
+      description: '',
+      note_id: 0,
+      time: '0'
+    })
+  }
+  editNote = (reminder, id, desc, startReminder) => {
+    let matchReminder = startReminder && moment(startReminder).format('YYYY-MM-DD HH:mm:ss')
     let body = `text=${desc}`
     if (reminder) body = `text=${desc}&reminder_date=${reminder}`
-    notesReplaceService(body, id).then(r => {
-      if (r.status === 204) {
-        this.props.editeNote(reminder, id, desc)
-        this.setState({
-          noteReplace: !this.state.noteReplace,
-          isEditNotes: !this.state.isEditNotes,
-          isReminderEdit: false,
-          switch: false,
-          description: '',
-          note_id: 0,
-          time: '0'
-        })
-      }
-    })
+    if (reminder && reminder === matchReminder) {
+      replaceReminderService(body, id).then(r => {
+        if (r.status === 204) {
+          this.props.editeNote(reminder, id, desc)
+          this.clearState()
+        }
+      })
+    } else {
+      notesReplaceService(body, id).then(r => {
+        if (r.status === 204) {
+          this.props.editeNote(reminder, id, desc)
+          this.clearState()
+        }
+      })
+    }
   }
   deleteNoteReminder = id => {
     delNotesWithRem(id).then(r => {
