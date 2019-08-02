@@ -486,7 +486,7 @@ var config = {
         qdwedewedwedewdц 
         цццццццц цццццццц ццц ццц ц ццц`,
         date: '2017-10-29T03:58:49.129Z',
-        reminder_date: '2019-08-03T15:58:49'
+        reminder_date: '2019-10-14T23:58:49'
       }
     ],
     groups: [
