@@ -10,7 +10,6 @@ export default class Email extends React.Component {
   }
   componentDidMount = () => {
     this.setState({ email: config.data.email })
-    this.props.validate(config.data.email) && this.setState({ isValidation: true })
   }
   render () {
     return this.props.rights.isEmail && (

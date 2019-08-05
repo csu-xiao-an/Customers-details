@@ -83,12 +83,6 @@ changeOnePhone = value => {
 }
 
 getPhone = value => {
-  if (value.number !== '') {
-    this.setState({ ifEnterPhone: true })
-    this.validatePhone(value.number) ? this.setState({ validatePhone: true }) : this.setState({ validatePhone: false })
-  } else {
-    this.setState({ validatePhone: false })
-  }
   this.setState({ phone: value })
   this.changeOnePhone(value)
 }
@@ -144,8 +138,8 @@ onAddPhone = () => {
 //   const r = /^[0-9-+*#]+$/
 //   return r.test(phone)
 // }
-showPhoneValidateModal = () => {
-  this.setState({ phoneValidateModal: true })
+showPhoneValidateModal = icorrectNumber => {
+  this.setState({ phoneValidateModal: true, icorrectNumber })
 }
 hidePhoneValidateModal = () => {
   this.setState({ phoneValidateModal: false, loader: false })
@@ -257,7 +251,6 @@ changeEmailEdit = () => this.setState({ profileEmailEdit: !this.state.profileEma
 changeMail = e => {
   this.setState({ email: e })
   if (e !== '' && e.length >= 3) {
-    this.validate(e) ? this.setState({ validateMail: true }) : this.setState({ validateMail: false })
   } else {
     this.setState({ validateMail: false })
   }
@@ -265,6 +258,7 @@ changeMail = e => {
 
 validate = email => {
   const r = /^.+@.+\..+$/
+  !r.test(email) && this.showMail()
   return r.test(email)
 }
 
@@ -318,7 +312,6 @@ componentDidMount = () => {
 }
 
 initMap = () => {
-  this.validate(this.state.email) && this.setState({ validateMail: true })
   const divNode = document.createElement('div')
   const url = `${config.urls.media}ic-marked.svg`
   divNode.innerHTML = `<style>
@@ -356,13 +349,26 @@ initMap = () => {
 
 validatePhone = phone => {
   const r = /^[0-9-+*#]+$/
-  return r.test(phone)
+  phone && !r.test(phone) && this.showPhoneValidateModal(phone)
+  return !r.test(phone)
 }
 
 saveAll = () => {
-  let arrPhones = this.state.phone.map(item => item.number)
-  arrPhones.some(i => this.validatePhone(i))
+  let checkMail = this.validate(this.state.email)
+  let filterPhones = this.state.phone.filter(i => !!i.number)
+  let arrPhones = filterPhones.map(item => item.number)
   this.setState({loader: true})
+  let emptyPhone = this.getPhonesValue(this.state.phone)
+  let checkPhones = arrPhones.some(i => this.validatePhone(i))
+
+  if (!checkPhones && checkMail) {
+    this.sendData()
+  } else if (emptyPhone === null) {
+    this.sendData()
+  }
+}
+
+sendData = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
   let body = Object.keys(this.state).reduce((params, field) => {
     if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
@@ -376,7 +382,7 @@ saveAll = () => {
     }
     return params
   }, '')
-  if ((!this.state.ifEnterPhone || (this.state.validatePhone && this.state.ifEnterPhone)) && this.state.validateMail) { body && clientPutService(body).then(r => {
+  body && clientPutService(body).then(r => {
     if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
@@ -407,14 +413,7 @@ saveAll = () => {
     } else {
       this.setState({ editProfile: true })
     }
-  }) } else if (this.state.ifEnterPhone && !this.state.validatePhone && this.state.validateMail) {
-    this.showPhoneValidateModal()
-  } else if (!this.state.validateMail && (!this.state.ifEnterPhone || this.state.validatePhone)) {
-    this.showMail()
-  } 
-  else if ((!this.state.validatePhone && this.state.ifEnterPhone) && !this.state.validateMail) {
-    this.showMail()
-  }
+  })
 }
 
 backAll = () => {
@@ -480,9 +479,6 @@ saveBtn = () => {
 }
 
 render () {
-  // console.log('mail', this.state.validateMail);
-  // console.log('phone', this.state.validatePhone);
-  // console.log('enter', this.state.ifEnterPhone);
   const { isVisibleFields } = this.props
   const { loader } = this.state
   return (
@@ -572,7 +568,7 @@ render () {
       <IncorrectPhone
         show={this.state.phoneValidateModal}
         onHide={this.hidePhoneValidateModal}
-        phone={this.state.phone}
+        phone={this.state.icorrectNumber}
       />
       {this.state.editProfile && this.state.phone.length !== 5 &&
         <div className='add-phones' onClick={this.onAddPhone}>
@@ -606,7 +602,6 @@ render () {
           changeMail={this.changeMail}
           changeEmailEdit={this.changeEmailEdit}
           profileEmailEdit={this.state.profileEmailEdit}
-          validate={this.validate}
           blurMail={this.blurMail}
           {...this.props} />}
       <IncorrectMail
