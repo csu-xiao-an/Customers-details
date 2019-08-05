@@ -1,4 +1,4 @@
-import { postService as notesPostService, replaceService as notesReplaceService, replaceReminderService, deleteService as notesDeleteService, deleteReminderService as delNotesWithRem } from 'project-services/notes.service.js'
+import { postService as notesPostService, replaceService as notesReplaceService, deleteService as notesDeleteService, deleteReminderService as delNotesWithRem } from 'project-services/notes.service.js'
 import { default as NotesLib } from 'project-components/NotesLib/noteslib.jsx'
 import './notes.styl'
 export default class Notes extends React.Component {
@@ -47,25 +47,15 @@ export default class Notes extends React.Component {
       time: '0'
     })
   }
-  editNote = (reminder, id, desc, startReminder) => {
-    let matchReminder = startReminder && moment(startReminder).format('YYYY-MM-DD HH:mm:ss')
+  editNote = (reminder, id, desc) => {
     let body = `text=${desc}`
     if (reminder) body = `text=${desc}&reminder_date=${reminder}`
-    if (reminder && reminder === matchReminder) {
-      replaceReminderService(body, id).then(r => {
-        if (r.status === 204) {
-          this.props.editeNote(reminder, id, desc)
-          this.clearState()
-        }
-      })
-    } else {
-      notesReplaceService(body, id).then(r => {
-        if (r.status === 204) {
-          this.props.editeNote(reminder, id, desc)
-          this.clearState()
-        }
-      })
-    }
+    notesReplaceService(body, id).then(r => {
+      if (r.status === 204) {
+        this.props.editeNote(reminder, id, desc)
+        this.clearState()
+      }
+    })
   }
   deleteNoteReminder = id => {
     delNotesWithRem(id).then(r => {
