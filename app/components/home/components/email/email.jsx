@@ -52,7 +52,7 @@ export default class Email extends React.Component {
                   onChange={e => this.props.changeMail(e.target.value)} />
               </div>
               <div className='del-info'>
-                {!this.state.isValidation && <div className='error'>&#10007;</div>}
+                {/* {!this.state.isValidation && <div className='error'>&#10007;</div>} */}
                 <div className='del-wrap' onClick={this.props.deleteEmail}>
                   <img src={config.urls.media + 'plus2.svg'} />
                 </div>
