@@ -354,14 +354,13 @@ validatePhone = phone => {
 }
 
 saveAll = () => {
-  let checkMail = this.validate(this.state.email)
+  let checkMail = this.state.email && this.validate(this.state.email)
   let filterPhones = this.state.phone.filter(i => !!i.number)
   let arrPhones = filterPhones.map(item => item.number)
   this.setState({loader: true})
   let emptyPhone = this.getPhonesValue(this.state.phone)
   let checkPhones = arrPhones.some(i => this.validatePhone(i))
-
-  if (!checkPhones && checkMail) {
+  if (!checkPhones && (checkMail || !this.state.email)) {
     this.sendData()
   } else if (emptyPhone === null) {
     this.sendData()
