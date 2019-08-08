@@ -29,7 +29,7 @@ export default class Debts extends React.Component {
     debtPostService(body).then(r => {
       if (r.status === 201) {
         this.props.createNewDebt(this.state.debt, this.state.description, added, r.data)
-        this.setState({ debtEdit: !this.state.debtEdit, description: '', debt: '0' })
+        this.setState({ debtEdit: false, description: '', debt: '0' })
       }
     })
   }

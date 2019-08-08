@@ -6,6 +6,7 @@ export default class Notes extends React.Component {
     newEditNotes: this.props.activateNone,
     noteReplace: this.props.activateNone,
     isEditNotes: this.props.activateNone,
+    loader: false,
     flag: true
   }
   static propTypes = {
@@ -16,8 +17,12 @@ export default class Notes extends React.Component {
     notesData: PropTypes.array.isRequired,
     editeNote: PropTypes.func.isRequired
   }
+  cancelActions = () => this.setState({newEditNotes: false, noteReplace: false, isEditNotes: false, editNoteId: ''})
+  allowActions = () => this.setState({newEditNotes: true, noteReplace: true, isEditNotes: true})
+  editAction = id => this.setState({noteReplace: true, isEditNotes: true, editNoteId: id})
 
   saveNote = (reminder, desc, id) => {
+    this.setState({loader: true})
     const added = moment().format('YYYY-MM-DD HH:mm:ss')
     let body = `text=${desc}&added=${added}`
     if (reminder) body = body + `&reminder_date=${reminder}`
@@ -25,61 +30,32 @@ export default class Notes extends React.Component {
       if (r.status === 201) {
         this.props.createNewNote(reminder, r, added, desc)
         this.setState({
-          isEditNotes: !this.state.isEditNotes,
-          newEditNotes: !this.state.newEditNotes,
-          noteReplace: !this.state.noteReplace,
-          isReminderEdit: false,
-          switch: false,
-          description: '',
-          time: '0'
+          isEditNotes: false,
+          newEditNotes: false,
+          noteReplace: false,
+          editNoteId: '',
+          loader: false
         })
       }
     })
   }
   clearState = () => {
     this.setState({
-      noteReplace: !this.state.noteReplace,
-      isEditNotes: !this.state.isEditNotes,
+      noteReplace: false,
+      isEditNotes: false,
       isReminderEdit: false,
-      switch: false,
-      description: '',
-      note_id: 0,
-      time: '0'
+      loader: false,
+      editNoteId: ''
     })
   }
-  editNote = (reminder, id, desc, startReminder) => {
-    let matchReminder = startReminder && moment(startReminder).format('YYYY-MM-DD HH:mm:ss')
+  editNote = (reminder, id, desc) => {
+    this.setState({loader: true})
     let body = `text=${desc}`
     if (reminder) body = `text=${desc}&reminder_date=${reminder}`
-    if (reminder && reminder === matchReminder) {
-      replaceReminderService(body, id).then(r => {
-        if (r.status === 204) {
-          this.props.editeNote(reminder, id, desc)
-          this.clearState()
-        }
-      })
-    } else {
-      notesReplaceService(body, id).then(r => {
-        if (r.status === 204) {
-          this.props.editeNote(reminder, id, desc)
-          this.clearState()
-        }
-      })
-    }
-  }
-  deleteNoteReminder = id => {
-    delNotesWithRem(id).then(r => {
-      this.props.deleteNote(id)
+    notesReplaceService(body, id).then(r => {
       if (r.status === 204) {
-        this.setState(state => ({
-          noteReplace: !this.state.noteReplace,
-          isEditNotes: !this.state.isEditNotes,
-          isReminderEdit: false,
-          description: '',
-          note_id: 0,
-          time: '0',
-          key: 0
-        }))
+        this.props.editeNote(reminder, id, desc)
+        this.clearState()
       }
     })
   }
@@ -87,15 +63,12 @@ export default class Notes extends React.Component {
     notesDeleteService(id).then(r => {
       this.props.deleteNote(id)
       if (r.status === 204) {
-        this.setState(state => ({
-          noteReplace: !this.state.noteReplace,
-          isEditNotes: !this.state.isEditNotes,
+        this.setState({
+          noteReplace: false,
+          isEditNotes: false,
           isReminderEdit: false,
-          description: '',
-          note_id: 0,
-          time: '0',
-          key: 0
-        }))
+          editNoteId: ''
+        })
       }
     })
   }
@@ -104,12 +77,19 @@ export default class Notes extends React.Component {
     return (
       <NotesLib
         customers
-        deleteNoteReminder={this.deleteNoteReminder}
         notesData={this.props.notesData}
         hiddenNotes={this.props.hiddenNotes}
+        cancelActions={this.cancelActions}
+        allowActions={this.allowActions}
         saveNote={this.saveNote}
+        loader={this.state.loader}
+        editAction={this.editAction}
+        editNoteId={this.state.editNoteId}
         editNote={this.editNote}
         deleteNote={this.deleteNote}
+        newEditNotes={this.state.newEditNotes}
+        noteReplace={this.state.noteReplace}
+        isEditNotes={this.state.isEditNotes}
         activateNone={this.props.activateNone}
         flag={this.state.flag}
       />

@@ -46,7 +46,7 @@ class Home extends React.Component {
       ],
       isFirstNote: this.state.notesData.lehth > 0,
       activateNone: this.state.notesData.lehth > 0
-    }))
+    }), () => config.data.notes.unshift(newNote))
   }
   createNewDebt = (sum, description, added, id) => {
     const newDebt = {}
@@ -61,7 +61,7 @@ class Home extends React.Component {
       ],
       activateDebt: this.state.notesData.lehth > 0,
       isFirstDebt: this.state.notesData.lehth > 0
-    }))
+    }), () => config.data.debts.unshift(newDebt))
   }
   editeNote = (rem, key, text) => {
     this.setState(state => ({
@@ -71,7 +71,9 @@ class Home extends React.Component {
           reminder_date: rem,
           text } : note)
       )
-    }))
+    }), () => {
+      config.data.notes = this.state.notesData
+    })
   }
   editeDebt = (sum, description, added, key) => {
     this.setState(state => ({
@@ -83,21 +85,27 @@ class Home extends React.Component {
           date: added
         } : debt)
       )
-    }))
+    }), () => {
+      config.data.debts = this.state.debtsData
+    })
   }
   handleDeleteNote = id => {
     this.setState(state => ({
       notesData: state.notesData.filter(note => note.id !== id),
-      isFirstNote: this.state.notesData.lehth > 0,
-      activateNone: this.state.notesData.lehth > 0
-    }))
+      isFirstNote: state.notesData.lehth > 0,
+      activateNone: state.notesData.lehth > 0
+    }), () => {
+      config.data.notes = this.state.notesData
+    })
   }
   handleDeleteDebt = id => {
     this.setState(state => ({
       debtsData: state.debtsData.filter(debt => debt.id !== id),
-      activateDebt: this.state.notesData.lehth > 0,
-      isFirstDebt: this.state.notesData.lehth > 0
-    }))
+      activateDebt: state.notesData.lehth > 0,
+      isFirstDebt: state.notesData.lehth > 0
+    }), () => {
+      config.data.debts = this.state.debtsData
+    })
   }
   addedItemInGallery = (date, name, desc, id) => {
     const itemGallery = {}
@@ -108,7 +116,7 @@ class Home extends React.Component {
     this.setState(state => ({
       galleryData: [
         itemGallery,
-        ...this.state.galleryData
+        ...state.galleryData
       ]
     }))
   }
