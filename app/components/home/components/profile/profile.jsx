@@ -221,6 +221,7 @@ removeElements = () => {
   while (elem.length > 0) {
     elem[0].parentNode.removeChild(elem[0])
   }
+  document.querySelectorAll('#gender').forEach(i => i.parentNode.removeChild(i))
 }
 
 changeAdress = e => {
@@ -313,6 +314,7 @@ componentDidMount = () => {
 
 initMap = () => {
   const divNode = document.createElement('div')
+  divNode.setAttribute('id', 'gender')
   const url = `${config.urls.media}ic-marked.svg`
   divNode.innerHTML = `<style>
     .circle:before{
