@@ -7,6 +7,7 @@ export default class Notes extends React.Component {
     noteReplace: this.props.activateNone,
     isEditNotes: this.props.activateNone,
     loader: false,
+    loaderDel: false,
     flag: true
   }
   static propTypes = {
@@ -60,10 +61,12 @@ export default class Notes extends React.Component {
     })
   }
   deleteNote = id => {
+    this.setState({loaderDel: true})
     notesDeleteService(id).then(r => {
       this.props.deleteNote(id)
       if (r.status === 204) {
         this.setState({
+          loaderDel: false,
           noteReplace: false,
           isEditNotes: false,
           isReminderEdit: false,
@@ -78,6 +81,7 @@ export default class Notes extends React.Component {
       <NotesLib
         customers
         notesData={this.props.notesData}
+        loaderDel={this.state.loaderDel}
         hiddenNotes={this.props.hiddenNotes}
         cancelActions={this.cancelActions}
         allowActions={this.allowActions}
