@@ -364,7 +364,7 @@ saveAll = () => {
   let checkPhones = arrPhones.some(i => this.validatePhone(i))
   if (!checkPhones && (checkMail || !this.state.email)) {
     this.sendData()
-  } else if (emptyPhone === null) {
+  } else if (emptyPhone === null && checkMail) {
     this.sendData()
   }
 }
