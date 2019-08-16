@@ -63,18 +63,19 @@ class Home extends React.Component {
       isFirstDebt: this.state.notesData.lehth > 0
     }), () => config.data.debts.unshift(newDebt))
   }
-  editeNote = (rem, key, text) => {
+
+  editeNote = (reminder_date, key, text) => {
     this.setState(state => ({
-      notesData: state.notesData.map(
-        note => (note.id === +key ? {
-          ...note,
-          reminder_date: rem,
-          text } : note)
-      )
+      notesData: state.notesData.map(note => {
+        const test = note.id === +key ? {...note, reminder_date, text} : note
+        !reminder_date && delete test.reminder_date
+        return test
+      })
     }), () => {
       config.data.notes = this.state.notesData
     })
   }
+
   editeDebt = (sum, description, added, key) => {
     this.setState(state => ({
       debtsData: state.debtsData.map(
