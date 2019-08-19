@@ -65,15 +65,29 @@ class Home extends React.Component {
   }
 
   editeNote = (reminder_date, key, text) => {
-    this.setState(state => ({
-      notesData: state.notesData.map(note => {
-        const test = note.id === +key ? {...note, reminder_date, text} : note
-        !reminder_date && delete test.reminder_date
-        return test
+    if (reminder_date) {
+      this.setState(state => ({
+        notesData: state.notesData.map(
+          note => (note.id === +key ? {
+            ...note,
+            reminder_date,
+            text } : note)
+        )
+      }), () => {
+        config.data.notes = this.state.notesData
       })
-    }), () => {
-      config.data.notes = this.state.notesData
-    })
+    } else {
+      this.setState(state => ({
+        notesData: state.notesData.map(
+          note => (note.id === +key ? {
+            id: note.id,
+            date: note.date,
+            text } : note)
+        )
+      }), () => {
+        config.data.notes = this.state.notesData
+      })
+    }
   }
 
   editeDebt = (sum, description, added, key) => {

@@ -53,27 +53,51 @@ export default class Notes extends React.Component {
     this.setState({loader: true})
     let body = `text=${desc}`
     if (reminder) body = `text=${desc}&reminder_date=${reminder}`
-    notesReplaceService(body, id).then(r => {
-      if (r.status === 204) {
-        this.props.editeNote(reminder, id, desc)
-        this.clearState()
-      }
-    })
+    if (reminder) {
+      replaceReminderService(body, id).then(r => {
+        if (r.status === 204) {
+          this.props.editeNote(reminder, id, desc)
+          this.clearState()
+        }
+      })
+    } else {
+      notesReplaceService(body, id).then(r => {
+        if (r.status === 204) {
+          this.props.editeNote(reminder, id, desc)
+          this.clearState()
+        }
+      })
+    }
   }
-  deleteNote = id => {
+  deleteNote = (id, reminderDate) => {
     this.setState({loaderDel: true})
-    notesDeleteService(id).then(r => {
-      this.props.deleteNote(id)
-      if (r.status === 204) {
-        this.setState({
-          loaderDel: false,
-          noteReplace: false,
-          isEditNotes: false,
-          isReminderEdit: false,
-          editNoteId: ''
-        })
-      }
-    })
+    if (reminderDate) {
+      delNotesWithRem(id).then(r => {
+        this.props.deleteNote(id)
+        if (r.status === 204) {
+          this.setState({
+            loaderDel: false,
+            noteReplace: false,
+            isEditNotes: false,
+            isReminderEdit: false,
+            editNoteId: ''
+          })
+        }
+      })
+    } else {
+      notesDeleteService(id).then(r => {
+        this.props.deleteNote(id)
+        if (r.status === 204) {
+          this.setState({
+            loaderDel: false,
+            noteReplace: false,
+            isEditNotes: false,
+            isReminderEdit: false,
+            editNoteId: ''
+          })
+        }
+      })
+    }
   }
   componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
   render () {
