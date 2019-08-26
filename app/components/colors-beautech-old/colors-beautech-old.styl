@@ -1,11 +1,8 @@
-// @import "../../variables.css"
 #punch_cards_old
   width 100%
   height 100%
   .swiper
-    max-height 70vh
-    .swiper-slide
-      margin-bottom 50px
+    padding-bottom 65px
   .btn-wrap
     display flex
     align-items center
@@ -66,7 +63,6 @@
   .main-title
     font-size 1rem
     display flex
-    // padding: 1.5rem 1.1rem 0;
     color var(--dark-color)
   .second-top-title
     font-size 1rem
@@ -83,7 +79,6 @@
     margin 0 .5rem .5rem
     border-radius .5rem
     background-color #fff
-    // padding 1.5rem 1.1rem 1rem
     box-shadow: 0 2px 4px 0 #bfafe0;
     .brand
       padding-left
@@ -94,10 +89,8 @@
         display flex
         align-items center
         img
-          // display block
           width 1.2rem
           height 1.2rem
-          // margin-bottom .3rem
       .colors-info
         -webkit-padding-start .4rem
         -moz-padding-start .4rem
@@ -162,24 +155,30 @@
       .common-img
         -webkit-margin-end 0.7rem
         -moz-margin-end 0.7rem
+  .btn-section
+    position fixed
+    width 100%
+    z-index: 2;
+    bottom 0
+    left 0
+    .btn-container
+      display flex
+      justify-content center
+      max-width 640px
+      margin 0 auto
   .buttons-bot
-    position: fixed;
     display: flex;
-    /* box-shadow: 0 1px 4px 1px #bfafe0; */
     width: -moz-available;
     width: -webkit-fill-available;
     padding: 0.5rem 0.5rem 0.5rem;
-    z-index: 2;
-    bottom: 0px;
-    /* background-color: rgba(239,239,255,0.56); */
-    background-color: #dedeff;
+    background-color var(--sec-color)
     .btns-bot-back, .btns-bot-next
       width 50%
       outline none
       border none
       font-size 0.875rem
-      // box-shadow: 0 1px 4px 1px #bfafe0;
       background-color #fff
+      transition 0.3s ease-out
       text-transform uppercase
       display flex
       height 3.75rem
@@ -189,10 +188,10 @@
       font-weight 600
     .btns-bot-back
       .btn-bot-img
-          justify-content center
-          display flex
-          width 40px
-          padding-right 10px
+        justify-content center
+        display flex
+        width 40px
+        padding-right 10px
     .ltr-dir-back
       box-shadow: -2px 0px 5px 0px #bfafe0;
       border-top-left-radius: 0.5rem;

@@ -1,7 +1,7 @@
 #timeline
   overflow hidden
   width 100%
-  margin-bottom 105px
+  padding-bottom 105px
   background-color var(--sec-color)
   position relative
   .list
@@ -40,21 +40,24 @@
         display block
         width 50px
         height 50px
-  .buttons-wrap
+  .btn-section
     position fixed
     left 0
     bottom 0
     width 100%
-    max-width 100%
+    display flex
+    justify-content center
+  .buttons-wrap
+    width 100%
+    max-width 640px
     background-color var(--sec-color)
     .buttons-container
-      margin 2px 0 10px 9px
+      margin 2px 9px 10px 9px
       text-align center
       align-items center
       display flex
       border-radius 8px
       background-color #fff
-      // justify-content space-between
       overflow-x auto
       overflow-y hidden
       position relative
@@ -81,8 +84,8 @@
       color var(--main-color)
   .preloader
     position fixed
-    bottom 30px
-    left 30px
+    bottom 110px
+    left 20px
     display flex
     justify-content center
     align-items center
@@ -102,3 +105,11 @@
         transform rotate(360deg)
 .nVisible
   visibility hidden
+@media only screen and (min-width: 610px) {
+  #timeline {
+    .preloader {
+      left: 50%;
+      transform: translate(-550%); 
+    }
+  }
+}

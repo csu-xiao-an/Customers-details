@@ -297,13 +297,15 @@ class PunchCardsAdd extends React.Component {
                     : <p className='is_valid' onClick={this.handleToEditExpiryDate}>{`${moment(this.state.date).format('DD')} ${months[moment(this.state.date).month()]} ${moment(this.state.date).format('YYYY')}`}</p>}
                 </div>}
               </div>
-              <div className='buttons'>
-                <button className='btn-cancel' onClick={() => this.props.history.push(baseUrl + config.urls.punch_cards)}>
-                  {config.translations.punch_cards.cancel_new_punch_card_btn}<img className='cancel-img' src={`${config.urls.media}plus-blue.svg`} />
-                </button>
-                <button className='btn-save' onClick={this.save}>
-                  {config.translations.punch_cards.add_new_punch_card_btn}<img src={`${config.urls.media}plus-square-white.svg`} />
-                </button>
+              <div className='btn-section'>
+                <div className='buttons'>
+                  <button className='btn-cancel' onClick={() => this.props.history.push(baseUrl + config.urls.punch_cards)}>
+                    {config.translations.punch_cards.cancel_new_punch_card_btn}<img className='cancel-img' src={`${config.urls.media}plus-blue.svg`} />
+                  </button>
+                  <button className='btn-save' onClick={this.save}>
+                    {config.translations.punch_cards.add_new_punch_card_btn}<img src={`${config.urls.media}plus-square-white.svg`} />
+                  </button>
+                </div>
               </div>
             </div>}
           </div>

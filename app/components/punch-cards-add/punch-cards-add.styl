@@ -76,6 +76,7 @@
   .procedure-list
     width 100%
   .service_edit
+    width 100%
     display flex
     flex-direction column
     align-items center
@@ -87,7 +88,7 @@
       -moz-padding-end 0.8rem
       border-radius 8px
       overflow-y auto
-      margin-bottom 20%
+      margin-bottom 25%
     .uses_wrap
       display flex
       align-items center
@@ -220,12 +221,15 @@
     .is_valid
       font-size 16px
       color rgba(34, 34, 34, 0.87)
-  .buttons
+  .btn-section
     position fixed
-    display flex
-    width 100%
-    padding 0 0.5rem 0.5rem 
     bottom 0px
+    width 100%
+  .buttons
+    margin 0 auto
+    max-width 640px
+    display flex
+    padding 0 0.5rem 0.5rem 
     button
       border none
       width 50%
@@ -287,6 +291,7 @@
   align-items center
   #modal-content
     overflow-x hidden
+    max-width 500px
   .modal-body
     display flex
     align-items center

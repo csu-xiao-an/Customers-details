@@ -117,14 +117,14 @@ class ColorsBeautechOld extends React.Component {
             </Swiper>
           </div>
         </div>
-        {beautech.length > 1 && <div className='buttons-bot'>
+        {beautech.length > 1 && <div className='btn-section'><div className='btn-container'><div className='buttons-bot'>
           <button className={'btns-bot-back ' + (config.isRTL ? 'rtl-dir-back ' : 'ltr-dir-back ') + (this.state.disabledBackBtn && 'disabled')} disabled={this.state.disabledBackBtn} onClick={this.goPrev}>{config.translations.colors_beautech.back}
             <div className='btn-bot-img'><img src={config.urls.media + (this.state.disabledBackBtn ? 'arrow-back-dis.svg' : 'arrow-left.svg')} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </button>
           <button className={'btns-bot-next ' + (config.isRTL ? 'rtl-dir-next ' : 'ltr-dir-next ') + (this.state.disabledNextBtn && 'disabled')} disabled={this.state.disabledNextBtn} onClick={this.goNext}>{config.translations.colors_beautech.next}
             <div className='btn-bot-img'><img src={config.urls.media + (this.state.disabledNextBtn ? 'arrow-next-dis.svg' : 'arrow-right.svg')} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
           </button>
-        </div>}
+        </div></div></div>}
       </div>
     )
   }
