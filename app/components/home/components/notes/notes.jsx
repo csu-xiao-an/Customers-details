@@ -1,4 +1,4 @@
-import { postService as notesPostService, replaceService as notesReplaceService, replaceReminderService, deleteService as notesDeleteService, deleteReminderService as delNotesWithRem } from 'project-services/notes.service.js'
+import { postService as notesPostService, replaceService as notesReplaceService, deleteService as notesDeleteService } from 'project-services/notes.service.js'
 import { default as NotesLib } from 'project-components/NotesLib/noteslib.jsx'
 import './notes.styl'
 export default class Notes extends React.Component {
@@ -53,51 +53,27 @@ export default class Notes extends React.Component {
     this.setState({loader: true})
     let body = `text=${desc}`
     if (reminder) body = `text=${desc}&reminder_date=${reminder}`
-    if (reminder) {
-      replaceReminderService(body, id).then(r => {
-        if (r.status === 204) {
-          this.props.editeNote(reminder, id, desc)
-          this.clearState()
-        }
-      })
-    } else {
-      notesReplaceService(body, id).then(r => {
-        if (r.status === 204) {
-          this.props.editeNote(reminder, id, desc)
-          this.clearState()
-        }
-      })
-    }
+    notesReplaceService(body, id).then(r => {
+      if (r.status === 204) {
+        this.props.editeNote(reminder, id, desc)
+        this.clearState()
+      }
+    })
   }
-  deleteNote = (id, reminderDate) => {
+  deleteNote = id => {
     this.setState({loaderDel: true})
-    if (reminderDate) {
-      delNotesWithRem(id).then(r => {
-        this.props.deleteNote(id)
-        if (r.status === 204) {
-          this.setState({
-            loaderDel: false,
-            noteReplace: false,
-            isEditNotes: false,
-            isReminderEdit: false,
-            editNoteId: ''
-          })
-        }
-      })
-    } else {
-      notesDeleteService(id).then(r => {
-        this.props.deleteNote(id)
-        if (r.status === 204) {
-          this.setState({
-            loaderDel: false,
-            noteReplace: false,
-            isEditNotes: false,
-            isReminderEdit: false,
-            editNoteId: ''
-          })
-        }
-      })
-    }
+    notesDeleteService(id).then(r => {
+      this.props.deleteNote(id)
+      if (r.status === 204) {
+        this.setState({
+          loaderDel: false,
+          noteReplace: false,
+          isEditNotes: false,
+          isReminderEdit: false,
+          editNoteId: ''
+        })
+      }
+    })
   }
   componentWillMount = () => { if (!Array.isArray(config.data.notes)) config.data.notes = [] }
   render () {
