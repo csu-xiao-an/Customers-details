@@ -2,12 +2,12 @@
 #topnav
     background-color var(--dark-color)
   .header
-    height 3.45em
+    min-height 3.45em
     display flex
     -webkit-align-items center
     -webkit-box-align center
     -ms-flex-align center
-    position relative
+    // position relative
     padding 0 18px
     justify-content center
     .arrow-wrap
@@ -21,6 +21,10 @@
         cursor pointer
         width 0.8em
     .client-name
+      margin 0 30px
+      display flex
+      flex-direction column
+      text-align center
       h1
         color white
         font-size 1.5em
