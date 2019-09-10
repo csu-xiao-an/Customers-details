@@ -51,7 +51,35 @@ delName = () => {
   document.getElementById('name-input').focus()
 }
 
-blurName = () => {
+nameBlur = () => {
+  if (!this.state.name) {
+    this.nameErrorStyle()
+  } else {
+    this.discardNameErrorStyle()
+  }
+}
+
+nameErrorStyle = () => {
+  const inputName = this.inputName
+  const nameField = this.nameField
+  const spanClass = this.spanClass
+  this.setState({ errorName: true })
+  inputName.classList.add('error-input')
+  spanClass.classList.add('label-error')
+  nameField.classList.add('error-name')
+}
+
+discardNameErrorStyle = () => {
+  const inputName = this.inputName
+  const nameField = this.nameField
+  const spanClass = this.spanClass
+  this.setState({ errorName: false })
+  inputName.classList.remove('error-input')
+  spanClass.classList.remove('label-error')
+  nameField.classList.remove('error-name')
+}
+
+showNameModal = () => {
   this.setState({ activeNameModal: true })
 }
 
@@ -442,6 +470,7 @@ backAll = () => {
   this.defaultPos()
   this.resetFields()
   this.forceUpdate()
+  this.discardNameErrorStyle()
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -475,7 +504,7 @@ saveBtn = () => {
       this.saveAll()
     } else this.visibleModal()
   } else {
-    this.blurName()
+    this.showNameModal()
   }
 }
 
@@ -510,47 +539,50 @@ render () {
           </button>}
       </div>
       {(this.state.editProfile || (this.props.isVisibleFields || config.data.name)) && <div id='name'>
-        {!this.state.editProfile && <div className='fullname'>
-          <div className='fullname-wrap'>
-            <span className='label'>{config.translations.personal_info.name_label}:</span>
-            <span className='block-content'>{config.data.name}</span>
-          </div>
-        </div>}
-        {(this.state.editProfile && !config.data.name)
-          ? <div onClick={() => this.changeNameEdit()}
-            className={!this.state.profileNameEdit ? 'add-name' : 'hidden'}>
-            <div className='wrap-name-full'>
+        <div className='full-wrap-name' ref={ref => { this.nameField = ref }}>
+          {!this.state.editProfile && <div className='fullname'>
+            <div className='fullname-wrap'>
               <span className='label'>{config.translations.personal_info.name_label}:</span>
-              <h1>{config.translations.personal_info.empty_name_label}</h1>
-            </div>
-            <div className='add-info'>
-              <div className='add-wrap'>
-                <img src={config.urls.media + 'profile_plus.svg'} />
-              </div>
-            </div>
-          </div> : ''}
-        {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
-          <div className='fullname-edit'>
-            <div className='edit-wrap'>
-              <span className='label'>{config.translations.personal_info.name_label}:</span>
-              <input className='edit-input'
-                id='name-input'
-                ref={inp => { this.inputName = inp }}
-                type='text'
-                onBlur={!this.state.name && this.blurName}
-                value={this.state.name}
-                onChange={e => this.setState({ name: e.target.value })} />
-            </div>
-            <div className='del-info'>
-              <div className='del-wrap' onClick={this.delName}>
-                <img src={config.urls.media + 'plus2.svg'} />
-              </div>
+              <span className='block-content'>{config.data.name}</span>
             </div>
           </div>}
-        <EmptyDataModal
-          show={this.state.activeNameModal}
-          onHide={this.cancelNameModal}
-        />
+          {(this.state.editProfile && !config.data.name)
+            ? <div onClick={() => this.changeNameEdit()}
+              className={!this.state.profileNameEdit ? 'add-name' : 'hidden'}>
+              <div className='wrap-name-full'>
+                <span className='label'>{config.translations.personal_info.name_label}:</span>
+                <h1>{config.translations.personal_info.empty_name_label}</h1>
+              </div>
+              <div className='add-info'>
+                <div className='add-wrap'>
+                  <img src={config.urls.media + 'profile_plus.svg'} />
+                </div>
+              </div>
+            </div> : ''}
+          {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
+            <div className='fullname-edit'>
+              <div className='edit-wrap'>
+                <span className='label' ref={ref => { this.spanClass = ref }}>{!this.state.errorName ? config.translations.personal_info.name_label : config.translations.personal_info.name_label_error}</span>
+                <input
+                  className='edit-input'
+                  id='name-input'
+                  ref={inp => { this.inputName = inp }}
+                  type='text'
+                  onBlur={this.nameBlur}
+                  value={this.state.name}
+                  onChange={e => this.setState({ name: e.target.value })} />
+              </div>
+              <div className='del-info'>
+                <div className='del-wrap' onClick={this.delName}>
+                  <img src={config.urls.media + 'plus2.svg'} />
+                </div>
+              </div>
+            </div>}
+          <EmptyDataModal
+            show={this.state.activeNameModal}
+            onHide={this.cancelNameModal}
+          />
+        </div>
       </div>}
       {((this.props.isVisibleFields || this.state.phone) || this.state.editProfile) &&
         <Phones editProfile={this.state.editProfile}

@@ -172,6 +172,7 @@ var config = {
       back_label_btn: 'Back',
       done_label_btn: 'Done',
       name_label: 'Name',
+      name_label_error: '*Please, enter your name',
       empty_name_label: 'Add name',
       phone_label: 'Phone',
       empty_phone_label: 'Add phone number',
