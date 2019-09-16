@@ -51,33 +51,33 @@ delName = () => {
   document.getElementById('name-input').focus()
 }
 
-nameBlur = () => {
-  if (!this.state.name) {
-    this.nameErrorStyle()
-  } else {
-    this.discardNameErrorStyle()
-  }
-}
+// nameBlur = () => {
+//   if (!this.state.name) {
+//     this.nameErrorStyle()
+//   } else {
+//     this.discardNameErrorStyle()
+//   }
+// }
 
-nameErrorStyle = () => {
-  const inputName = this.inputName
-  const nameField = this.nameField
-  const spanClass = this.spanClass
-  this.setState({ errorName: true })
-  inputName.classList.add('error-input')
-  spanClass.classList.add('label-error')
-  nameField.classList.add('error-name')
-}
+// nameErrorStyle = () => {
+//   const inputName = this.inputName
+//   const nameField = this.nameField
+//   const spanClass = this.spanClass
+//   this.setState({ errorName: true })
+//   inputName.classList.add('error-input')
+//   spanClass.classList.add('label-error')
+//   nameField.classList.add('error-name')
+// }
 
-discardNameErrorStyle = () => {
-  const inputName = this.inputName
-  const nameField = this.nameField
-  const spanClass = this.spanClass
-  this.setState({ errorName: false })
-  inputName.classList.remove('error-input')
-  spanClass.classList.remove('label-error')
-  nameField.classList.remove('error-name')
-}
+// discardNameErrorStyle = () => {
+//   const inputName = this.inputName
+//   const nameField = this.nameField
+//   const spanClass = this.spanClass
+//   this.setState({ errorName: false })
+//   inputName.classList.remove('error-input')
+//   spanClass.classList.remove('label-error')
+//   nameField.classList.remove('error-name')
+// }
 
 showNameModal = () => {
   this.setState({ activeNameModal: true })
@@ -470,7 +470,7 @@ backAll = () => {
   this.defaultPos()
   this.resetFields()
   this.forceUpdate()
-  this.discardNameErrorStyle()
+  // this.discardNameErrorStyle()
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -539,7 +539,7 @@ render () {
           </button>}
       </div>
       {(this.state.editProfile || (this.props.isVisibleFields || config.data.name)) && <div id='name'>
-        <div className='full-wrap-name' ref={ref => { this.nameField = ref }}>
+        <div className={'full-wrap-name ' + (!this.state.name ? 'error-name' : '')} ref={ref => { this.nameField = ref }}>
           {!this.state.editProfile && <div className='fullname'>
             <div className='fullname-wrap'>
               <span className='label'>{config.translations.personal_info.name_label}:</span>
@@ -562,13 +562,13 @@ render () {
           {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
             <div className='fullname-edit'>
               <div className='edit-wrap'>
-                <span className='label' ref={ref => { this.spanClass = ref }}>{!this.state.errorName ? config.translations.personal_info.name_label : config.translations.personal_info.name_label_error}</span>
+                <span className={'label ' + (!this.state.name ? 'error-span' : '')} ref={ref => { this.spanClass = ref }}>{this.state.name ? config.translations.personal_info.name_label : config.translations.personal_info.name_label_error}</span>
                 <input
                   className='edit-input'
                   id='name-input'
                   ref={inp => { this.inputName = inp }}
                   type='text'
-                  onBlur={this.nameBlur}
+                  // onBlur={this.nameBlur}
                   value={this.state.name}
                   onChange={e => this.setState({ name: e.target.value })} />
               </div>
