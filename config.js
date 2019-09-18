@@ -402,6 +402,7 @@ var config = {
     gallery: './dist/media/galery/',
     url_pdf: '/public/',
     client_data: './dist/clients/',
+    customers_list: '/en/clients',
     punch_cards: '/punch_cards',
     menu_icons: 'dist/menu/',
     isFavorite: 'isFavorite',

@@ -6,18 +6,22 @@ export default class HiddenFields extends React.Component {
   state = {
     isVisiblePopup: false
   }
+
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
+
   deleteClient = () => {
     clientDeleteService(config.data.id).then(r => {
       if (r.status === 204) {
         this.setState({ isVisiblePopup: false })
-        window.location = config.urls.client_page_url.replace('{id}', config.data.id)
+        window.location = config.urls.customers_list
       }
     })
   }
-  closePopup = () => this.setState({isVisiblePopup: false})
+
+  closePopup = () => this.setState({ isVisiblePopup: false })
+
   render () {
     return this.props.rights.more_fields.isVisible && (
       <div id='delete-customer'>
