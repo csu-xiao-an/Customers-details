@@ -44,7 +44,7 @@ export default class Phones extends React.Component {
           visibleModal={this.props.visibleModal}
           closeModal={this.props.cancel}
           // create={this.create}
-          cancelEmpty={this.props.cancelEmpty}
+          cancelSave={this.props.cancelSave}
           cancel={this.props.cancel}
           getPhone={this.props.getPhone}
         />

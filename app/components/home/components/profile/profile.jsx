@@ -139,9 +139,8 @@ blurPhoneModal = () => {
   if (arrayPhones.length === 0) this.setState({ visibleModal: true, blur: true })
 }
 
-cancelEmptyPhoneModal = () => {
-  this.setState({ visibleModal: false, permit_empty_phone: true })
-  if (!this.state.blur) this.saveAll()
+cancelSavePhoneModal = () => {
+  this.setState({ visibleModal: false, permit_empty_phone: true }, () => this.saveAll())
 }
 
 cancelPhoneModal = () => {
@@ -384,12 +383,12 @@ validatePhone = phone => {
 }
 
 saveAll = () => {
-  let checkMail = this.state.email && this.validate(this.state.email)
-  let filterPhones = this.state.phone.filter(i => !!i.number)
-  let arrPhones = filterPhones.map(item => item.number)
-  this.setState({loader: true})
-  let emptyPhone = this.getPhonesValue(this.state.phone)
-  let checkPhones = arrPhones.some(i => this.validatePhone(i))
+  const checkMail = this.state.email && this.validate(this.state.email)
+  const filterPhones = this.state.phone.filter(i => !!i.number)
+  const arrPhones = filterPhones.map(item => item.number)
+  this.setState({ loader: true })
+  const emptyPhone = this.getPhonesValue(this.state.phone)
+  const checkPhones = arrPhones.some(i => this.validatePhone(i))
   if (!checkPhones && (checkMail || !this.state.email)) {
     this.sendData()
   } else if (emptyPhone === null && checkMail) {
@@ -399,7 +398,7 @@ saveAll = () => {
 
 sendData = () => {
   const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
-  let body = Object.keys(this.state).reduce((params, field) => {
+  const body = Object.keys(this.state).reduce((params, field) => {
     if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
       let value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
       if (field === 'address') value = encodeURIComponent(value)
@@ -592,8 +591,8 @@ render () {
           profilePhoneEdit={this.state.profilePhoneEdit}
           deletePhone={this.deletePhone}
           visibleModal={this.state.visibleModal}
-          blurPhoneModal={this.blurPhoneModal}
-          cancelEmpty={this.cancelEmptyPhoneModal}
+          // blurPhoneModal={this.blurPhoneModal}
+          cancelSave={this.cancelSavePhoneModal}
           cancel={this.cancelPhoneModal}
           visibleModalOpen={this.visibleModal}
           phones={this.state.phone || []}
