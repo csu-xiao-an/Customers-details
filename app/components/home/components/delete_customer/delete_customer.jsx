@@ -22,11 +22,13 @@ export default class HiddenFields extends React.Component {
 
   closePopup = () => this.setState({ isVisiblePopup: false })
 
+  showPopup = () => this.setState({ isVisiblePopup: true })
+
   render () {
     return this.props.rights.more_fields.isVisible && (
       <div id='delete-customer'>
         <div className='del-btn'>
-          <button onClick={() => this.setState({isVisiblePopup: true})}>{config.translations.client_page_btn.delete_customer}</button>
+          <button onClick={this.showPopup}>{config.translations.client_page_btn.delete_customer}</button>
         </div>
         <Modal show={this.state.isVisiblePopup} onHide={this.closePopup}>
           <div className='modal-body'>
