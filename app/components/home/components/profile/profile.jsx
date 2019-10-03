@@ -51,13 +51,22 @@ delName = () => {
   document.getElementById('name-input').focus()
 }
 
-// nameBlur = () => {
-//   if (!this.state.name) {
-//     this.nameErrorStyle()
-//   } else {
-//     this.discardNameErrorStyle()
-//   }
-// }
+onChangeName = name => {
+  this.setState({ name, blurName: false })
+}
+
+nameBlur = () => {
+  if (this.state.name) {
+    this.setState({ blurName: false })
+  } else {
+    this.setState({ blurName: true })
+  }
+  // if (!this.state.name) {
+  //   this.nameErrorStyle()
+  // } else {
+  //   this.discardNameErrorStyle()
+  // }
+}
 
 // nameErrorStyle = () => {
 //   const inputName = this.inputName
@@ -538,7 +547,7 @@ render () {
           </button>}
       </div>
       {(this.state.editProfile || (this.props.isVisibleFields || config.data.name)) && <div id='name'>
-        <div className={'full-wrap-name ' + (!this.state.name ? 'error-name' : '')} ref={ref => { this.nameField = ref }}>
+        <div className={'full-wrap-name ' + ((!this.state.name && this.state.blurName) ? 'error-name' : '')} ref={ref => { this.nameField = ref }}>
           {!this.state.editProfile && <div className='fullname'>
             <div className='fullname-wrap'>
               <span className='label'>{config.translations.personal_info.name_label}:</span>
@@ -561,15 +570,15 @@ render () {
           {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
             <div className='fullname-edit'>
               <div className='edit-wrap'>
-                <span className={'label ' + (!this.state.name ? 'error-span' : '')} ref={ref => { this.spanClass = ref }}>{this.state.name ? config.translations.personal_info.name_label : config.translations.personal_info.name_label_error}</span>
+                <span className={'label ' + ((!this.state.name && this.state.blurName) ? 'error-span' : '')} ref={ref => { this.spanClass = ref }}>{!this.state.blurName ? config.translations.personal_info.name_label : config.translations.personal_info.name_label_error}:</span>
                 <input
                   className='edit-input'
                   id='name-input'
                   ref={inp => { this.inputName = inp }}
                   type='text'
-                  // onBlur={this.nameBlur}
+                  onBlur={this.nameBlur}
                   value={this.state.name}
-                  onChange={e => this.setState({ name: e.target.value })} />
+                  onChange={e => this.onChangeName(e.target.value)} />
               </div>
               <div className='del-info'>
                 <div className='del-wrap' onClick={this.delName}>
