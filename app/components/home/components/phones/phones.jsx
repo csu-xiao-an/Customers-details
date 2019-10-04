@@ -13,18 +13,22 @@ export default class Phones extends React.Component {
       phone_number: config.translations.personal_info_editing.phone_number
     }
   }
+
   state = {
     phoneEdit: false,
     phone: [],
     phoneValue: '',
     error: ''
   }
+
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
+
   componentDidMount = () => {
-    this.setState({phone: this.props.phones})
+    this.setState({ phone: this.props.phones })
   }
+
   render () {
     return this.props.rights.isPhone && (
       <div id='phones'>

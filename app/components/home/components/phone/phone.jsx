@@ -26,6 +26,7 @@ export default class Phone extends React.Component {
   phoneNumber = e => {
     const phone = this.props.phone
     phone.number = e.target.value
+    this.props.resetPhoneBlur()
     this.setState({ phone, error: '' }, () => this.props.getPhone(this.state.phone))
   }
 
@@ -33,10 +34,19 @@ export default class Phone extends React.Component {
     this.props.add && this.phoneInput.focus()
   }
 
+  // phoneBlur = () => {
+  //   if (!this.props.phone.number) this.props.blurPhoneModal
+  //   if (this.props.phone.number) {
+  //     this.setState({ blurPhone: false })
+  //   } else {
+  //     this.setState({ blurPhone: true })
+  //   }
+  // }
+
   render () {
     return this.props.rights.isPhone && (
       <div id='phone'>
-        <div className={'phone-main ' + (!this.props.phone.number ? 'error-name' : '')}>
+        <div className={'phone-main ' + ((!this.props.phone.number && this.props.phoneBlurState) ? 'error-name' : '')}>
           <div className={!this.props.editProfile ? 'data-phone' : 'hidden'}>
             <div className='wrap'>
               <span className='label'>{config.translations.personal_info.phone_label}:</span>
@@ -73,7 +83,7 @@ export default class Phone extends React.Component {
               <div className={this.props.profilePhoneEdit || this.props.phones || this.state.phone ? 'phone-edit' : 'hidden'}>
                 <div className='edit'>
                   <div className='edit-wrap'>
-                    <span className={'label ' + (!this.props.phone.number ? 'error-span' : '')}>{this.props.phone.number ? config.translations.personal_info.phone_label : config.translations.personal_info.phone_label_error}:</span>
+                    <span className={'label ' + ((!this.props.phone.number && this.props.phoneBlurState) ? 'error-span' : '')}>{!this.props.phoneBlurState ? config.translations.personal_info.phone_label : config.translations.personal_info.phone_label_error}:</span>
                     <input
                       className={'edit-input'}
                       autoComplete='off'
@@ -83,7 +93,7 @@ export default class Phone extends React.Component {
                       ref={input => { this.phoneInput = input }}
                       value={this.props.phone.number}
                       onChange={e => this.phoneNumber(e)}
-                      onBlur={!this.props.phone.number && this.props.blurPhoneModal}
+                      onBlur={this.props.phoneBlur}
                     />
                   </div>
                   <div className='del-info'>

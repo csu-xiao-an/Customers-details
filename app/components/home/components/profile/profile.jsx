@@ -35,7 +35,8 @@ state = {
   maleSelected: false,
   femaleSelected: false,
   genderSelect: '',
-  label: config.translations.personal_info.gender.select_gender
+  label: config.translations.personal_info.gender.select_gender,
+  // blurPhone: false
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -99,6 +100,19 @@ cancelNameModal = () => {
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  PHONE  //////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
+
+  resetPhoneBlur = () => {
+    this.setState({ blurPhone: false })
+  }
+
+  phoneBlur = () => {
+    const number = this.state.phone.filter(i => i.number !== '')
+    if (number.length === 0) {
+      this.setState({ blurPhone: true })
+    } else {
+      this.setState({ blurPhone: false })
+    }
+  }
 
 changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
 
@@ -472,7 +486,9 @@ backAll = () => {
     maleSelected: config.data.gender === 'male' && true,
     femaleSelected: config.data.gender === 'female' && true,
     genderSelect: config.data.gender,
-    label: config.translations.personal_info.gender.select_gender
+    label: config.translations.personal_info.gender.select_gender,
+    blurName: false,
+    blurPhone: false
   })
   this.removeElements()
   this.defaultPos()
@@ -593,7 +609,11 @@ render () {
         </div>
       </div>}
       {((this.props.isVisibleFields || this.state.phone) || this.state.editProfile) &&
-        <Phones editProfile={this.state.editProfile}
+        <Phones 
+          editProfile={this.state.editProfile}
+          phoneBlur={this.phoneBlur}
+          resetPhoneBlur={this.resetPhoneBlur}
+          phoneBlurState={this.state.blurPhone}
           getPhone={this.getPhone}
           add={this.state.add}
           changePhoneEdit={this.changePhoneEdit}
