@@ -15,7 +15,16 @@ export default class HiddenFields extends React.Component {
     clientDeleteService(config.data.id).then(r => {
       if (r.status === 204) {
         this.setState({ isVisiblePopup: false })
-        window.location = config.urls.customers_list
+        const regex = new RegExp(config.urls.referrer_patern)
+        console.log(regex)
+        console.log('document.referrer', document.referrer)
+        const result = document.referrer.match(regex) && document.referrer.match(regex)[0]
+        console.log('result', result)
+        if (result || document.referrer === '') {
+          window.location = config.urls.customers_list
+        } else {
+          window.location = document.referrer
+        }
       }
     })
   }

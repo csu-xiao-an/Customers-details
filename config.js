@@ -400,6 +400,7 @@ var config = {
     recommended_by: 'recommended_by',
     defaultClientImg: 'default.jpg',
     defaultPathToClientImg: './dist/media/',
+    referrer_patern: /(clients)\/\d+/,
     gallery: './dist/media/galery/',
     url_pdf: '/public/',
     client_data: './dist/clients/',
