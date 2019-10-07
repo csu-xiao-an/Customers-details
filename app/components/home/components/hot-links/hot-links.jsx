@@ -6,6 +6,7 @@ export default class HotLinks extends React.Component {
   state = {
     isActivePunchCard: false
   }
+
   static propTypes = {
     rights: PropTypes.object.isRequired,
     recentAppointmentsData: PropTypes.array.isRequired,
@@ -15,13 +16,11 @@ export default class HotLinks extends React.Component {
     createFirstNote: PropTypes.func.isRequired,
     createFirstDebt: PropTypes.func.isRequired
   }
-  componentWillMount = () => {
-    config.data.punch_cards && config.data.punch_cards.forEach(i => {
-      if ((i.expiration && moment(i.expiration) > moment() && (i.uses && i.uses.length < i.service_count)) || (i.uses && i.uses.length < i.service_count)) i.isActive = true
-    })
-    this.setState(config.data.punch_cards && { isActivePunchCard: config.data.punch_cards.some(i => i.isActive) })
+
+  componentDidMount = () => {
     config.data.hot_links = config.data.hot_links.filter(j => !j.plugin_name || config.plugins_list.includes(j.plugin_name))
   }
+
   link = i => {
     const getOffsetSum = () => {
       let e = document.getElementById(i.url.replace('#', ''))
@@ -35,6 +34,7 @@ export default class HotLinks extends React.Component {
     let e = document.getElementById(i.url.replace('#', ''))
     let scroll = e.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+
   showAndMovetoNotes = () => {
     this.props.createFirstNote()
 

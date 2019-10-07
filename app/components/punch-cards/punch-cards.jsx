@@ -8,22 +8,28 @@ class PunchCards extends React.Component {
     punchsList: [],
     punch: {}
   }
+
   static propTypes = {
     history: PropTypes.object.isRequired
   }
+
   componentDidMount = () => {
     getPunchCardsList().then(punchsList => {
       punchsList.sort((a, b) => a.id - b.id).sort((a, b) => !!a.isActive - !!b.isActive)
-      this.setState({punch: punchsList.find(i => i.isActive) || punchsList[0] || {}, punchsList})
+      this.setState({ punch: punchsList.find(i => i.isActive) || punchsList[0] || {}, punchsList })
+      config.data.punch_cards = punchsList
     })
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
+
   updatePunchList = punchsList => this.setState({ punchsList })
   updateSingle = () => {
     const punch = this.state.punchsList.reduce((active, item) => item.isActive ? item : active, null) || this.state.punchsList[0] || {}
     this.setState({ punch })
   }
+
   update = () => this.forceUpdate()
+
   addPunch = () => {
     this.props.history.push(baseUrl + config.urls.punch_cards_adding)
   }
@@ -34,6 +40,7 @@ class PunchCards extends React.Component {
       }
     )
   }
+
   expiration = item => {
     if (item.expiration) {
       const now = moment()
@@ -42,6 +49,7 @@ class PunchCards extends React.Component {
       return duration
     } else return false
   }
+
   renderPunchPreview = () => {
     return (
       <div id='wrap-punch'>
@@ -68,6 +76,7 @@ class PunchCards extends React.Component {
       </div>
     )
   }
+
   render () {
     const bgrImg = {
       backgroundImage: `url('${config.urls.media}punch-bg.jpg')`

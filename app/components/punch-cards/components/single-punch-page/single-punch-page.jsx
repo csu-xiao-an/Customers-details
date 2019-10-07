@@ -12,6 +12,7 @@ export default class SinglePunchPage extends React.Component {
     disabledUse: false,
     isUses: false
   }
+
   static propTypes = {
     history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
@@ -19,6 +20,7 @@ export default class SinglePunchPage extends React.Component {
 
   componentDidMount = () => {
     getPunchCardsList().then(punchsList => {
+      config.data.punch_cards = punchsList
       const punchCard = punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {}
       const emptyObj = Object.entries(punchCard).length === 0 && punchCard.constructor === Object
       if (punchsList.length && !emptyObj) {
@@ -33,12 +35,14 @@ export default class SinglePunchPage extends React.Component {
     })
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
+
   daysLeft = () => {
     const now = moment()
     const end = moment(this.state.singlePunch && this.state.singlePunch.expiration)
     const duration = now.diff(end, 'day')
     return duration
   }
+
   del = () => this.setState({ visibleAgreeModal: true })
 
   confirmDeleteCard = () => {
