@@ -363,6 +363,7 @@ var config = {
   urls: {
     new_test_address: 'https://api.bewebmaster.co.il/settings/maps-api-key',
     add_address: `https://api.bewebmaster.co.il/settings/maps-api-key?token=${token}`,
+    error_page: 'https://api.bewebmaster.co.il/error_page',
     vanilla_sharing: 'https://unpkg.com/vanilla-sharing',
     address: 'https://maps.googleapis.com/maps/api/geocode/json?address={query}&language={language}',
     preview_pdf: 'https://docs.google.com/viewer?url={url}embedded=true',
