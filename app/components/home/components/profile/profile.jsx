@@ -575,7 +575,7 @@ render () {
               className={!this.state.profileNameEdit ? 'add-name' : 'hidden'}>
               <div className='wrap-name-full'>
                 <span className='label'>{config.translations.personal_info.name_label}:</span>
-                <h1>{config.translations.personal_info.empty_name_label}</h1>
+                <span className='add_info'>{config.translations.personal_info.empty_name_label}</span>
               </div>
               <div className='add-info'>
                 <div className='add-wrap'>
@@ -636,7 +636,7 @@ render () {
           <div className='add-phones-wrap'>
             <div className='phone-wrap-half'>
               <span className='label'>{config.translations.personal_info.empty_phone_label}</span>
-              <h1>{config.translations.personal_info_editing.add_phone_number}</h1>
+              <span className='add_info'>{config.translations.personal_info_editing.add_phone_number}</span>
             </div>
             <div className='add-info-pic'>
               <div className='pic-wrap'>
@@ -703,7 +703,7 @@ render () {
             className={!this.state.profileAddressEdit ? 'add-address' : 'hidden'}>
             <div className='wrap-address'>
               <span className='label'>{config.translations.personal_info.address_lable}:</span>
-              <h1>{config.translations.personal_info.empty_address_label}</h1>
+              <span className='add_info'>{config.translations.personal_info.empty_address_label}</span>
             </div>
             <div className='add-info'>
               <div className='add-wrap'>
