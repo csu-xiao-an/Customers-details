@@ -361,7 +361,6 @@ var config = {
     ]
   },
   urls: {
-    new_test_address: 'https://api.bewebmaster.co.il/settings/maps-api-key',
     add_address: `https://api.bewebmaster.co.il/settings/maps-api-key?token=${token}`,
     error_page: 'https://api.bewebmaster.co.il/error_page',
     vanilla_sharing: 'https://unpkg.com/vanilla-sharing',
@@ -427,7 +426,7 @@ var config = {
     birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',
-    address: 'Tel Aviv, Allenby str. 45',
+    // address: 'Tel Aviv, Allenby str. 45',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
     // phone: [],
