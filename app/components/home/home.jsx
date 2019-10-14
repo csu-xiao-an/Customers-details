@@ -193,7 +193,6 @@ class Home extends React.Component {
           {...this.props}
         />
         <Profile {...this.props} 
-          isVisibleFields={this.state.isVisibleFields}
           getProfilePicture={this.getProfilePicture}
         />
         {isEventVisible && <Events recentAppointmentsData={this.state.recentAppointmentsData} {...this.props} />}

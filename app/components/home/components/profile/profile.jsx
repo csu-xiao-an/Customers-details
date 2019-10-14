@@ -533,7 +533,6 @@ saveBtn = () => {
 }
 
 render () {
-  const { isVisibleFields } = this.props
   const { loader } = this.state
   return (
     <div id='profile'>
@@ -562,7 +561,7 @@ render () {
             {config.translations.personal_info.edit_label_btn}
           </button>}
       </div>
-      {(this.state.editProfile || (this.props.isVisibleFields || config.data.name)) && <div id='name'>
+      {(this.state.editProfile ||  config.data.name) && <div id='name'>
         <div className={'full-wrap-name ' + ((!this.state.name && this.state.blurName) ? 'error-name' : '')} ref={ref => { this.nameField = ref }}>
           {!this.state.editProfile && <div className='fullname'>
             <div className='fullname-wrap'>
@@ -608,7 +607,7 @@ render () {
           />
         </div>
       </div>}
-      {((this.props.isVisibleFields || this.state.phone) || this.state.editProfile) &&
+      {(this.state.phone || this.state.editProfile) &&
         <Phones 
           editProfile={this.state.editProfile}
           phoneBlur={this.phoneBlur}
@@ -654,7 +653,7 @@ render () {
         cancelModal={this.cancelPhoneModal}
         saveNumber={this.getPhone}
       /> */}
-      {((this.props.isVisibleFields || config.data.email) || this.state.editProfile) &&
+      {(config.data.email || this.state.editProfile) &&
         <Email editProfile={this.state.editProfile}
           // delEmail={this.delEmail}
           deleteEmail={this.deleteEmail}
@@ -670,7 +669,7 @@ render () {
         onHide={this.hideMailModal}
         email={this.state.email}
       />
-      {(this.state.editProfile || (this.props.isVisibleFields || config.data.address)) &&
+      {(this.state.editProfile || config.data.address) &&
       <div id='address'>
         <div className={!this.state.editProfile ? 'address-wrap' : 'hidden'}>
           <div className='address-data'>
@@ -731,7 +730,7 @@ render () {
             </div>
           </div>}
       </div>}
-      {((this.props.isVisibleFields || config.data.gender) || this.state.editProfile) &&
+      {(config.data.gender || this.state.editProfile) &&
         <Sex editProfile={this.state.editProfile}
           defaultPos={this.defaultPos}
           selectedSex={this.selectedSex}

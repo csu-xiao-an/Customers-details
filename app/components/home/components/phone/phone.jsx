@@ -77,7 +77,7 @@ export default class Phone extends React.Component {
                   </div>
                 </div>
               </div> : ''
-              }
+          }
           {
             this.props.editProfile &&
               <div className={this.props.profilePhoneEdit || this.props.phones || this.state.phone ? 'phone-edit' : 'hidden'}>
