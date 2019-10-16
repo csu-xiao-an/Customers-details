@@ -51,7 +51,8 @@ class PunchCardsAdd extends React.Component {
     history: PropTypes.object.isRequired,
     rights: PropTypes.object.isRequired
   }
-  componentWillMount = () => {
+
+  componentDidMount = () => {
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
     punchGetService().then(r => r.status === 200 &&
     r.json().then(data => {
@@ -64,6 +65,7 @@ class PunchCardsAdd extends React.Component {
     let b = `service_id=${this.state.i.id}&service_count=${this.state.uses}&sum=${this.state.total}&added=${moment().format('YYYY-MM-DD HH:mm:ss')}`
     if (this.state.switch) b = b + `&expiration=${this.state.date}`
     punchPostService(b).then(r => r.status === 201 && r.json().then(() => {
+      this.props.history.goBack()
       this.props.history.replace(baseUrl + config.urls.punch_cards)
     }))
   }

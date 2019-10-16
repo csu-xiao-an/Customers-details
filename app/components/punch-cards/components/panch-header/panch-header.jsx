@@ -6,9 +6,10 @@ const PunchHeader = ({ length }) => {
       e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
     }
   }
+  const backBtn = () => window.history.go(-1)
   return (
     <header className='punch-header'>
-      <button className={'prev-button ' + (config.isRTL ? 'rtl-btn' : 'ltr-btn')} onClick={() => window.history.go(-1)} >
+      <button className={'prev-button ' + (config.isRTL ? 'rtl-btn' : 'ltr-btn')} onClick={backBtn}>
         <img src={config.urls.media + 'arrow-back.svg'} />
       </button>
       <div className='header-wrap'>
