@@ -114,7 +114,6 @@ export default class Hero extends React.Component {
   }
 
   render () {
-    console.log(this.state.leftVip);
     return (
       <div id='hero'>
         <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
