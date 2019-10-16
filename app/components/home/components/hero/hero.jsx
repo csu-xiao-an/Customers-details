@@ -11,77 +11,86 @@ export default class Hero extends React.Component {
     clientImg: config.data.profile_image ? (config.urls.client_data + config.data.profile_image) : (config.urls.defaultPathToClientImg + config.urls.defaultClientImg),
     isInputDisabled: false,
     succes: false,
+    leftVip: false,
     isStar: false,
     flag: false
   }
+
   static propTypes = {
     rights: PropTypes.object.isRequired
   }
+
   handleStar = () => {
     const body = `${config.urls.isFavorite}=${!config.data.isFavorite}`
     clientReplaceService(body).then(r => {
       if (r.status === 204) {
         config.data.isFavorite = !config.data.isFavorite
         if (config.data.isFavorite) {
-          this.setState({succes: true, isStar: true}, () => { setTimeout(() => { this.setState({succes: false}) }, 1200) })
+          this.setState({ succes: true, isStar: true }, () => { setTimeout(() => { this.setState({ succes: false }) }, 1200) })
         } else {
-          this.setState({isStar: false})
+          this.setState({ isStar: false, leftVip: true }, () => { setTimeout(() => { this.setState({ leftVip: false }) }, 1200) })
         }
         this.forceUpdate()
       }
     })
   }
+
   onError = e => {
     if (!e.target.src.endsWith(config.urls.defaultClientImg)) {
       e.target.src = config.urls.defaultPathToClientImg + config.urls.defaultClientImg
     }
   }
+
   handleStatus = () => {
-    let status = this.state.status ? this.state.status : null
-    let urlencoded = encodeURIComponent(status)
+    const status = this.state.status ? this.state.status : null
+    const urlencoded = encodeURIComponent(status)
     const body = `status=${urlencoded}`
     StatusService(body).then(r => {
       if (r.status === 204) {
         config.data.status = status
-        this.setState({isInputDisabled: false})
+        this.setState({ isInputDisabled: false })
       }
     })
   }
+
   addPhoto = img => {
-    let photo = img.target.files[0]
+    const photo = img.target.files[0]
     if (config.plugins_list.includes('high_res_photo')) {
       this.uploadPhoto(photo)
     } else if (img.target.files.length && photo.type.indexOf('image') !== -1) {
       img.preventDefault()
       Resize(photo, this.bar)
     }
-    this.setState({file: photo}, () => {
+    this.setState({ file: photo }, () => {
     })
   }
+
   uploadPhoto = newFile => {
-    let d = moment(newFile.lastModified).format('YYYY-MM-DD HH:mm:ss')
-    let body = new FormData()
+    const d = moment(newFile.lastModified).format('YYYY-MM-DD HH:mm:ss')
+    const body = new FormData()
     body.append('date', d)
     body.append('file', newFile)
-    this.setState({flag: true})
+    this.setState({ flag: true })
     clientPostServiceImg(body).then(r => {
       if (r.status === 201) {
-        this.setState({clientImg: `${config.urls.client_data}${newFile.name}`})
+        this.setState({ clientImg: `${config.urls.client_data}${newFile.name}` })
         if (r.status) {
-          this.setState({flag: false})
+          this.setState({ flag: false })
         }
       }
     })
   }
+
   bar = url => {
     this.setState({
       imagePreviewUrl: url,
       file: dataURLtoFile(url, `${this.state.file.name}`)
     }, () => {
-      let newFile = this.state.file
+      const newFile = this.state.file
       this.uploadPhoto(newFile)
     })
   }
+
   componentDidMount = () => {
     this.setState({ isStar: config.data.isFavorite })
   }
@@ -89,18 +98,23 @@ export default class Hero extends React.Component {
   changeInput = e => {
     this.setState({ status: e.target.value }, () => this.handleHeightStatus())
   }
+
   changeInputState = () => {
     this.setState({ isInputDisabled: !this.state.isInputDisabled }, () => this.handleHeightStatus())
   }
+
   delInfo = () => {
     this.setState({ status: '' }, () => document.getElementById('status-label').focus())
   }
+
   handleHeightStatus = () => {
-    let height = document.getElementById('status-label').scrollHeight
+    const height = document.getElementById('status-label').scrollHeight
     document.getElementById('status-label').focus()
     document.getElementById('status-label').setAttribute('style', 'height:' + height + 'px')
   }
+
   render () {
+    console.log(this.state.leftVip);
     return (
       <div id='hero'>
         <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
@@ -129,9 +143,10 @@ export default class Hero extends React.Component {
               </svg>
             </div>
             : <img src={config.urls.media + 'ic_photo.svg'} />}
-          <input type='file' accept='image/*' capture style={{display: 'none'}} onChange={this.addPhoto} />
+          <input type='file' accept='image/*' capture style={{ display: 'none' }} onChange={this.addPhoto} />
         </label>
         <div className={'toast ' + (this.state.succes ? 'toast-visible' : '')}><h1>{config.translations.hero.favorites_label}</h1></div>
+        <div className={'toast ' + (this.state.leftVip ? 'toast-visible' : '')}><h1>{config.translations.hero.favorites_label_left}</h1></div>
         <div className='status-warp'>
           <Birthday />
           <form>
@@ -142,17 +157,20 @@ export default class Hero extends React.Component {
               id='status-label'
               value={this.state.status}
               placeholder={config.translations.hero.status_placeholder}
-              onChange={this.changeInput} />}
+              onChange={this.changeInput}
+            />}
             <span onClick={!this.state.isInputDisabled ? this.changeInputState : this.handleStatus} className={this.state.isInputDisabled ? 'input-group-addon-2' : 'input-group-addon'}>
               <img className={this.state.isInputDisabled ? 'input-group-addon-3' : ''} src={!this.state.isInputDisabled ? config.urls.media + 'pencil.svg' : config.urls.media + 'check-circle-status.svg'} />
             </span>
-            {this.state.isInputDisabled && <img className='del-status-icon' src={config.urls.media + 'x-circle.svg' } onClick={this.delInfo} />}
+            {this.state.isInputDisabled && <img className='del-status-icon' src={config.urls.media + 'x-circle.svg'} onClick={this.delInfo} />}
           </form>
         </div>
         <div className='img'>
-          <img className='client-img'
+          <img
+            className='client-img'
             src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
-            alt='user-img' onError={this.onError} />
+            alt='user-img' onError={this.onError}
+          />
         </div>
       </div>
     )
