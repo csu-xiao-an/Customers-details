@@ -30,6 +30,7 @@ export default class SinglePunchPage extends React.Component {
           uses: punchCard.uses || []
         })
       } else {
+        this.props.history.goBack()
         this.props.history.replace(baseUrl + config.urls.punch_cards)
       }
     })
