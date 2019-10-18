@@ -291,7 +291,11 @@ var config = {
       delete_customer: 'Delete customer'
     },
     datepicker: {
-      placeholder: 'Year, Month, Day'
+      placeholder: {
+        year: 'Year',
+        month: 'Month',
+        day: 'Day'
+      }
     },
     dates: {
       months: {
@@ -422,7 +426,7 @@ var config = {
   data: {
     id: 123123,
     name: 'Ahuva Ben Shushan',
-    birthdate: '07-04',
+    // birthdate: '07-04',
     birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',

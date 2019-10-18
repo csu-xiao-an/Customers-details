@@ -18,6 +18,9 @@ state = {
   visibleMapPopup: false,
   birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
   birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
+  year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
+  day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
+  month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
   gender: null,
   address: '',
   name: '',
@@ -325,11 +328,34 @@ hideMailModal = () => {
 /// ////////////////////////////  BIRTHDATE  //////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-getBdate = birthdate => this.setState({ birthdate })
+handleChangeYear = event => {
+  this.setState({
+    year: event.target.value,
+    birthyear: event.target.value
+  })
+}
 
-getByear = birthyear => this.setState({ birthyear })
+handleChangeMonth = event => {
+  this.setState({
+    month: event.target.value,
+    birthdate: moment(`${moment().format('YYYY')}-${event.target.value}-${this.state.day}`).isValid() ? `${event.target.value}-${this.state.day}` : null
+  })
+}
 
-deleteBirthday = () => this.setState({ birthyear: null, birthdate: null })
+handleChangeDay = event => {
+  this.setState({
+    day: event.target.value,
+    birthdate: moment(`${moment().format('YYYY')}-${this.state.month}-${event.target.value}`).isValid() ? `${this.state.month}-${event.target.value}` : null
+  })
+}
+
+deleteBirthday = () => this.setState({ 
+  year: config.translations.datepicker.placeholder.year,
+  month: config.translations.datepicker.placeholder.month,
+  day: config.translations.datepicker.placeholder.day,
+  birthdate: null,
+  birthyear: null
+})
 
 changeDays = () => this.setState({newDays: config.data.birthdate && config.data.birthyear
   ? `${config.data.birthyear}-${config.data.birthdate}`
@@ -474,6 +500,9 @@ backAll = () => {
     phone: this.normalizePhones(config.data.phone),
     email: config.data.email,
     gender: config.data.gender,
+    year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
+    day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
+    month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
     ifEnterPhone: false,
     validatePhone: false,
     validateMail: false,
@@ -746,16 +775,17 @@ render () {
         />}
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}
-          getBdate={this.getBdate}
-          getByear={this.getByear}
-          getDATE={this.getDATE}
           deleteBirthday={this.deleteBirthday}
-          changeDays={this.state.newDays}
           profileBirthEdit={this.state.profileBirthEdit}
           changeBirth={this.changeBirth}
-          hateBdate={this.state.birthdate}
-          hateByear={this.state.birthyear}
-          {...this.props} />}
+          handleChangeDay={this.handleChangeDay}
+          handleChangeMonth={this.handleChangeMonth}
+          handleChangeYear={this.handleChangeYear}
+          day={this.state.day}
+          year={this.state.year}
+          month={this.state.month}
+          {...this.props}
+        />}
       {/* {config.data.phone && <Sendlink {...this.props} />} */}
       <Agreement
         editProfile={this.state.editProfile}
