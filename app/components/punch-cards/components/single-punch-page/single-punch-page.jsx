@@ -49,6 +49,7 @@ export default class SinglePunchPage extends React.Component {
     punchDeleteService(this.state.singlePunch.id)
       .then(r => {
         if (r.status === 204) {
+          this.props.history.goBack()
           this.props.history.replace(baseUrl + config.urls.punch_cards)
         } else if (r.status === 422) {
           this.cancel()

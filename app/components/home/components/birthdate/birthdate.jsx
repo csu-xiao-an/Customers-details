@@ -9,6 +9,16 @@ export default class Birthdate extends React.Component {
     rights: PropTypes.object.isRequired
   }
 
+  renderBirthDay = () => {
+    if (config.data.birthyear && !config.data.birthdate) {
+      return config.data.birthyear
+    } else if (config.data.birthyear && config.data.birthdate) {
+      return `${config.data.birthyear}-${config.data.birthdate}`
+    } else if (!config.data.birthyear && config.data.birthdate) {
+      return moment(config.data.birthdate, 'MM-DD').format('MMMM DD')
+    }
+  }
+
   render () {
     const { handleChangeYear, handleChangeMonth, handleChangeDay, year, month, day } = this.props
     return (
@@ -16,12 +26,14 @@ export default class Birthdate extends React.Component {
         <div className={!this.props.editProfile ? 'wrapBDay' : 'hidden'}>
           <span className='label'>{config.translations.personal_info.birthday_label}:</span>
           <span className='ymd'>
-            {(config.data.birthyear ? config.data.birthyear : '') + ((config.data.birthyear && config.data.birthdate) ? '-' : '') + (config.data.birthdate ? config.data.birthdate : '')}
+            {
+              this.renderBirthDay()
+            }
           </span>
         </div>
         {
-          (this.props.editProfile && (!config.data.birthdate && !config.data.birthyear)) 
-            ? <div onClick={() => this.props.changeBirth()}
+          (this.props.editProfile && (!config.data.birthdate && !config.data.birthyear))
+            ? <div onClick={this.props.changeBirth}
               className={!this.props.profileBirthEdit ? 'add-birth' : 'hidden'}>
               <div className='wrap-birth'>
                 <span className='label'>{config.translations.personal_info.birthday_label}:</span>

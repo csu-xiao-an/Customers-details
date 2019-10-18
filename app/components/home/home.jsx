@@ -145,7 +145,7 @@ class Home extends React.Component {
   getProfilePicture = value => {
     this.setState({ profilePic: config.urls.client_data + value })
   }
-  componentWillMount () {
+  componentDidMount () {
     const { history } = this.props
     const queryParams = qs.parse(history.location.search.slice(1))
     const [ mainRoute, tailRoute = '' ] = queryParams.page ? queryParams.page.split('/') : []

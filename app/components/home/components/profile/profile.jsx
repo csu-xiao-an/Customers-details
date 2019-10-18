@@ -349,18 +349,13 @@ handleChangeDay = event => {
   })
 }
 
-deleteBirthday = () => this.setState({ 
+deleteBirthday = () => this.setState({
   year: config.translations.datepicker.placeholder.year,
   month: config.translations.datepicker.placeholder.month,
   day: config.translations.datepicker.placeholder.day,
   birthdate: null,
   birthyear: null
 })
-
-changeDays = () => this.setState({newDays: config.data.birthdate && config.data.birthyear
-  ? `${config.data.birthyear}-${config.data.birthdate}`
-  : ((config.data.birthyear) ? (`${config.data.birthyear}${config.data.birthdate ? config.data.birthdate : ''}`)
-    : `${moment().format('YYYY')}-${config.data.birthdate ? config.data.birthdate : moment().format('MM-DD')}`)})
 
 changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
 
