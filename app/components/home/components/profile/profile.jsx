@@ -465,7 +465,6 @@ sendData = () => {
       config.data.gender = this.state.gender
       config.data.permit_ads = this.state.permit_ads
       this.setState({ editProfile: false, resetApi: false, loader: false }, () => this.changeBirth())
-      this.changeDays()
       this.resetFields()
       this.forceUpdate()
       clientNewGetService().then(r => {
