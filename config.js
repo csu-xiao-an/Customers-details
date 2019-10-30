@@ -1,5 +1,6 @@
 var config = {
   isRTL: false,
+  js_framework: 'react',
   baseUrl: '/en/clients/{client_id}',
   interval_days: 28,
   min_data_length: 300,
