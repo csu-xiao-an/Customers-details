@@ -328,6 +328,25 @@ hideMailModal = () => {
 /// ////////////////////////////  BIRTHDATE  //////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
+// saveBirthdate = () => {
+//   const { day, month, birthyear } = this.state
+//   const stringDay = config.translations.datepicker.placeholder.day
+//   const stringMonth = config.translations.datepicker.placeholder.month
+
+//   if (birthyear && day === stringDay && month === stringMonth) {
+//     console.log('Ввели только год')
+//   } else if (month === stringMonth && day !== stringDay && !birthyear) {
+//     console.log('Ввели только день')
+//   } else if (birthyear && day !== stringDay && month === stringMonth) {
+//     console.log('Ввели год и день')
+//   }
+//   // if (this.state.birthyear && !this.state.birthdate) {
+//   //   console.log('Enter full date');
+//   // } else {
+//   //   console.log('error');
+//   // }
+// }
+
 handleChangeYear = event => {
   this.setState({
     year: event.target.value,
@@ -545,6 +564,7 @@ editInfo = () => {
 }
 
 saveBtn = () => {
+  this.saveBirthdate()
   let numbers = this.state.phone.filter(phone => phone.number !== '')
   if (this.state.name) {
     if (numbers.length !== 0) {
@@ -556,6 +576,8 @@ saveBtn = () => {
 }
 
 render () {
+  // console.log(this.state.birthyear);
+  // console.log(this.state.birthdate);
   const { loader } = this.state
   return (
     <div id='profile'>
@@ -772,6 +794,7 @@ render () {
           deleteBirthday={this.deleteBirthday}
           profileBirthEdit={this.state.profileBirthEdit}
           changeBirth={this.changeBirth}
+          blurBirthdate={this.blurBirthdate}
           handleChangeDay={this.handleChangeDay}
           handleChangeMonth={this.handleChangeMonth}
           handleChangeYear={this.handleChangeYear}
