@@ -564,7 +564,7 @@ editInfo = () => {
 }
 
 saveBtn = () => {
-  this.saveBirthdate()
+  // this.saveBirthdate()
   let numbers = this.state.phone.filter(phone => phone.number !== '')
   if (this.state.name) {
     if (numbers.length !== 0) {
