@@ -653,7 +653,7 @@ render () {
         </div>
       </div>}
       {(this.state.phone || this.state.editProfile) &&
-        <Phones 
+        <Phones
           editProfile={this.state.editProfile}
           phoneBlur={this.phoneBlur}
           resetPhoneBlur={this.resetPhoneBlur}
@@ -725,7 +725,7 @@ render () {
           </div>
           <div className='images'>
             <div className='img-wrap'>
-              <a href={config.urls.waze.replace('{address}', config.data.address)}>
+              <a href={config.urls.waze.replace('{address}', encodeURIComponent(config.data.address))}>
                 <img
                   // onClick={() => this.setState({visibleMapPopup: true})}
                   src={config.urls.media + 'waze.png'}
@@ -733,7 +733,7 @@ render () {
               </a>
             </div>
             <div className='img-wrap'>
-              <a href={config.urls.google_maps.replace('{address}', config.data.address)}>
+              <a href={config.urls.google_maps + encodeURIComponent(config.data.address)}>
                 <img
                   // onClick={() => this.setState({visibleMapPopup: true})}
                   src={config.urls.media + 'icon-address.png'}
