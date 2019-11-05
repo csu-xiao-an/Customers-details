@@ -187,7 +187,8 @@ var config = {
         female: 'Female',
         select_gender: 'Select gender'
       },
-      birthday_label: 'Birthday',
+      birthday_label: 'Birthday:',
+      birthday_label_error: 'Enter a full date',
       add_birth_label: 'Add Birthdate',
       send_link: {
         sent_label: 'Sent',
@@ -426,8 +427,8 @@ var config = {
   data: {
     id: 123123,
     name: 'Ahuva Ben Shushan',
-    birthdate: '07-04',
-    birthyear: '1994',
+    // birthdate: '07-04',
+    // birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',
     address: 'בת ים, ויצמן, 18',

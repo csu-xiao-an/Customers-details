@@ -38,6 +38,7 @@ state = {
   maleSelected: false,
   femaleSelected: false,
   genderSelect: '',
+  // birthdateError: false,
   label: config.translations.personal_info.gender.select_gender,
   // blurPhone: false
 }
@@ -328,24 +329,59 @@ hideMailModal = () => {
 /// ////////////////////////////  BIRTHDATE  //////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-// saveBirthdate = () => {
-//   const { day, month, birthyear } = this.state
-//   const stringDay = config.translations.datepicker.placeholder.day
-//   const stringMonth = config.translations.datepicker.placeholder.month
+saveBirthdate = () => {
+  let birthdateError = true
+  const datepicker = document.getElementById('birthdate')
+  datepicker.style.borderTop = '1px solid #dedeff'
+  datepicker.style.borderBottom = 'none'
+  datepicker.style.borderLeft = 'none'
+  datepicker.style.borderRight = 'none'
+  const { day, month, year } = this.state
+  const stringDay = config.translations.datepicker.placeholder.day
+  const stringMonth = config.translations.datepicker.placeholder.month
+  const stringYear = config.translations.datepicker.placeholder.year
 
-//   if (birthyear && day === stringDay && month === stringMonth) {
-//     console.log('Ввели только год')
-//   } else if (month === stringMonth && day !== stringDay && !birthyear) {
-//     console.log('Ввели только день')
-//   } else if (birthyear && day !== stringDay && month === stringMonth) {
-//     console.log('Ввели год и день')
-//   }
-//   // if (this.state.birthyear && !this.state.birthdate) {
-//   //   console.log('Enter full date');
-//   // } else {
-//   //   console.log('error');
-//   // }
-// }
+  return new Promise(resolve => {
+    if (year !== stringYear && day === stringDay && month === stringMonth) {
+      // Only year
+      datepicker.style.border = '1px solid red'
+    } else if (month === stringMonth && day !== stringDay && year === stringYear) {
+      // Only day
+      datepicker.style.border = '1px solid red'
+    } else if (year && day !== stringDay && month === stringMonth) {
+      // Year and day
+      datepicker.style.border = '1px solid red'
+    } else if (year === stringYear && day === stringDay && month !== stringMonth) {
+      // Only month
+      this.setState({ birthyear: moment().format('YYYY'), birthdate: `${this.state.month}-01`, day: '01', year: moment().format('YYYY') })
+      birthdateError = false
+    } else if (year !== stringYear && day === stringDay && month !== stringMonth) {
+      // Year and month
+      this.setState({ birthdate: `${this.state.month}-01`, day: '01' })
+      birthdateError = false
+    } else if (year === stringYear && day !== stringDay && month !== stringMonth) {
+      // Month and day
+      this.setState({ birthyear: moment().format('YYYY'), year: moment().format('YYYY'), birthdate: `${this.state.month}-01`, day: '01' })
+      birthdateError = false
+    } else birthdateError = false
+    this.setState({ birthdateError }, () => resolve())
+  })
+}
+
+  saveBtn = () => {
+    this.saveBirthdate().then(() => {
+      if (!this.state.birthdateError) {
+        const numbers = this.state.phone.filter(phone => phone.number !== '')
+        if (this.state.name) {
+          if (numbers.length !== 0) {
+            this.saveAll()
+          } else this.visibleModal()
+        } else {
+          this.showNameModal()
+        }
+      }
+    })
+  }
 
 handleChangeYear = event => {
   this.setState({
@@ -386,6 +422,7 @@ handleAds = () => {
   this.setState({ permit_ads: !this.state.permit_ads })
   this.forceUpdate()
 }
+
 getArgeement = value => this.setState({ permit_ads: value })
 
 /// ///////////////////////////////////////////////////////////////////
@@ -428,10 +465,6 @@ initMap = () => {
         address: places[0].formatted_address
       })
     })
-  } else {
-    this.initTimeout = setTimeout(() => {
-      this.initMap()
-    }, 500)
   }
 }
 
@@ -563,21 +596,7 @@ editInfo = () => {
   this.setState({ editProfile: true, resetApi: true, phone: this.normalizePhones(config.data.phone) }, () => this.initMap())
 }
 
-saveBtn = () => {
-  // this.saveBirthdate()
-  let numbers = this.state.phone.filter(phone => phone.number !== '')
-  if (this.state.name) {
-    if (numbers.length !== 0) {
-      this.saveAll()
-    } else this.visibleModal()
-  } else {
-    this.showNameModal()
-  }
-}
-
 render () {
-  // console.log(this.state.birthyear);
-  // console.log(this.state.birthdate);
   const { loader } = this.state
   return (
     <div id='profile'>
@@ -792,9 +811,10 @@ render () {
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}
           deleteBirthday={this.deleteBirthday}
+          birthdateError={this.state.birthdateError}
           profileBirthEdit={this.state.profileBirthEdit}
           changeBirth={this.changeBirth}
-          blurBirthdate={this.blurBirthdate}
+          saveBirthdate={this.saveBirthdate}
           handleChangeDay={this.handleChangeDay}
           handleChangeMonth={this.handleChangeMonth}
           handleChangeYear={this.handleChangeYear}
