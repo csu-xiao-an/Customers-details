@@ -25,6 +25,7 @@ var config = {
   plugins_list: ['multiple_workers', 'gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes'],
   menu: [
     {text: 'calendar', link: '/en/calendar', icon: 'calendar.jpg'},
+    {text: 'download', icon: 'download.svg'},
     {text: 'clients_list', link: '/en/clients_list', icon: 'clients_list.jpg'},
     {text: 'reminders', link: '/en/reminders', icon: 'reminders.jpg'},
     {text: 'groups', link: '/en/groups', icon: 'groups.jpg'},
@@ -44,6 +45,7 @@ var config = {
       support: 'Support',
       suggest_feature: 'Suggest a feature',
       rate_us: 'Rate us',
+      download: 'Install Atzma.im',
       logout: 'Log out'
     },
     hot_links: {
