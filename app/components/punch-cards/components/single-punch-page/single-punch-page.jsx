@@ -20,7 +20,9 @@ export default class SinglePunchPage extends React.Component {
 
   componentDidMount = () => {
     getPunchCardsList().then(punchsList => {
-      config.data.punch_cards = punchsList
+      const punchCardsIds = config.data.punch_cards.map( card => card.id)
+      let filtered = punchsList.filter(punch => !punchCardsIds.includes(punch.id))
+      config.data.punch_cards = [...filtered]
       const punchCard = punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {}
       const emptyObj = Object.entries(punchCard).length === 0 && punchCard.constructor === Object
       if (punchsList.length && !emptyObj) {
@@ -48,10 +50,11 @@ export default class SinglePunchPage extends React.Component {
 
   confirmDeleteCard = () => {
     punchDeleteService(this.state.singlePunch.id)
-      .then(r => {
+        .then(r => {
         if (r.status === 204) {
           this.props.history.goBack()
           this.props.history.replace(baseUrl + config.urls.punch_cards)
+          config.data.punch_cards = config.data.punch_cards.filter(punchCard => punchCard.id !== this.state.singlePunch.id)
         } else if (r.status === 422) {
           this.cancel()
           this.unprocessableDelete()
@@ -76,7 +79,7 @@ export default class SinglePunchPage extends React.Component {
         this.setState({
           uses: this.state.uses.filter(uses => uses.id !== this.state.usesId),
           visibleAgreeModal: false,
-          isUses: false
+          isUses: false,
         })
       }
     })
