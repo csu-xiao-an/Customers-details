@@ -18,7 +18,7 @@ class PunchCards extends React.Component {
       punchsList.sort((a, b) => a.id - b.id).sort((a, b) => !!a.isActive - !!b.isActive)
         const punchCardsIds = config.data.punch_cards.map( card => card.id)
         let filtered = punchsList.filter(punch => !punchCardsIds.includes(punch.id))
-      config.data.punch_cards = [...filtered]
+      config.data.punch_cards.push(...filtered)
       this.setState({ punch: punchsList.find(i => i.isActive) || punchsList[0] || {},
         punchsList: [...punchsList] })
     })

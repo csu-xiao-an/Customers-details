@@ -22,7 +22,7 @@ export default class SinglePunchPage extends React.Component {
     getPunchCardsList().then(punchsList => {
       const punchCardsIds = config.data.punch_cards.map( card => card.id)
       let filtered = punchsList.filter(punch => !punchCardsIds.includes(punch.id))
-      config.data.punch_cards = [...filtered]
+      config.data.punch_cards.push(...filtered)
       const punchCard = punchsList.find(i => i.id === +this.props.match.params.punch_card_id) || {}
       const emptyObj = Object.entries(punchCard).length === 0 && punchCard.constructor === Object
       if (punchsList.length && !emptyObj) {
