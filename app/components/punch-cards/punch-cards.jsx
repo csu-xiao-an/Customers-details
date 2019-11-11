@@ -5,7 +5,7 @@ import './punch-cards.styl'
 const baseUrl = config.baseUrl ? config.baseUrl.replace('{client_id}', config.data.id) : ''
 class PunchCards extends React.Component {
   state = {
-    punchsList: [...config.data.punch_cards],
+    punchsList: [],
     punch: {}
   }
 
@@ -16,11 +16,8 @@ class PunchCards extends React.Component {
   componentDidMount = () => {
     getPunchCardsList().then(punchsList => {
       punchsList.sort((a, b) => a.id - b.id).sort((a, b) => !!a.isActive - !!b.isActive)
-        const punchCardsIds = config.data.punch_cards.map( card => card.id)
-        let filtered = punchsList.filter(punch => !punchCardsIds.includes(punch.id))
-      config.data.punch_cards.push(...filtered)
-      this.setState({ punch: punchsList.find(i => i.isActive) || punchsList[0] || {},
-        punchsList: [...punchsList] })
+      this.setState({ punch: punchsList.find(i => i.isActive) || punchsList[0] || {}, punchsList })
+      config.data.punch_cards = punchsList
     })
     if (config.isRTL) document.getElementsByTagName('body')[0].style.direction = 'rtl'
   }
@@ -56,7 +53,7 @@ class PunchCards extends React.Component {
   renderPunchPreview = () => {
     return (
       <div id='wrap-punch'>
-        { config.data.punch_cards.map(i => (
+        { this.state.punchsList.map(i => (
           <div className='punch-preview'>
             {this.expiration(i) > 0 && <div className={'expired-dates' + (config.isRTL ? ' expired-rtl' : ' expired-ltr')}>
               <span>{config.translations.punch_cards.preview_invalid_label.expired}</span>
