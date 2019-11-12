@@ -361,7 +361,7 @@ saveBirthdate = () => {
       birthdateError = false
     } else if (year === stringYear && day !== stringDay && month !== stringMonth) {
       // Month and day
-      this.setState({ birthyear: moment().format('YYYY'), year: moment().format('YYYY'), birthdate: `${this.state.month}-01`, day: '01' })
+      this.setState({ birthyear: moment().format('YYYY'), year: moment().format('YYYY'), birthdate: `${this.state.month}-${this.state.day}` })
       birthdateError = false
     } else birthdateError = false
     this.setState({ birthdateError }, () => resolve())
