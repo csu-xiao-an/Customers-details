@@ -784,6 +784,7 @@ render () {
                   ref={input => { this.input = input }}
                   onChange={this.changeAdress}
                   value={this.state.address}
+                  placeholder={config.translations.personal_info.address_placeholder}
                 />
               </div>
             </div>

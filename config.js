@@ -167,6 +167,7 @@ var config = {
       add_phone_number: 'Add phone number'
     },
     personal_info: {
+      address_placeholder: 'Add address',
       title: 'Personal Info',
       edit_label_btn: 'Edit',
       back_label_btn: 'Back',
@@ -431,7 +432,7 @@ var config = {
     // birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',
-    address: 'בת ים, ויצמן, 18',
+    // address: 'בת ים, ויצמן, 18',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
     // phone: [],
