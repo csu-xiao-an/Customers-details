@@ -6,6 +6,7 @@ export default class Events extends React.Component {
     rights: PropTypes.object.isRequired,
     recentAppointmentsData: PropTypes.array.isRequired
   }
+
   getColorLine (i) {
     let nextNum = 0
     let colorStr = ''
@@ -20,12 +21,14 @@ export default class Events extends React.Component {
       borderImage: 'linear-gradient(to bottom' + colorStr + ') 1 100%',
       borderWidth: '2px',
       borderStyle: 'solid',
+      borderTop: 'none',
       borderRight: 'navajowhite'
     }
     let rightBorder = {
       borderImage: 'linear-gradient(to bottom' + colorStr + ') 1 100%',
       borderWidth: '2px',
       borderStyle: 'solid',
+      borderTop: 'none',
       borderLeft: 'navajowhite'
     }
     let BorderNone = {
@@ -36,10 +39,12 @@ export default class Events extends React.Component {
     }
     return (colorStr ? (config.isRTL ? rightBorder : leftBorder) : BorderNone)
   }
+
   getHeaderTitle = i => i.services.map(i => i.name).join(', ')
   componentWillMount = () => {
     if (!Array.isArray(config.data.recent_appointments)) config.data.recent_appointments = []
   }
+  
   render () {
     let currDate = moment().format('YYYY-MM-DD HH-mm')
     const recentAppointmentsData = this.props.recentAppointmentsData.sort((a, b) => moment(b.date) - moment(currDate))

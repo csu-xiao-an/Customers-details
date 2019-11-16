@@ -709,12 +709,12 @@ var config = {
           {
             id: 159159,
             name: 'manicure',
-            color: 'red'
+            // color: 'red'
           },
           {
             id: 756756,
             name: 'hair coloring',
-            color: 'blue'
+            // color: 'blue'
           }
         ]
       },
