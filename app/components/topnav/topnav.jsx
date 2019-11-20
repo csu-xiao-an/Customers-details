@@ -1,4 +1,5 @@
 import { default as Menu } from 'project-components/Menu/Menu.jsx'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import './topnav.styl'
 
 export default class Topnav extends React.Component {
@@ -35,13 +36,14 @@ export default class Topnav extends React.Component {
   menuOnOff = () => {
     this.setState(state => ({
       isActive: !state.isActive
-    }))
-    document.querySelector('body').classList.toggle('no-scroll')
+    }), () => {
+      disableBodyScroll(document.querySelector('#menu_modal'))
+    })
   }
 
   closeMenu = () => {
     this.setState({isActive: false})
-    document.querySelector('body').classList.remove('no-scroll')
+    clearAllBodyScrollLocks()
   }
 
   render () {
