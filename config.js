@@ -22,7 +22,7 @@ var config = {
     worker_id: 1
   },
   // plugins_list: [],
-  plugins_list: ['multiple_workers', 'gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes'],
+  plugins_list: ['multiple_workers', 'gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes', 'high-res-photo'],
   menu: [
     {text: 'calendar', link: '/en/calendar', icon: 'calendar.jpg'},
     {text: 'clients_list', link: '/en/clients_list', icon: 'clients_list.jpg'},
@@ -140,7 +140,9 @@ var config = {
       confirm_del_media: 'Are you sure to delete this file?',
       confirm_del_media_multiple: 'Are you sure to delete these files?',
       cancel_media: 'Cancel',
-      confirm_del: 'Confirm'
+      confirm_del: 'Confirm',
+      title_large_file: 'The file you sent is too big. For now we don\'t allow storing large files',
+      agree_large_file: 'Got it'
     },
     media_modal: {
       add_note: 'Add note',
