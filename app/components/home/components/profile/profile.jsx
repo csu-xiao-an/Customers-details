@@ -43,6 +43,14 @@ state = {
   // blurPhone: false
 }
 
+constructor (props) {
+  super(props)
+  this.text = {
+    title_modal: config.translations.personal_info_editing.title,
+    agree_btn: config.translations.personal_info_editing.agree
+  }
+}
+
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  NAME  ///////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
@@ -666,6 +674,7 @@ render () {
               </div>
             </div>}
           <EmptyDataModal
+            text={this.text}
             show={this.state.activeNameModal}
             onHide={this.cancelNameModal}
           />
