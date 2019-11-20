@@ -142,7 +142,8 @@ var config = {
       cancel_media: 'Cancel',
       confirm_del: 'Confirm',
       title_large_file: 'The file you sent is too big. For now we don\'t allow storing large files',
-      agree_large_file: 'Got it'
+      agree_large_file: 'Got it',
+      title_usupported_file: 'We didn\'t recognized the file you sent.Pls send us a message what kind of file it is and what its purpose'
     },
     media_modal: {
       add_note: 'Add note',

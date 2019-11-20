@@ -30,13 +30,18 @@ export default class Media extends React.Component {
     isOpenGalleryContex: false,
     previewOther: false,
     flag: false,
-    showLargeModal: false
+    showLargeModal: false,
+    largeModal: false
   }
 
   constructor (props) {
     super(props)
-    this.text = {
+    this.textLargeModal = {
       title_modal: config.translations.media.title_large_file,
+      agree_btn: config.translations.media.agree_large_file
+    }
+    this.textUnsupportModal = {
+      title_modal: config.translations.media.title_usupported_file,
       agree_btn: config.translations.media.agree_large_file
     }
   }
@@ -51,7 +56,7 @@ export default class Media extends React.Component {
   }
 
   closeLargeModal = () => {
-    this.setState({ showLargeModal: false })
+    this.setState({ showLargeModal: false, largeModal: false })
   }
 
   handleGallery = () => {
@@ -87,8 +92,11 @@ export default class Media extends React.Component {
           })
         document.querySelector('body').classList.remove('no-scroll')
         this.checkAmountSlides()
-      }
+      } else
       if (r.status === 413) {
+        this.setState({ largeModal: true }, () => this.showLargeModal())
+      } else
+      if (r.status === 415) {
         this.showLargeModal()
       }
     })
@@ -246,7 +254,7 @@ export default class Media extends React.Component {
     return config.plugins_list.includes('gallery') && (
       <div id='gallery'>
         <div className='gallery-header'>
-          <div className='title' onClick={this.showLargeModal}>
+          <div className='title'>
             {config.translations.media.title}
           </div>
           <div className='files-amount'>
@@ -321,7 +329,7 @@ export default class Media extends React.Component {
           </div>
         </Modal>
         <EmptyDataModal
-          text={this.text}
+          text={this.state.largeModal ? this.textLargeModal : this.textUnsupportModal}
           show={this.state.showLargeModal}
           onHide={this.closeLargeModal}
         />
