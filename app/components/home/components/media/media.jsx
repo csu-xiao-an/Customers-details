@@ -73,31 +73,34 @@ export default class Media extends React.Component {
     this.setState({ flag: true })
     if (this.state.desc !== '') body.append('note', this.state.desc)
     mediaPostService(body).then(r => {
-      let newId = r.data.id
-      if (r.status) {
-        this.setState({ flag: false })
-      }
-      if (r.status === 201) {
-        let data = {
-          date: date,
-          name: r.data.name
-        }
-        if (this.state.desc !== '') data.note = this.state.desc
-        config.data.gallery.unshift(data)
-        config.data.gallery[0].id = newId
-        this.props.addedItemInGallery(date, this.state.file.name, this.state.desc, newId)
-        this.setState({ imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {} },
-          () => {
-            $imagePreview = null
-          })
-        document.querySelector('body').classList.remove('no-scroll')
-        this.checkAmountSlides()
-      } else
       if (r.status === 413) {
         this.setState({ largeModal: true }, () => this.showLargeModal())
-      } else
-      if (r.status === 415) {
+      } else if (r.status === 415) {
         this.showLargeModal()
+      } else if (r.status === 201) {
+        r.json().then(data => ({
+          status: r.status,
+          data
+        })).then(r => {
+          let newId = r.data.id
+          if (r.status) {
+            this.setState({ flag: false })
+          }
+          let data = {
+            date: date,
+            name: r.data.name
+          }
+          if (this.state.desc !== '') data.note = this.state.desc
+          config.data.gallery.unshift(data)
+          config.data.gallery[0].id = newId
+          this.props.addedItemInGallery(date, this.state.file.name, this.state.desc, newId)
+          this.setState({ imagePreviewUrl: '', isAddMedia: !this.state.isAddMedia, desc: '', file: {} },
+            () => {
+              $imagePreview = null
+            })
+          document.querySelector('body').classList.remove('no-scroll')
+          this.checkAmountSlides()
+        })
       }
     })
   }
