@@ -35,23 +35,7 @@ export default class Topnav extends React.Component {
   menuOnOff = () => {
     this.setState(state => ({
       isActive: !state.isActive
-    }), () => {
-      const arr = document.querySelectorAll('.list-item')
-      const menuModal = document.querySelector('#menu_modal')
-      const lastItem = arr[arr.length - 1]
-      menuModal.addEventListener('scroll', () => {
-        if (menuModal.scrollTop == menuModal.scrollHeight - menuModal.clientHeight) {
-          const coords = lastItem.getBoundingClientRect()
-          const bottomCoord = coords.bottom - coords.height / 3
-          console.log('coords', coords)
-          console.log('bottomCoord', Math.floor(bottomCoord))
-          console.log('clientHeight', menuModal.clientHeight)
-          if (Math.floor(bottomCoord) >= menuModal.clientHeight) {
-            lastItem.style.marginBottom = '4rem'
-          }
-        }
-      })
-    })
+    }))
     document.querySelector('body').classList.toggle('no-scroll')
   }
 
