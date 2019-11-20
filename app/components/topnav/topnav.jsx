@@ -1,4 +1,5 @@
 import { default as Menu } from 'project-components/Menu/Menu.jsx'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import './topnav.styl'
 
 export default class Topnav extends React.Component {
@@ -35,13 +36,14 @@ export default class Topnav extends React.Component {
   menuOnOff = () => {
     this.setState(state => ({
       isActive: !state.isActive
-    }))
-    document.querySelector('body').classList.toggle('no-scroll')
+    }), () => {
+      disableBodyScroll(document.querySelector('#menu_modal'))
+    })
   }
 
   closeMenu = () => {
     this.setState({isActive: false})
-    document.querySelector('body').classList.remove('no-scroll')
+    clearAllBodyScrollLocks()
   }
 
   render () {
@@ -53,7 +55,7 @@ export default class Topnav extends React.Component {
             {this.props.home && <img className='edit' onClick={this.menuOnOff} src={config.urls.media + 'ic_menu.svg'} />}
           </div>
           {(this.props.home || this.props.timeline) && <div className='client-name'>
-            <h1>Name</h1>
+            <h1>{config.data.name}</h1>
             {birthdate && <span>{config.translations.birthdate_info.years_old.replace('{count}', birthdate)}</span>}
           </div>}
           <div className={'arrow-wrap ' + (config.isRTL ? 'ltr' : 'rtl')} onClick={this.props.rights.topnav.back ? () => window.history.go(-1) : () => {}}>
