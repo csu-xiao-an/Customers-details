@@ -108,7 +108,23 @@ export default class Media extends React.Component {
   checkAmountSlides = () => { this.setState({ slideAmount: config.data.gallery.length }) }
   addFile = e => {
     let file = e.target.files[0]
-    if (e.target.files.length && file.type.indexOf('image') !== -1) { e.preventDefault(); Resize(file, this.bar) } else
+    if (e.target.files.length && file.type.indexOf('image') !== -1) {
+      if (config.plugins_list.includes('high_res_photo')) {
+        // e.preventDefault()
+        // const canvas = document.createElement('canvas')
+        // const context = canvas.getContext('2d')
+        // const baseImage = new Image()
+        // baseImage.onload = () => {
+        //   baseImage.src = file.name
+        //   let h = baseImage.height
+        //   let w = baseImage.width
+        //   context.drawImage(baseImage, 100, 100)
+        //   const pngUrl = canvas.toDataURL('image/jpeg')
+        //   this.bar(pngUrl)
+        // }
+        this.setState({ file, imagePreviewUrl: config.urls.media + 'other_gallery.svg', previewOther: true })
+      } else { e.preventDefault(); Resize(file, this.bar) }
+    } else
     if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({ imagePreviewUrl: config.urls.media + 'audio_gallery.svg', previewOther: true }) } else
     if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({ imagePreviewUrl: config.urls.media + 'video_gallery.svg', previewOther: true }) } else
     if (e.target.files.length && file.type.indexOf('pdf') !== -1) { this.setState({ imagePreviewUrl: config.urls.media + 'other_gallery.svg', previewOther: true }) } else

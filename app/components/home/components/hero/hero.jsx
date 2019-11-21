@@ -28,6 +28,10 @@ export default class Hero extends React.Component {
       title_modal: config.translations.media.title_large_file,
       agree_btn: config.translations.media.agree_large_file
     }
+    this.textUnsupportModal = {
+      title_modal: config.translations.media.title_usupported_file,
+      agree_btn: config.translations.media.agree_large_file
+    }
   }
 
   handleStar = () => {
@@ -68,7 +72,7 @@ export default class Hero extends React.Component {
   }
 
   closeLargeModal = () => {
-    this.setState({ showLargeModal: false, tempCircle: false, file: {} })
+    this.setState({ showLargeModal: false, largeModal: false, tempCircle: false, file: {} })
   }
 
   addPhoto = img => {
@@ -77,7 +81,7 @@ export default class Hero extends React.Component {
       this.uploadPhoto(photo)
     } else if (img.target.files.length && photo.type.indexOf('image') !== -1) {
       img.preventDefault()
-      Resize(photo, this.bar)
+      Resize(photo, this.renderPhoto)
     }
     this.setState({ file: photo }, () => {
     })
@@ -97,11 +101,13 @@ export default class Hero extends React.Component {
         }
       } else if (r.status === 413) {
         this.showLargeModal()
+      } else if (r.status === 415) {
+        this.setState({ largeModal: true }, () => this.showLargeModal())
       }
     })
   }
 
-  bar = url => {
+  renderPhoto = url => {
     this.setState({ file: dataURLtoFile(url, `${this.state.file.name}`) }, () => {
       const newFile = this.state.file
       this.uploadPhoto(newFile)
@@ -189,7 +195,7 @@ export default class Hero extends React.Component {
           />
         </div>
         <EmptyDataModal
-          text={this.textLargeModal}
+          text={this.state.largeModal ? this.textLargeModal : this.textUnsupportModal}
           show={this.state.showLargeModal}
           onHide={this.closeLargeModal}
         />
