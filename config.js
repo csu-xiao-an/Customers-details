@@ -22,7 +22,7 @@ var config = {
     worker_id: 1
   },
   // plugins_list: [],
-  plugins_list: ['multiple_workers', 'gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes', 'high-res-photo'],
+  plugins_list: ['multiple_workers', 'gallery', 'debts', 'punch_cards', 'colors_beautech', 'notes', 'high_res_photo'],
   menu: [
     {text: 'calendar', link: '/en/calendar', icon: 'calendar.jpg'},
     {text: 'clients_list', link: '/en/clients_list', icon: 'clients_list.jpg'},

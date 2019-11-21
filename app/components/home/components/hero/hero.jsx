@@ -1,4 +1,5 @@
 import { replaceService as clientReplaceService, postServiceTest as clientPostServiceImg, StatusReplaceService as StatusService } from 'project-services/client.service.js'
+import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
 import { default as dataURLtoFile } from 'project-components/decodeBase64.js'
 import { default as Resize } from 'project-components/resize.js'
 import Birthday from '../birthday/birthday.jsx'
@@ -13,11 +14,20 @@ export default class Hero extends React.Component {
     succes: false,
     leftVip: false,
     isStar: false,
-    flag: false
+    tempCircle: false,
+    showLargeModal: false
   }
 
   static propTypes = {
     rights: PropTypes.object.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+    this.textLargeModal = {
+      title_modal: config.translations.media.title_large_file,
+      agree_btn: config.translations.media.agree_large_file
+    }
   }
 
   handleStar = () => {
@@ -53,6 +63,14 @@ export default class Hero extends React.Component {
     })
   }
 
+  showLargeModal = () => {
+    this.setState({ showLargeModal: true })
+  }
+
+  closeLargeModal = () => {
+    this.setState({ showLargeModal: false, tempCircle: false, file: {} })
+  }
+
   addPhoto = img => {
     const photo = img.target.files[0]
     if (config.plugins_list.includes('high_res_photo')) {
@@ -70,22 +88,21 @@ export default class Hero extends React.Component {
     const body = new FormData()
     body.append('date', d)
     body.append('file', newFile)
-    this.setState({ flag: true })
+    this.setState({ tempCircle: true })
     clientPostServiceImg(body).then(r => {
       if (r.status === 201) {
         this.setState({ clientImg: `${config.urls.client_data}${newFile.name}` })
         if (r.status) {
-          this.setState({ flag: false })
+          this.setState({ tempCircle: false })
         }
+      } else if (r.status === 413) {
+        this.showLargeModal()
       }
     })
   }
 
   bar = url => {
-    this.setState({
-      imagePreviewUrl: url,
-      file: dataURLtoFile(url, `${this.state.file.name}`)
-    }, () => {
+    this.setState({ file: dataURLtoFile(url, `${this.state.file.name}`) }, () => {
       const newFile = this.state.file
       this.uploadPhoto(newFile)
     })
@@ -135,7 +152,7 @@ export default class Hero extends React.Component {
           <span>{config.translations.hero.vip_lable}</span>
         </div>
         <label className={'camera ' + (config.isRTL ? 'rtll' : 'ltrr')}>
-          {this.state.flag
+          {this.state.tempCircle
             ? <div className='camera-spin'>
               <svg className='img_loader'>
                 <use xlinkHref={config.urls.media + 'sprite.svg#refresh'} />
@@ -171,6 +188,11 @@ export default class Hero extends React.Component {
             alt='user-img' onError={this.onError}
           />
         </div>
+        <EmptyDataModal
+          text={this.textLargeModal}
+          show={this.state.showLargeModal}
+          onHide={this.closeLargeModal}
+        />
       </div>
     )
   }
