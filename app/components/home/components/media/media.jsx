@@ -109,21 +109,16 @@ export default class Media extends React.Component {
   addFile = e => {
     let file = e.target.files[0]
     if (e.target.files.length && file.type.indexOf('image') !== -1) {
-      if (config.plugins_list.includes('high_res_photo')) {
-        // e.preventDefault()
-        // const canvas = document.createElement('canvas')
-        // const context = canvas.getContext('2d')
-        // const baseImage = new Image()
-        // baseImage.onload = () => {
-        //   baseImage.src = file.name
-        //   let h = baseImage.height
-        //   let w = baseImage.width
-        //   context.drawImage(baseImage, 100, 100)
-        //   const pngUrl = canvas.toDataURL('image/jpeg')
-        //   this.bar(pngUrl)
-        // }
-        this.setState({ file, imagePreviewUrl: config.urls.media + 'other_gallery.svg', previewOther: true })
-      } else { e.preventDefault(); Resize(file, this.bar) }
+      if (config.plugins_list.includes('highres_photos')) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          const dataURL = reader.result
+          this.uploadPhoto(dataURL)
+        }
+        reader.readAsDataURL(file)
+      } else {
+        Resize(file, this.uploadPhoto)
+      }
     } else
     if (e.target.files.length && file.type.indexOf('audio') !== -1) { this.setState({ imagePreviewUrl: config.urls.media + 'audio_gallery.svg', previewOther: true }) } else
     if (e.target.files.length && file.type.indexOf('video') !== -1) { this.setState({ imagePreviewUrl: config.urls.media + 'video_gallery.svg', previewOther: true }) } else
@@ -134,7 +129,7 @@ export default class Media extends React.Component {
     this.forceUpdate()
   }
 
-  bar = url => {
+  uploadPhoto = url => {
     this.setState({
       imagePreviewUrl: url,
       file: dataURLtoFile(url, `${this.state.file.name}`)
