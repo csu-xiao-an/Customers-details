@@ -77,7 +77,7 @@ export default class Hero extends React.Component {
 
   addPhoto = img => {
     const photo = img.target.files[0]
-    if (config.plugins_list.includes('high_res_photo')) {
+    if (config.plugins_list.includes('highres_photos')) {
       this.uploadPhoto(photo)
     } else if (img.target.files.length && photo.type.indexOf('image') !== -1) {
       img.preventDefault()
