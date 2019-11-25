@@ -10,12 +10,16 @@ export default class Birthdate extends React.Component {
   }
 
   renderBirthDay = () => {
+    const months = config.translations.dates.months
+    const monthVerbal = months[moment(this.props.month).get('month')]
+    const day = this.props.day
+
     if (config.data.birthyear && !config.data.birthdate) {
       return config.data.birthyear
     } else if (config.data.birthyear && config.data.birthdate) {
-      return `${config.data.birthyear}-${config.data.birthdate}`
+      return config.translations.personal_info.birthdate_format.replace('{month}', monthVerbal).replace('{day}', day).replace('{year}', config.data.birthyear)
     } else if (!config.data.birthyear && config.data.birthdate) {
-      return moment(config.data.birthdate, 'MM-DD').format('MMMM DD')
+      return `${monthVerbal} ${day}`
     }
   }
 

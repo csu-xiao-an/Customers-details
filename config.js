@@ -178,6 +178,7 @@ var config = {
       add_phone_number: 'Add phone number'
     },
     personal_info: {
+      birthdate_format: '{month} {day}, {year}',
       address_placeholder: 'Add address',
       title: 'Personal Info',
       edit_label_btn: 'Edit',
@@ -439,11 +440,11 @@ var config = {
   data: {
     id: 123123,
     name: 'Ahuva Ben Shushan',
-    // birthdate: '07-04',
-    // birthyear: '1994',
+    birthdate: '12-11',
+    birthyear: '1994',
     registration_date: '2018-12-15',
     email: 'ahuva.ben.shushan@gmail.com',
-    // address: 'בת ים, ויצמן, 18',
+    address: 'בת ים, ויצמן, 18',
     intent_x: 50.4016991,
     intent_y: 30.2525126,
     // phone: [],
