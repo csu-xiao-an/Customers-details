@@ -69,7 +69,7 @@ export default class Phone extends React.Component {
                 className={!this.props.profilePhoneEdit ? 'add-phone' : 'hidden'}>
                 <div className='add-wrap'>
                   <span className='label'>{config.translations.personal_info.phone_label}:</span>
-                  <h1>{config.translations.personal_info.empty_phone_label}</h1>
+                  <h1>{config.translations.personal_info_editing.empty_phone_label}</h1>
                 </div>
                 <div className='add-info'>
                   <div className='add-wrap'>
@@ -83,7 +83,7 @@ export default class Phone extends React.Component {
               <div className={this.props.profilePhoneEdit || this.props.phones || this.state.phone ? 'phone-edit' : 'hidden'}>
                 <div className='edit'>
                   <div className='edit-wrap'>
-                    <span className={'label ' + ((!this.props.phone.number && this.props.phoneBlurState) ? 'error-span' : '')}>{!this.props.phoneBlurState ? config.translations.personal_info.phone_label : config.translations.personal_info.phone_label_error}:</span>
+                    <span className={'label ' + ((!this.props.phone.number && this.props.phoneBlurState) ? 'error-span' : '')}>{!this.props.phoneBlurState ? config.translations.personal_info.phone_label : config.translations.personal_info_editing.phone_label_error}:</span>
                     <input
                       className={'edit-input'}
                       autoComplete='off'

@@ -614,7 +614,7 @@ render () {
           ? <div className='back-save-btn'>
             <div className='back-wrap'>
               <div className='img-back'><img src={config.urls.media + 'arrow-left.svg'} /></div>
-              <div className='back-btn' onClick={this.backAll}>{config.translations.personal_info.back_label_btn}</div>
+              <div className='back-btn' onClick={this.backAll}>{config.translations.personal_info_editing.back_label_btn}</div>
             </div>
             <div className='save-wrap'>
               <div className={'img-wrap' + (!loader ? '' : ' spin')}>{!loader
@@ -625,12 +625,12 @@ render () {
                   <use xlinkHref={config.urls.media + 'sprite.svg#refresh'} />
                 </svg>}
               </div>
-              <div className='save-btn' onClick={this.saveBtn}>{config.translations.personal_info.done_label_btn}</div>
+              <div className='save-btn' onClick={this.saveBtn}>{config.translations.personal_info_editing.done_label_btn}</div>
             </div>
           </div>
           : <button className='edit-profile' onClick={this.editInfo}>
             <div className='edit-wrap'><img className='img-edit-profile' src={config.urls.media + 'edit-note.svg'} /></div>
-            {config.translations.personal_info.edit_label_btn}
+            {config.translations.personal_info_editing.edit_label_btn}
           </button>}
       </div>
       {(this.state.editProfile ||  config.data.name) && <div id='name'>
@@ -646,7 +646,7 @@ render () {
               className={!this.state.profileNameEdit ? 'add-name' : 'hidden'}>
               <div className='wrap-name-full'>
                 <span className='label'>{config.translations.personal_info.name_label}:</span>
-                <span className='add_info'>{config.translations.personal_info.empty_name_label}</span>
+                <span className='add_info'>{config.translations.personal_info_editing.empty_name_label}</span>
               </div>
               <div className='add-info'>
                 <div className='add-wrap'>
@@ -657,7 +657,7 @@ render () {
           {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
             <div className='fullname-edit'>
               <div className='edit-wrap'>
-                <span className={'label ' + ((!this.state.name && this.state.blurName) ? 'error-span' : '')} ref={ref => { this.spanClass = ref }}>{!this.state.blurName ? config.translations.personal_info.name_label : config.translations.personal_info.name_label_error}:</span>
+                <span className={'label ' + ((!this.state.name && this.state.blurName) ? 'error-span' : '')} ref={ref => { this.spanClass = ref }}>{!this.state.blurName ? config.translations.personal_info.name_label : config.translations.personal_info_editing.name_label_error}:</span>
                 <input
                   className='edit-input'
                   id='name-input'
@@ -707,7 +707,7 @@ render () {
         <div className='add-phones' onClick={this.onAddPhone}>
           <div className='add-phones-wrap'>
             <div className='phone-wrap-half'>
-              <span className='label'>{config.translations.personal_info.empty_phone_label}</span>
+              <span className='label'>{config.translations.personal_info_editing.empty_phone_label}</span>
               <span className='add_info'>{config.translations.personal_info_editing.add_phone_number}</span>
             </div>
             <div className='add-info-pic'>
@@ -775,7 +775,7 @@ render () {
             className={!this.state.profileAddressEdit ? 'add-address' : 'hidden'}>
             <div className='wrap-address'>
               <span className='label'>{config.translations.personal_info.address_lable}:</span>
-              <span className='add_info'>{config.translations.personal_info.empty_address_label}</span>
+              <span className='add_info'>{config.translations.personal_info_editing.empty_address_label}</span>
             </div>
             <div className='add-info'>
               <div className='add-wrap'>
@@ -793,7 +793,7 @@ render () {
                   ref={input => { this.input = input }}
                   onChange={this.changeAdress}
                   value={this.state.address}
-                  placeholder={config.translations.personal_info.address_placeholder}
+                  placeholder={config.translations.personal_info_editing.address_placeholder}
                 />
               </div>
             </div>
