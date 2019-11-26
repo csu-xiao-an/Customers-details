@@ -25,12 +25,12 @@ export default class Hero extends React.Component {
   constructor (props) {
     super(props)
     this.textLargeModal = {
-      title_modal: config.translations.media.title_large_file,
-      agree_btn: config.translations.media.agree_large_file
+      title_modal: config.translations.popup_unsupported_and_large_file.title_large_file,
+      agree_btn: config.translations.popup_unsupported_and_large_file.agree_with_that
     }
     this.textUnsupportModal = {
-      title_modal: config.translations.media.title_usupported_file,
-      agree_btn: config.translations.media.agree_large_file
+      title_modal: config.translations.popup_unsupported_and_large_file.title_usupported_file,
+      agree_btn: config.translations.popup_unsupported_and_large_file.agree_with_that
     }
   }
 

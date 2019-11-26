@@ -138,32 +138,33 @@ var config = {
       days_ago: '{days} days ago',
       ends: 'Ends'
     },
+    popup_unsupported_and_large_file: {
+      title_large_file: 'The file you sent is too big. For now we don\'t allow storing large files',
+      title_usupported_file: 'We didn\'t recognized the file you sent.Pls send us a message what kind of file it is and what its purpose',
+      agree_with_that: 'Got it'
+    },
     media: {
       title: 'Gallery',
-      files: 'Files',
-      media_delete: 'Delete',
+      files_amount: 'Files',
+      delete_file_btn: 'Delete',
       share_title: 'Web Fundamentals',
       share_text: 'Check out Web Fundamentals — it rocks!',
-      add_media: 'Add New File',
-      confirm_del_media: 'Are you sure to delete this file?',
-      confirm_del_media_multiple: 'Are you sure to delete these files?',
-      cancel_media: 'Cancel',
-      confirm_del: 'Confirm',
-      title_large_file: 'The file you sent is too big. For now we don\'t allow storing large files',
-      agree_large_file: 'Got it',
-      title_usupported_file: 'We didn\'t recognized the file you sent.Pls send us a message what kind of file it is and what its purpose'
+      add_new_file: 'Add New File'
     },
-    media_modal: {
+    gallery_popup_delete_file: {
+      question_to_del_file: 'Are you sure to delete this file?',
+      question_to_del_file_multiple: 'Are you sure to delete these files?',
+      confirm_del_file: 'Confirm',
+      cancel_popup: 'Cancel'
+    },
+    gallery_popup_preview_file: {
       add_note: 'Add note',
-      save: 'Save',
-      confirm_del_media: 'Are you sure to delete this file?',
-      cancel: 'Cancel',
-      confirm_del: 'Confirm'
+      save_edits: 'Save'
     },
-    gallery_popup: {
+    gallery_popup_adding_file: {
       title: 'Gallery',
       add_caption: 'Add a caption...',
-      submit: 'Submit'
+      submit_new_file: 'Submit'
     },
     personal_info_editing: {
       title: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',

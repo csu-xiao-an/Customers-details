@@ -97,12 +97,12 @@ export default class MediaModal extends React.Component {
                 <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
                   <textarea id={'textarea_id_' + i.id} className={this.state.isEditNote ? 'textarea' : 'hidden'}
                     onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}
-                    placeholder={this.state.textareaValue ? this.state.textareaValue : config.translations.media_modal.add_note}
+                    placeholder={this.state.textareaValue ? this.state.textareaValue : config.translations.gallery_popup_preview_file.add_note}
                   />
                   <div className='action'>
                     <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
                       onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
-                      {config.translations.media_modal.save}
+                      {config.translations.gallery_popup_preview_file.save_edits}
                     </button>
                   </div>
                 </div>
@@ -193,11 +193,11 @@ export default class MediaModal extends React.Component {
         <Modal show={this.state.visibleAgreeModal} onHide={this.cancel}>
           <div className='modal-body-new'>
             <img className='icon' src={config.urls.media + 'trash-del.svg'} />
-            <label>{config.translations.media_modal.confirm_del_media}</label>
+            <label>{config.translations.gallery_popup_delete_file.question_to_del_file}</label>
           </div>
           <div className='modal-footer-new'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.media_modal.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.confirmDelete}>{config.translations.media_modal.confirm_del}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.gallery_popup_delete_file.cancel_popup}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.confirmDelete}>{config.translations.gallery_popup_delete_file.confirm_del_file}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
       </Modal>

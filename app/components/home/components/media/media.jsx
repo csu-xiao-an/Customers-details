@@ -37,12 +37,12 @@ export default class Media extends React.Component {
   constructor (props) {
     super(props)
     this.textLargeModal = {
-      title_modal: config.translations.media.title_large_file,
-      agree_btn: config.translations.media.agree_large_file
+      title_modal: config.translations.popup_unsupported_and_large_file.title_large_file,
+      agree_btn: config.translations.popup_unsupported_and_large_file.agree_with_that
     }
     this.textUnsupportModal = {
-      title_modal: config.translations.media.title_usupported_file,
-      agree_btn: config.translations.media.agree_large_file
+      title_modal: config.translations.popup_unsupported_and_large_file.title_usupported_file,
+      agree_btn: config.translations.popup_unsupported_and_large_file.agree_with_that
     }
   }
 
@@ -272,7 +272,7 @@ export default class Media extends React.Component {
             {config.translations.media.title}
           </div>
           <div className='files-amount'>
-            {config.data.gallery.length ? (config.translations.media.files + ': ' + config.data.gallery.length) : (config.translations.media.files + ': ' + '0')}
+            {config.data.gallery.length ? (config.translations.media.files_amount + ': ' + config.data.gallery.length) : (config.translations.media.files_amount + ': ' + '0')}
             {this.state.slideAmount > 0 && <div className='action'>
               <div
                 className={'delete' + (multiDel ? ' delete-clicked' : '')}
@@ -315,7 +315,7 @@ export default class Media extends React.Component {
         </div>
         {this.state.multiDel &&
           <button className='multi-del' disabled={checkLength} onClick={this.confirmDel}>
-            <span>{config.translations.media.media_delete}</span>
+            <span>{config.translations.media.delete_file_btn}</span>
             <img src={config.urls.media + (checkLength ? 'trash-del-disable.svg' : 'trash-del.svg')} />
           </button>}
         {this.props.rights.gallery.add && !this.state.multiDel &&
@@ -329,17 +329,17 @@ export default class Media extends React.Component {
                 e.target.value = null
               }}
             />
-            <label>{config.translations.media.add_media}</label>
+            <label>{config.translations.media.add_new_file}</label>
             <img src={config.urls.media + 'c_add_stroke.svg'} />
           </label>}
         <Modal show={this.state.visibleAgreeModal} onHide={this.cancel}>
           <div className='modal-body-new'>
             <img className='icon' src={config.urls.media + 'trash-del.svg'} />
-            <label>{this.state.slides.length > 1 ? config.translations.media.confirm_del_media_multiple : config.translations.media.confirm_del_media}</label>
+            <label>{this.state.slides.length > 1 ? config.translations.gallery_popup_delete_file.question_to_del_file_multiple : config.translations.gallery_popup_delete_file.question_to_del_file}</label>
           </div>
           <div className='modal-footer-new'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.media.cancel_media}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.multiDeleteFiles}>{config.translations.media.confirm_del}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{config.translations.gallery_popup_delete_file.cancel_popup}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.multiDeleteFiles}>{config.translations.gallery_popup_delete_file.confirm_del_file}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
         <EmptyDataModal
