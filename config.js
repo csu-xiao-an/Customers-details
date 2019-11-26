@@ -176,34 +176,34 @@ var config = {
       save: 'Save',
       enter_phone_number: 'Do you want to enter a phone number?',
       phone_number: 'type client\'s phone number',
-      add_phone_number: 'Add phone number'
-    },
-    personal_info: {
-      birthdate_format: '{month} {day}, {year}',
+      add_phone_number: 'Add phone number',
       address_placeholder: 'Add address',
-      title: 'Personal Info',
       edit_label_btn: 'Edit',
       back_label_btn: 'Back',
       done_label_btn: 'Done',
-      name_label: 'Name',
+      empty_email_label: 'Add an email',
+      empty_phone_label: 'Add phone number',
+      empty_address_label: 'Add an address',
+      phone_label_error: '*Please, enter your phone number',
       name_label_error: '*Please, enter your name',
       empty_name_label: 'Add name',
+      birthday_label_error: 'Enter a full date',
+      add_birth_label: 'Add Birthdate'
+    },
+    personal_info: {
+      birthdate_format: '{month} {day}, {year}',
+      title: 'Personal Info',
+      name_label: 'Name',
       phone_label: 'Phone',
-      phone_label_error: '*Please, enter your phone number',
-      empty_phone_label: 'Add phone number',
       email_lable: 'Email',
-      empty_email_label: 'Add an email',
       address_lable: 'Address',
-      empty_address_label: 'Add an address',
       gender_label: 'Gender',
+      birthday_label: 'Birthday:',
       gender: {
         male: 'Male',
         female: 'Female',
         select_gender: 'Select gender'
       },
-      birthday_label: 'Birthday:',
-      birthday_label_error: 'Enter a full date',
-      add_birth_label: 'Add Birthdate',
       send_link: {
         sent_label: 'Sent',
         title: 'Send a link to the customer'

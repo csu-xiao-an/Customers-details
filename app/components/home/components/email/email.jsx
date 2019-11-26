@@ -31,7 +31,7 @@ export default class Email extends React.Component {
               className={!this.props.profileEmailEdit ? 'add-email' : 'hidden'}>
               <div className='wrap-mail'>
                 <span className='label'>{config.translations.personal_info.email_lable}:</span>
-                <span className='add_info'>{config.translations.personal_info.empty_email_label}</span>
+                <span className='add_info'>{config.translations.personal_info_editing.empty_email_label}</span>
               </div>
               <div className='add-info'>
                 <div className='add-wrap'>
