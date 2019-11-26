@@ -14,7 +14,7 @@ export default class GalleryPopup extends React.Component {
         <div className='gallery-modal-body'>
           <div className='gallery-modal-header'>
             <div className='img-back'><img onClick={this.props.handleMenuOff} src={config.urls.media + 'chevron-left.svg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
-            <p>{config.translations.gallery_popup.title}</p>
+            <p>{config.translations.gallery_popup_adding_file.title}</p>
           </div>
           {!this.props.previewOther ?
             <div className='img'>
@@ -30,12 +30,12 @@ export default class GalleryPopup extends React.Component {
               <img src={config.urls.media + 'edit-note.svg'} />
               <input className='gallery-modal-input'
                 type='text-area'
-                placeholder={config.translations.gallery_popup.add_caption}
+                placeholder={config.translations.gallery_popup_adding_file.add_caption}
                 onChange={this.props.handleDescBack}
               />
             </div>
             <button onClick={!this.props.flag && this.props.submit}>
-              <div className='text-submit'>{config.translations.gallery_popup.submit}</div>
+              <div className='text-submit'>{config.translations.gallery_popup_adding_file.submit_new_file}</div>
               {this.props.flag
                 ? <div className='submit-spin'>
                   <svg className='img_spin'>
