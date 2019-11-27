@@ -155,8 +155,8 @@ export default class SinglePunchPage extends React.Component {
             <label>{this.state.isUses ? config.translations.punch_cards.use_del_popup.use_del_question : config.translations.punch_cards.use_del_popup.card_del_question}</label>
           </div>
           <div className='modal-footer'>
-            <button className='no-btn' onClick={this.cancel}>{config.translations.punch_cards.use_del_popup.cancel}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
-            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{config.translations.punch_cards.use_del_popup.confirm}<img src={config.urls.media + 'confirm.svg'} /></button>
+            <button className='no-btn' onClick={this.cancel}>{this.state.isUses ? config.translations.punch_cards.use_del_popup.cancel_use_del : config.translations.punch_cards.use_del_popup.cancel_card_del}<img className='cancel-img' src={config.urls.media + 'plus-blue.svg'} /></button>
+            <button className='yes-btn' onClick={this.state.isUses ? this.confirmDel : this.confirmDeleteCard}>{this.state.isUses ? config.translations.punch_cards.use_del_popup.confirm_use_del : config.translations.punch_cards.use_del_popup.confirm_card_del}<img src={config.urls.media + 'confirm.svg'} /></button>
           </div>
         </Modal>
         <Modal show={this.state.deleteStatus} onHide={this.unprocessableDelete}>

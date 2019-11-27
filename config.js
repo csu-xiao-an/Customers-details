@@ -105,8 +105,10 @@ var config = {
       use_del_popup: {
         card_del_question: 'Are you sure you want to delete this punch card ?',
         use_del_question: 'Are you sure you want to delete the latest use?',
-        confirm: 'Confirm',
-        cancel: 'Cancel'
+        confirm_card_del: 'Delete card',
+        cancel_card_del: 'Don\'t delete',
+        confirm_use_del: 'Delete the use',
+        cancel_use_del: 'Don\'t delete'
       },
       unprocessable_del_popup: {
         notification: 'Punch card is used, we cannot delete it without affecting the history',
