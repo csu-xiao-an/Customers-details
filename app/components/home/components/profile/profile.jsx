@@ -25,7 +25,7 @@ state = {
   address: '',
   name: '',
   editProfile: false,
-  permit_ads: config.data.permit_ads || false,
+  // permit_ads: config.data.permit_ads || false,
   profileBirthEdit: false,
   profileEmailEdit: false,
   profileNameEdit: false,
@@ -501,9 +501,9 @@ saveAll = () => {
 }
 
 sendData = () => {
-  const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear', 'permit_ads']
+  const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear']
   const body = Object.keys(this.state).reduce((params, field) => {
-    if (fields.includes(field) && (this.state[field] || !this.state.gender || !this.state.permit_ads)) {
+    if (fields.includes(field) && (this.state[field] || !this.state.gender)) {
       let value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
       if (field === 'address') value = encodeURIComponent(value)
       if (field === 'name') value = encodeURIComponent(value)
@@ -523,7 +523,7 @@ sendData = () => {
       config.data.email = this.state.email
       config.data.name = this.state.name
       config.data.gender = this.state.gender
-      config.data.permit_ads = this.state.permit_ads
+      // config.data.permit_ads = this.state.permit_ads
       this.setState({ editProfile: false, resetApi: false, loader: false }, () => this.changeBirth())
       this.resetFields()
       this.forceUpdate()
@@ -560,7 +560,7 @@ backAll = () => {
     ifEnterPhone: false,
     validatePhone: false,
     validateMail: false,
-    permit_ads: config.data.permit_ads || false,
+    // permit_ads: config.data.permit_ads || false,
     editProfile: false,
     resetApi: false,
     permit_empty_phone: false,
@@ -834,12 +834,12 @@ render () {
           {...this.props}
         />}
       {/* {config.data.phone && <Sendlink {...this.props} />} */}
-      <Agreement
+      {/* <Agreement
         editProfile={this.state.editProfile}
         getArgeement={this.getArgeement}
         permit_ads={this.state.permit_ads}
         handleAds={this.handleAds}
-        {...this.props} />
+        {...this.props} /> */}
     </div>
   )
 }
