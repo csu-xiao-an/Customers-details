@@ -40,14 +40,19 @@ state = {
   genderSelect: '',
   // birthdateError: false,
   label: config.translations.personal_info.gender.select_gender,
-  // blurPhone: false
+  // blurPhone: false,
+  long_name_warning: false
 }
 
 constructor (props) {
   super(props)
-  this.text = {
-    title_modal: config.translations.personal_info_editing.title,
-    agree_btn: config.translations.personal_info_editing.agree
+  this.EmptyNameText = {
+    title_modal: config.translations.popup_empty_and_long_name.title_empty_name,
+    agree_btn: config.translations.popup_empty_and_long_name.agree_empty_name
+  }
+  this.LongNameText = {
+    title_modal: config.translations.popup_empty_and_long_name.title_long_name.replace('{name_max_length}', config.name_max_length),
+    agree_btn: config.translations.popup_empty_and_long_name.agree_long_name
   }
 }
 
@@ -65,7 +70,11 @@ delName = () => {
 }
 
 onChangeName = name => {
-  this.setState({ name, blurName: false })
+  if (name.length <= config.name_max_length) {
+    this.setState({ name, blurName: false, long_name_warning: false })
+  } else {
+    this.setState({ activeNameModal: true, long_name_warning: true })
+  }
 }
 
 nameBlur = () => {
@@ -106,7 +115,7 @@ showNameModal = () => {
 }
 
 cancelNameModal = () => {
-  this.setState({ activeNameModal: false, name: config.data.name, profileNameEdit: true }, () => document.getElementById('name-input').focus())
+  this.setState({ activeNameModal: false, name: config.data.name ? config.data.name : '', profileNameEdit: true }, () => document.getElementById('name-input').focus())
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -200,9 +209,11 @@ onAddPhone = () => {
 //   const r = /^[0-9-+*#]+$/
 //   return r.test(phone)
 // }
+
 showPhoneValidateModal = icorrectNumber => {
   this.setState({ phoneValidateModal: true, icorrectNumber })
 }
+
 hidePhoneValidateModal = () => {
   this.setState({ phoneValidateModal: false, loader: false })
 }
@@ -539,7 +550,7 @@ sendData = () => {
         }
         this.props.getProfilePicture(config.data.profile_image)
         this.removeElements()
-        this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false })
+        this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
       })
     } else {
       this.setState({ editProfile: true })
@@ -571,7 +582,8 @@ backAll = () => {
     genderSelect: config.data.gender,
     label: config.translations.personal_info.gender.select_gender,
     blurName: false,
-    blurPhone: false
+    blurPhone: false,
+    long_name_warning: false
   })
   this.removeElements()
   this.defaultPos()
@@ -659,6 +671,7 @@ render () {
               <div className='edit-wrap'>
                 <span className={'label ' + ((!this.state.name && this.state.blurName) ? 'error-span' : '')} ref={ref => { this.spanClass = ref }}>{!this.state.blurName ? config.translations.personal_info.name_label : config.translations.personal_info_editing.name_label_error}:</span>
                 <input
+                  disabled={this.state.activeNameModal}
                   className='edit-input'
                   id='name-input'
                   ref={inp => { this.inputName = inp }}
@@ -674,7 +687,7 @@ render () {
               </div>
             </div>}
           <EmptyDataModal
-            text={this.text}
+            text={this.state.long_name_warning ? this.LongNameText : this.EmptyNameText}
             show={this.state.activeNameModal}
             onHide={this.cancelNameModal}
           />

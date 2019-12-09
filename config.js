@@ -10,6 +10,7 @@ var config = {
   default_value_of_discount: 10,
   increment_by: 10,
   decrement_by: 10,
+  name_max_length: 50,
   locale: 'en',
   language: 'en',
   user: {
@@ -167,6 +168,12 @@ var config = {
       title: 'Gallery',
       add_caption: 'Add a caption...',
       submit_new_file: 'Submit'
+    },
+    popup_empty_and_long_name: {
+      title_empty_name: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',
+      title_long_name: 'This name is way too long, pls shorten it up to {name_max_length} characters',
+      agree_empty_name: 'Got it!',
+      agree_long_name: 'Got it!'
     },
     personal_info_editing: {
       title: 'You will can`t find a customer without customer name in the customer list. Please enter customer name',
