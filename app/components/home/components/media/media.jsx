@@ -52,7 +52,7 @@ export default class Media extends React.Component {
   }
 
   showLargeModal = () => {
-    this.setState({ showLargeModal: true, imagePreviewUrl: '', file: {} })
+    this.setState({ showLargeModal: true, imagePreviewUrl: '', file: {}, flag: false })
   }
 
   closeLargeModal = () => {
