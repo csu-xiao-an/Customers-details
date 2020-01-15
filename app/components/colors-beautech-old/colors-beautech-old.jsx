@@ -34,7 +34,7 @@ class ColorsBeautechOld extends React.Component {
     return (
       <div id='punch_cards_old'>
         <div className='btn-wrap'>
-          <div className={'btn ' + (config.isRTL ? 'rtl-dir' : 'ltr-dir')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={!config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+          <div className={'btn ' + (config.isRTL ? 'ltr-dir' : 'rtl-dir')} onClick={() => window.history.go(-1)}><img src={`${config.urls.media}chevron-left.svg`} style={!config.isRTL ? {} : {transform: 'scale(-1, 1)'}} /></div>
           <div className='middle-section'>
             {beautech[ind].type && <p className='middle-type'>{beautech[ind].type}</p>}
             <p className='middle-date'>{`${translations.date} ${moment(beautech[ind].date).format('DD/MM/YY')}`}</p>

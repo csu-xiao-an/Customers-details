@@ -9,7 +9,7 @@ const PunchHeader = ({ length }) => {
   const backBtn = () => window.history.go(-1)
   return (
     <header className='punch-header'>
-      <button className={'prev-button ' + (config.isRTL ? 'rtl-btn' : 'ltr-btn')} onClick={backBtn}>
+      <button className={'prev-button ' + (config.isRTL ? 'ltr-btn' : 'rtl-btn')} onClick={backBtn}>
         <img src={config.urls.media + 'arrow-back.svg'} />
       </button>
       <div className='header-wrap'>
