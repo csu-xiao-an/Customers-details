@@ -23,20 +23,22 @@ const INITIAL_STATE = {
   data: [],
   i: {}
 }
-const Control = ({c, l, m, p, v, bool}) => {
+const Control = ({c, l, m, p, v, i, b, bool}) => {
   Control.propTypes = {
     l: PropTypes.string.isRequired,
     c: PropTypes.string.isRequired,
     v: PropTypes.string.isRequired,
     p: PropTypes.func.isRequired,
     m: PropTypes.func.isRequired,
+    i: PropTypes.func.isRequired,
+    b: PropTypes.func.isRequired,
     bool: PropTypes.bool
   }
   return (
     <div className={c}>
       <p className='label'>{l}</p>
       <div className={'input-wrap ' + (config.isRTL ? 'left' : 'right')}>
-        <button className='ink' onClick={p}><img src={`${config.urls.media}plus.svg`} /></button><input className='count-input' type='text' value={v} disabled />
+        <button className='ink' onClick={p}><img src={`${config.urls.media}plus.svg`} /></button><input className='count-input' onChange={i} onBlur={b} type='number' value={v} />
         <button className='ink' onClick={m} disabled={bool}><img src={`${config.urls.media}minus.svg`} /></button>
       </div>
     </div>
@@ -90,6 +92,22 @@ class PunchCardsAdd extends React.Component {
       this.state.discontActive && this.refs.discont.focus()
     })
   }
+  handleInputChange = e => {
+    this.setState({
+      uses: +e.target.value
+    })
+  }
+  handleInputBlur = e => {
+    if(+e.target.value === 0) {
+      this.setState({
+        uses: 1
+      })
+    } else {
+      this.setState({
+        uses: +e.target.value
+      })
+    }
+  }
   handleIncrementUses = () => {
     this.setState(prevState => ({
       editDiscount: false,
@@ -98,7 +116,7 @@ class PunchCardsAdd extends React.Component {
     }), () => this.setState({total: this.state.i.price * this.state.uses, price: this.state.i.price}))
   }
   handleDecrementUses = () => {
-    if (+this.state.total > 0) {
+    if (+this.state.total >= 0) {
       this.setState(prevState => ({
         editDiscount: false,
         renderDiscount: true,
@@ -243,6 +261,8 @@ class PunchCardsAdd extends React.Component {
                 <Control m={this.handleDecrementUses}
                   bool={this.state.uses === 1}
                   p={this.handleIncrementUses}
+                  i={this.handleInputChange}
+                  b={this.handleInputBlur}
                   l={config.translations.punch_cards.number_of_uses} v={this.state.uses} c={'uses_wrap'} />
                 <div className='upd-discont-wrap'>
                   <button className={'discont-btn ' + (this.state.discontActive && 'active-discont')} onClick={this.state.renderDiscount && this.activeDiscont} >
