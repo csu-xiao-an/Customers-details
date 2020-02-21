@@ -2,79 +2,81 @@ import './profile.styl'
 import Phones from '../phones/phones.jsx'
 import Sex from '../sex/sex.jsx'
 import Email from '../email/email.jsx'
-import Agreement from '../agreement/agreement.jsx'
+import Name from './components/name/'
+// import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
-import {putService as clientPutService, newGetService as clientNewGetService} from 'project-services/client.service.js'
-import {addressService} from 'project-services/address.service.js'
+import { putService as clientPutService, newGetService as clientNewGetService } from 'project-services/client.service.js'
+import { addressService } from 'project-services/address.service.js'
 import { default as IncorrectMail } from 'project-components/incorrectMail/incorrectMail.jsx'
 import { default as IncorrectPhone } from 'project-components/incorrectPhone/incorrectPhone.jsx'
 import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
 
 export default class Profile extends React.Component {
-state = {
-  loader: false,
-  validateMail: false,
-  validatePhone: false,
-  visibleMapPopup: false,
-  birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
-  birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
-  year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
-  day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
-  month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
-  gender: null,
-  address: '',
-  name: '',
-  editProfile: false,
-  // permit_ads: config.data.permit_ads || false,
-  profileBirthEdit: false,
-  profileEmailEdit: false,
-  profileNameEdit: false,
-  profilePhoneEdit: false,
-  profileAddressEdit: false,
-  isViewAdress: false,
-  adress: [],
-  resetApi: true,
-  changeState: false,
-  maleSelected: false,
-  femaleSelected: false,
-  genderSelect: '',
-  // birthdateError: false,
-  label: config.translations.personal_info.gender.select_gender,
-  // blurPhone: false,
-  long_name_warning: false
-}
+  constructor (props) {
+    super(props)
+    this.state = {
+      loader: false,
+      validateMail: false,
+      validatePhone: false,
+      visibleMapPopup: false,
+      birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
+      birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
+      year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
+      day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
+      month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
+      gender: null,
+      address: '',
+      name: config.data.name || null,
+      nameModal: false,
+      editProfile: false,
+      // permit_ads: config.data.permit_ads || false,
+      profileBirthEdit: false,
+      profileEmailEdit: false,
+      profileNameEdit: false,
+      profilePhoneEdit: false,
+      profileAddressEdit: false,
+      isViewAdress: false,
+      adress: [],
+      resetApi: true,
+      changeState: false,
+      maleSelected: false,
+      femaleSelected: false,
+      genderSelect: '',
+      // birthdateError: false,
+      label: config.translations.personal_info.gender.select_gender,
+      // blurPhone: false,
+      long_name_warning: false
+    }
+    this.EmptyNameText = {
+      title_modal: config.translations.popup_empty_and_long_name.title_empty_name,
+      agree_btn: config.translations.popup_empty_and_long_name.agree_empty_name
+    }
+    this.LongNameText = {
+      title_modal: config.translations.popup_empty_and_long_name.title_long_name.replace('{name_max_length}', config.name_max_length),
+      agree_btn: config.translations.popup_empty_and_long_name.agree_long_name
+    }
+  }
 
-constructor (props) {
-  super(props)
-  this.EmptyNameText = {
-    title_modal: config.translations.popup_empty_and_long_name.title_empty_name,
-    agree_btn: config.translations.popup_empty_and_long_name.agree_empty_name
-  }
-  this.LongNameText = {
-    title_modal: config.translations.popup_empty_and_long_name.title_long_name.replace('{name_max_length}', config.name_max_length),
-    agree_btn: config.translations.popup_empty_and_long_name.agree_long_name
-  }
-}
+
+
 
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  NAME  ///////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-changeNameEdit = () => {
-  this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus())
+// changeNameEdit = () => {
+//   this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus())
+// }
+
+handleClearName = () => {
+  this.setState({ name: '' })
+  // , () => this.setState({ name: null }))
+  // document.getElementById('name-input').focus()
 }
 
-delName = () => {
-  this.setState({ name: '' }, () => this.setState({ name: null }))
-  document.getElementById('name-input').focus()
-}
-
-onChangeName = name => {
-  if (name.length <= config.name_max_length) {
-    this.setState({ name, blurName: false, long_name_warning: false })
-  } else {
-    this.setState({ activeNameModal: true, long_name_warning: true })
-  }
+onChangeName = e => {
+  const name = e.target.value
+  this.setState({ name })
 }
 
 nameBlur = () => {
@@ -111,11 +113,11 @@ nameBlur = () => {
 // }
 
 showNameModal = () => {
-  this.setState({ activeNameModal: true })
+  this.setState({ nameModal: true })
 }
 
 cancelNameModal = () => {
-  this.setState({ activeNameModal: false, name: config.data.name ? config.data.name : '', profileNameEdit: true }, () => document.getElementById('name-input').focus())
+  this.setState({ nameModal: false, name: config.data.name })
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -389,14 +391,13 @@ saveBirthdate = () => {
 
   saveBtn = () => {
     this.saveBirthdate().then(() => {
+      !this.state.name && this.showNameModal()
       if (!this.state.birthdateError) {
         const numbers = this.state.phone.filter(phone => phone.number !== '')
         if (this.state.name) {
           if (numbers.length !== 0) {
             this.saveAll()
           } else this.visibleModal()
-        } else {
-          this.showNameModal()
         }
       }
     })
@@ -451,7 +452,7 @@ getArgeement = value => this.setState({ permit_ads: value })
 componentDidMount = () => {
   this.setState({
     address: config.data.address ? config.data.address : null,
-    name: config.data.name ? config.data.name : null,
+    // name: config.data.name ? config.data.name : null,
     phone: this.normalizePhones(config.data.phone),
     email: config.data.email ? config.data.email : null,
     gender: config.data.gender ? config.data.gender : null
@@ -645,7 +646,13 @@ render () {
             {config.translations.personal_info_editing.edit_label_btn}
           </button>}
       </div>
-      {(this.state.editProfile ||  config.data.name) && <div id='name'>
+      {(this.state.name || this.state.editProfile) && <Name
+        name={this.state.name}
+        editProfile={this.state.editProfile}
+        onChangeName={this.onChangeName}
+        onClearName={this.handleClearName}
+        />}
+      {/* {(this.state.editProfile ||  config.data.name) && <div id='name'>
         <div className={'full-wrap-name ' + ((!this.state.name && this.state.blurName) ? 'error-name' : '')} ref={ref => { this.nameField = ref }}>
           {!this.state.editProfile && <div className='fullname'>
             <div className='fullname-wrap'>
@@ -692,7 +699,12 @@ render () {
             onHide={this.cancelNameModal}
           />
         </div>
-      </div>}
+      </div>} */}
+      {this.state.nameModal && <EmptyDataModal
+        text={this.state.long_name_warning ? this.LongNameText : this.EmptyNameText}
+        show={this.state.nameModal}
+        onHide={this.cancelNameModal}
+      />}
       {(this.state.phone || this.state.editProfile) &&
         <Phones
           editProfile={this.state.editProfile}
