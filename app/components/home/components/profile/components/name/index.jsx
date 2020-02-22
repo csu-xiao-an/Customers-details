@@ -3,8 +3,7 @@ import './name.styl'
 export default class Name extends React.Component {
   state = {
     checkEmpty: false,
-    editName: false,
-    clear: false
+    editName: false
   }
 
   nameInput = React.createRef()
@@ -12,7 +11,10 @@ export default class Name extends React.Component {
   handleAddName = () => this.setState({ editName: true })
   handleCheckEmpty = () => this.setState({ checkEmpty: !this.props.name })
 
-  componentDidUpdate = () => {
+  componentDidUpdate = prevProps => {
+    if (!prevProps.editProfile && this.state.checkEmpty) {
+      this.setState({ checkEmpty: false })
+    }
     !this.props.name && this.nameInput.current && this.nameInput.current.focus()
   }
 
@@ -21,7 +23,7 @@ export default class Name extends React.Component {
     return (
       <div id='name' className={'full-wrap-name ' + ((!name && this.state.checkEmpty) ? 'error-name' : '')} onClick={this.handleAddName}>
         <div className='fullname-wrap'>
-          <span className='label'>{config.translations.personal_info.name_label}:</span>
+          <span className='label'>{(!name && this.state.checkEmpty) ? config.translations.personal_info_editing.name_label_error : config.translations.personal_info.name_label}:</span>
           {(this.state.editName || name) && editProfile
             ? <input
               className='edit-input'

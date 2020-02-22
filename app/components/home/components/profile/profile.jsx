@@ -3,7 +3,6 @@ import Phones from '../phones/phones.jsx'
 import Sex from '../sex/sex.jsx'
 import Email from '../email/email.jsx'
 import Name from './components/name/'
-// import Agreement from '../agreement/agreement.jsx'
 import Birthdate from '../birthdate/birthdate.jsx'
 import { putService as clientPutService, newGetService as clientNewGetService } from 'project-services/client.service.js'
 import { addressService } from 'project-services/address.service.js'
@@ -64,60 +63,22 @@ export default class Profile extends React.Component {
 /// ////////////////////////////  NAME  ///////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-// changeNameEdit = () => {
-//   this.setState({ profileNameEdit: !this.state.profileNameEdit }, () => document.getElementById('name-input').focus())
-// }
-
-handleClearName = () => {
-  this.setState({ name: '' })
-  // , () => this.setState({ name: null }))
-  // document.getElementById('name-input').focus()
-}
+handleClearName = () => this.setState({ name: '' })
 
 onChangeName = e => {
   const name = e.target.value
+  if (name.length >= config.name_max_length) {
+    this.setState({ long_name_warning: true })
+  }
   this.setState({ name })
 }
-
-nameBlur = () => {
-  if (this.state.name) {
-    this.setState({ blurName: false })
-  } else {
-    this.setState({ blurName: true })
-  }
-  // if (!this.state.name) {
-  //   this.nameErrorStyle()
-  // } else {
-  //   this.discardNameErrorStyle()
-  // }
-}
-
-// nameErrorStyle = () => {
-//   const inputName = this.inputName
-//   const nameField = this.nameField
-//   const spanClass = this.spanClass
-//   this.setState({ errorName: true })
-//   inputName.classList.add('error-input')
-//   spanClass.classList.add('label-error')
-//   nameField.classList.add('error-name')
-// }
-
-// discardNameErrorStyle = () => {
-//   const inputName = this.inputName
-//   const nameField = this.nameField
-//   const spanClass = this.spanClass
-//   this.setState({ errorName: false })
-//   inputName.classList.remove('error-input')
-//   spanClass.classList.remove('label-error')
-//   nameField.classList.remove('error-name')
-// }
 
 showNameModal = () => {
   this.setState({ nameModal: true })
 }
 
 cancelNameModal = () => {
-  this.setState({ nameModal: false, name: config.data.name })
+  this.setState({ nameModal: false, name: config.data.name, long_name_warning: false })
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -651,58 +612,10 @@ render () {
         editProfile={this.state.editProfile}
         onChangeName={this.onChangeName}
         onClearName={this.handleClearName}
-        />}
-      {/* {(this.state.editProfile ||  config.data.name) && <div id='name'>
-        <div className={'full-wrap-name ' + ((!this.state.name && this.state.blurName) ? 'error-name' : '')} ref={ref => { this.nameField = ref }}>
-          {!this.state.editProfile && <div className='fullname'>
-            <div className='fullname-wrap'>
-              <span className='label'>{config.translations.personal_info.name_label}:</span>
-              <span className='block-content'>{config.data.name}</span>
-            </div>
-          </div>}
-          {(this.state.editProfile && !config.data.name)
-            ? <div onClick={() => this.changeNameEdit()}
-              className={!this.state.profileNameEdit ? 'add-name' : 'hidden'}>
-              <div className='wrap-name-full'>
-                <span className='label'>{config.translations.personal_info.name_label}:</span>
-                <span className='add_info'>{config.translations.personal_info_editing.empty_name_label}</span>
-              </div>
-              <div className='add-info'>
-                <div className='add-wrap'>
-                  <img src={config.urls.media + 'profile_plus.svg'} />
-                </div>
-              </div>
-            </div> : ''}
-          {(this.state.editProfile && (this.state.profileNameEdit || config.data.name)) &&
-            <div className='fullname-edit'>
-              <div className='edit-wrap'>
-                <span className={'label ' + ((!this.state.name && this.state.blurName) ? 'error-span' : '')} ref={ref => { this.spanClass = ref }}>{!this.state.blurName ? config.translations.personal_info.name_label : config.translations.personal_info_editing.name_label_error}:</span>
-                <input
-                  disabled={this.state.activeNameModal}
-                  className='edit-input'
-                  id='name-input'
-                  ref={inp => { this.inputName = inp }}
-                  type='text'
-                  onBlur={this.nameBlur}
-                  value={this.state.name}
-                  onChange={e => this.onChangeName(e.target.value)} />
-              </div>
-              <div className='del-info'>
-                <div className='del-wrap' onClick={this.delName}>
-                  <img src={config.urls.media + 'plus2.svg'} />
-                </div>
-              </div>
-            </div>}
-          <EmptyDataModal
-            text={this.state.long_name_warning ? this.LongNameText : this.EmptyNameText}
-            show={this.state.activeNameModal}
-            onHide={this.cancelNameModal}
-          />
-        </div>
-      </div>} */}
-      {this.state.nameModal && <EmptyDataModal
+      />}
+      {(this.state.nameModal || this.state.long_name_warning) && <EmptyDataModal
         text={this.state.long_name_warning ? this.LongNameText : this.EmptyNameText}
-        show={this.state.nameModal}
+        show={this.state.nameModal || this.state.long_name_warning}
         onHide={this.cancelNameModal}
       />}
       {(this.state.phone || this.state.editProfile) &&

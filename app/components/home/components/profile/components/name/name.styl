@@ -1,6 +1,8 @@
 .full-wrap-name
+  box-sizing border-box
   padding .3rem .6rem .3rem
   border-top 1px solid #dedeff
+  transition border 0.4s
   min-height 4em
   display flex
 #name
@@ -11,6 +13,7 @@
     font-size 0.8em
     font-weight 600
     color var(--dark-color)
+    transition color 0.4s
   .fullname-wrap
     flex-grow 1
     display flex
@@ -24,7 +27,7 @@
     .edit-input
       font-size 1rem
       outline none
-      line-height: 1
+      line-height 1
   .btn-common
     display flex
     align-items center
@@ -47,5 +50,9 @@
       border 1px solid #deceff
       img 
         transform rotate(45deg)
-.error-name
+#name.error-name
   border 1px solid #d4362a
+  border-radius 0.2rem
+  transition border 0.4s
+  .label
+    color #d4362a
