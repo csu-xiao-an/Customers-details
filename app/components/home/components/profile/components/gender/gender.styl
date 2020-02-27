@@ -1,0 +1,49 @@
+#gender
+  .block
+    align-items center
+    justify-content space-between
+    .del-wrap
+      width 1.5rem
+      height 1.5rem
+      border 1px solid #deceff
+      border-radius 50%
+      display flex
+      align-items center
+      justify-content center
+      img 
+        width 1rem
+        height 1rem
+        transform rotate(45deg)
+    .label
+      margin 1% 0 3%
+  ul
+    animation openSelect 0.3s
+  .gender_item
+    display flex
+    cursor pointer
+    border-top 1px solid #deceff
+    justify-content space-between
+    align-items center
+    font-size 1rem
+    -moz-padding-end 0.6rem
+    -webkit-padding-end 0.6rem
+    padding-inline-end 0.6rem
+    -moz-padding-start 2.4rem
+    -webkit-padding-start 2.4rem
+    padding-inline-start 2.4rem
+    transition font-weight 0.2s
+    min-height 3.5em
+    .marked_img
+      opacity 0
+      transition opacity 0.2s
+      height 1.5rem
+      width 1.5rem
+  .gender_active
+    background #efefff
+    box-shadow 0 0 8px 0 #deceff, 0 0 4px 0 rgba(0, 0, 0, 0)
+    font-weight 900
+    .marked_img
+      opacity 1
+  @keyframes openSelect
+    0%
+      opacity 0

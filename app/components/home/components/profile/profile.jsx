@@ -1,6 +1,6 @@
 import './profile.styl'
 import Phones from '../phones/phones.jsx'
-import Sex from '../sex/sex.jsx'
+import Gender from './components/gender/'
 import Email from '../email/email.jsx'
 import Name from './components/name/'
 import Birthdate from '../birthdate/birthdate.jsx'
@@ -23,12 +23,12 @@ export default class Profile extends React.Component {
       year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
       day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
       month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
-      gender: null,
+      gender: config.data.gender || null,
+      openGenderStrip: false,
       address: '',
       name: config.data.name || null,
       nameModal: false,
       editProfile: false,
-      // permit_ads: config.data.permit_ads || false,
       profileBirthEdit: false,
       profileEmailEdit: false,
       profileNameEdit: false,
@@ -37,13 +37,6 @@ export default class Profile extends React.Component {
       isViewAdress: false,
       adress: [],
       resetApi: true,
-      changeState: false,
-      maleSelected: false,
-      femaleSelected: false,
-      genderSelect: '',
-      // birthdateError: false,
-      label: config.translations.personal_info.gender.select_gender,
-      // blurPhone: false,
       long_name_warning: false
     }
     this.EmptyNameText = {
@@ -184,53 +177,16 @@ hidePhoneValidateModal = () => {
 /// ////////////////////////////  GENDER  /////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-getGender = gender => this.setState({ gender })
-
-defaultPos = () => {
-  if (config.data.gender) {
-    let initState = config.data.gender
-    if (initState.toLowerCase() === 'male') {
-      this.setState({ label: config.translations.personal_info.gender.male, maleSelected: true })
-    } else if (initState.toLowerCase() === 'female') {
-      this.setState({ label: config.translations.personal_info.gender.female, femaleSelected: true })
-    } else if (!initState) {
-      this.setState({ label: config.translations.personal_info.gender.select_gender, femaleSelected: false, maleSelected: false })
-    }
-  }
+handleSelectGender = gender => {
+  this.setState({ gender })
+  setTimeout(() => {
+    this.setState({ openGenderStrip: false })
+  }, 300)
 }
 
-deleteGender = () => {
-  this.state.gender = null
-  this.setState({ label: config.translations.personal_info.gender.select_gender, changeState: false, femaleSelected: false, maleSelected: false, genderSelect: null }, () => this.getGender(this.state.genderSelect))
-}
+handleClearGender = () => this.setState({ gender: null })
 
-handleGenderClick = () => {
-  let changeState = !this.state.changeState
-  this.setState({changeState})
-}
-
-selectedSex = () => {
-  let male = document.getElementById('radioMale')
-  male && male.addEventListener('click', e => {
-    this.state.genderSelect = 'male'
-    this.setState({label: config.translations.personal_info.gender.male,
-      maleSelected: true,
-      femaleSelected: false,
-      changeState: false
-    })
-    this.getGender(this.state.genderSelect)
-  })
-  let female = document.getElementById('radioFemale')
-  female && female.addEventListener('click', e => {
-    this.state.genderSelect = 'female'
-    this.setState({label: config.translations.personal_info.gender.female,
-      maleSelected: false,
-      femaleSelected: true,
-      changeState: false
-    })
-    this.getGender(this.state.genderSelect)
-  })
-}
+handleOpenCloseGender = () => this.setState({ openGenderStrip: !this.state.openGenderStrip })
 
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  ADDRESS  ////////////////////////////
@@ -257,7 +213,6 @@ removeElements = () => {
   while (elem.length > 0) {
     elem[0].parentNode.removeChild(elem[0])
   }
-  document.querySelectorAll('#gender').forEach(i => i.parentNode.removeChild(i))
 }
 
 changeAdress = e => {
@@ -413,30 +368,12 @@ getArgeement = value => this.setState({ permit_ads: value })
 componentDidMount = () => {
   this.setState({
     address: config.data.address ? config.data.address : null,
-    // name: config.data.name ? config.data.name : null,
     phone: this.normalizePhones(config.data.phone),
-    email: config.data.email ? config.data.email : null,
-    gender: config.data.gender ? config.data.gender : null
+    email: config.data.email ? config.data.email : null
   })
 }
 
 initMap = () => {
-  const divNode = document.createElement('div')
-  divNode.setAttribute('id', 'gender')
-  const url = `${config.urls.media}ic-marked.svg`
-  divNode.innerHTML = `<style>
-    .circle:before{
-      content: url(${url});
-    }
-    </style>`
-  document.body.appendChild(divNode)
-  divNode.innerHTML = `<style>
-    .radio.checked .circle:before{
-      content: url(${url});
-    }
-    </style>`
-  document.body.appendChild(divNode)
-  this.selectedSex()
   if (window.google) {
     let input = this.input
     const searchBox = new window.google.maps.places.SearchBox(input)
@@ -538,17 +475,12 @@ backAll = () => {
     resetApi: false,
     permit_empty_phone: false,
     blur: false,
-    changeState: false,
-    maleSelected: config.data.gender === 'male' && true,
-    femaleSelected: config.data.gender === 'female' && true,
-    genderSelect: config.data.gender,
-    label: config.translations.personal_info.gender.select_gender,
+    openGenderStrip: false,
     blurName: false,
     blurPhone: false,
     long_name_warning: false
   })
   this.removeElements()
-  this.defaultPos()
   this.resetFields()
   this.forceUpdate()
   // this.discardNameErrorStyle()
@@ -743,18 +675,13 @@ render () {
           </div>}
       </div>}
       {(config.data.gender || this.state.editProfile) &&
-        <Sex editProfile={this.state.editProfile}
-          defaultPos={this.defaultPos}
-          selectedSex={this.selectedSex}
-          deleteGender={this.deleteGender}
-          maleSelected={this.state.maleSelected}
-          femaleSelected={this.state.femaleSelected}
-          genderSelect={this.state.genderSelect}
-          changeState={this.state.changeState}
-          getGender={this.getGender}
-          handleGenderClick={this.handleGenderClick}
-          label={this.state.label}
-          // {...this.props}
+        <Gender
+          editProfile={this.state.editProfile}
+          openGenderStrip={this.state.openGenderStrip}
+          onSelectGender={this.handleSelectGender}
+          onOpenCloseGender={this.handleOpenCloseGender}
+          onClearGender={this.handleClearGender}
+          gender={this.state.gender}
         />}
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
         <Birthdate editProfile={this.state.editProfile}
