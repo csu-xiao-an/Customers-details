@@ -1,7 +1,7 @@
 import './profile.styl'
 import Phones from '../phones/phones.jsx'
 import Gender from './components/gender/'
-import Email from '../email/email.jsx'
+import Email from './components/email/'
 import Name from './components/name/'
 import Birthdate from '../birthdate/birthdate.jsx'
 import { putService as clientPutService, newGetService as clientNewGetService } from 'project-services/client.service.js'
@@ -24,6 +24,8 @@ export default class Profile extends React.Component {
       day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
       month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
       gender: config.data.gender || null,
+      email: config.data.email || null,
+      emailEditing: false,
       openGenderStrip: false,
       address: '',
       name: config.data.name || null,
@@ -31,7 +33,6 @@ export default class Profile extends React.Component {
       editProfile: false,
       profileBirthEdit: false,
       profileEmailEdit: false,
-      profileNameEdit: false,
       profilePhoneEdit: false,
       profileAddressEdit: false,
       isViewAdress: false,
@@ -231,21 +232,21 @@ changeAddressEdit = () => {
 /// ////////////////////////////  EMAIL  //////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-deleteEmail = () => this.setState({ email: '' }, () => {
-  this.setState({email: null, validateMail: false})
+deleteEmail = () => {
+  this.setState({ email: '' }, () => {
+    document.getElementById('email-input').focus()
+  })
+}
+
+emailEditingMode = () => this.setState({ emailEditing: true }, () => {
   document.getElementById('email-input').focus()
 })
 
 getEmail = email => this.setState({ email })
 
-changeEmailEdit = () => this.setState({ profileEmailEdit: !this.state.profileEmailEdit }, () => document.getElementById('email-input').focus())
-
 changeMail = e => {
-  this.setState({ email: e })
-  if (e !== '' && e.length >= 3) {
-  } else {
-    this.setState({ validateMail: false })
-  }
+  const emailValue = e.target.value
+  this.setState({ email: emailValue })
 }
 
 validate = email => {
@@ -368,8 +369,7 @@ getArgeement = value => this.setState({ permit_ads: value })
 componentDidMount = () => {
   this.setState({
     address: config.data.address ? config.data.address : null,
-    phone: this.normalizePhones(config.data.phone),
-    email: config.data.email ? config.data.email : null
+    phone: this.normalizePhones(config.data.phone)
   })
 }
 
@@ -460,10 +460,10 @@ sendData = () => {
 backAll = () => {
   this.setState({
     address: config.data.address,
-    name: config.data.name,
+    name: config.data.name || null,
     phone: this.normalizePhones(config.data.phone),
-    email: config.data.email,
-    gender: config.data.gender,
+    email: config.data.email || null,
+    gender: config.data.gender || null,
     year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
     day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
     month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
@@ -492,11 +492,10 @@ backAll = () => {
 
 resetFields = () => {
   this.setState({
-    profileEmailEdit: false,
+    emailEditing: false,
     profileBirthEdit: false,
     profileAddressEdit: false,
-    profilePhoneEdit: false,
-    profileNameEdit: false
+    profilePhoneEdit: false
   })
 }
 
@@ -596,22 +595,20 @@ render () {
         cancelModal={this.cancelPhoneModal}
         saveNumber={this.getPhone}
       /> */}
-      {(config.data.email || this.state.editProfile) &&
-        <Email editProfile={this.state.editProfile}
-          // delEmail={this.delEmail}
+      {(this.state.email || this.state.editProfile) &&
+        <Email
+          editProfile={this.state.editProfile}
+          emailEditingMode={this.emailEditingMode}
+          emailEditing={this.state.emailEditing}
           deleteEmail={this.deleteEmail}
-          getEmail={this.getEmail}
-          hateEmail={this.state.email}
+          email={this.state.email}
           changeMail={this.changeMail}
-          changeEmailEdit={this.changeEmailEdit}
-          profileEmailEdit={this.state.profileEmailEdit}
-          blurMail={this.blurMail}
-          {...this.props} />}
-      <IncorrectMail
+        />}
+      {this.state.activateMailModal && <IncorrectMail
         show={this.state.activateMailModal}
         onHide={this.hideMailModal}
         email={this.state.email}
-      />
+      />}
       {(this.state.editProfile || config.data.address) &&
       <div id='address'>
         <div className={!this.state.editProfile ? 'address-wrap' : 'hidden'}>
@@ -674,7 +671,7 @@ render () {
             </div>
           </div>}
       </div>}
-      {(config.data.gender || this.state.editProfile) &&
+      {(this.state.gender || this.state.editProfile) &&
         <Gender
           editProfile={this.state.editProfile}
           openGenderStrip={this.state.openGenderStrip}
