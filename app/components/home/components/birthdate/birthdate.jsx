@@ -39,7 +39,7 @@ export default class Birthdate extends React.Component {
               className='add-birth'>
               <div className='wrap-birth'>
                 <span className='label'>{config.translations.personal_info.birthday_label}</span>
-                <h1>{config.translations.personal_info_editing.add_birth_label}</h1>
+                <span className='add-label'>{config.translations.personal_info_editing.add_birth_label}</span>
               </div>
               <div className='add-info'>
                 <div className='add-wrap' onClick={this.delName}>
@@ -47,7 +47,7 @@ export default class Birthdate extends React.Component {
                 </div>
               </div>
             </div> : ''}
-        {this.props.editProfile && (this.props.profileBirthEdit || config.data.birthdate || config.data.birthyear) &&
+        {editProfile && (this.props.profileBirthEdit || config.data.birthdate || config.data.birthyear) &&
           <div className='edit-wrap'>
             <div className='datepicker'>
               <span className={'label ' + (errorClass ? 'error-span' : '')}>{errorClass ? config.translations.personal_info_editing.birthday_label_error : config.translations.personal_info.birthday_label}</span>

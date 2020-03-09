@@ -324,13 +324,11 @@ validateBD = () => {
       this.setErrorClassBD()
     } else {
       !this.state.name && this.showNameModal()
-      if (!this.state.birthdateError) {
-        const numbers = this.state.phone.filter(phone => phone.number !== '')
-        if (this.state.name) {
-          if (numbers.length !== 0) {
-            this.saveAll()
-          } else this.visibleModal()
-        }
+      const numbers = this.state.phone.filter(phone => phone.number !== '')
+      if (this.state.name) {
+        if (numbers.length !== 0) {
+          this.saveAll()
+        } else this.visibleModal()
       }
     }
   }
@@ -362,9 +360,6 @@ deleteBirthday = () => this.setState({
   birthyear: null,
   errorClass: false,
   bdError: false
-}, () => {
-  config.data.birthyear = this.state.birthyear
-  config.data.birthdate = this.state.birthdate
 })
 
 changeBirth = () => this.setState({ profileBirthEdit: !this.state.profileBirthEdit })
@@ -712,14 +707,12 @@ render () {
         <Birthdate
           editProfile={this.state.editProfile}
           deleteBirthday={this.deleteBirthday}
-          birthdateError={this.state.birthdateError}
           bdError={this.state.bdError}
           errorClass={this.state.errorClass}
           profileBirthEdit={this.state.profileBirthEdit}
           changeBirth={this.changeBirth}
           birthdate={this.state.birthdate}
           birthyear={this.state.birthyear}
-          // saveBirthdate={this.saveBirthdate}
           handleChangeDay={this.handleChangeDay}
           handleChangeMonth={this.handleChangeMonth}
           handleChangeYear={this.handleChangeYear}
