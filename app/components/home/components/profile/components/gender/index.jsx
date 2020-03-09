@@ -10,8 +10,10 @@ export default ({ editProfile, onSelectGender, onOpenCloseGender, onClearGender,
             <span className='sex-label'>{config.translations.personal_info.gender[gender] || config.translations.personal_info.gender.select_gender}</span>
           </span>
         </div>
-        {editProfile && <div className='del-wrap' onClick={onClearGender}>
-          <img src={config.urls.media + 'plus2.svg'} />
+        {editProfile && <div className='del-info'>
+          <div className='del-wrap' onClick={onClearGender}>
+            <img src={config.urls.media + 'plus2.svg'} />
+          </div>
         </div>}
       </div>
       {(openGenderStrip) && <ul>

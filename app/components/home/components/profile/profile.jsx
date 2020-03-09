@@ -23,6 +23,8 @@ export default class Profile extends React.Component {
       year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
       day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
       month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
+      bdError: false,
+      errorClass: false,
       gender: config.data.gender || null,
       email: config.data.email || null,
       emailEditing: false,
@@ -49,9 +51,6 @@ export default class Profile extends React.Component {
       agree_btn: config.translations.popup_empty_and_long_name.agree_long_name
     }
   }
-
-
-
 
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  NAME  ///////////////////////////////
@@ -222,7 +221,7 @@ changeAdress = e => {
 }
 
 changeAddressEdit = () => {
-  this.setState({profileAddressEdit: !this.state.profileAddressEdit}, () => {
+  this.setState({ profileAddressEdit: !this.state.profileAddressEdit }, () => {
     this.initMap()
     document.getElementById('pac-input').focus()
   })
@@ -258,6 +257,7 @@ validate = email => {
 showMail = () => {
   this.setState({ activateMailModal: true })
 }
+
 hideMailModal = () => {
   this.setState({ activateMailModal: false, loader: false })
   document.getElementById('email-input').focus()
@@ -266,48 +266,63 @@ hideMailModal = () => {
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  BIRTHDATE  //////////////////////////
 /// ///////////////////////////////////////////////////////////////////
+setErrorClassBD = () => {
+  this.setState({ errorClass: true })
+}
 
-saveBirthdate = () => {
-  let birthdateError = true
-  const datepicker = document.getElementById('birthdate')
-  datepicker.style.borderTop = '1px solid #dedeff'
-  datepicker.style.borderBottom = 'none'
-  datepicker.style.borderLeft = 'none'
-  datepicker.style.borderRight = 'none'
-  const { day, month, year } = this.state
-  const stringDay = config.translations.datepicker.placeholder.day
-  const stringMonth = config.translations.datepicker.placeholder.month
-  const stringYear = config.translations.datepicker.placeholder.year
-
-  return new Promise(resolve => {
-    if (year !== stringYear && day === stringDay && month === stringMonth) {
-      // Only year
-      datepicker.style.border = '1px solid red'
-    } else if (month === stringMonth && day !== stringDay && year === stringYear) {
-      // Only day
-      datepicker.style.border = '1px solid red'
-    } else if (year && day !== stringDay && month === stringMonth) {
-      // Year and day
-      datepicker.style.border = '1px solid red'
-    } else if (year === stringYear && day === stringDay && month !== stringMonth) {
-      // Only month
-      this.setState({ birthyear: moment().format('YYYY'), birthdate: `${this.state.month}-01`, day: '01', year: moment().format('YYYY') })
-      birthdateError = false
-    } else if (year !== stringYear && day === stringDay && month !== stringMonth) {
-      // Year and month
-      this.setState({ birthdate: `${this.state.month}-01`, day: '01' })
-      birthdateError = false
-    } else if (year === stringYear && day !== stringDay && month !== stringMonth) {
-      // Month and day
-      this.setState({ birthyear: moment().format('YYYY'), year: moment().format('YYYY'), birthdate: `${this.state.month}-${this.state.day}` })
-      birthdateError = false
-    } else birthdateError = false
-    this.setState({ birthdateError }, () => resolve())
-  })
+validateBD = () => {
+  const { year, month, day } = this.state
+  if ((!isNaN(+month) && !isNaN(+year) && !isNaN(day)) || !isNaN(+month) || (!isNaN(+year) && !isNaN(+month)) || (!isNaN(+month) && !isNaN(day))) {
+    if (!isNaN(+month) && isNaN(+year) && isNaN(day)) {
+      this.setState({
+        errorClass: false,
+        bdError: false,
+        birthyear: moment().format('YYYY'),
+        birthdate: `${this.state.month}-01`
+      }, () => {
+        config.data.birthyear = moment().format('YYYY')
+        config.data.birthdate = `${this.state.month}-01`
+      })
+    } else if (!isNaN(+month) && isNaN(+year) && !isNaN(day)) {
+      this.setState({
+        errorClass: false,
+        bdError: false,
+        birthyear: moment().format('YYYY'),
+        birthdate: `${this.state.month}-${this.state.day}`
+      }, () => {
+        config.data.birthyear = moment().format('YYYY')
+        config.data.birthdate = `${this.state.month}-${this.state.day}`
+      })
+    } else if (!isNaN(+month) && !isNaN(+year) && !isNaN(day)) {
+      this.setState({
+        errorClass: false,
+        bdError: false,
+        birthyear: this.state.birthyear,
+        birthdate: `${this.state.month}-${this.state.day}`
+      }, () => {
+        config.data.birthyear = this.state.birthyear
+        config.data.birthdate = `${this.state.month}-${this.state.day}`
+      })
+    } else if (!isNaN(+month) && !isNaN(+year) && isNaN(day)) {
+      this.setState({
+        errorClass: false,
+        bdError: false,
+        birthyear: this.state.birthyear,
+        birthdate: `${this.state.month}-01`
+      }, () => {
+        config.data.birthyear = this.state.birthyear
+        config.data.birthdate = `${this.state.month}-01`
+      })
+    }
+  } else {
+    this.setState({ bdError: true })
+  }
 }
 
   saveBtn = () => {
-    this.saveBirthdate().then(() => {
+    if (this.state.bdError) {
+      this.setErrorClassBD()
+    } else {
       !this.state.name && this.showNameModal()
       if (!this.state.birthdateError) {
         const numbers = this.state.phone.filter(phone => phone.number !== '')
@@ -317,28 +332,26 @@ saveBirthdate = () => {
           } else this.visibleModal()
         }
       }
-    })
+    }
   }
 
 handleChangeYear = event => {
   this.setState({
     year: event.target.value,
     birthyear: event.target.value
-  })
+  }, () => this.validateBD())
 }
 
 handleChangeMonth = event => {
   this.setState({
-    month: event.target.value,
-    birthdate: moment(`${moment().format('YYYY')}-${event.target.value}-${this.state.day}`).isValid() ? `${event.target.value}-${this.state.day}` : null
-  })
+    month: event.target.value
+  }, () => this.validateBD())
 }
 
 handleChangeDay = event => {
   this.setState({
-    day: event.target.value,
-    birthdate: moment(`${moment().format('YYYY')}-${this.state.month}-${event.target.value}`).isValid() ? `${this.state.month}-${event.target.value}` : null
-  })
+    day: event.target.value
+  }, () => this.validateBD())
 }
 
 deleteBirthday = () => this.setState({
@@ -346,10 +359,15 @@ deleteBirthday = () => this.setState({
   month: config.translations.datepicker.placeholder.month,
   day: config.translations.datepicker.placeholder.day,
   birthdate: null,
-  birthyear: null
+  birthyear: null,
+  errorClass: false,
+  bdError: false
+}, () => {
+  config.data.birthyear = this.state.birthyear
+  config.data.birthdate = this.state.birthdate
 })
 
-changeBirth = () => this.setState({profileBirthEdit: !this.state.profileBirthEdit})
+changeBirth = () => this.setState({ profileBirthEdit: !this.state.profileBirthEdit })
 
 /// ///////////////////////////////////////////////////////////////////
 /// ////////////////////////////  PERMIT ADS  /////////////////////////
@@ -433,8 +451,16 @@ sendData = () => {
       config.data.email = this.state.email
       config.data.name = this.state.name
       config.data.gender = this.state.gender
-      // config.data.permit_ads = this.state.permit_ads
-      this.setState({ editProfile: false, resetApi: false, loader: false }, () => this.changeBirth())
+      this.setState({
+        editProfile: false,
+        bdError: false,
+        resetApi: false,
+        profileBirthEdit: false,
+        year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
+        day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
+        month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
+        loader: false
+      })
       this.resetFields()
       this.forceUpdate()
       clientNewGetService().then(r => {
@@ -467,6 +493,8 @@ backAll = () => {
     year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
     day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
     month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
+    errorClass: false,
+    bdError: false,
     ifEnterPhone: false,
     validatePhone: false,
     validateMail: false,
@@ -681,19 +709,23 @@ render () {
           gender={this.state.gender}
         />}
       {((config.data.birthdate || config.data.birthyear) || this.state.editProfile) &&
-        <Birthdate editProfile={this.state.editProfile}
+        <Birthdate
+          editProfile={this.state.editProfile}
           deleteBirthday={this.deleteBirthday}
           birthdateError={this.state.birthdateError}
+          bdError={this.state.bdError}
+          errorClass={this.state.errorClass}
           profileBirthEdit={this.state.profileBirthEdit}
           changeBirth={this.changeBirth}
-          saveBirthdate={this.saveBirthdate}
+          birthdate={this.state.birthdate}
+          birthyear={this.state.birthyear}
+          // saveBirthdate={this.saveBirthdate}
           handleChangeDay={this.handleChangeDay}
           handleChangeMonth={this.handleChangeMonth}
           handleChangeYear={this.handleChangeYear}
           day={this.state.day}
           year={this.state.year}
           month={this.state.month}
-          {...this.props}
         />}
       {/* {config.data.phone && <Sendlink {...this.props} />} */}
       {/* <Agreement

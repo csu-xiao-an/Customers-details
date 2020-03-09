@@ -1,7 +1,17 @@
 #gender
   .block
-    align-items center
+    padding 0.3rem 0.6rem 0.3rem
+    border-top 1px solid #dedeff
+    min-height 3.5rem
+    display flex
     justify-content space-between
+    .gender
+      display flex
+      flex-direction column
+      justify-content space-between
+    .del-info
+      display flex
+      align-items center
     .del-wrap
       width 1.5rem
       height 1.5rem
@@ -14,8 +24,6 @@
         width 1rem
         height 1rem
         transform rotate(45deg)
-    .label
-      margin 1% 0 3%
   ul
     animation openSelect 0.3s
   .gender_item
