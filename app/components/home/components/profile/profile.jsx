@@ -3,7 +3,7 @@ import Phones from '../phones/phones.jsx'
 import Gender from './components/gender/'
 import Email from './components/email/'
 import Name from './components/name/'
-import Birthdate from '../birthdate/birthdate.jsx'
+import Birthdate from './components/birthdate/birthdate.jsx'
 import { putService as clientPutService, newGetService as clientNewGetService } from 'project-services/client.service.js'
 import { addressService } from 'project-services/address.service.js'
 import { default as IncorrectMail } from 'project-components/incorrectMail/incorrectMail.jsx'
@@ -433,12 +433,13 @@ sendData = () => {
       if (field === 'email') value = encodeURIComponent(value)
       if (value === '') value = null
       const result = `${field}=${value}`
+      console.log(result);
       return params + (params.length ? `&${result}` : result)
     }
     return params
   }, '')
-  body && clientPutService(body).then(r => {
-    if (r.status === 204) {
+  // body && clientPutService(body).then(r => {
+  //   if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
       config.data.phone = this.state.phone
@@ -457,25 +458,25 @@ sendData = () => {
         loader: false
       })
       this.resetFields()
-      this.forceUpdate()
-      clientNewGetService().then(r => {
-        config.data.profile_image = r.r.profile_image
-        let newArray = r.r
-        for (let key in newArray) {
-          if (fields.includes(key)) {
-            config.data[key] = newArray[key]
-            this.state[key] = newArray[key]
-            this.forceUpdate()
-          }
-        }
-        this.props.getProfilePicture(config.data.profile_image)
-        this.removeElements()
-        this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
-      })
-    } else {
-      this.setState({ editProfile: true })
-    }
-  })
+      // this.forceUpdate()
+  //     clientNewGetService().then(r => {
+  //       config.data.profile_image = r.r.profile_image
+  //       let newArray = r.r
+  //       for (let key in newArray) {
+  //         if (fields.includes(key)) {
+  //           config.data[key] = newArray[key]
+  //           this.state[key] = newArray[key]
+  //           this.forceUpdate()
+  //         }
+  //       }
+  //       this.props.getProfilePicture(config.data.profile_image)
+  //       this.removeElements()
+  //       this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
+  //     })
+  //   } else {
+  //     this.setState({ editProfile: true })
+  //   }
+  // })
 }
 
 backAll = () => {
