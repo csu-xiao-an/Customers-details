@@ -6,9 +6,7 @@ export default ({ editProfile, onSelectGender, onOpenCloseGender, onClearGender,
       <div className='block' onClick={editProfile && onOpenCloseGender}>
         <div className='gender'>
           <span className='label'>{config.translations.personal_info.gender_label}:</span>
-          <span className='block-content'>
-            <span className='sex-label'>{config.translations.personal_info.gender[gender] || config.translations.personal_info.gender.select_gender}</span>
-          </span>
+          <span className='sex-label'>{config.translations.personal_info.gender[gender] || config.translations.personal_info.gender.select_gender}</span>
         </div>
         {editProfile && <div className='del-info'>
           <div className='del-wrap' onClick={onClearGender}>

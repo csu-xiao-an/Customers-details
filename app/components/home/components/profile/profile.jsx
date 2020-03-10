@@ -3,6 +3,7 @@ import Phones from '../phones/phones.jsx'
 import Gender from './components/gender/'
 import Email from './components/email/'
 import Name from './components/name/'
+import Address from './components/address/'
 import Birthdate from './components/birthdate/birthdate.jsx'
 import { putService as clientPutService, newGetService as clientNewGetService } from 'project-services/client.service.js'
 import { addressService } from 'project-services/address.service.js'
@@ -29,7 +30,7 @@ export default class Profile extends React.Component {
       email: config.data.email || null,
       emailEditing: false,
       openGenderStrip: false,
-      address: '',
+      address: config.data.address || null,
       name: config.data.name || null,
       nameModal: false,
       editProfile: false,
@@ -38,8 +39,6 @@ export default class Profile extends React.Component {
       profilePhoneEdit: false,
       profileAddressEdit: false,
       isViewAdress: false,
-      adress: [],
-      resetApi: true,
       long_name_warning: false
     }
     this.EmptyNameText = {
@@ -192,38 +191,61 @@ handleOpenCloseGender = () => this.setState({ openGenderStrip: !this.state.openG
 /// ////////////////////////////  ADDRESS  ////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-getAddress = address => this.setState({ address })
-
 loadMap = (url, location) => {
-  let scriptTag = document.createElement('script')
+  const scriptTag = document.createElement('script')
   scriptTag.src = url
   location.appendChild(scriptTag)
-  this.forceUpdate()
+}
+
+setAddressInput = input => {
+  this.childRef = input
+}
+
+initMap = () => {
+  if (window.google) {
+    const input = this.childRef
+    const searchBox = new window.google.maps.places.SearchBox(input)
+    searchBox.addListener('places_changed', () => {
+      const places = searchBox.getPlaces()
+      this.setState({
+        address: places[0].formatted_address
+      })
+    })
+  } else {
+    setTimeout(() => {
+      this.initMap()
+    }, 300)
+  }
 }
 
 delAddress = () => {
-  this.setState({address: '', test: ''}, () => {
-    this.setState({address: null})
-    document.getElementById('pac-input').focus()
+  this.setState({ address: '' }, () => {
+    this.removeElements()
+    this.initMap()
+    this.childRef.focus()
   })
 }
 
 removeElements = () => {
-  let elem = document.getElementsByClassName('pac-container')
+  const elem = document.getElementsByClassName('pac-container')
+  const addressStyles = document.getElementsByTagName('style')
   while (elem.length > 0) {
     elem[0].parentNode.removeChild(elem[0])
+  }
+  while (addressStyles.length > 0) {
+    addressStyles[0].parentNode.removeChild(addressStyles[0])
   }
 }
 
 changeAdress = e => {
-  let value = e.target.value
+  const value = e.target.value
   this.setState({ address: value })
 }
 
 changeAddressEdit = () => {
-  this.setState({ profileAddressEdit: !this.state.profileAddressEdit }, () => {
+  this.setState({ profileAddressEdit: true }, () => {
     this.initMap()
-    document.getElementById('pac-input').focus()
+    this.childRef.focus()
   })
 }
 
@@ -381,22 +403,8 @@ getArgeement = value => this.setState({ permit_ads: value })
 
 componentDidMount = () => {
   this.setState({
-    address: config.data.address ? config.data.address : null,
     phone: this.normalizePhones(config.data.phone)
   })
-}
-
-initMap = () => {
-  if (window.google) {
-    let input = this.input
-    const searchBox = new window.google.maps.places.SearchBox(input)
-    searchBox.addListener('places_changed', () => {
-      const places = searchBox.getPlaces()
-      this.setState({
-        address: places[0].formatted_address
-      })
-    })
-  }
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -433,13 +441,12 @@ sendData = () => {
       if (field === 'email') value = encodeURIComponent(value)
       if (value === '') value = null
       const result = `${field}=${value}`
-      console.log(result);
       return params + (params.length ? `&${result}` : result)
     }
     return params
   }, '')
-  // body && clientPutService(body).then(r => {
-  //   if (r.status === 204) {
+  body && clientPutService(body).then(r => {
+    if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
       config.data.phone = this.state.phone
@@ -450,7 +457,6 @@ sendData = () => {
       this.setState({
         editProfile: false,
         bdError: false,
-        resetApi: false,
         profileBirthEdit: false,
         year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
         day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
@@ -458,25 +464,24 @@ sendData = () => {
         loader: false
       })
       this.resetFields()
-      // this.forceUpdate()
-  //     clientNewGetService().then(r => {
-  //       config.data.profile_image = r.r.profile_image
-  //       let newArray = r.r
-  //       for (let key in newArray) {
-  //         if (fields.includes(key)) {
-  //           config.data[key] = newArray[key]
-  //           this.state[key] = newArray[key]
-  //           this.forceUpdate()
-  //         }
-  //       }
-  //       this.props.getProfilePicture(config.data.profile_image)
-  //       this.removeElements()
-  //       this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
-  //     })
-  //   } else {
-  //     this.setState({ editProfile: true })
-  //   }
-  // })
+      clientNewGetService().then(r => {
+        config.data.profile_image = r.r.profile_image
+        let newArray = r.r
+        for (let key in newArray) {
+          if (fields.includes(key)) {
+            config.data[key] = newArray[key]
+            this.state[key] = newArray[key]
+            this.forceUpdate()
+          }
+        }
+        this.props.getProfilePicture(config.data.profile_image)
+        this.removeElements()
+        this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
+      })
+    } else {
+      this.setState({ editProfile: true })
+    }
+  })
 }
 
 backAll = () => {
@@ -496,7 +501,6 @@ backAll = () => {
     validateMail: false,
     // permit_ads: config.data.permit_ads || false,
     editProfile: false,
-    resetApi: false,
     permit_empty_phone: false,
     blur: false,
     openGenderStrip: false,
@@ -506,8 +510,6 @@ backAll = () => {
   })
   this.removeElements()
   this.resetFields()
-  this.forceUpdate()
-  // this.discardNameErrorStyle()
 }
 
 /// ///////////////////////////////////////////////////////////////////
@@ -524,13 +526,17 @@ resetFields = () => {
 }
 
 editInfo = () => {
-  if (!window.google) {
-    addressService().then(r => {
-      const key = r.r.api_key
-      this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
-    })
-  }
-  this.setState({ editProfile: true, resetApi: true, phone: this.normalizePhones(config.data.phone) }, () => this.initMap())
+  this.setState({ editProfile: true, phone: this.normalizePhones(config.data.phone) }, () => {
+    if (!window.google) {
+      addressService().then(r => {
+        const key = r.r.api_key
+        this.loadMap(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&language=${config.locale}`, document.body)
+      })
+    }
+    if (this.childRef) {
+      this.initMap()
+    }
+  })
 }
 
 render () {
@@ -634,67 +640,15 @@ render () {
         email={this.state.email}
       />}
       {(this.state.editProfile || config.data.address) &&
-      <div id='address'>
-        <div className={!this.state.editProfile ? 'address-wrap' : 'hidden'}>
-          <div className='address-data'>
-            <span className='label'>{config.translations.personal_info.address_lable}:</span>
-            <div className='block-content'>
-              <div className='text'>{config.data.address}</div>
-            </div>
-          </div>
-          <div className='images'>
-            <div className='img-wrap'>
-              <a href={config.urls.waze.replace('{address}', encodeURIComponent(config.data.address))}>
-                <img
-                  // onClick={() => this.setState({visibleMapPopup: true})}
-                  src={config.urls.media + 'waze.png'}
-                />
-              </a>
-            </div>
-            <div className='img-wrap'>
-              <a href={config.urls.google_maps + encodeURIComponent(config.data.address)}>
-                <img
-                  // onClick={() => this.setState({visibleMapPopup: true})}
-                  src={config.urls.media + 'icon-address.png'}
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-        {this.state.editProfile && !config.data.address &&
-          <div ref={input => { this.input = input }} onClick={this.changeAddressEdit}
-            className={!this.state.profileAddressEdit ? 'add-address' : 'hidden'}>
-            <div className='wrap-address'>
-              <span className='label'>{config.translations.personal_info.address_lable}:</span>
-              <span className='add_info'>{config.translations.personal_info_editing.empty_address_label}</span>
-            </div>
-            <div className='add-info'>
-              <div className='add-wrap'>
-                <img src={config.urls.media + 'profile_plus.svg'} />
-              </div>
-            </div>
-          </div>}
-        {(this.state.editProfile && (this.state.profileAddressEdit || config.data.address)) &&
-          <div className='address-data-edit'>
-            <div className='address-wrap-edit'>
-              <span className='label'>{config.translations.personal_info.address_lable}:</span>
-              <div className='block-content'>
-                <input id='pac-input' className='controls'
-                  type='text'
-                  ref={input => { this.input = input }}
-                  onChange={this.changeAdress}
-                  value={this.state.address}
-                  placeholder={config.translations.personal_info_editing.address_placeholder}
-                />
-              </div>
-            </div>
-            <div className='del-info'>
-              <div className='del-wrap' onClick={this.delAddress}>
-                <img src={config.urls.media + 'plus2.svg'} />
-              </div>
-            </div>
-          </div>}
-      </div>}
+        <Address
+          profileAddressEdit={this.state.profileAddressEdit}
+          changeAddressEdit={this.changeAddressEdit}
+          editProfile={this.state.editProfile}
+          changeAdress={this.changeAdress}
+          address={this.state.address}
+          delAddress={this.delAddress}
+          setAddressInput={this.setAddressInput}
+        />}
       {(this.state.gender || this.state.editProfile) &&
         <Gender
           editProfile={this.state.editProfile}

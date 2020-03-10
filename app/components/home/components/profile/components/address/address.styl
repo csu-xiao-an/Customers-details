@@ -1,0 +1,85 @@
+#address
+  padding 0.3rem 0.6rem 0.3rem
+  border-top 1px solid #dedeff
+  min-height 3.5rem
+  display flex
+  .address-wrap
+    flex-grow 1
+    display flex
+    justify-content space-between
+    .address-data
+      display flex
+      flex-direction column
+      justify-content space-between
+      flex-grow 1
+      .text
+        font-size 1rem
+        line-height 1.2
+  .address-data-edit
+    display flex
+    justify-content space-between
+    width 100%
+    .address-wrap-edit
+      display flex
+      flex-direction column
+      justify-content space-between
+      flex-grow 1
+      -moz-padding-end 2rem
+      -webkit-padding-end 2rem
+      padding-inline-end 2rem
+      input
+        font-size 1rem
+        outline none
+      .block-content
+        width 100%
+        display flex
+    .label
+      font-size 0.8em
+      font-weight 600
+      color var(--dark-color)
+  .add-address
+    display flex
+    justify-content space-between
+    width 100%
+    .wrap-address
+      display flex
+      flex-direction column
+      justify-content space-between
+      .label
+        font-size 0.8em
+        font-weight 600
+        color var(--dark-color)
+  .del-info,
+  .add-info
+    display flex
+    align-items center
+    div
+      width 1.5rem
+      height 1.5rem
+      border-radius 50%
+      display flex
+      align-items center
+      justify-content center
+      img 
+        width 1rem
+        height 1rem
+  .del-info
+    .del-wrap
+      border 1px solid #deceff
+      img
+        transform rotate(45deg)
+  .add-info
+    .add-wrap
+      background-color var(--active-color)
+  .images
+    display flex
+    align-items center
+    .img-wrap
+      -moz-margin-start 0.6rem
+      -webkit-margin-start 0.6rem
+      margin-inline-start 0.6rem
+      a
+        display flex
+      img
+        width 2.4rem
+        height 2.4rem
