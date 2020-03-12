@@ -25,15 +25,16 @@ export default class Phones extends React.Component {
     rights: PropTypes.object.isRequired
   }
 
-  componentDidMount = () => {
-    this.setState({ phone: this.props.phones })
-  }
+  // componentDidMount = () => {
+  //   this.setState({ phone: this.props.phones })
+  // }
 
   render () {
     return this.props.rights.isPhone && (
       <div id='phones'>
         {this.props.phones.map((i, k) => (
           <Phone
+            key={i.id}
             add={this.props.add}
             phones={this.props.phones}
             getPhone={this.props.getPhone}

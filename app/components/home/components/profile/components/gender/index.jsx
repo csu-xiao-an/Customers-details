@@ -3,7 +3,7 @@ const genderArray = ['male', 'female']
 export default ({ editProfile, onSelectGender, onOpenCloseGender, onClearGender, openGenderStrip, gender }) => {
   return (
     <div id='gender'>
-      <div className='block' onClick={editProfile && onOpenCloseGender}>
+      <div className='gender-wrap' onClick={editProfile && onOpenCloseGender}>
         <div className='gender'>
           <span className='label'>{config.translations.personal_info.gender_label}:</span>
           <span className='sex-label'>{config.translations.personal_info.gender[gender] || config.translations.personal_info.gender.select_gender}</span>

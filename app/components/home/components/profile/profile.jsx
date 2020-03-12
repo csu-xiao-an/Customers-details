@@ -1,4 +1,4 @@
-import './profile.styl'
+import uid from 'uid'
 import Phones from '../phones/phones.jsx'
 import Gender from './components/gender/'
 import Email from './components/email/'
@@ -10,6 +10,7 @@ import { addressService } from 'project-services/address.service.js'
 import { default as IncorrectMail } from 'project-components/incorrectMail/incorrectMail.jsx'
 import { default as IncorrectPhone } from 'project-components/incorrectPhone/incorrectPhone.jsx'
 import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emptydatamodal.jsx'
+import './profile.styl'
 
 export default class Profile extends React.Component {
   constructor (props) {
@@ -27,6 +28,7 @@ export default class Profile extends React.Component {
       bdError: false,
       errorClass: false,
       gender: config.data.gender || null,
+      phone: this.normalizePhones(config.data.phone),
       email: config.data.email || null,
       emailEditing: false,
       openGenderStrip: false,
@@ -94,29 +96,34 @@ changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhon
 
 normalizePhones = phones => {
   if (phones && phones.length) {
-    return phones.map((phone, index) => ({ id: index, number: phone.number || phone }))
+    return phones.map(phone => ({ id: uid(), number: phone.number || phone }))
   } else {
     return []
   }
 }
 
-changeOnePhone = value => {
-  let phone = this.state.phone
-  let phoneIndex = phone.findIndex(phone => phone.id === value.id)
-  if (phoneIndex > -1) {
-    phone[phoneIndex].number = value.number
-    this.setState({ phone })
-  }
+// changeOnePhone = value => {
+//   let phone = this.state.phone
+//   let phoneIndex = phone.findIndex(phone => phone.id === value.id)
+//   if (phoneIndex > -1) {
+//     phone[phoneIndex].number = value.number
+//     this.setState({ phone })
+//   }
+// }
+
+getPhone = e => {
+  const id = e.target.name
+  const number = e.target.value
+  this.setState(prevState => ({
+    phone: prevState.phone.map(item => item.id == id ? { id, number } : item),
+    blurPhone: false
+  }))
 }
 
-getPhone = value => {
-  this.setState({ phone: value })
-  this.changeOnePhone(value)
-}
-
-deletePhone = value => {
-  this.changeOnePhone(value)
-  this.setState({ ifEnterPhone: false })
+deletePhone = id => {
+  this.setState({
+    phone: this.state.phone.map(item => item.id == id ? { id, number: '' } : item)
+  }, () => {})
 }
 
 getPhonesValue = value => {
@@ -146,19 +153,16 @@ cancelPhoneModal = () => {
   this.setState({ visibleModal: false, permit_empty_phone: false })
 }
 
-getUniqkId = id => {
-  let nextId = id
-  const { phone } = this.state
-  if (phone.filter(phone => phone.id === id).length) {
-    nextId++
-    return this.getUniqkId(nextId)
-  } else return nextId
-}
 
 onAddPhone = () => {
-  const { phone } = this.state
-  phone.push({ id: this.getUniqkId(0), number: '' })
-  this.setState({ phone, add: true })
+  const newPhone = {
+    id: uid(),
+    number: ''
+  }
+  this.setState(prevState => ({
+    phone: [...prevState.phone, newPhone],
+    add: true
+  }))
 }
 // validatePhone = phone => {
 //   const r = /^[0-9-+*#]+$/
@@ -401,11 +405,11 @@ getArgeement = value => this.setState({ permit_ads: value })
 /// ////////////////////////////  OTHER  //////////////////////////////
 /// ///////////////////////////////////////////////////////////////////
 
-componentDidMount = () => {
-  this.setState({
-    phone: this.normalizePhones(config.data.phone)
-  })
-}
+// componentDidMount = () => {
+//   this.setState({
+//     phone: this.normalizePhones(config.data.phone)
+//   })
+// }
 
 /// ///////////////////////////////////////////////////////////////////
 /// /////////////////////  SAVE AND BACK BUTTONS  /////////////////////
@@ -445,8 +449,9 @@ sendData = () => {
     }
     return params
   }, '')
-  body && clientPutService(body).then(r => {
-    if (r.status === 204) {
+  console.log(body);
+  // body && clientPutService(body).then(r => {
+  //   if (r.status === 204) {
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
       config.data.phone = this.state.phone
@@ -464,24 +469,24 @@ sendData = () => {
         loader: false
       })
       this.resetFields()
-      clientNewGetService().then(r => {
-        config.data.profile_image = r.r.profile_image
-        let newArray = r.r
-        for (let key in newArray) {
-          if (fields.includes(key)) {
-            config.data[key] = newArray[key]
-            this.state[key] = newArray[key]
-            this.forceUpdate()
-          }
-        }
-        this.props.getProfilePicture(config.data.profile_image)
-        this.removeElements()
-        this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
-      })
-    } else {
-      this.setState({ editProfile: true })
-    }
-  })
+  //     clientNewGetService().then(r => {
+  //       config.data.profile_image = r.r.profile_image
+  //       let newArray = r.r
+  //       for (let key in newArray) {
+  //         if (fields.includes(key)) {
+  //           config.data[key] = newArray[key]
+  //           this.state[key] = newArray[key]
+  //           this.forceUpdate()
+  //         }
+  //       }
+  //       this.props.getProfilePicture(config.data.profile_image)
+  //       this.removeElements()
+  //       this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
+  //     })
+  //   } else {
+  //     this.setState({ editProfile: true })
+  //   }
+  // })
 }
 
 backAll = () => {
@@ -526,7 +531,7 @@ resetFields = () => {
 }
 
 editInfo = () => {
-  this.setState({ editProfile: true, phone: this.normalizePhones(config.data.phone) }, () => {
+  this.setState({ editProfile: true }, () => {
     if (!window.google) {
       addressService().then(r => {
         const key = r.r.api_key
@@ -582,6 +587,7 @@ render () {
       {(this.state.phone || this.state.editProfile) &&
         <Phones
           editProfile={this.state.editProfile}
+          setPhoneInput={this.setPhoneInput}
           phoneBlur={this.phoneBlur}
           resetPhoneBlur={this.resetPhoneBlur}
           phoneBlurState={this.state.blurPhone}

@@ -12,10 +12,8 @@ export default class Phone extends React.Component {
     rights: PropTypes.object.isRequired
   }
 
-  delInfo = () => {
-    const phone = this.props.phone
-    phone.number = ''
-    this.setState({ phone }, () => this.props.deletePhone(phone))
+  clearNumber = id => {
+    this.props.deletePhone(id)
     this.phoneInput.focus()
   }
 
@@ -23,12 +21,13 @@ export default class Phone extends React.Component {
     this.setState({ phone })
   }
 
-  phoneNumber = e => {
-    const phone = this.props.phone
-    phone.number = e.target.value
-    this.props.resetPhoneBlur()
-    this.setState({ phone, error: '' }, () => this.props.getPhone(this.state.phone))
-  }
+  // phoneNumber = e => {
+  //   console.log(e.target);
+  //   const phone = this.props.phone
+  //   phone.number = e.target.value
+  //   this.props.resetPhoneBlur()
+  //   this.setState({ phone, error: '' }, () => this.props.getPhone(this.state.phone))
+  // }
 
   componentDidMount = () => {
     this.props.add && this.phoneInput.focus()
@@ -87,17 +86,16 @@ export default class Phone extends React.Component {
                     <input
                       className={'edit-input'}
                       autoComplete='off'
-                      // autoFocus
-                      // id='phone-input'
+                      name={this.props.phone.id}
                       type='tel'
                       ref={input => { this.phoneInput = input }}
                       value={this.props.phone.number}
-                      onChange={e => this.phoneNumber(e)}
+                      onChange={this.props.getPhone}
                       onBlur={this.props.phoneBlur}
                     />
                   </div>
                   <div className='del-info'>
-                    <div className='del-wrap' onClick={this.delInfo}>
+                    <div className='del-wrap' onClick={() => this.clearNumber(this.props.phone.id)}>
                       <img src={config.urls.media + 'plus2.svg'} />
                     </div>
                   </div>
