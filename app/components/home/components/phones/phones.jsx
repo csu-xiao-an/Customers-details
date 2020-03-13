@@ -14,28 +14,13 @@ export default class Phones extends React.Component {
     }
   }
 
-  state = {
-    phoneEdit: false,
-    phone: [],
-    phoneValue: '',
-    error: ''
-  }
-
-  static propTypes = {
-    rights: PropTypes.object.isRequired
-  }
-
-  // componentDidMount = () => {
-  //   this.setState({ phone: this.props.phones })
-  // }
-
   render () {
     return this.props.rights.isPhone && (
       <div id='phones'>
         {this.props.phones.map((i, k) => (
           <Phone
             key={i.id}
-            add={this.props.add}
+            addingNewPhone={this.props.addingNewPhone}
             phones={this.props.phones}
             getPhone={this.props.getPhone}
             phone={i}
@@ -48,10 +33,9 @@ export default class Phones extends React.Component {
           text={this.text}
           visibleModal={this.props.visibleModal}
           closeModal={this.props.cancel}
-          // create={this.create}
           cancelSave={this.props.cancelSave}
           cancel={this.props.cancel}
-          getPhone={this.props.getPhone}
+          getPhone={this.props.getPhoneFromPopup}
         />
       </div>
     )

@@ -29,6 +29,7 @@ export default class Profile extends React.Component {
       errorClass: false,
       gender: config.data.gender || null,
       phone: this.normalizePhones(config.data.phone),
+      addingNewPhone: false,
       email: config.data.email || null,
       emailEditing: false,
       openGenderStrip: false,
@@ -84,15 +85,15 @@ cancelNameModal = () => {
   }
 
   phoneBlur = () => {
-    const number = this.state.phone.filter(i => i.number !== '')
-    if (number.length === 0) {
+    const number = this.state.phone.find(i => i.number === '')
+    if (number) {
       this.setState({ blurPhone: true })
     } else {
       this.setState({ blurPhone: false })
     }
   }
 
-changePhoneEdit = () => this.setState({profilePhoneEdit: !this.state.profilePhoneEdit})
+changePhoneEdit = () => this.setState({ profilePhoneEdit: !this.state.profilePhoneEdit })
 
 normalizePhones = phones => {
   if (phones && phones.length) {
@@ -110,6 +111,7 @@ normalizePhones = phones => {
 //     this.setState({ phone })
 //   }
 // }
+getPhoneFromPopup = phone => this.setState({ phone })
 
 getPhone = e => {
   const id = e.target.name
@@ -123,7 +125,7 @@ getPhone = e => {
 deletePhone = id => {
   this.setState({
     phone: this.state.phone.map(item => item.id == id ? { id, number: '' } : item)
-  }, () => {})
+  })
 }
 
 getPhonesValue = value => {
@@ -153,21 +155,24 @@ cancelPhoneModal = () => {
   this.setState({ visibleModal: false, permit_empty_phone: false })
 }
 
-
 onAddPhone = () => {
   const newPhone = {
     id: uid(),
     number: ''
   }
-  this.setState(prevState => ({
-    phone: [...prevState.phone, newPhone],
-    add: true
-  }))
+  const emptyNumber = this.state.phone[this.state.phone.length - 1] && this.state.phone[this.state.phone.length - 1].number === ''
+  console.log('emptyNumber', emptyNumber);
+  if (emptyNumber) {
+    this.setState({
+      addingNewPhone: false
+    })
+  } else {
+    this.setState(prevState => ({
+      phone: [...prevState.phone, newPhone],
+      addingNewPhone: true
+    }))
+  }
 }
-// validatePhone = phone => {
-//   const r = /^[0-9-+*#]+$/
-//   return r.test(phone)
-// }
 
 showPhoneValidateModal = icorrectNumber => {
   this.setState({ phoneValidateModal: true, icorrectNumber })
@@ -345,19 +350,19 @@ validateBD = () => {
   }
 }
 
-  saveBtn = () => {
-    if (this.state.bdError) {
-      this.setErrorClassBD()
-    } else {
-      !this.state.name && this.showNameModal()
-      const numbers = this.state.phone.filter(phone => phone.number !== '')
-      if (this.state.name) {
-        if (numbers.length !== 0) {
-          this.saveAll()
-        } else this.visibleModal()
-      }
+saveBtn = () => {
+  if (this.state.bdError) {
+    this.setErrorClassBD()
+  } else {
+    !this.state.name && this.showNameModal()
+    const numbers = this.state.phone.filter(phone => phone.number !== '')
+    if (this.state.name) {
+      if (numbers.length !== 0) {
+        this.saveAll()
+      } else this.visibleModal()
     }
   }
+}
 
 handleChangeYear = event => {
   this.setState({
@@ -396,20 +401,9 @@ changeBirth = () => this.setState({ profileBirthEdit: !this.state.profileBirthEd
 
 handleAds = () => {
   this.setState({ permit_ads: !this.state.permit_ads })
-  this.forceUpdate()
 }
 
 getArgeement = value => this.setState({ permit_ads: value })
-
-/// ///////////////////////////////////////////////////////////////////
-/// ////////////////////////////  OTHER  //////////////////////////////
-/// ///////////////////////////////////////////////////////////////////
-
-// componentDidMount = () => {
-//   this.setState({
-//     phone: this.normalizePhones(config.data.phone)
-//   })
-// }
 
 /// ///////////////////////////////////////////////////////////////////
 /// /////////////////////  SAVE AND BACK BUTTONS  /////////////////////
@@ -425,12 +419,9 @@ saveAll = () => {
   const checkMail = this.state.email && this.validate(this.state.email)
   const filterPhones = this.state.phone.filter(i => !!i.number)
   const arrPhones = filterPhones.map(item => item.number)
-  this.setState({ loader: true })
-  const emptyPhone = this.getPhonesValue(this.state.phone)
   const checkPhones = arrPhones.some(i => this.validatePhone(i))
   if (!checkPhones && (checkMail || !this.state.email)) {
-    this.sendData()
-  } else if (emptyPhone === null && checkMail) {
+    this.setState({ loader: true })
     this.sendData()
   }
 }
@@ -449,12 +440,13 @@ sendData = () => {
     }
     return params
   }, '')
-  console.log(body);
-  // body && clientPutService(body).then(r => {
-  //   if (r.status === 204) {
+  body && clientPutService(body).then(r => {
+    if (r.status === 204) {
+      const filterPhones = this.state.phone.filter(i => !!i.number)
+      const arrPhones = filterPhones.map(item => item.number)
       config.data.birthdate = this.state.birthdate
       config.data.birthyear = this.state.birthyear
-      config.data.phone = this.state.phone
+      config.data.phone = arrPhones
       config.data.address = this.state.address
       config.data.email = this.state.email
       config.data.name = this.state.name
@@ -462,6 +454,7 @@ sendData = () => {
       this.setState({
         editProfile: false,
         bdError: false,
+        blurPhone: false,
         profileBirthEdit: false,
         year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
         day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
@@ -469,24 +462,24 @@ sendData = () => {
         loader: false
       })
       this.resetFields()
-  //     clientNewGetService().then(r => {
-  //       config.data.profile_image = r.r.profile_image
-  //       let newArray = r.r
-  //       for (let key in newArray) {
-  //         if (fields.includes(key)) {
-  //           config.data[key] = newArray[key]
-  //           this.state[key] = newArray[key]
-  //           this.forceUpdate()
-  //         }
-  //       }
-  //       this.props.getProfilePicture(config.data.profile_image)
-  //       this.removeElements()
-  //       this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
-  //     })
-  //   } else {
-  //     this.setState({ editProfile: true })
-  //   }
-  // })
+      clientNewGetService().then(r => {
+        config.data.profile_image = r.r.profile_image
+        let newArray = r.r
+        for (let key in newArray) {
+          if (fields.includes(key)) {
+            config.data[key] = newArray[key]
+            this.state[key] = newArray[key]
+            this.forceUpdate()
+          }
+        }
+        this.props.getProfilePicture(config.data.profile_image)
+        this.removeElements()
+        this.setState({ phone: this.normalizePhones(this.state.phone), ifEnterPhone: false, validatePhone: false, validateMail: false, long_name_warning: false })
+      })
+    } else {
+      this.setState({ editProfile: true })
+    }
+  })
 }
 
 backAll = () => {
@@ -494,6 +487,7 @@ backAll = () => {
     address: config.data.address,
     name: config.data.name || null,
     phone: this.normalizePhones(config.data.phone),
+    addingNewPhone: false,
     email: config.data.email || null,
     gender: config.data.gender || null,
     year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
@@ -592,12 +586,12 @@ render () {
           resetPhoneBlur={this.resetPhoneBlur}
           phoneBlurState={this.state.blurPhone}
           getPhone={this.getPhone}
-          add={this.state.add}
+          getPhoneFromPopup={this.getPhoneFromPopup}
+          addingNewPhone={this.state.addingNewPhone}
           changePhoneEdit={this.changePhoneEdit}
           profilePhoneEdit={this.state.profilePhoneEdit}
           deletePhone={this.deletePhone}
           visibleModal={this.state.visibleModal}
-          // blurPhoneModal={this.blurPhoneModal}
           cancelSave={this.cancelSavePhoneModal}
           cancel={this.cancelPhoneModal}
           visibleModalOpen={this.visibleModal}
@@ -611,12 +605,12 @@ render () {
       {this.state.editProfile && this.state.phone.length !== 5 &&
         <div className='add-phones' onClick={this.onAddPhone}>
           <div className='add-phones-wrap'>
-            <div className='phone-wrap-half'>
+            <div className='phone-wrap'>
               <span className='label'>{config.translations.personal_info_editing.empty_phone_label}</span>
               <span className='add_info'>{config.translations.personal_info_editing.add_phone_number}</span>
             </div>
-            <div className='add-info-pic'>
-              <div className='pic-wrap'>
+            <div className='add-info'>
+              <div className='add-wrap'>
                 <img src={config.urls.media + 'profile_plus.svg'} />
               </div>
             </div>
