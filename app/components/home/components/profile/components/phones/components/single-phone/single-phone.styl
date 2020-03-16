@@ -1,0 +1,114 @@
+#phones
+  .phone-main
+  .data-phone
+  .phone-edit
+    padding 0.3rem 0.6rem 0.3rem
+    min-height 3.5rem
+    display flex
+    border 1px solid transparent
+    border-top 1px solid #dedeff
+    transition border 0.4s
+  .error-phone
+    border 1px solid #f00
+    border-radius 0.2rem
+    transition border 0.4s
+  .phone-numbers
+    padding 0 10px
+    min-height 4em
+    display flex
+    border-top 1px solid #dedeff
+  .label
+    font-size 0.8em
+    font-weight 600
+    color var(--dark-color)
+  .phone-img
+    display flex
+    align-items center
+    .img-wrap
+      -webkit-margin-start 10px
+      -moz-margin-start 10px
+      a
+        display block
+        height 38px
+  .wrap
+    display flex
+    flex-direction: column
+    justify-content space-between
+    flex-grow 1
+  .phone-labels
+    cursor pointer
+    font-size 1.1rem
+    line-height 1.2
+    .label-wrap
+      .call-label
+        background-color transparent
+  .add-phone
+    display flex
+    width 100%
+    justify-content space-between
+    .add-wrap
+      display flex
+      flex-direction column
+      justify-content space-between
+      padding 3px 0
+      h1
+        color var(--main-color)
+    .add-info
+      display flex
+      align-items center
+      .add-wrap
+        width 24px
+        height 24px
+        background-color var(--active-color)
+        border-radius 50%
+        display flex
+        align-items center
+        justify-content center
+        img 
+          width 17px
+          height 17px
+    img
+      display flex
+      width 38px
+      height 38px
+      align-self center
+  .phone-edit-wrap
+    display flex
+    flex-direction column
+    justify-content space-between
+    flex-grow 1
+    .edit-input
+      display flex
+      border none
+      font-size 1.1rem
+      &:focus
+        outline none
+    .button
+      display flex
+      margin auto 0
+      button
+        display inline-block
+        cursor pointer
+        border-radius 15px
+        border none
+        background-color var(--main-bgcolor)
+        color white
+        &:focus
+          outline none
+  .hidden
+    display none
+  .phone-modal-body
+    input 
+      font-size 16px
+    p
+      font-size 16px
+    .phone-bot
+      .phone-bot-text
+        margin: 1rem 0 1rem;
+.error
+  display flex
+  justify-content center
+  color red
+  font-size 16px
+.error-span
+  color red !important

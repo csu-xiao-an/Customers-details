@@ -1,5 +1,5 @@
 import uid from 'uid'
-import Phones from '../phones/phones.jsx'
+import Phones from './components/phones/'
 import Gender from './components/gender/'
 import Email from './components/email/'
 import Name from './components/name/'
@@ -103,14 +103,6 @@ normalizePhones = phones => {
   }
 }
 
-// changeOnePhone = value => {
-//   let phone = this.state.phone
-//   let phoneIndex = phone.findIndex(phone => phone.id === value.id)
-//   if (phoneIndex > -1) {
-//     phone[phoneIndex].number = value.number
-//     this.setState({ phone })
-//   }
-// }
 getPhoneFromPopup = phone => this.setState({ phone })
 
 getPhone = e => {
@@ -161,7 +153,6 @@ onAddPhone = () => {
     number: ''
   }
   const emptyNumber = this.state.phone[this.state.phone.length - 1] && this.state.phone[this.state.phone.length - 1].number === ''
-  console.log('emptyNumber', emptyNumber);
   if (emptyNumber) {
     this.setState({
       addingNewPhone: false
@@ -582,6 +573,7 @@ render () {
         <Phones
           editProfile={this.state.editProfile}
           setPhoneInput={this.setPhoneInput}
+          onAddPhone={this.onAddPhone}
           phoneBlur={this.phoneBlur}
           resetPhoneBlur={this.resetPhoneBlur}
           phoneBlurState={this.state.blurPhone}
@@ -602,21 +594,6 @@ render () {
         onHide={this.hidePhoneValidateModal}
         phone={this.state.icorrectNumber}
       />
-      {this.state.editProfile && this.state.phone.length !== 5 &&
-        <div className='add-phones' onClick={this.onAddPhone}>
-          <div className='add-phones-wrap'>
-            <div className='phone-wrap'>
-              <span className='label'>{config.translations.personal_info_editing.empty_phone_label}</span>
-              <span className='add_info'>{config.translations.personal_info_editing.add_phone_number}</span>
-            </div>
-            <div className='add-info'>
-              <div className='add-wrap'>
-                <img src={config.urls.media + 'profile_plus.svg'} />
-              </div>
-            </div>
-          </div>
-        </div>
-      }
       {/* <ModalPhoneLib
         text={this.text}
         visibleModal={this.state.visibleModal}

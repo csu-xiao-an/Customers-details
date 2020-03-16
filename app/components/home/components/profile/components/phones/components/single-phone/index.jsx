@@ -1,10 +1,10 @@
 import { default as ModalPhoneLib } from 'project-components/ModalPhoneLib/modal-phone-lib.jsx'
-import './phone.styl'
+import './single-phone.styl'
 
-export default class Phone extends React.Component {
+export default class SinglePhone extends React.Component {
 
-  static propTypes = {
-    rights: PropTypes.object.isRequired
+  componentDidMount = () => {
+    this.props.addingNewPhone && this.phoneInput.focus()
   }
 
   clearNumber = id => {
@@ -12,16 +12,8 @@ export default class Phone extends React.Component {
     this.phoneInput.focus()
   }
 
-  saveNumber = phone => {
-    this.setState({ phone })
-  }
-
-  componentDidMount = () => {
-    this.props.addingNewPhone && this.phoneInput.focus()
-  }
-
   render () {
-    return this.props.rights.isPhone && (
+    return (
       <div className='phone'>
         {!this.props.editProfile && <div className={'data-phone'}>
           <div className='wrap'>
@@ -29,13 +21,12 @@ export default class Phone extends React.Component {
             <span className={!this.props.editProfile ? 'phone-labels' : 'hidden'}>{this.props.phone.number}</span>
           </div>
           <div className='phone-img'>
-            {this.props.rights.phone.send_sms &&
-              <div className='img-wrap'><a href={'sms:' + this.props.phone.number}>
+            <div className='img-wrap'>
+              <a href={'sms:' + this.props.phone.number}>
                 <img src={config.urls.media + 'send-sms.svg'} />
               </a>
-              </div>}
-            {this.props.rights.phone.call &&
-              <div className='img-wrap'><a href={'tel:' + this.props.phone.number}><img src={config.urls.media + 'call.svg'} /></a></div>}
+            </div>
+            <div className='img-wrap'><a href={'tel:' + this.props.phone.number}><img src={config.urls.media + 'call.svg'} /></a></div>
           </div>
         </div>}
         {this.props.editProfile &&
