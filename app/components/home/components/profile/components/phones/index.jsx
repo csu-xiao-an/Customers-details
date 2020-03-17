@@ -12,13 +12,12 @@ const phonePopupTranslations = {
 
 export default ({
   getPhoneFromPopup,
-  changePhoneEdit,
   addingNewPhone,
   phoneBlurState,
+  onAddNewPhone,
   visibleModal,
   deletePhone,
   editProfile,
-  onAddPhone,
   cancelSave,
   phoneBlur,
   getPhone,
@@ -40,11 +39,10 @@ export default ({
           phone={i}
           deletePhone={deletePhone}
           editProfile={editProfile}
-          changePhoneEdit={changePhoneEdit}
         />
       ))}
       {editProfile && phones.length !== 5 &&
-        <div className='add-phones' onClick={onAddPhone}>
+        <div className='add-phones' onClick={onAddNewPhone}>
           <div className='add-phones-wrap'>
             <div className='phone-wrap'>
               <span className='label'>{config.translations.personal_info_editing.empty_phone_label}</span>

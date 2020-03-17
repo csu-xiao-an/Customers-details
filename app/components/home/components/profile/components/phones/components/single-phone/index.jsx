@@ -1,5 +1,4 @@
 import { default as ModalPhoneLib } from 'project-components/ModalPhoneLib/modal-phone-lib.jsx'
-import './single-phone.styl'
 
 export default class SinglePhone extends React.Component {
 
