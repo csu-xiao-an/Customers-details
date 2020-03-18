@@ -15,6 +15,7 @@ export default ({
   addingNewPhone,
   phoneBlurState,
   onAddNewPhone,
+  setPhoneInput,
   visibleModal,
   deletePhone,
   editProfile,
@@ -35,6 +36,7 @@ export default ({
           phoneBlurState={phoneBlurState}
           phones={phones}
           getPhone={getPhone}
+          setPhoneInput={setPhoneInput}
           phoneBlur={phoneBlur}
           phone={i}
           deletePhone={deletePhone}

@@ -28,36 +28,38 @@ const LongNameText = {
   agree_btn: config.translations.popup_empty_and_long_name.agree_long_name
 }
 const INITIAL_STATE = {
-  loader: false,
-  validateMail: false,
-  validatePhone: false,
-  birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
-  birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
-  year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
-  day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
-  month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
-  bdError: false,
-  errorClass: false,
-  gender: config.data.gender || null,
-  phone: normalizePhones(config.data.phone),
-  addingNewPhone: false,
-  email: config.data.email || null,
-  emailEditing: false,
-  openGenderStrip: false,
-  address: config.data.address || null,
-  name: config.data.name || null,
-  nameModal: false,
-  editProfile: false,
-  profileBirthEdit: false,
   profileAddressEdit: false,
+  long_name_warning: false,
+  profileBirthEdit: false,
+  openGenderStrip: false,
+  addingNewPhone: false,
+  validatePhone: false,
+  validateMail: false,
+  emailEditing: false,
+  editProfile: false,
+  errorClass: false,
+  nameModal: false,
   blurPhone: false,
-  long_name_warning: false
+  bdError: false,
+  loader: false
   // permit_ads: config.data.permit_ads || false
 }
 
 export default class Profile extends React.Component {
 
-  state = { ...INITIAL_STATE }
+  state = {
+    year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
+    day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
+    month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
+    birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
+    birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
+    phone: normalizePhones(config.data.phone),
+    address: config.data.address || null,
+    gender: config.data.gender || null,
+    email: config.data.email || null,
+    name: config.data.name || null,
+    ...INITIAL_STATE
+  }
 
   //  name strip
   handleClearName = () => this.setState({ name: '' })
@@ -84,6 +86,10 @@ export default class Profile extends React.Component {
     return !r.test(phone)
   }
 
+  setPhoneInput = input => {
+    this.childPhoneRef = input
+  }
+
   phoneBlur = () => {
     const number = this.state.phone.find(i => i.number === '')
     if (number) {
@@ -96,7 +102,7 @@ export default class Profile extends React.Component {
   getPhoneFromPopup = phone => this.setState({ phone })
 
   getPhone = e => {
-    const id = e.target.name
+    const id = e.target.id
     const number = e.target.value
     this.setState(prevState => ({
       phone: prevState.phone.map(item => item.id == id ? { id, number } : item),
@@ -107,6 +113,8 @@ export default class Profile extends React.Component {
   deletePhone = id => {
     this.setState({
       phone: this.state.phone.map(item => item.id == id ? { id, number: '' } : item)
+    }, () => {
+      document.getElementById(id).focus()
     })
   }
 
@@ -151,7 +159,9 @@ export default class Profile extends React.Component {
       this.setState(prevState => ({
         phone: [...prevState.phone, newPhone],
         addingNewPhone: true
-      }))
+      }), () => {
+        this.childPhoneRef.focus()
+      })
     }
   }
 
@@ -160,7 +170,10 @@ export default class Profile extends React.Component {
   }
 
   hidePhoneValidateModal = () => {
-    this.setState({ phoneValidateModal: false, loader: false })
+    const incorrectNumber = this.state.phone.find(i => i.number === this.state.icorrectNumber)
+    this.setState({ phoneValidateModal: false, loader: false }, () => {
+      document.getElementById(incorrectNumber.id).focus()
+    })
   }
 
   //  gender strip
@@ -449,6 +462,16 @@ export default class Profile extends React.Component {
 
   backAll = () => {
     this.setState({
+      year: config.data.birthyear ? config.data.birthyear : config.translations.datepicker.placeholder.year,
+      day: config.data.birthdate ? config.data.birthdate.slice(3) : config.translations.datepicker.placeholder.day,
+      month: config.data.birthdate ? config.data.birthdate.slice(0, 2) : config.translations.datepicker.placeholder.month,
+      birthdate: config.data.birthdate ? String(config.data.birthdate) : null,
+      birthyear: config.data.birthyear ? String(config.data.birthyear) : null,
+      phone: normalizePhones(config.data.phone),
+      address: config.data.address || null,
+      gender: config.data.gender || null,
+      email: config.data.email || null,
+      name: config.data.name || null,
       ...INITIAL_STATE
     })
     this.removeElements()
@@ -521,6 +544,7 @@ export default class Profile extends React.Component {
             editProfile={this.state.editProfile}
             onAddNewPhone={this.handleAddNewPhone}
             phoneBlur={this.phoneBlur}
+            setPhoneInput={this.setPhoneInput}
             phoneBlurState={this.state.blurPhone}
             getPhone={this.getPhone}
             getPhoneFromPopup={this.getPhoneFromPopup}
