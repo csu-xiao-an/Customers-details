@@ -406,17 +406,14 @@ export default class Profile extends React.Component {
 
   sendData = () => {
     const fields = ['name', 'address', 'gender', 'email', 'phone', 'birthdate', 'birthyear']
-    const body = Object.keys(this.state).reduce((params, field) => {
-      if (fields.includes(field) && (this.state[field] || !this.state.gender)) {
-        let value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
-        if (field === 'address') value = encodeURIComponent(value)
-        if (field === 'name') value = encodeURIComponent(value)
-        if (field === 'email') value = encodeURIComponent(value)
-        if (value === '') value = null
-        const result = `${field}=${value}`
-        return params + (params.length ? `&${result}` : result)
-      }
-      return params
+    const body = fields.reduce((accum, field) => {
+      let value = field === 'phone' ? this.getPhonesValue(this.state[field]) : `${this.state[field]}`
+      if (field === 'address') value = encodeURIComponent(value)
+      if (field === 'name') value = encodeURIComponent(value)
+      if (field === 'email') value = encodeURIComponent(value)
+      if (!value) value = null
+      const result = `${field}=${value}`
+      return accum + (accum.length ? `&${result}` : result)
     }, '')
     body && clientPutService(body).then(r => {
       if (r.status === 204) {
