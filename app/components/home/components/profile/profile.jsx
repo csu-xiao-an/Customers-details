@@ -435,6 +435,9 @@ export default class Profile extends React.Component {
               config.data[key] = DataObject[key]
             }
           }
+          if (DataObject.status) {
+            config.data.status = DataObject.status
+          }
           this.props.getProfilePicture(config.data.profile_image)
           this.setState({
             ...INITIAL_STATE,

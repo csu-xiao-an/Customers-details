@@ -10,10 +10,10 @@ export default class Hero extends React.Component {
     status: config.data.status,
     file: {},
     clientImg: config.data.profile_image ? (config.urls.client_data + config.data.profile_image) : (config.urls.defaultPathToClientImg + config.urls.defaultClientImg),
+    isStar: config.data.isFavorite,
     isInputDisabled: false,
     succes: false,
     leftVip: false,
-    isStar: false,
     tempCircle: false,
     showLargeModal: false
   }
@@ -114,10 +114,6 @@ export default class Hero extends React.Component {
     })
   }
 
-  componentDidMount = () => {
-    this.setState({ isStar: config.data.isFavorite })
-  }
-
   changeInput = e => {
     this.setState({ status: e.target.value }, () => this.handleHeightStatus())
   }
@@ -138,7 +134,12 @@ export default class Hero extends React.Component {
 
   render () {
     return (
-      <div id='hero'>
+      <div id='hero' >
+        <img
+          className='client-img'
+          src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
+          alt='user-img' onError={this.onError}
+        />
         <div onClick={this.handleStar} className={'star-wrap ' + (config.isRTL && 'star-wrap-rtl')}>
           <svg width='14px' height='14px' viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'>
             <g id='customer-page-(corrected-design)' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd' opacity='0.800000012'>
@@ -186,13 +187,6 @@ export default class Hero extends React.Component {
             </span>
             {this.state.isInputDisabled && <img className='del-status-icon' src={config.urls.media + 'x-circle.svg'} onClick={this.delInfo} />}
           </form>
-        </div>
-        <div className='img'>
-          <img
-            className='client-img'
-            src={this.props.profilePic ? this.props.profilePic : this.state.clientImg}
-            alt='user-img' onError={this.onError}
-          />
         </div>
         <EmptyDataModal
           text={this.state.largeModal ? this.textLargeModal : this.textUnsupportModal}
