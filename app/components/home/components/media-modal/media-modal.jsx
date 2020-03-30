@@ -71,7 +71,11 @@ export default class MediaModal extends React.Component {
         </div>)
     }
     if (images.find(i => i === typeFile)) { return <img className='gallery-img' src={config.urls.gallery + i.name} /> }
-    return (<span>can't open</span>)
+    return (
+      <div className='other_file_wrap'>
+        <img className='other_file' src={config.urls.media + 'other_gallery.svg'} />
+      </div>
+    )
   }
 
   typeItem = (i, k) => {
