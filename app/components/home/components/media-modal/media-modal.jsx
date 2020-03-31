@@ -1,4 +1,4 @@
-import {replaceService as mediaReplaceService, deleteService as mediaDeleteService} from 'project-services/media.service.js'
+import { replaceService as mediaReplaceService, deleteService as mediaDeleteService } from 'project-services/media.service.js'
 import Share from '../share/share.jsx'
 import { default as Modal } from 'project-components/Modal/Modal.jsx'
 import { default as formatDate } from 'project-components/format-date.js'
@@ -12,6 +12,7 @@ export default class MediaModal extends React.Component {
     isOpenGallery: PropTypes.bool.isRequired,
     handleGallery: PropTypes.func.isRequired
   }
+
   state = {
     isEditNote: false,
     textareaValue: '',
@@ -30,91 +31,112 @@ export default class MediaModal extends React.Component {
       })
     }
   }
+
   componentDidUpdate () {
     if (this.state.isEditNote) {
-      const {id} = config.data.gallery[this.state.activeIndex]
+      const { id } = config.data.gallery[this.state.activeIndex]
       document.getElementById('textarea_id_' + id).focus()
     }
   }
-  nativeShared = () => {
+
+  nativeShared = i => {
     if (navigator.share) {
       let opt = {
         title: config.translations.media.share_title,
         text: config.translations.media.share_text,
-        url: config.urls.gallery_sharing_base_url + config.urls.media + this.props.i.name
+        url: config.urls.gallery_sharing_base_url + config.urls.media + i.name
       }
       console.log('gallery_opt', opt)
       navigator.share && navigator.share(opt)
     }
   }
-  typeItem = (i, k) => {
-    let splitedName = i.name.split('.')
-    let typeFile = splitedName[splitedName.length - 1].toLowerCase()
-    if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
-      if (video.find(i => i === typeFile)) { return <video src={config.urls.gallery + i.name} controls /> } else
-      if (typeFile === 'pdf') {
-        return <iframe src={config.urls.preview_pdf.replace('{url}', config.urls.main + config.urls.url_pdf + i.name)} />
-      } else
-      if (typeFile === 'mp3') {
-        return (<div>
+
+  renderNavigationBnts = () => {
+    return (
+      <>
+        <button onClick={config.isRTL ? this.goNext : this.goPrev} className='swiper-button-prev' type='button'><img src={`${config.urls.media}ic_left.svg`} /></button>
+        <button onClick={config.isRTL ? this.goPrev : this.goNext} className='swiper-button-next' type='button'><img src={`${config.urls.media}ic_right.svg`} /></button>
+      </>
+    )
+  }
+
+  renderMediaContent = (typeFile, i) => {
+    if (video.find(i => i === typeFile)) { return <video src={config.urls.gallery + i.name} controls /> }
+    if (typeFile === 'pdf') { return <iframe src={config.urls.preview_pdf.replace('{url}', config.urls.main + config.urls.url_pdf + i.name)} /> }
+    if (typeFile === 'mp3') {
+      return (
+        <div>
           <img className='audio-img' src={config.urls.media + 'audio_file.png'} />
           <audio src={config.urls.gallery + i.name} controls />
         </div>)
-      } else
-      if (images.find(i => i === typeFile)) {
-        return (
-          <div>
-            <img className='gallery-img' src={config.urls.gallery + i.name} />
-            <div className='modal-footer'>
-              <div className='main'>
-                <div className='row1'>
-                  <span className='name'>{i.name}</span>
-                  <div className='icons'>
-                    {navigator.share
-                      ? <img onClick={this.nativeShared} className='share' src={config.urls.media + 'ic_share.svg'} />
-                      : <Share
-                        {...this.props}
-                        opt={{
-                          title: config.translations.share_title,
-                          text: config.translations.share_text,
-                          url: config.urls.gallery_sharing_base_url + config.urls.gallery + i.name
-                        }}
-                      />}
-                    <img src={config.urls.media + 'pencil-edit.svg'}
-                      style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}}
-                      onClick={() => this.onEdit(i)} />
-                    <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
-                  </div>
-                </div>
-                <div className='row2'>
-                  <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
-                  <span className='date'>{formatDate(i.date)}</span>
+    }
+    if (images.find(i => i === typeFile)) { return <img className='gallery-img' src={config.urls.gallery + i.name} /> }
+    return (
+      <div className='other_file_wrap'>
+        <img className='other_file' src={config.urls.media + 'other_gallery.svg'} />
+      </div>
+    )
+  }
+
+  typeItem = (i, k) => {
+    const splitedName = i.name.split('.')
+    const typeFile = splitedName[splitedName.length - 1].toLowerCase()
+    if (this.state.activeIndex === k || this.state.activeIndex === k + 1 || this.state.activeIndex === k - 1) {
+      return (
+        <div>
+          <div className='media-content'>
+            {this.renderNavigationBnts()}
+            {this.renderMediaContent(typeFile, i)}
+          </div>
+          <div className='modal-footer'>
+            <div className='main'>
+              <div className='row1'>
+                <span className='name'>{i.name}</span>
+                <div className='icons'>
+                  {navigator.share
+                    ? <img onClick={() => this.nativeShared(i)} className='share' src={config.urls.media + 'ic_share.svg'} />
+                    : <Share
+                      {...this.props}
+                      opt={{
+                        title: config.translations.share_title,
+                        text: config.translations.share_text,
+                        url: config.urls.gallery_sharing_base_url + config.urls.gallery + i.name
+                      }}
+                    />}
+                  <img src={config.urls.media + 'pencil-edit.svg'}
+                    style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}}
+                    onClick={() => this.onEdit(i)} />
+                  <img src={config.urls.media + 'delete.svg'} onClick={() => this.delete(config.data.gallery[this.state.activeIndex].id)} />
                 </div>
               </div>
-              {(i.note || this.state.isEditNote) && <div className='data'>
-                <span className={this.state.isEditNote ? 'hidden' : 'note'}>
-                  {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
-                <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
-                  <textarea id={'textarea_id_' + i.id} className={this.state.isEditNote ? 'textarea' : 'hidden'}
-                    onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}
-                    placeholder={this.state.textareaValue ? this.state.textareaValue : config.translations.gallery_popup_preview_file.add_note}
-                  />
-                  <div className='action'>
-                    <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
-                      onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
-                      {config.translations.gallery_popup_preview_file.save_edits}
-                    </button>
-                  </div>
-                </div>
-              </div>}
+              <div className='row2'>
+                <div><img className='icon' src={config.urls.media + 'ic_day.jpg'} style={config.isRTL ? {transform: 'scale(-1, 1)'} : {}} /></div>
+                <span className='date'>{formatDate(i.date)}</span>
+              </div>
             </div>
+            {(i.note || this.state.isEditNote) && <div className='data'>
+              <span className={this.state.isEditNote ? 'hidden' : 'note'}>
+                {config.data.gallery[this.state.activeIndex] && config.data.gallery[this.state.activeIndex].note}</span>
+              <div className={this.state.isEditNote ? 'edit-form' : 'hidden'}>
+                <textarea id={'textarea_id_' + i.id} className={this.state.isEditNote ? 'textarea' : 'hidden'}
+                  onChange={e => this.setState({textareaValue: e.target.value})} value={this.state.textareaValue}
+                  placeholder={this.state.textareaValue ? this.state.textareaValue : config.translations.gallery_popup_preview_file.add_note}
+                />
+                <div className='action'>
+                  <button className={this.state.isEditNote ? 'btn-save' : 'hidden'}
+                    onClick={() => this.replace(config.data.gallery[this.state.activeIndex].id)}>
+                    {config.translations.gallery_popup_preview_file.save_edits}
+                  </button>
+                </div>
+              </div>
+            </div>}
           </div>
-        )
-      }
+        </div>
+      )
     }
   }
+
   replace = id => {
-    // debugger
     const body = `note=${this.state.textareaValue ? this.state.textareaValue : null}`
     mediaReplaceService(body, id).then(r => {
       if (r.status === 204) {
@@ -125,12 +147,15 @@ export default class MediaModal extends React.Component {
       }
     })
   }
+
   cancel = () => {
     this.setState({ visibleAgreeModal: false })
   }
+
   delete = id => {
     this.setState({ visibleAgreeModal: true, id })
   }
+
   confirmDelete = () => {
     let id = this.state.id
     mediaDeleteService(id).then(r => {
@@ -141,33 +166,7 @@ export default class MediaModal extends React.Component {
       }
     })
   }
-  // componentDidMount = () => {
-  //   this.nameInput.focus()
-  // }
-  componentDidMount = () => {
-    var divNode = document.createElement('div')
-    var divNode2 = document.createElement('div')
-    const url = `${config.urls.media}ic_left.svg`
-    const url2 = `${config.urls.media}ic_right.svg`
-    divNode.innerHTML = `<style>
-    .swiper-button-prev{
-      content: url(${url});
-      width: 15px;
-      height: 15px;
-      padding: 4px;
-    }
-    </style>`
-    document.body.appendChild(divNode)
-    divNode2.innerHTML = `<style>
-    .swiper-button-next{
-      content: url(${url2});
-      width: 15px;
-      height: 15px;
-      padding: 4px;
-    }
-    </style>`
-    document.body.appendChild(divNode2)
-  }
+
   changeSlide = e => {
     e.container[0].childNodes[0].style.transitionDuration = '300ms'
     this.setState({
@@ -175,16 +174,25 @@ export default class MediaModal extends React.Component {
       textareaValue: ''
     })
   }
+
+  goNext = () => {
+    if (this.swiper) this.swiper.slideNext()
+  }
+
+  goPrev = () => {
+    if (this.swiper) this.swiper.slidePrev()
+  }
+
   render () {
     return (
       <Modal show={this.props.isOpenGallery} onHide={this.props.handleGallery}>
         <div className='modal-body'>
-          <img className={'close-button'} src={config.urls.media + 'back-del.svg'}
-            onClick={() => { this.props.handleGallery() }} />
-          <Swiper observer onSlideChangeStart={e => this.changeSlide(e)}
-            nextButton={config.isRTL ? '.swiper-button-prev-rtl' : '.swiper-button-next'}
-            prevButton={config.isRTL ? '.swiper-button-next-rtl' : '.swiper-button-prev'}
-            onSetTranslate={e => this.setState({activeIndex: e.activeIndex})}
+          <img className='close-button' src={config.urls.media + 'back-del.svg'} onClick={this.props.handleGallery} />
+          <Swiper
+            observer
+            ref={node => { if (node) this.swiper = node.swiper }}
+            onSlideChangeStart={e => this.changeSlide(e)}
+            onSetTranslate={e => this.setState({ activeIndex: e.activeIndex })}
             slidesPerView='auto'
             initialSlide={this.props.initialSlide}>
             {config.data.gallery.map((i, k) => (<div key={k} className='gallery-swiper-wrap'>{this.typeItem(i, k)}</div>))}

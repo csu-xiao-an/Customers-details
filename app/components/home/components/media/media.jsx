@@ -7,6 +7,8 @@ import { default as EmptyDataModal } from 'project-components/EmptyDataModal/emp
 import GalleryModal from '../media-modal/media-modal.jsx'
 import GalleryPopup from '../gallery-popup/gallery-popup.jsx'
 import { postService as mediaPostService, multiDeleteService as multiMediaDeleteService } from 'project-services/media.service.js'
+import RenderFileInfo from './components/renderFileinfo.jsx'
+import DownloadLink from './components/downloadLink.jsx'
 import './media.styl'
 let $imagePreview
 
@@ -176,7 +178,7 @@ export default class Media extends React.Component {
         className='media-img'
         src={config.urls.media + 'other_gallery.svg'}
         onClick={this.state.multiDel
-          ? '' : (this.props.rights.gallery.open
+          ? '' : (this.props.rights.gallery.open && this.checkTypeofFile(i)
             ? () => { this.handleGallery(); this.setState({ initialSlide: k }) }
             : () => { })}
       />
@@ -259,6 +261,14 @@ export default class Media extends React.Component {
     })
   }
 
+  checkTypeofFile = i => {
+    const newName = i.name.toLowerCase()
+    const splitedName = newName.split('.')
+    const typeFile = splitedName[splitedName.length - 1].toLowerCase()
+    const canOpene = music.includes(typeFile) || video.includes(typeFile) || images.includes(typeFile) || typeFile === 'pdf'
+    return canOpene
+  }
+
   render () {
     const { multiDel } = this.state
     let checkLength = this.state.slides.length === 0
@@ -285,32 +295,36 @@ export default class Media extends React.Component {
         </div>
         {this.state.isOpenGalleryContex &&
           <GalleryModal
-            {...this.props} handleGallery={this.handleGallery}
+            {...this.props}
+            checkTypeofFile={this.checkTypeofFile}
+            handleGallery={this.handleGallery}
             initialSlide={this.state.initialSlide}
             isOpenGallery={this.state.isOpenGallery}
           />}
         <div id='swiper-wrap-gallery'>
           <Swiper spaceBetween={5} slidesPerView='auto' slidesPerGroup={1} slidesPerColumn={2} observer>
-            {this.state.gallery.map((i, k) => (
-              <div
-                key={i.id} id={'slide' + i.id}
-                onClick={() => this.state.multiDel && this.selectSlide(i.id)
-                }
-              >
-                <div className='img-selected'>
-                  {this.typeItem(i, k)}
-                  {this.state.multiDel && <img className='empty-check' src={config.urls.media + 'checkbox-empty.svg'} />}
-                </div>
-                <div className='check-box'>
-                  <img src={config.urls.media + 'checkbox-select.svg'} />
-                </div>
-                <div className='file-name'>{i.name}</div>
-                <div className='file-date'>
-                  <div><img className='day-icon' style={config.isRTL ? { transform: 'scale(-1, 1)' } : {}} src={config.urls.media + 'ic_day-2.jpg'} /></div>
-                  <label className='date'>{formatDate(i.date)}</label>
-                </div>
-              </div>
-            ))}
+            {this.state.gallery.map((i, k) => {
+              if (this.checkTypeofFile(i)) {
+                return (
+                  <div
+                    key={i.id} id={'slide' + i.id}
+                    onClick={() => this.state.multiDel && this.selectSlide(i.id)}
+                  >
+                    <RenderFileInfo galleryItem={i} indexItem={k} typeItem={this.typeItem} multiDel={this.state.multiDel} />
+                  </div>
+                )
+              } else {
+                const newName = i.name.toLowerCase()
+                return (
+                  <div key={i.id}>
+                    <DownloadLink to={config.urls.gallery + newName}>
+                      <RenderFileInfo galleryItem={i} indexItem={k} typeItem={this.typeItem} multiDel={this.state.multiDel} />
+                    </DownloadLink>
+                  </div>
+                )
+              }
+            }
+            )}
           </Swiper>
         </div>
         {this.state.multiDel &&
