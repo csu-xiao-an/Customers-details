@@ -1,0 +1,83 @@
+#birthdate
+    padding 0.3rem 0.6rem 0.3rem
+    border 1px solid transparent
+    border-top 1px solid #dedeff
+    min-height 3.5rem
+    display flex
+    transition border-color 0.6s
+  .add-birth
+    display flex
+    justify-content space-between
+    width 100%
+    .wrap-birth
+      display flex
+      flex-direction column
+      justify-content space-between
+    .add-label
+      font-size 1rem
+      font-weight bold
+      line-height 1.2
+  .label
+    font-size 0.8em
+    font-weight 600
+    color var(--dark-color)
+  .wrapBDay
+    display flex
+    flex-direction column
+    justify-content space-between
+    .ymd
+      font-size 1rem
+      line-height 1.2
+  .edit-wrap
+    display flex
+    justify-content space-between
+    width 100%
+  .datepicker
+    display flex
+    flex-direction column
+    justify-content space-between
+  .del-info,
+  .add-info
+    display flex
+    align-items center
+    div
+      width 1.5rem
+      height 1.5rem
+      border-radius 50%
+      display flex
+      align-items center
+      justify-content center
+      img 
+        width 1rem
+        height 1rem
+  .del-info
+    .del-wrap
+      border 1px solid #deceff
+      img
+        transform rotate(45deg)
+  .add-info
+    .add-wrap
+      background-color var(--active-color)
+  .input-wrap
+    input
+      background transparent
+      font-size 1em
+      border none
+      &:focus
+        outline none
+  .hidden
+    display none
+  .button
+    display flex
+    align-items center
+    button
+      border-radius 15px
+      border none
+      background-color var(--dark-color)
+      color #fff
+      &:focus
+        outline none
+
+#birthdate.errorBorder
+  border 1px solid #f00
+  border-radius 0.3rem

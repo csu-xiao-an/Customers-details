@@ -7,6 +7,7 @@ const alias = {
   'project-components': path.resolve('./components-lib'),
   'project-services': path.resolve('./services')
 }
+
 module.exports = (env, args) => {
   let outputJSCK = '[id].bundle.js'
   let outputCSS = 'main.bundle.css'
@@ -88,6 +89,7 @@ module.exports = (env, args) => {
       })
     ],
     resolve: {
+      extensions: ['.jsx', '.js', '.styl'],
       alias: alias
     },
     devtool: devtool

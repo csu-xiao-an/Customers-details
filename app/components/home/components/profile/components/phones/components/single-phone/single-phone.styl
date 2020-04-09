@@ -1,9 +1,17 @@
-// @import "../../../../variables.css"
 #phones
-  // padding 0 10px
-  // min-height 4em
-  // display flex
-  // border-top 1px solid #dedeff
+  .phone-main
+  .data-phone
+  .phone-edit
+    padding 0.3rem 0.6rem 0.3rem
+    min-height 3.5rem
+    display flex
+    border 1px solid transparent
+    border-top 1px solid #dedeff
+    transition border 0.4s
+  .error-phone
+    border 1px solid #f00
+    border-radius 0.2rem
+    transition border 0.4s
   .phone-numbers
     padding 0 10px
     min-height 4em
@@ -22,18 +30,15 @@
       a
         display block
         height 38px
-  .data-phone
-    width 100%
+  .wrap
     display flex
+    flex-direction: column
     justify-content space-between
-    .wrap
-      display flex
-      flex-wrap wrap
-      margin-top 5px
+    flex-grow 1
   .phone-labels
     cursor pointer
-    font-size 1rem
-    width 100%
+    font-size 1.1rem
+    line-height 1.2
     .label-wrap
       .call-label
         background-color transparent
@@ -67,57 +72,29 @@
       width 38px
       height 38px
       align-self center
-  .phone-edit
+  .phone-edit-wrap
     display flex
-    // flex-direction row
+    flex-direction column
     justify-content space-between
-    width 100%
-    .edit
+    flex-grow 1
+    .edit-input
       display flex
-      justify-content space-between
-      width 100%
-      .edit-wrap  
-        width 100%
-        display flex
-        flex-wrap wrap
-        margin 5px 0
-        padding-inline-end 2rem
-        -webkit-padding-end 2rem
-        -moz-padding-end 2rem
-      .edit-input
-        display flex
-        border none
-        font-size 1rem
-        width 100%
-        &:focus
-          outline none
-      .del-info
-        display flex
-        align-items center
-        .del-wrap
-          width 24px
-          height 24px
-          border 1px solid #deceff
-          border-radius 50%
-          display flex
-          align-items center
-          justify-content center
-          img 
-            width 17px
-            height 17px
-            transform rotate(45deg)
+      border none
+      font-size 1.1rem
+      &:focus
+        outline none
     .button
       display flex
       margin auto 0
       button
-          display inline-block
-          cursor pointer
-          border-radius 15px
-          border none
-          background-color var(--main-bgcolor)
-          color white
-          &:focus
-            outline none
+        display inline-block
+        cursor pointer
+        border-radius 15px
+        border none
+        background-color var(--main-bgcolor)
+        color white
+        &:focus
+          outline none
   .hidden
     display none
   .phone-modal-body
@@ -133,3 +110,5 @@
   justify-content center
   color red
   font-size 16px
+.error-span
+  color red !important
