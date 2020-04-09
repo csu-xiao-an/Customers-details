@@ -17,7 +17,7 @@ export default ({ editProfile, onSelectGender, onOpenCloseGender, onClearGender,
       {(openGenderStrip) && <ul>
         {genderArray.map(item => (
           <li onClick={() => onSelectGender(item)} key={item} className={'gender_item' + (item === gender ? ' gender_active' : '')}>
-            {config.translations.personal_info.gender[item]}
+            {`${config.translations.personal_info.gender[item]} ${item === 'male' ? String.fromCharCode(9794) : String.fromCharCode(9792)}`}
             <img className='marked_img' src={config.urls.media + 'ic-marked.svg'} />
           </li>
         )
